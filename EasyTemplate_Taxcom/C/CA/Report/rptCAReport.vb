@@ -86,7 +86,6 @@ Public Class rptCAReport
     Friend WithEvents XrLabel7 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel6 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLine1 As DevExpress.XtraReports.UI.XRLine
-    Friend WithEvents XrSubreport1 As DevExpress.XtraReports.UI.XRSubreport
     Friend WithEvents FontSize As DevExpress.XtraReports.Parameters.Parameter
     Friend WithEvents topMarginBand1 As DevExpress.XtraReports.UI.TopMarginBand
     Public Sub New()
@@ -178,6 +177,7 @@ Public Class rptCAReport
         Me.tableCell42 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell43 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell44 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.FontSize = New DevExpress.XtraReports.Parameters.Parameter()
         Me.bottomMarginBand1 = New DevExpress.XtraReports.UI.BottomMarginBand()
         Me.ReportHeaderBandStyle = New DevExpress.XtraReports.UI.XRControlStyle()
         Me.ReportGroupHeaderBandStyle = New DevExpress.XtraReports.UI.XRControlStyle()
@@ -190,8 +190,6 @@ Public Class rptCAReport
         Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
         Me.XrPageInfo1 = New DevExpress.XtraReports.UI.XRPageInfo()
-        Me.XrSubreport1 = New DevExpress.XtraReports.UI.XRSubreport()
-        Me.FontSize = New DevExpress.XtraReports.Parameters.Parameter()
         CType(Me.table1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -927,7 +925,7 @@ Public Class rptCAReport
         '
         'reportFooterBand1
         '
-        Me.reportFooterBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine1, Me.XrLine2, Me.table4, Me.XrSubreport1})
+        Me.reportFooterBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine1, Me.XrLine2, Me.table4})
         Me.reportFooterBand1.Dpi = 254.0!
         Me.reportFooterBand1.HeightF = 264.7426!
         Me.reportFooterBand1.Name = "reportFooterBand1"
@@ -1175,6 +1173,13 @@ Public Class rptCAReport
         Me.tableCell44.Weight = 0.21550281256568743R
         Me.tableCell44.WordWrap = False
         '
+        'FontSize
+        '
+        Me.FontSize.Description = "FontSize"
+        Me.FontSize.Name = "FontSize"
+        Me.FontSize.Type = GetType(Integer)
+        Me.FontSize.ValueInfo = "0"
+        '
         'bottomMarginBand1
         '
         Me.bottomMarginBand1.Dpi = 254.0!
@@ -1258,22 +1263,6 @@ Public Class rptCAReport
         Me.XrPageInfo1.Name = "XrPageInfo1"
         Me.XrPageInfo1.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
         Me.XrPageInfo1.SizeF = New System.Drawing.SizeF(254.0!, 58.42!)
-        '
-        'XrSubreport1
-        '
-        Me.XrSubreport1.Dpi = 254.0!
-        Me.XrSubreport1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 206.3225!)
-        Me.XrSubreport1.Name = "XrSubreport1"
-        Me.XrSubreport1.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("FontSize", Me.FontSize))
-        Me.XrSubreport1.ReportSource = New EasyTemplate_Taxcom.rptCA_Note()
-        Me.XrSubreport1.SizeF = New System.Drawing.SizeF(2904.0!, 58.41998!)
-        '
-        'FontSize
-        '
-        Me.FontSize.Description = "FontSize"
-        Me.FontSize.Name = "FontSize"
-        Me.FontSize.Type = GetType(Integer)
-        Me.FontSize.ValueInfo = "0"
         '
         'rptCAReport
         '

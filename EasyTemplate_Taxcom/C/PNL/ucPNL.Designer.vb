@@ -32,6 +32,7 @@ Partial Class ucPNL
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
         Me.btnPrint = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnPrintAdmin = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -149,8 +150,8 @@ Partial Class ucPNL
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint, Me.BarButtonItem1})
-        Me.BarManager1.MaxItemId = 8
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint, Me.BarButtonItem1, Me.btnPrintAdmin})
+        Me.BarManager1.MaxItemId = 9
         '
         'Bar1
         '
@@ -158,7 +159,7 @@ Partial Class ucPNL
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint), New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem1)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint), New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem1), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrintAdmin)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None
         Me.Bar1.OptionsBar.DisableClose = True
@@ -207,7 +208,13 @@ Partial Class ucPNL
         Me.BarButtonItem1.Caption = "Test"
         Me.BarButtonItem1.Id = 7
         Me.BarButtonItem1.Name = "BarButtonItem1"
-        Me.BarButtonItem1.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+        '
+        'btnPrintAdmin
+        '
+        Me.btnPrintAdmin.Caption = "Print Admin"
+        Me.btnPrintAdmin.Id = 8
+        Me.btnPrintAdmin.Name = "btnPrintAdmin"
+        Me.btnPrintAdmin.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
         '
         'barDockControlTop
         '
@@ -715,5 +722,6 @@ Partial Class ucPNL
     Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents BarButtonItem1 As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnPrintAdmin As DevExpress.XtraBars.BarButtonItem
 
 End Class

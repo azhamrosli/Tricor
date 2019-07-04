@@ -1,4 +1,5 @@
 ﻿Imports DevExpress.XtraGrid.Views.Grid
+Imports DevExpress.XtraGrid.Columns
 
 Public Class frmMovementComplex_Add
     Dim ErrorLog As ClsError = Nothing
@@ -17,6 +18,7 @@ Public Class frmMovementComplex_Add
     End Sub
     Private Sub LoadData()
         Try
+            SplitContainerControl1.SplitterPosition = SplitContainerControl1.Height / 2
             If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
@@ -89,6 +91,13 @@ Public Class frmMovementComplex_Add
                 txtAmountSpecificAllow.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_SPECIFIC_ALLOWABLE_START")), 0, dt.Rows(0)("MM_SPECIFIC_ALLOWABLE_START"))
                 txtAmountSpecificNonAllow.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_SPECIFIC_NONALLOWABLE_START")), 0, dt.Rows(0)("MM_SPECIFIC_NONALLOWABLE_START"))
                 RGType.SelectedIndex = IIf(IsDBNull(dt.Rows(0)("MM_TYPE_PASS")), 0, dt.Rows(0)("MM_TYPE_PASS"))
+
+                txtTitle1.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_TITLE_1")), "", dt.Rows(0)("MM_TITLE_1"))
+                txtTitle2.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_TITLE_2")), "", dt.Rows(0)("MM_TITLE_2"))
+                txtTitle3.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_TITLE_3")), "", dt.Rows(0)("MM_TITLE_3"))
+
+
+
                 'If IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 1 Then
                 '    chkNonAllowableExpenses.Checked = True
                 '    chkTaxPositive.Checked = False
@@ -106,6 +115,12 @@ Public Class frmMovementComplex_Add
                 '    chkTaxPositive.Checked = False
                 '    chkTaxNegative.Checked = False
                 'End If
+                If IsDBNull(dt.Rows(0)("ModifiedBy")) = False AndAlso dt.Rows(0)("ModifiedBy") <> "" Then
+                    lblLastmodified.Caption = dt.Rows(0)("ModifiedBy") & " | " & IIf(IsDBNull(dt.Rows(0)("ModifiedDateTime")), "", dt.Rows(0)("ModifiedDateTime"))
+                Else
+                    lblLastmodified.Caption = ""
+                End If
+
                 cboSourceCode.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_SOURCENO")), 0, dt.Rows(0)("MM_SOURCENO"))
 
                 DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
@@ -507,7 +522,7 @@ Public Class frmMovementComplex_Add
                     If ADO.Update_MovementComplex(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, cboType.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountGeneral.EditValue, txtAmountSpecificAllow.EditValue, txtAmountSpecificNonAllow.EditValue, _
                                                       txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, _
-                                                      txtTotal_AddBackDeduct.EditValue, TypePass, cboSourceCode.EditValue, MM_REFID, DsMovement, ErrorLog) Then
+                                                      txtTotal_AddBackDeduct.EditValue, TypePass, cboSourceCode.EditValue, MM_REFID, txtTitle1.EditValue, txtTitle2.EditValue, txtTitle3.EditValue, DsMovement, ErrorLog) Then
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
                         Application.DoEvents()
                         If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
@@ -523,7 +538,8 @@ Public Class frmMovementComplex_Add
                     Dim tmpID As Integer = 0
                     If ADO.Save_MovementComplex(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, cboType.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountGeneral.EditValue, txtAmountSpecificAllow.EditValue, txtAmountSpecificNonAllow.EditValue, _
-                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, TypePass, cboSourceCode.EditValue, DsMovement, tmpID, ErrorLog) Then
+                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, _
+                                                      txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, TypePass, cboSourceCode.EditValue, txtTitle1.EditValue, txtTitle2.EditValue, txtTitle3.EditValue, DsMovement, tmpID, ErrorLog) Then
                         ID = tmpID
                         isEdit = True
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
@@ -666,7 +682,7 @@ Public Class frmMovementComplex_Add
                 .Data_SubID = GridView2.GetDataRow(GridView2.FocusedRowHandle)("MM_ID"),
                 .Type_Movement = 1,
                 .Type_Addless = 1,
-                .TagID = GridView1.GetDataRow(GridView1.FocusedRowHandle)("TagID"),
+                .TagID = GridView2.GetDataRow(GridView2.FocusedRowHandle)("TagID"),
                 .DsMovement = DsMovement,
                 .RowDescription = GridView2.GetDataRow(GridView2.FocusedRowHandle)("MM_Description")
             }
@@ -703,4 +719,41 @@ Public Class frmMovementComplex_Add
 
         End Try
     End Sub
+
+    Private Sub txtTitle1EditValueChanged(sender As Object, e As EventArgs) Handles txtTitle1.EditValueChanged
+        Try
+            lblTitle1.Text = txtTitle1.EditValue
+            Dim col1 As GridColumn = GridView1.Columns("MM_GENERAL")
+            Dim col2 As GridColumn = GridView2.Columns("MM_GENERAL")
+            col1.Caption = txtTitle1.EditValue
+            col2.Caption = txtTitle1.EditValue
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub txtTitle2EditValueChanged(sender As Object, e As EventArgs) Handles txtTitle2.EditValueChanged
+        Try
+            lblTitle2.Text = txtTitle2.EditValue
+            Dim col1 As GridColumn = GridView1.Columns("MM_SPECIFIC_ALLOWABLE")
+            Dim col2 As GridColumn = GridView2.Columns("MM_SPECIFIC_ALLOWABLE")
+            col1.Caption = txtTitle2.EditValue
+            col2.Caption = txtTitle2.EditValue
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub txtTitle3EditValueChanged(sender As Object, e As EventArgs) Handles txtTitle3.EditValueChanged
+        Try
+            lblTitle3.Text = txtTitle3.EditValue
+            Dim col1 As GridColumn = GridView1.Columns("MM_SPECIFIC_NONALLOWABLE")
+            Dim col2 As GridColumn = GridView2.Columns("MM_SPECIFIC_NONALLOWABLE")
+            col1.Caption = txtTitle3.EditValue
+            col2.Caption = txtTitle3.EditValue
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
 End Class

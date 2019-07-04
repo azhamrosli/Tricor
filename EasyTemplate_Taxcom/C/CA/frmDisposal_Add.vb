@@ -123,6 +123,9 @@
                 Application.DoEvents()
                 cboTypeDisposal.SelectedIndex = IIf(IsDBNull(dt.Rows(0)("CA_DISP_TYPE")), 0, dt.Rows(0)("CA_DISP_TYPE"))
 
+                txtTransfereeName.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_TRANSFEREE_NAME")), "", dt.Rows(0)("CA_TRANSFEREE_NAME"))
+                txtTaxFileNumber.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_TAX_FILE_NO")), "", dt.Rows(0)("CA_TAX_FILE_NO"))
+
                 dtDisposal.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_DISP_DATE")), Now, dt.Rows(0)("CA_DISP_DATE"))
                 txtDisposal_PurchaseAmount.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_DISP_AMOUNT")), 0, dt.Rows(0)("CA_DISP_AMOUNT"))
                 txtDispose_QC.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_DISP_QC")), 0, dt.Rows(0)("CA_DISP_QC"))
@@ -130,11 +133,17 @@
                 txtDisposal_SalesProceed.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_DISP_SPROCEED")), 0, dt.Rows(0)("CA_DISP_SPROCEED"))
                 Application.DoEvents()
 
-                If DateDiff(DateInterval.Year, dtDateofPurchase.EditValue, dtDisposal.EditValue) <= 2 Then
-                    rgWithIn2YA.SelectedIndex = 0
+                If IsDBNull(dt.Rows(0)("ModifiedBy")) = False AndAlso dt.Rows(0)("ModifiedBy") <> "" Then
+                    lblLastmodified.Caption = dt.Rows(0)("ModifiedBy") & " | " & IIf(IsDBNull(dt.Rows(0)("ModifiedDateTime")), "", dt.Rows(0)("ModifiedDateTime"))
                 Else
-                    rgWithIn2YA.SelectedIndex = 1
+                    lblLastmodified.Caption = ""
                 End If
+
+                'If DateDiff(DateInterval.Year, dtDateofPurchase.EditValue, dtDisposal.EditValue) <= 2 Then
+                '    rgWithIn2YA.SelectedIndex = 0
+                'Else
+                '    rgWithIn2YA.SelectedIndex = 1
+                'End If
 
 
 
@@ -176,6 +185,8 @@
                     cboIncentive.EditValue = IIf(IsDBNull(dtRowSelected("CA_INCENTIVE")), "", dtRowSelected("CA_INCENTIVE"))
                     txtTWDV.EditValue = IIf(IsDBNull(dtRowSelected("CA_TWDV")), 0, dtRowSelected("CA_TWDV"))
 
+                  
+
                     If IsDBNull(dtRowSelected("CA_CTRL_TRANSFER")) = False AndAlso dtRowSelected("CA_CTRL_TRANSFER").ToString <> -1 Then
                         chkControlTransfer.Checked = True
                     Else
@@ -183,6 +194,7 @@
                     End If
                     Application.DoEvents()
                     cboTypeDisposal.SelectedIndex = 0
+
 
                     dtDisposal.EditValue = Now
                     txtDisposal_PurchaseAmount.EditValue = txtPurchaseAmountFA.EditValue
@@ -194,7 +206,7 @@
                     txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDisposal_RemainingQuaCost.EditValue, _
                                                         txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
 
-
+                    CalcDisposalYearIn2()
                 End If
             End If
         Catch ex As Exception
@@ -420,6 +432,7 @@
                     End If
 
                     MsgBox("Succesfully save disposal.", MsgBoxStyle.Information)
+                    Me.LoadData()
                 End If
 
             Catch ex As Exception
@@ -540,6 +553,8 @@
                                                     txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
 
                 dtRowSelected = dtrow
+
+                CalcDisposalYearIn2()
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
@@ -577,6 +592,8 @@
                 CA_TWDV = 0
             End If
 
+            txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, _
+                                                     CA_TWDV, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
 
 
             Return CA_TWDV
@@ -622,6 +639,11 @@
                     dblSalesProceed = CDbl(txtSalesProceed)
                 End If
 
+                'If CDbl(txtTWDV) > dblSalesProceed Then
+                '    Return CDec(CDbl(txtTWDV) - dblSalesProceed)
+                'Else
+                '   Return CDec(dblSalesProceed - CDbl(txtTWDV))
+                'End If
                 If dblSalesProceed - CDbl(txtTWDV) = 0 Then
                     Return CDec(dblSalesProceed - CDbl(txtTWDV))
                 Else
@@ -685,15 +707,20 @@
     Private Sub btnClose_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnClose.ItemClick
         Me.Close()
     End Sub
-    Private Sub cboTypeDisposal_SelectedIndexChanged(sender As Object, e As EventArgs)
+    Private Sub cboTypeDisposal_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboTypeDisposal.SelectedIndexChanged
         Try
+            If cboTypeDisposal.SelectedIndex = 2 Then
+                pnlControlTransfer.Visible = True
+            Else
+                pnlControlTransfer.Visible = False
+            End If
             txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, _
                                                       txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
 
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -752,4 +779,70 @@
     End Sub
 
 
+    Private Sub dtDisposal_EditValueChanged(sender As Object, e As EventArgs) Handles dtDisposal.EditValueChanged
+        CalcDisposalYearIn2()
+    End Sub
+    Private Sub CalcDisposalYearIn2()
+        Try
+            Dim dtPurchaseData As DateTime = Now
+            Dim dtDisposalData As DateTime = Now
+
+            If dtDisposal.EditValue IsNot Nothing Then
+                dtDisposalData = dtDisposal.EditValue
+            End If
+            If dtDateofPurchase.EditValue IsNot Nothing Then
+                dtPurchaseData = dtDateofPurchase.EditValue
+            End If
+
+            Dim NewDate As DateTime = Now
+            NewDate = dtPurchaseData.AddYears(2)
+            NewDate = NewDate.AddDays(-1)
+            If DateDiff(DateInterval.Day, dtPurchaseData, NewDate) < 1 Then
+                rgWithIn2YA.SelectedIndex = 0
+            Else
+                rgWithIn2YA.SelectedIndex = 1
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub txtDisposal_SalesProceed_EditValueChanged(sender As Object, e As EventArgs) Handles txtDisposal_SalesProceed.EditValueChanged
+        Try
+            txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, _
+                                                    txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub txtDisposal_TWDV_EditValueChanged(sender As Object, e As EventArgs) Handles txtDisposal_TWDV.EditValueChanged
+        Try
+            Try
+                txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, _
+                                                        txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
+
+            Catch ex As Exception
+
+            End Try
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub txtAccumulated_EditValueChanged(sender As Object, e As EventArgs) Handles txtAccumulated.EditValueChanged
+        Try
+            Try
+                txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, _
+                                                        txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
+
+            Catch ex As Exception
+
+            End Try
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

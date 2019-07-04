@@ -101,7 +101,7 @@
 
     End Sub
 
-    Private Sub txtVehicle_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub txtVehicle_EditValueChanged(sender As Object, e As EventArgs) Handles txtVehicle.EditValueChanged, txtMachinery.EditValueChanged, txtBuilding.EditValueChanged, txtOtherFA.EditValueChanged
         Try
             'txtTotalCA = FormatNumber(CDbl(txtTradeDebtors) + CDbl(txtOtherDebtors) + CDbl(txtStock) + CDbl(txtLoanTo) + CDbl(txtCashBank) + CDbl(txtOtherCA), 0)
             'txtTotalAssets = FormatNumber(CDbl(txtTotalFA) + CDbl(txtInvestment) + CDbl(txtTotalCA), 0)
@@ -110,53 +110,53 @@
             txtTotalFA.EditValue = CDec(txtVehicle.EditValue) + CDec(txtMachinery.EditValue) + CDec(txtBuilding.EditValue) + CDec(txtOtherFA.EditValue)
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
-    Private Sub txtOtherDebtors_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub txtOtherDebtors_EditValueChanged(sender As Object, e As EventArgs) Handles txtOtherDebtors.EditValueChanged, txtStock.EditValueChanged, txtLoanTo.EditValueChanged, txtCashBank.EditValueChanged, txtOtherCA.EditValueChanged, txtTradeDebtors.EditValueChanged
         Try
             txtTotalCA.EditValue = CDec(txtOtherDebtors.EditValue) + CDec(txtStock.EditValue) + CDec(txtLoanTo.EditValue) + CDec(txtCashBank.EditValue) + CDec(txtOtherCA.EditValue) + CDec(txtTradeDebtors.EditValue)
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
 
-    Private Sub txtTotalCA_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub txtTotalCA_EditValueChanged(sender As Object, e As EventArgs) Handles txtTotalCA.EditValueChanged, txtInvestment.EditValueChanged, txtTotalFA.EditValueChanged
         Try
             txtTotalAssets.EditValue = CDec(txtTotalCA.EditValue) + CDec(txtInvestment.EditValue) + CDec(txtTotalFA.EditValue)
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
-    Private Sub txtBorrowing_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub txtBorrowing_EditValueChanged(sender As Object, e As EventArgs) Handles txtBorrowing.EditValueChanged, txtLoanFrom.EditValueChanged, txtOtherCreditor.EditValueChanged, txtTradeCreditor.EditValueChanged, txtOtherCL.EditValueChanged
         Try
             txtTotalCL.EditValue = CDec(txtBorrowing.EditValue) + CDec(txtLoanFrom.EditValue) + CDec(txtOtherCreditor.EditValue) + CDec(txtTradeCreditor.EditValue) + CDec(txtOtherCL.EditValue)
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
-    Private Sub txtLongTerm_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub txtLongTerm_EditValueChanged(sender As Object, e As EventArgs) Handles txtTotalCL.EditValueChanged, txtLongTerm.EditValueChanged
         Try
             txtTotalLiability.EditValue = CDec(txtTotalCL.EditValue) + CDec(txtLongTerm.EditValue)
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
-    Private Sub txtPaidUp_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub txtPaidUp_EditValueChanged(sender As Object, e As EventArgs) Handles txtPaidUp.EditValueChanged, txtReserves.EditValueChanged, txtAppropriation.EditValueChanged
         Try
             txtTotalEquity.EditValue = CDec(txtPaidUp.EditValue) + CDec(txtReserves.EditValue) + CDec(txtAppropriation.EditValue)
 
@@ -168,17 +168,17 @@
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
-    Private Sub txtTotalEquity_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub txtTotalEquity_EditValueChanged(sender As Object, e As EventArgs) Handles txtTotalEquity.EditValueChanged
         Try
             txtTotalLE.EditValue = CDec(txtTotalEquity.EditValue) + CDec(txtTotalLiability.EditValue)
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -236,7 +236,7 @@
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -270,7 +270,7 @@
             Return True
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function

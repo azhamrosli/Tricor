@@ -1,6 +1,6 @@
 ﻿Imports DevExpress.XtraReports.UI
 Public Class rpt_CASummaryQE
-    Private Sub No2_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles table1.BeforePrint  ', No3.BeforePrint, No8.BeforePrint, No10.BeforePrint, No12.BeforePrint, No14.BeforePrint, No16.BeforePrint, No20.BeforePrint, No40.BeforePrint, No50.BeforePrint, No60.BeforePrint, No8.BeforePrint, No90.BeforePrint, No100.BeforePrint
+    Private Sub No2_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles tblTitle.BeforePrint  ', No3.BeforePrint, No8.BeforePrint, No10.BeforePrint, No12.BeforePrint, No14.BeforePrint, No16.BeforePrint, No20.BeforePrint, No40.BeforePrint, No50.BeforePrint, No60.BeforePrint, No8.BeforePrint, No90.BeforePrint, No100.BeforePrint
         Try
             Dim dt As DataTable = Nothing
             dt = ADO.Load_CAReport_SummaryQE_Temp(paramID.Value)
@@ -8,7 +8,7 @@ Public Class rpt_CASummaryQE
             If dt Is Nothing Then
                 Exit Sub
             End If
-            Dim ListofAA As List(Of String) = mdlCA.Get_ListofAA()
+            Dim ListofAA As List(Of String) = mdlCA.Get_ListofAA(True)
 
             Dim tmpStatus As Boolean = False
 
@@ -103,17 +103,17 @@ Public Class rpt_CASummaryQE
             End If
 
             If DynamicWidth > 200 Then
-                BalanceWidth = (DynamicWidth * DynamicColumn) - (200 * DynamicColumn)
-                DynamicWidth = 200
+                BalanceWidth = (DynamicWidth * DynamicColumn) - (100 * DynamicColumn)
+                DynamicWidth = 100
 
             End If
 
             If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
-                NoDescription.WidthF = 304.26 '+ BalanceWidth - 50
-                NoDescription_Bot.WidthF = 304.26
+                NoDescription.WidthF = 154.26 '+ BalanceWidth - 50
+                NoDescription_Bot.WidthF = 154.26
             Else
-                NoDescription.WidthF = 215.23 '+ BalanceWidth - 50
-                NoDescription_Bot.WidthF = 215.23
+                NoDescription.WidthF = 115.23 '+ BalanceWidth - 50
+                NoDescription_Bot.WidthF = 115.23
             End If
 
             If NoClaim.Visible = False Then
@@ -326,15 +326,15 @@ Public Class rpt_CASummaryQE
             End If
 
             If DynamicWidth > 200 Then
-                BalanceWidth = (DynamicWidth * DynamicColumn) - (200 * DynamicColumn)
-                DynamicWidth = 200
+                BalanceWidth = (DynamicWidth * DynamicColumn) - (100 * DynamicColumn)
+                DynamicWidth = 100
 
             End If
 
             If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
-                NoDescription_Details.WidthF = 304.26 '+ BalanceWidth - 50
+                NoDescription_Details.WidthF = 154.26 '+ BalanceWidth - 50
             Else
-                NoDescription_Details.WidthF = 215.23 '+ BalanceWidth - 50
+                NoDescription_Details.WidthF = 115.23 '+ BalanceWidth - 50
             End If
 
             If NoClaim_Details.Visible = False Then
@@ -422,7 +422,7 @@ Public Class rpt_CASummaryQE
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -520,15 +520,15 @@ Public Class rpt_CASummaryQE
             End If
 
             If DynamicWidth > 200 Then
-                BalanceWidth = (DynamicWidth * DynamicColumn) - (200 * DynamicColumn)
-                DynamicWidth = 200
+                BalanceWidth = (DynamicWidth * DynamicColumn) - (100 * DynamicColumn)
+                DynamicWidth = 100
 
             End If
 
             If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
-                NoDescription_Report.WidthF = 304.26 '+ BalanceWidth - 50
+                NoDescription_Report.WidthF = 154.26 '+ BalanceWidth - 50
             Else
-                NoDescription_Report.WidthF = 215.23 '+ BalanceWidth - 50
+                NoDescription_Report.WidthF = 115.23 '+ BalanceWidth - 50
             End If
 
             'If NoClaim_Report.Visible = False Then
@@ -717,7 +717,7 @@ Public Class rpt_CASummaryQE
             lineReport_Top.LocationF = New PointF(NoClaim_Report.LocationF.X, NoClaim_Report.LocationF.Y)
             lineReport_Top.SizeF = New SizeF(TotalWith, 1)
             lineReport_Bot.LocationF = New PointF(NoClaim_Report.LocationF.X, NoClaim_Report.LocationF.Y + 30)
-            lineReport_Bot.SizeF = New SizeF(TotalWith, 1)
+            lineReport_Bot.SizeF = New SizeF(TotalWith, 5)
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
@@ -725,6 +725,4 @@ Public Class rpt_CASummaryQE
 
         End Try
     End Sub
-
-
 End Class

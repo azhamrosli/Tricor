@@ -28,6 +28,11 @@ Public Class ucCP204
 
             Application.DoEvents()
 
+            If My.Computer.Name = DeveloperPCName Then
+                btnImportExport.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+            Else
+                btnImportExport.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            End If
             LoadData()
         Catch ex As Exception
             Dim st As New StackTrace(True)
@@ -227,14 +232,40 @@ Public Class ucCP204
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
             Dim rpt As rpt_CP204_Breakdown
-            If mdlProcess.PrintReport_CP204(DsCP204, GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_REF_NO"), _
+            Dim rpt_Note As rpt_CP204_Note
+            Dim Title As String = ADO.Load_TableOfContent_Title(GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_REF_NO"), GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_YA"), "rpt_CP204_Breakdown")
+            If mdlProcess.PrintReport_CP204(DsCP204, Title, GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_REF_NO"), _
                                             GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_YA"), _
-                                            GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_KEY"), rpt, ErrorLog) Then
+                                            GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_KEY"), False, rpt, rpt_Note, ErrorLog) Then
+                Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
+
+                Dim x As Integer = 0
+
+                For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                    rpt.Pages.Add(pg)
+                Next
                 rpt.ShowPreview()
+
             Else
                 MsgBox("Failed to load CP204 report.", MsgBoxStyle.Critical)
             End If
 
+            'If mdlProcess.PrintReport_CAByCategory(dsCA, ComName, YA, rpt, rpt_Note, ErrorLog) Then
+            '    Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
+
+            '    Dim x As Integer = 0
+
+            '    For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+            '        rpt.Pages.Add(pg)
+            '    Next
+            '    If isExport Then
+            '        rpt.ExportToXlsx(Path)
+            '    Else
+            '        rpt.ShowPreview()
+            '    End If
+            'Else
+            '    MsgBox("Failed to load capital allowance report.", MsgBoxStyle.Critical)
+            'End If
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
@@ -250,5 +281,9 @@ Public Class ucCP204
             End With
             AddListOfError(ErrorLog)
         End Try
+    End Sub
+
+    Private Sub btnImportExport_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnImportExport.ItemClick
+
     End Sub
 End Class

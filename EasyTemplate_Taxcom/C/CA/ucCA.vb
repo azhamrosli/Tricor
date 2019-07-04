@@ -39,7 +39,12 @@ Public Class ucCA
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)
-
+        Finally
+            If AutoBot_Allow = True AndAlso My.Computer.Name = DeveloperPCName AndAlso isOneClickOnly = False Then             
+                btnPrint.PerformClick()
+                isOneClickOnly = True
+                Application.DoEvents()
+            End If
         End Try
     End Sub
     Private Sub LoadData(Optional Type As Integer = 0)
@@ -221,7 +226,7 @@ Public Class ucCA
                 .ID = ID
             }
             frm.ShowDialog()
-            Me.LoadData()
+            Me.LoadData(2)
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)

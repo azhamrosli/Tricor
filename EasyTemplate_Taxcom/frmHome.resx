@@ -132,6 +132,15 @@
   <metadata name="BarManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>152, 17</value>
   </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>126</value>
+  </metadata>
+  <metadata name="ContextMenuTreeList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>233, 55</value>
+  </metadata>
+  <metadata name="MENULISTINFOBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 55</value>
+  </metadata>
   <metadata name="TaxPayerFindBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>546, 17</value>
   </metadata>
@@ -141,4 +150,19 @@
   <metadata name="FolderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1209, 16</value>
   </metadata>
+  <metadata name="ToastNotificationsManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>400, 55</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="ToastNotificationsManager1.Notifications" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAAJHRFWHRUaXRsZQBDb21tZW50
+        O1Rvb2x0aXA7SGludDtUaXA7Q2xvdWTTwdvJAAAA00lEQVRYR+2WwQ3CMAxFe+paTNClOMEN1mAClior
+        GDtKJRP/CjcijpByeFH069ovvTQTEXUFhpHAMBIYRgLDSNKynJ8zc2dWhhrzYmTWrAVu+WEkFy0QcfKS
+        VQugguYMgSHgFXgwp4zsa3ODV0AaSY0g+9rc8DcCRz/1Xm7wCjRjCAwBLdD9d9zjQnLVAtuVTK5LqPiX
+        wCtZDQuDBpRIHXo/zU5LDbnJN4mP4agPDD2oxnsS5uSoDwy9qOalhBkuoB4wPIIasEnA4QJ6H4aRwDAO
+        mt5+ylxK+IuO/gAAAABJRU5ErkJggg==
+</value>
+  </data>
 </root>

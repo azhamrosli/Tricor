@@ -1,4 +1,6 @@
-﻿Public Class frmCA_Quick 
+﻿Imports DevExpress.XtraGrid.Views.Grid
+
+Public Class frmCA_Quick
     Dim ErrorLog As ClsError = Nothing
 
     Public Const MainTable As String = "CA"
@@ -7,7 +9,7 @@
             LoadData()
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -37,11 +39,11 @@
 
             If mdlProcess.ArgParam3 <> "" Then
                 cboYA.EditValue = mdlProcess.ArgParam3
-             
+
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -50,7 +52,7 @@
             DefaultTaxPayer()
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -61,7 +63,7 @@
                 'Dim editor As DevExpress.XtraEditors.LookUpEdit = CType(sender, DevExpress.XtraEditors.LookUpEdit)
                 'Dim row As DataRowView = CType(editor.Properties.GetDataSourceRowByKeyValue(editor.EditValue), DataRowView)
                 'Dim value As Object = row("CompanyName")
- 
+
                 If mdlProcess.CreateLookUpSourceNO(cboSourceNo, cboRefNo.EditValue.ToString, cboYA.EditValue.ToString, ErrorLog) = False Then
                     cboSourceNo.EditValue = ""
                     Exit Sub
@@ -71,18 +73,89 @@
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
-   
+
     Private Sub GridView1_InitNewRow(sender As Object, e As DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs) Handles GridView1.InitNewRow
         Try
             GridView1.GetDataRow(e.RowHandle)("CA_CTRL_TRANSFER") = 0
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
+
+        End Try
+    End Sub
+
+    Private Sub GridView1_ValidateRow(sender As Object, e As DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs) Handles GridView1.ValidateRow
+        Try
+            If TypeOf sender Is GridView Then
+                Dim view As GridView = CType(sender, GridView)
+                Dim row As DataRow = view.GetDataRow(e.RowHandle)
+
+                If IsDBNull(row("CA_SOURCENO")) = True Then
+                    e.ErrorText = "Please put source number."
+                    e.Valid = False
+                    Exit Sub
+                End If
+
+
+                If IsDBNull(row("CA_ASSET")) = True Then
+                    e.ErrorText = "Please put asset name."
+                    e.Valid = False
+                    Exit Sub
+                End If
+
+
+                If IsDBNull(row("CA_PURCHASE_YEAR")) = True Then
+                    e.ErrorText = "Please put purchase year."
+                    e.Valid = False
+                    Exit Sub
+                End If
+
+                If IsDBNull(row("CA_CATEGORY_CODE")) = True Then
+                    e.ErrorText = "Please put category."
+                    e.Valid = False
+                    Exit Sub
+                End If
+
+                If IsDBNull(row("CA_RATE_IA")) = True Then
+                    e.ErrorText = "Please put AI rate."
+                    e.Valid = False
+                    Exit Sub
+                End If
+
+                If IsDBNull(row("CA_RATE_AA")) = True Then
+                    e.ErrorText = "Please put AA rate."
+                    e.Valid = False
+                    Exit Sub
+                End If
+
+                If IsDBNull(row("CA_PURCHASE_DATE")) = True Then
+                    e.ErrorText = "Please put purchase date."
+                    e.Valid = False
+                    Exit Sub
+                End If
+
+                If IsDBNull(row("CA_PURCHASE_AMOUNT")) = True Then
+                    e.ErrorText = "Please put purchase amount."
+                    e.Valid = False
+                    Exit Sub
+                End If
+
+                If IsDBNull(row("CA_QUALIFYING_COST")) = True Then
+                    e.ErrorText = "Please put qualifying amount."
+                    e.Valid = False
+                    Exit Sub
+                End If
+
+                e.Valid = True
+            End If
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -112,7 +185,7 @@
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -139,11 +212,11 @@
 
                     DsCA.Tables(MainTable).Rows.Add(newdtRow)
                 Next
-               
+
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -174,7 +247,7 @@
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -186,7 +259,7 @@
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -205,7 +278,7 @@
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -224,7 +297,7 @@
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -239,7 +312,7 @@
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -259,8 +332,9 @@
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
+
 End Class

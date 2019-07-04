@@ -21,15 +21,15 @@ Partial Class frmMovementComplex_Add
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMovementComplex_Add))
-        Dim SuperToolTip1 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem1 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem1 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip2 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem2 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem2 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip3 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem3 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem3 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip4 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem4 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem4 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip5 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem5 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem5 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip6 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem6 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem6 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
@@ -39,6 +39,7 @@ Partial Class frmMovementComplex_Add
         Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
         Me.btnNote_Add = New DevExpress.XtraBars.BarButtonItem()
         Me.btnNote_Less = New DevExpress.XtraBars.BarButtonItem()
+        Me.lblLastmodified = New DevExpress.XtraBars.BarStaticItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -51,6 +52,13 @@ Partial Class frmMovementComplex_Add
         Me.DsMovement = New EasyTemplate_Taxcom.dsMovement()
         Me.MOVEMENTCOMPLEXDEDUCTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.XtraScrollableControl1 = New DevExpress.XtraEditors.XtraScrollableControl()
+        Me.PanelControl5 = New DevExpress.XtraEditors.PanelControl()
+        Me.txtTitle3 = New DevExpress.XtraEditors.MemoEdit()
+        Me.txtTitle2 = New DevExpress.XtraEditors.MemoEdit()
+        Me.txtTitle1 = New DevExpress.XtraEditors.MemoEdit()
+        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl19 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl20 = New DevExpress.XtraEditors.LabelControl()
         Me.cboSourceCode = New DevExpress.XtraEditors.ComboBoxEdit()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.cboType = New DevExpress.XtraEditors.ComboBoxEdit()
@@ -121,11 +129,11 @@ Partial Class frmMovementComplex_Add
         Me.LabelControl18 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl8 = New DevExpress.XtraEditors.LabelControl()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
-        Me.LabelControl5 = New DevExpress.XtraEditors.LabelControl()
+        Me.lblTitle1 = New DevExpress.XtraEditors.LabelControl()
         Me.txtAmountSpecificNonAllow = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl6 = New DevExpress.XtraEditors.LabelControl()
+        Me.lblTitle2 = New DevExpress.XtraEditors.LabelControl()
         Me.txtAmountSpecificAllow = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
+        Me.lblTitle3 = New DevExpress.XtraEditors.LabelControl()
         Me.txtAmountGeneral = New DevExpress.XtraEditors.TextEdit()
         Me.txtNoteStart = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl13 = New DevExpress.XtraEditors.LabelControl()
@@ -137,6 +145,8 @@ Partial Class frmMovementComplex_Add
         Me.txtTitle = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl4 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
+        Me.colTagID = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTagID1 = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -146,6 +156,11 @@ Partial Class frmMovementComplex_Add
         CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MOVEMENTCOMPLEXDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.XtraScrollableControl1.SuspendLayout()
+        CType(Me.PanelControl5, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelControl5.SuspendLayout()
+        CType(Me.txtTitle3.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTitle2.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTitle1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtEnded.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -199,8 +214,8 @@ Partial Class frmMovementComplex_Add
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnAddChild, Me.btnDelete, Me.btnMoveUp, Me.btnMoveDown, Me.btnNote_Add, Me.btnNote_Less})
-        Me.BarManager1.MaxItemId = 13
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnAddChild, Me.btnDelete, Me.btnMoveUp, Me.btnMoveDown, Me.btnNote_Add, Me.btnNote_Less, Me.lblLastmodified})
+        Me.BarManager1.MaxItemId = 14
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemTextEdit2})
         '
         'Bar1
@@ -210,7 +225,7 @@ Partial Class frmMovementComplex_Add
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
         Me.Bar1.FloatLocation = New System.Drawing.Point(271, 130)
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Add), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Less)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Add), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Less), New DevExpress.XtraBars.LinkPersistInfo(Me.lblLastmodified)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.DisableClose = True
         Me.Bar1.OptionsBar.DisableCustomization = True
@@ -226,12 +241,12 @@ Partial Class frmMovementComplex_Add
         Me.btnAdd.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem1.Text = "Add new record"
-        ToolTipItem1.LeftIndent = 6
-        ToolTipItem1.Text = "Add new record Ctrl + R"
-        SuperToolTip1.Items.Add(ToolTipTitleItem1)
-        SuperToolTip1.Items.Add(ToolTipItem1)
-        Me.btnAdd.SuperTip = SuperToolTip1
+        ToolTipTitleItem4.Text = "Add new record"
+        ToolTipItem4.LeftIndent = 6
+        ToolTipItem4.Text = "Add new record Ctrl + R"
+        SuperToolTip4.Items.Add(ToolTipTitleItem4)
+        SuperToolTip4.Items.Add(ToolTipItem4)
+        Me.btnAdd.SuperTip = SuperToolTip4
         '
         'btnAddChild
         '
@@ -242,12 +257,12 @@ Partial Class frmMovementComplex_Add
         Me.btnAddChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.T))
         Me.btnAddChild.Name = "btnAddChild"
         Me.btnAddChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem2.Text = "Add new record"
-        ToolTipItem2.LeftIndent = 6
-        ToolTipItem2.Text = "Add new record Ctrl + T"
-        SuperToolTip2.Items.Add(ToolTipTitleItem2)
-        SuperToolTip2.Items.Add(ToolTipItem2)
-        Me.btnAddChild.SuperTip = SuperToolTip2
+        ToolTipTitleItem5.Text = "Add new record"
+        ToolTipItem5.LeftIndent = 6
+        ToolTipItem5.Text = "Add new record Ctrl + T"
+        SuperToolTip5.Items.Add(ToolTipTitleItem5)
+        SuperToolTip5.Items.Add(ToolTipItem5)
+        Me.btnAddChild.SuperTip = SuperToolTip5
         '
         'btnDelete
         '
@@ -258,12 +273,12 @@ Partial Class frmMovementComplex_Add
         Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.Delete)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem3.Text = "Delete record"
-        ToolTipItem3.LeftIndent = 6
-        ToolTipItem3.Text = "Delete record Ctrl + Y"
-        SuperToolTip3.Items.Add(ToolTipTitleItem3)
-        SuperToolTip3.Items.Add(ToolTipItem3)
-        Me.btnDelete.SuperTip = SuperToolTip3
+        ToolTipTitleItem6.Text = "Delete record"
+        ToolTipItem6.LeftIndent = 6
+        ToolTipItem6.Text = "Delete record Ctrl + Y"
+        SuperToolTip6.Items.Add(ToolTipTitleItem6)
+        SuperToolTip6.Items.Add(ToolTipItem6)
+        Me.btnDelete.SuperTip = SuperToolTip6
         '
         'btnMoveUp
         '
@@ -300,6 +315,11 @@ Partial Class frmMovementComplex_Add
         Me.btnNote_Less.ImageOptions.LargeImage = CType(resources.GetObject("btnNote_Less.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnNote_Less.Name = "btnNote_Less"
         Me.btnNote_Less.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'lblLastmodified
+        '
+        Me.lblLastmodified.Id = 13
+        Me.lblLastmodified.Name = "lblLastmodified"
         '
         'barDockControlTop
         '
@@ -373,6 +393,7 @@ Partial Class frmMovementComplex_Add
         '
         'XtraScrollableControl1
         '
+        Me.XtraScrollableControl1.Controls.Add(Me.PanelControl5)
         Me.XtraScrollableControl1.Controls.Add(Me.cboSourceCode)
         Me.XtraScrollableControl1.Controls.Add(Me.LabelControl2)
         Me.XtraScrollableControl1.Controls.Add(Me.cboType)
@@ -403,6 +424,72 @@ Partial Class frmMovementComplex_Add
         Me.XtraScrollableControl1.Name = "XtraScrollableControl1"
         Me.XtraScrollableControl1.Size = New System.Drawing.Size(1323, 746)
         Me.XtraScrollableControl1.TabIndex = 210
+        '
+        'PanelControl5
+        '
+        Me.PanelControl5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PanelControl5.Controls.Add(Me.txtTitle3)
+        Me.PanelControl5.Controls.Add(Me.txtTitle2)
+        Me.PanelControl5.Controls.Add(Me.txtTitle1)
+        Me.PanelControl5.Controls.Add(Me.LabelControl3)
+        Me.PanelControl5.Controls.Add(Me.LabelControl19)
+        Me.PanelControl5.Controls.Add(Me.LabelControl20)
+        Me.PanelControl5.Location = New System.Drawing.Point(12, 175)
+        Me.PanelControl5.Name = "PanelControl5"
+        Me.PanelControl5.Size = New System.Drawing.Size(1293, 50)
+        Me.PanelControl5.TabIndex = 239
+        '
+        'txtTitle3
+        '
+        Me.txtTitle3.EditValue = "Specific" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(Non - Allowable)"
+        Me.txtTitle3.Location = New System.Drawing.Point(757, 9)
+        Me.txtTitle3.MenuManager = Me.BarManager1
+        Me.txtTitle3.Name = "txtTitle3"
+        Me.txtTitle3.Size = New System.Drawing.Size(170, 32)
+        Me.txtTitle3.TabIndex = 242
+        '
+        'txtTitle2
+        '
+        Me.txtTitle2.EditValue = "Specific" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(Allowable)"
+        Me.txtTitle2.Location = New System.Drawing.Point(401, 9)
+        Me.txtTitle2.MenuManager = Me.BarManager1
+        Me.txtTitle2.Name = "txtTitle2"
+        Me.txtTitle2.Size = New System.Drawing.Size(170, 32)
+        Me.txtTitle2.TabIndex = 241
+        '
+        'txtTitle1
+        '
+        Me.txtTitle1.EditValue = "General"
+        Me.txtTitle1.Location = New System.Drawing.Point(84, 9)
+        Me.txtTitle1.MenuManager = Me.BarManager1
+        Me.txtTitle1.Name = "txtTitle1"
+        Me.txtTitle1.Size = New System.Drawing.Size(170, 32)
+        Me.txtTitle1.TabIndex = 240
+        '
+        'LabelControl3
+        '
+        Me.LabelControl3.Location = New System.Drawing.Point(5, 19)
+        Me.LabelControl3.Name = "LabelControl3"
+        Me.LabelControl3.Size = New System.Drawing.Size(29, 13)
+        Me.LabelControl3.TabIndex = 181
+        Me.LabelControl3.Text = "Title 1"
+        '
+        'LabelControl19
+        '
+        Me.LabelControl19.Location = New System.Drawing.Point(271, 19)
+        Me.LabelControl19.Name = "LabelControl19"
+        Me.LabelControl19.Size = New System.Drawing.Size(29, 13)
+        Me.LabelControl19.TabIndex = 182
+        Me.LabelControl19.Text = "Title 2"
+        '
+        'LabelControl20
+        '
+        Me.LabelControl20.Location = New System.Drawing.Point(604, 19)
+        Me.LabelControl20.Name = "LabelControl20"
+        Me.LabelControl20.Size = New System.Drawing.Size(29, 13)
+        Me.LabelControl20.TabIndex = 183
+        Me.LabelControl20.Text = "Title 3"
         '
         'cboSourceCode
         '
@@ -571,7 +658,7 @@ Partial Class frmMovementComplex_Add
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainerControl1.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
         Me.SplitContainerControl1.Horizontal = False
-        Me.SplitContainerControl1.Location = New System.Drawing.Point(12, 238)
+        Me.SplitContainerControl1.Location = New System.Drawing.Point(12, 298)
         Me.SplitContainerControl1.Name = "SplitContainerControl1"
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.GridControl1)
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.PanelControl3)
@@ -579,8 +666,8 @@ Partial Class frmMovementComplex_Add
         Me.SplitContainerControl1.Panel2.Controls.Add(Me.GridControl2)
         Me.SplitContainerControl1.Panel2.Controls.Add(Me.PanelControl4)
         Me.SplitContainerControl1.Panel2.Text = "Panel2"
-        Me.SplitContainerControl1.Size = New System.Drawing.Size(1293, 433)
-        Me.SplitContainerControl1.SplitterPosition = 162
+        Me.SplitContainerControl1.Size = New System.Drawing.Size(1293, 373)
+        Me.SplitContainerControl1.SplitterPosition = 198
         Me.SplitContainerControl1.TabIndex = 232
         Me.SplitContainerControl1.Text = "SplitContainerControl1"
         '
@@ -593,13 +680,13 @@ Partial Class frmMovementComplex_Add
         Me.GridControl1.MenuManager = Me.BarManager1
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNote, Me.txtAmount, Me.chkAddBack})
-        Me.GridControl1.Size = New System.Drawing.Size(1293, 139)
+        Me.GridControl1.Size = New System.Drawing.Size(1293, 175)
         Me.GridControl1.TabIndex = 9
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID, Me.colMM_PARENTID, Me.colMM_Sequence, Me.colMM_Description, Me.colMM_Amount, Me.colMM_GENERAL, Me.colMM_GENERAL_ADDBACK, Me.colMM_SPECIFIC_ALLOWABLE, Me.colMM_SPECIFIC_ALLOWABLE_ADDBACK, Me.colMM_SPECIFIC_NONALLOWABLE, Me.colMM_SPECIFIC_NONALLOWABLE_ADDBACK, Me.colMM_ADDBACK_AMOUNT, Me.colMM_NOTE})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID, Me.colMM_PARENTID, Me.colMM_Sequence, Me.colMM_Description, Me.colMM_Amount, Me.colMM_GENERAL, Me.colMM_GENERAL_ADDBACK, Me.colMM_SPECIFIC_ALLOWABLE, Me.colMM_SPECIFIC_ALLOWABLE_ADDBACK, Me.colMM_SPECIFIC_NONALLOWABLE, Me.colMM_SPECIFIC_NONALLOWABLE_ADDBACK, Me.colMM_ADDBACK_AMOUNT, Me.colMM_NOTE, Me.colTagID1})
         Me.GridView1.GridControl = Me.GridControl1
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -777,13 +864,13 @@ Partial Class frmMovementComplex_Add
         Me.GridControl2.MenuManager = Me.BarManager1
         Me.GridControl2.Name = "GridControl2"
         Me.GridControl2.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemMemoEdit1, Me.RepositoryItemTextEdit3, Me.RepositoryItemCheckEdit1})
-        Me.GridControl2.Size = New System.Drawing.Size(1293, 243)
+        Me.GridControl2.Size = New System.Drawing.Size(1293, 147)
         Me.GridControl2.TabIndex = 11
         Me.GridControl2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
         'GridView2
         '
-        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID1, Me.colMM_PARENTID1, Me.colMM_Sequence1, Me.colMM_Description1, Me.colMM_Amount1, Me.colMM_GENERAL1, Me.colMM_GENERAL_DEDUCT, Me.colMM_SPECIFIC_ALLOWABLE1, Me.colMM_SPECIFIC_ALLOWABLE_DEDUCT, Me.colMM_SPECIFIC_NONALLOWABLE1, Me.colMM_SPECIFIC_NONALLOWABLE_DEDUCT, Me.colMM_DEDUCT_AMOUNT, Me.colMM_NOTE1})
+        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID1, Me.colMM_PARENTID1, Me.colMM_Sequence1, Me.colMM_Description1, Me.colMM_Amount1, Me.colMM_GENERAL1, Me.colMM_GENERAL_DEDUCT, Me.colMM_SPECIFIC_ALLOWABLE1, Me.colMM_SPECIFIC_ALLOWABLE_DEDUCT, Me.colMM_SPECIFIC_NONALLOWABLE1, Me.colMM_SPECIFIC_NONALLOWABLE_DEDUCT, Me.colMM_DEDUCT_AMOUNT, Me.colMM_NOTE1, Me.colTagID})
         Me.GridView2.GridControl = Me.GridControl2
         Me.GridView2.Name = "GridView2"
         Me.GridView2.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -1098,24 +1185,24 @@ Partial Class frmMovementComplex_Add
         '
         Me.PanelControl1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PanelControl1.Controls.Add(Me.LabelControl5)
+        Me.PanelControl1.Controls.Add(Me.lblTitle1)
         Me.PanelControl1.Controls.Add(Me.txtAmountSpecificNonAllow)
-        Me.PanelControl1.Controls.Add(Me.LabelControl6)
+        Me.PanelControl1.Controls.Add(Me.lblTitle2)
         Me.PanelControl1.Controls.Add(Me.txtAmountSpecificAllow)
-        Me.PanelControl1.Controls.Add(Me.LabelControl7)
+        Me.PanelControl1.Controls.Add(Me.lblTitle3)
         Me.PanelControl1.Controls.Add(Me.txtAmountGeneral)
-        Me.PanelControl1.Location = New System.Drawing.Point(12, 179)
+        Me.PanelControl1.Location = New System.Drawing.Point(12, 230)
         Me.PanelControl1.Name = "PanelControl1"
         Me.PanelControl1.Size = New System.Drawing.Size(1293, 50)
         Me.PanelControl1.TabIndex = 221
         '
-        'LabelControl5
+        'lblTitle1
         '
-        Me.LabelControl5.Location = New System.Drawing.Point(5, 19)
-        Me.LabelControl5.Name = "LabelControl5"
-        Me.LabelControl5.Size = New System.Drawing.Size(50, 13)
-        Me.LabelControl5.TabIndex = 181
-        Me.LabelControl5.Text = "1. General"
+        Me.lblTitle1.Location = New System.Drawing.Point(5, 19)
+        Me.lblTitle1.Name = "lblTitle1"
+        Me.lblTitle1.Size = New System.Drawing.Size(50, 13)
+        Me.lblTitle1.TabIndex = 181
+        Me.lblTitle1.Text = "1. General"
         '
         'txtAmountSpecificNonAllow
         '
@@ -1134,13 +1221,13 @@ Partial Class frmMovementComplex_Add
         Me.txtAmountSpecificNonAllow.Size = New System.Drawing.Size(149, 20)
         Me.txtAmountSpecificNonAllow.TabIndex = 186
         '
-        'LabelControl6
+        'lblTitle2
         '
-        Me.LabelControl6.Location = New System.Drawing.Point(271, 19)
-        Me.LabelControl6.Name = "LabelControl6"
-        Me.LabelControl6.Size = New System.Drawing.Size(105, 13)
-        Me.LabelControl6.TabIndex = 182
-        Me.LabelControl6.Text = "2. Specific (Allowable)"
+        Me.lblTitle2.Location = New System.Drawing.Point(271, 19)
+        Me.lblTitle2.Name = "lblTitle2"
+        Me.lblTitle2.Size = New System.Drawing.Size(105, 13)
+        Me.lblTitle2.TabIndex = 182
+        Me.lblTitle2.Text = "2. Specific (Allowable)"
         '
         'txtAmountSpecificAllow
         '
@@ -1159,13 +1246,13 @@ Partial Class frmMovementComplex_Add
         Me.txtAmountSpecificAllow.Size = New System.Drawing.Size(149, 20)
         Me.txtAmountSpecificAllow.TabIndex = 185
         '
-        'LabelControl7
+        'lblTitle3
         '
-        Me.LabelControl7.Location = New System.Drawing.Point(604, 19)
-        Me.LabelControl7.Name = "LabelControl7"
-        Me.LabelControl7.Size = New System.Drawing.Size(134, 13)
-        Me.LabelControl7.TabIndex = 183
-        Me.LabelControl7.Text = "3. Specific (Non - Allowable)"
+        Me.lblTitle3.Location = New System.Drawing.Point(604, 19)
+        Me.lblTitle3.Name = "lblTitle3"
+        Me.lblTitle3.Size = New System.Drawing.Size(134, 13)
+        Me.lblTitle3.TabIndex = 183
+        Me.lblTitle3.Text = "3. Specific (Non - Allowable)"
         '
         'txtAmountGeneral
         '
@@ -1272,6 +1359,16 @@ Partial Class frmMovementComplex_Add
         Me.LabelControl1.TabIndex = 210
         Me.LabelControl1.Text = "Title :"
         '
+        'colTagID
+        '
+        Me.colTagID.FieldName = "TagID"
+        Me.colTagID.Name = "colTagID"
+        '
+        'colTagID1
+        '
+        Me.colTagID1.FieldName = "TagID"
+        Me.colTagID1.Name = "colTagID1"
+        '
         'frmMovementComplex_Add
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1296,6 +1393,12 @@ Partial Class frmMovementComplex_Add
         CType(Me.MOVEMENTCOMPLEXDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.XtraScrollableControl1.ResumeLayout(False)
         Me.XtraScrollableControl1.PerformLayout()
+        CType(Me.PanelControl5, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelControl5.ResumeLayout(False)
+        Me.PanelControl5.PerformLayout()
+        CType(Me.txtTitle3.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTitle2.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTitle1.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtEnded.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1379,11 +1482,11 @@ Partial Class frmMovementComplex_Add
     Friend WithEvents LabelControl18 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl8 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl
-    Friend WithEvents LabelControl5 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblTitle1 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtAmountSpecificNonAllow As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents LabelControl6 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblTitle2 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtAmountSpecificAllow As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents LabelControl7 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblTitle3 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtAmountGeneral As DevExpress.XtraEditors.TextEdit
     Friend WithEvents txtNoteStart As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl13 As DevExpress.XtraEditors.LabelControl
@@ -1454,4 +1557,14 @@ Partial Class frmMovementComplex_Add
     Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents btnNote_Add As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnNote_Less As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents lblLastmodified As DevExpress.XtraBars.BarStaticItem
+    Friend WithEvents PanelControl5 As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl19 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl20 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtTitle3 As DevExpress.XtraEditors.MemoEdit
+    Friend WithEvents txtTitle2 As DevExpress.XtraEditors.MemoEdit
+    Friend WithEvents txtTitle1 As DevExpress.XtraEditors.MemoEdit
+    Friend WithEvents colTagID As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colTagID1 As DevExpress.XtraGrid.Columns.GridColumn
 End Class

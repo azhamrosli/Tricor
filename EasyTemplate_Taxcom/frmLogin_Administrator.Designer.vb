@@ -25,12 +25,14 @@ Partial Class frmLogin_Administrator
         Me.txtPass = New DevExpress.XtraEditors.TextEdit()
         Me.btnLogin = New DevExpress.XtraEditors.SimpleButton()
         Me.btnCancel = New DevExpress.XtraEditors.SimpleButton()
+        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         CType(Me.txtPass.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LabelControl1
         '
         Me.LabelControl1.Appearance.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl1.Appearance.Options.UseFont = True
         Me.LabelControl1.Location = New System.Drawing.Point(33, 32)
         Me.LabelControl1.Name = "LabelControl1"
         Me.LabelControl1.Size = New System.Drawing.Size(148, 18)
@@ -55,8 +57,8 @@ Partial Class frmLogin_Administrator
         '
         'btnLogin
         '
-        Me.btnLogin.Image = CType(resources.GetObject("btnLogin.Image"), System.Drawing.Image)
-        Me.btnLogin.Location = New System.Drawing.Point(150, 95)
+        Me.btnLogin.ImageOptions.Image = CType(resources.GetObject("btnLogin.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnLogin.Location = New System.Drawing.Point(150, 120)
         Me.btnLogin.Name = "btnLogin"
         Me.btnLogin.Size = New System.Drawing.Size(90, 23)
         Me.btnLogin.TabIndex = 3
@@ -65,12 +67,20 @@ Partial Class frmLogin_Administrator
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Image = CType(resources.GetObject("btnCancel.Image"), System.Drawing.Image)
-        Me.btnCancel.Location = New System.Drawing.Point(246, 95)
+        Me.btnCancel.ImageOptions.Image = CType(resources.GetObject("btnCancel.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnCancel.Location = New System.Drawing.Point(246, 120)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(90, 23)
         Me.btnCancel.TabIndex = 4
         Me.btnCancel.Text = "Cancel"
+        '
+        'LabelControl3
+        '
+        Me.LabelControl3.Location = New System.Drawing.Point(102, 95)
+        Me.LabelControl3.Name = "LabelControl3"
+        Me.LabelControl3.Size = New System.Drawing.Size(116, 13)
+        Me.LabelControl3.TabIndex = 5
+        Me.LabelControl3.Text = "Hint: Common password"
         '
         'frmLogin_Administrator
         '
@@ -78,7 +88,8 @@ Partial Class frmLogin_Administrator
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(390, 149)
+        Me.ClientSize = New System.Drawing.Size(390, 152)
+        Me.Controls.Add(Me.LabelControl3)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnLogin)
         Me.Controls.Add(Me.txtPass)
@@ -99,4 +110,5 @@ Partial Class frmLogin_Administrator
     Friend WithEvents txtPass As DevExpress.XtraEditors.TextEdit
     Friend WithEvents btnLogin As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnCancel As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
 End Class

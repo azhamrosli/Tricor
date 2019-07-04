@@ -31,7 +31,6 @@ Partial Class frmCA_Quick
         Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.cboYA = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox1 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
-        Me.RepositoryItemComboBox3 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.cboSourceNo = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox2 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.btnImport = New DevExpress.XtraBars.BarButtonItem()
@@ -44,6 +43,7 @@ Partial Class frmCA_Quick
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemSpinEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.RepositoryItemComboBox3 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Duplicate1xToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -53,6 +53,10 @@ Partial Class frmCA_Quick
         Me.CABindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colCA_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCA_PURCHASE_YEAR = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.cboYE_Resp = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
+        Me.colCA_SOURCENO = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.cboSourceNo_Resp = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.colCA_MODE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.cboMode = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.colCA_PREFIX = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -61,14 +65,12 @@ Partial Class frmCA_Quick
         Me.colCA_FILENO = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCA_YA = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCA_COMPANY_CODE = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCA_SOURCENO = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCA_ASSET_CODE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCA_ASSET = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCA_CATEGORY_CODE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.cboCategory = New DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit()
         Me.CategoryBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.colCA_PURCHASE_DATE = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCA_PURCHASE_YEAR = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCA_PURCHASE_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.txtAmount = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.colCA_PAYMENT = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -94,30 +96,28 @@ Partial Class frmCA_Quick
         Me.swtMode = New DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.cboSourceNo_Resp = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
-        Me.cboYE_Resp = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemLookUpEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemSpinEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.CABindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboYE_Resp, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboSourceNo_Resp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboMode, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboCategory, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CategoryBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboAA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.swtMode, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboSourceNo_Resp, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboYE_Resp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -212,12 +212,6 @@ Partial Class frmCA_Quick
         Me.RepositoryItemComboBox1.AutoHeight = False
         Me.RepositoryItemComboBox1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.RepositoryItemComboBox1.Name = "RepositoryItemComboBox1"
-        '
-        'RepositoryItemComboBox3
-        '
-        Me.RepositoryItemComboBox3.AutoHeight = False
-        Me.RepositoryItemComboBox3.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.RepositoryItemComboBox3.Name = "RepositoryItemComboBox3"
         '
         'cboSourceNo
         '
@@ -315,6 +309,12 @@ Partial Class frmCA_Quick
         Me.RepositoryItemTextEdit2.AutoHeight = False
         Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
         '
+        'RepositoryItemComboBox3
+        '
+        Me.RepositoryItemComboBox3.AutoHeight = False
+        Me.RepositoryItemComboBox3.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.RepositoryItemComboBox3.Name = "RepositoryItemComboBox3"
+        '
         'GridControl1
         '
         Me.GridControl1.ContextMenuStrip = Me.ContextMenuStrip1
@@ -380,6 +380,38 @@ Partial Class frmCA_Quick
         Me.colCA_KEY.FieldName = "CA_KEY"
         Me.colCA_KEY.Name = "colCA_KEY"
         '
+        'colCA_PURCHASE_YEAR
+        '
+        Me.colCA_PURCHASE_YEAR.Caption = "Purchase YE"
+        Me.colCA_PURCHASE_YEAR.ColumnEdit = Me.cboYE_Resp
+        Me.colCA_PURCHASE_YEAR.FieldName = "CA_PURCHASE_YEAR"
+        Me.colCA_PURCHASE_YEAR.Name = "colCA_PURCHASE_YEAR"
+        Me.colCA_PURCHASE_YEAR.Visible = True
+        Me.colCA_PURCHASE_YEAR.VisibleIndex = 0
+        Me.colCA_PURCHASE_YEAR.Width = 150
+        '
+        'cboYE_Resp
+        '
+        Me.cboYE_Resp.AutoHeight = False
+        Me.cboYE_Resp.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboYE_Resp.Name = "cboYE_Resp"
+        '
+        'colCA_SOURCENO
+        '
+        Me.colCA_SOURCENO.Caption = "Source No"
+        Me.colCA_SOURCENO.ColumnEdit = Me.cboSourceNo_Resp
+        Me.colCA_SOURCENO.FieldName = "CA_SOURCENO"
+        Me.colCA_SOURCENO.Name = "colCA_SOURCENO"
+        Me.colCA_SOURCENO.Visible = True
+        Me.colCA_SOURCENO.VisibleIndex = 1
+        '
+        'cboSourceNo_Resp
+        '
+        Me.cboSourceNo_Resp.AllowFocused = False
+        Me.cboSourceNo_Resp.AutoHeight = False
+        Me.cboSourceNo_Resp.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboSourceNo_Resp.Name = "cboSourceNo_Resp"
+        '
         'colCA_MODE
         '
         Me.colCA_MODE.Caption = "Mode"
@@ -427,15 +459,6 @@ Partial Class frmCA_Quick
         '
         Me.colCA_COMPANY_CODE.FieldName = "CA_COMPANY_CODE"
         Me.colCA_COMPANY_CODE.Name = "colCA_COMPANY_CODE"
-        '
-        'colCA_SOURCENO
-        '
-        Me.colCA_SOURCENO.Caption = "Source No"
-        Me.colCA_SOURCENO.ColumnEdit = Me.cboSourceNo_Resp
-        Me.colCA_SOURCENO.FieldName = "CA_SOURCENO"
-        Me.colCA_SOURCENO.Name = "colCA_SOURCENO"
-        Me.colCA_SOURCENO.Visible = True
-        Me.colCA_SOURCENO.VisibleIndex = 1
         '
         'colCA_ASSET_CODE
         '
@@ -489,16 +512,6 @@ Partial Class frmCA_Quick
         Me.colCA_PURCHASE_DATE.Visible = True
         Me.colCA_PURCHASE_DATE.VisibleIndex = 6
         Me.colCA_PURCHASE_DATE.Width = 150
-        '
-        'colCA_PURCHASE_YEAR
-        '
-        Me.colCA_PURCHASE_YEAR.Caption = "Purchase YE"
-        Me.colCA_PURCHASE_YEAR.ColumnEdit = Me.cboYE_Resp
-        Me.colCA_PURCHASE_YEAR.FieldName = "CA_PURCHASE_YEAR"
-        Me.colCA_PURCHASE_YEAR.Name = "colCA_PURCHASE_YEAR"
-        Me.colCA_PURCHASE_YEAR.Visible = True
-        Me.colCA_PURCHASE_YEAR.VisibleIndex = 0
-        Me.colCA_PURCHASE_YEAR.Width = 150
         '
         'colCA_PURCHASE_AMOUNT
         '
@@ -668,19 +681,6 @@ Partial Class frmCA_Quick
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
-        'cboSourceNo_Resp
-        '
-        Me.cboSourceNo_Resp.AllowFocused = False
-        Me.cboSourceNo_Resp.AutoHeight = False
-        Me.cboSourceNo_Resp.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboSourceNo_Resp.Name = "cboSourceNo_Resp"
-        '
-        'cboYE_Resp
-        '
-        Me.cboYE_Resp.AutoHeight = False
-        Me.cboYE_Resp.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboYE_Resp.Name = "cboYE_Resp"
-        '
         'frmCA_Quick
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -700,23 +700,23 @@ Partial Class frmCA_Quick
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemSpinEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         CType(Me.CABindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboYE_Resp, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboSourceNo_Resp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboMode, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboCategory, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.CategoryBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboAA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.swtMode, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboSourceNo_Resp, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboYE_Resp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

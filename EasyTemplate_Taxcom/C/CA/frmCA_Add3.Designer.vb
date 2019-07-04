@@ -29,6 +29,7 @@ Partial Class frmCA_Add3
         Me.btnDuplicate = New DevExpress.XtraBars.BarButtonItem()
         Me.txtDuplicateNo = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemSpinEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit()
+        Me.lblLastmodified = New DevExpress.XtraBars.BarStaticItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -69,6 +70,12 @@ Partial Class frmCA_Add3
         Me.chkCAEEO = New DevExpress.XtraEditors.CheckEdit()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.pnlMain = New DevExpress.XtraEditors.PanelControl()
+        Me.XtraTabControl1 = New DevExpress.XtraTab.XtraTabControl()
+        Me.XtraTabPage1 = New DevExpress.XtraTab.XtraTabPage()
+        Me.lblAi = New DevExpress.XtraEditors.LabelControl()
+        Me.lblAi_CATEGORY = New DevExpress.XtraEditors.LabelControl()
+        Me.lblAi_AA = New DevExpress.XtraEditors.LabelControl()
+        Me.lblAi_IA = New DevExpress.XtraEditors.LabelControl()
         Me.pnlControlTransfer = New DevExpress.XtraEditors.PanelControl()
         Me.txtTransferVal = New DevExpress.XtraEditors.TextEdit()
         Me.txtTransferorName = New DevExpress.XtraEditors.TextEdit()
@@ -76,26 +83,7 @@ Partial Class frmCA_Add3
         Me.LabelControl17 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl8 = New DevExpress.XtraEditors.LabelControl()
-        Me.txtCategory = New DevExpress.XtraEditors.TextEdit()
         Me.cboAA = New DevExpress.XtraEditors.ComboBoxEdit()
-        Me.txtDescription = New DevExpress.XtraEditors.MemoEdit()
-        Me.dtDateofPurchase = New DevExpress.XtraEditors.DateEdit()
-        Me.cboCategory = New DevExpress.XtraEditors.LookUpEdit()
-        Me.CategoryBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.LabelControl25 = New DevExpress.XtraEditors.LabelControl()
-        Me.txtRestrictedQua = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl15 = New DevExpress.XtraEditors.LabelControl()
-        Me.txtDeposit = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl14 = New DevExpress.XtraEditors.LabelControl()
-        Me.txtPurchaseAmountFA = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl13 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl12 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
-        Me.txtAssetID = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl10 = New DevExpress.XtraEditors.LabelControl()
-        Me.txtAsset = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl9 = New DevExpress.XtraEditors.LabelControl()
-        Me.lblTitle_FA = New DevExpress.XtraEditors.LabelControl()
         Me.chkDeductAdjustIncome = New DevExpress.XtraEditors.CheckEdit()
         Me.chkDeferred = New DevExpress.XtraEditors.CheckEdit()
         Me.chkControlTransfer = New DevExpress.XtraEditors.CheckEdit()
@@ -116,6 +104,41 @@ Partial Class frmCA_Add3
         Me.txtIA = New DevExpress.XtraEditors.TextEdit()
         Me.lblTitle_CA = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl16 = New DevExpress.XtraEditors.LabelControl()
+        Me.lblTitle_FA = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl9 = New DevExpress.XtraEditors.LabelControl()
+        Me.txtCategory = New DevExpress.XtraEditors.TextEdit()
+        Me.txtAsset = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl10 = New DevExpress.XtraEditors.LabelControl()
+        Me.txtDescription = New DevExpress.XtraEditors.MemoEdit()
+        Me.txtAssetID = New DevExpress.XtraEditors.TextEdit()
+        Me.dtDateofPurchase = New DevExpress.XtraEditors.DateEdit()
+        Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
+        Me.cboCategory = New DevExpress.XtraEditors.LookUpEdit()
+        Me.CategoryBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.LabelControl12 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl25 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl13 = New DevExpress.XtraEditors.LabelControl()
+        Me.txtRestrictedQua = New DevExpress.XtraEditors.TextEdit()
+        Me.txtPurchaseAmountFA = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl15 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl14 = New DevExpress.XtraEditors.LabelControl()
+        Me.txtDeposit = New DevExpress.XtraEditors.TextEdit()
+        Me.XtraTabPage2 = New DevExpress.XtraTab.XtraTabPage()
+        Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
+        Me.CACALCULATIONBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colYA = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colQC_BF = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colQC_ADD = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colQC_DISP = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colQC_CF = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTWDV_BF = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTWDV_ADD = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTWDV_DISP = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTWDV_TOTAL = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTWDV_AI = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTWDV_AA = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTWDV_CF = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemSpinEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -138,23 +161,15 @@ Partial Class frmCA_Add3
         CType(Me.chkCAEEO.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pnlMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlMain.SuspendLayout()
+        CType(Me.XtraTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.XtraTabControl1.SuspendLayout()
+        Me.XtraTabPage1.SuspendLayout()
         CType(Me.pnlControlTransfer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlControlTransfer.SuspendLayout()
         CType(Me.txtTransferVal.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTransferorName.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTaxFileNumber.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboAA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtDescription.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dtDateofPurchase.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dtDateofPurchase.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.CategoryBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtRestrictedQua.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtDeposit.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtPurchaseAmountFA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtAssetID.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtAsset.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkDeductAdjustIncome.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkDeferred.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkControlTransfer.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -166,6 +181,21 @@ Partial Class frmCA_Add3
         CType(Me.txtPurchaseAmount.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboIncentive.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtIA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtAsset.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtDescription.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtAssetID.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtDateofPurchase.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtDateofPurchase.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.CategoryBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtRestrictedQua.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtPurchaseAmountFA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtDeposit.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.XtraTabPage2.SuspendLayout()
+        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.CACALCULATIONBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -178,8 +208,8 @@ Partial Class frmCA_Add3
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose, Me.btnDuplicate, Me.txtDuplicateNo, Me.btnNote})
-        Me.BarManager1.MaxItemId = 10
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose, Me.btnDuplicate, Me.txtDuplicateNo, Me.btnNote, Me.lblLastmodified})
+        Me.BarManager1.MaxItemId = 11
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemSpinEdit1})
         '
         'Bar1
@@ -188,7 +218,7 @@ Partial Class frmCA_Add3
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDuplicate), New DevExpress.XtraBars.LinkPersistInfo(Me.txtDuplicateNo)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDuplicate), New DevExpress.XtraBars.LinkPersistInfo(Me.txtDuplicateNo), New DevExpress.XtraBars.LinkPersistInfo(Me.lblLastmodified)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None
         Me.Bar1.OptionsBar.DisableClose = True
@@ -252,6 +282,11 @@ Partial Class frmCA_Add3
         Me.RepositoryItemSpinEdit1.NullText = "1"
         Me.RepositoryItemSpinEdit1.NullValuePrompt = "1"
         '
+        'lblLastmodified
+        '
+        Me.lblLastmodified.Id = 10
+        Me.lblLastmodified.Name = "lblLastmodified"
+        '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
@@ -264,7 +299,7 @@ Partial Class frmCA_Add3
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 617)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 645)
         Me.barDockControlBottom.Manager = Me.BarManager1
         Me.barDockControlBottom.Size = New System.Drawing.Size(1132, 0)
         '
@@ -274,7 +309,7 @@ Partial Class frmCA_Add3
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
         Me.barDockControlLeft.Manager = Me.BarManager1
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 586)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 614)
         '
         'barDockControlRight
         '
@@ -282,7 +317,7 @@ Partial Class frmCA_Add3
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(1132, 31)
         Me.barDockControlRight.Manager = Me.BarManager1
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 586)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 614)
         '
         'RepositoryItemTextEdit1
         '
@@ -598,65 +633,120 @@ Partial Class frmCA_Add3
         '
         'pnlMain
         '
-        Me.pnlMain.Controls.Add(Me.pnlControlTransfer)
-        Me.pnlMain.Controls.Add(Me.txtCategory)
-        Me.pnlMain.Controls.Add(Me.cboAA)
-        Me.pnlMain.Controls.Add(Me.txtDescription)
-        Me.pnlMain.Controls.Add(Me.dtDateofPurchase)
-        Me.pnlMain.Controls.Add(Me.cboCategory)
-        Me.pnlMain.Controls.Add(Me.LabelControl25)
-        Me.pnlMain.Controls.Add(Me.txtRestrictedQua)
-        Me.pnlMain.Controls.Add(Me.LabelControl15)
-        Me.pnlMain.Controls.Add(Me.txtDeposit)
-        Me.pnlMain.Controls.Add(Me.LabelControl14)
-        Me.pnlMain.Controls.Add(Me.txtPurchaseAmountFA)
-        Me.pnlMain.Controls.Add(Me.LabelControl13)
-        Me.pnlMain.Controls.Add(Me.LabelControl12)
-        Me.pnlMain.Controls.Add(Me.LabelControl11)
-        Me.pnlMain.Controls.Add(Me.txtAssetID)
-        Me.pnlMain.Controls.Add(Me.LabelControl10)
-        Me.pnlMain.Controls.Add(Me.txtAsset)
-        Me.pnlMain.Controls.Add(Me.LabelControl9)
-        Me.pnlMain.Controls.Add(Me.lblTitle_FA)
-        Me.pnlMain.Controls.Add(Me.chkDeductAdjustIncome)
-        Me.pnlMain.Controls.Add(Me.chkDeferred)
-        Me.pnlMain.Controls.Add(Me.chkControlTransfer)
-        Me.pnlMain.Controls.Add(Me.chkAccelerated)
-        Me.pnlMain.Controls.Add(Me.txtTWDV)
-        Me.pnlMain.Controls.Add(Me.LabelControl24)
-        Me.pnlMain.Controls.Add(Me.txtRemainingQualifyingCost)
-        Me.pnlMain.Controls.Add(Me.LabelControl23)
-        Me.pnlMain.Controls.Add(Me.txtNonQualifyingCost)
-        Me.pnlMain.Controls.Add(Me.LabelControl22)
-        Me.pnlMain.Controls.Add(Me.txtQualifyingCost)
-        Me.pnlMain.Controls.Add(Me.LabelControl21)
-        Me.pnlMain.Controls.Add(Me.txtPurchaseAmount)
-        Me.pnlMain.Controls.Add(Me.LabelControl20)
-        Me.pnlMain.Controls.Add(Me.LabelControl19)
-        Me.pnlMain.Controls.Add(Me.cboIncentive)
-        Me.pnlMain.Controls.Add(Me.LabelControl18)
-        Me.pnlMain.Controls.Add(Me.txtIA)
-        Me.pnlMain.Controls.Add(Me.lblTitle_CA)
-        Me.pnlMain.Controls.Add(Me.LabelControl16)
+        Me.pnlMain.Controls.Add(Me.XtraTabControl1)
         Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlMain.Enabled = False
         Me.pnlMain.Location = New System.Drawing.Point(0, 197)
         Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Size = New System.Drawing.Size(1132, 420)
+        Me.pnlMain.Size = New System.Drawing.Size(1132, 448)
         Me.pnlMain.TabIndex = 1
+        '
+        'XtraTabControl1
+        '
+        Me.XtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.XtraTabControl1.Location = New System.Drawing.Point(2, 2)
+        Me.XtraTabControl1.Name = "XtraTabControl1"
+        Me.XtraTabControl1.SelectedTabPage = Me.XtraTabPage1
+        Me.XtraTabControl1.Size = New System.Drawing.Size(1128, 444)
+        Me.XtraTabControl1.TabIndex = 245
+        Me.XtraTabControl1.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage1, Me.XtraTabPage2})
+        '
+        'XtraTabPage1
+        '
+        Me.XtraTabPage1.Controls.Add(Me.lblAi)
+        Me.XtraTabPage1.Controls.Add(Me.lblAi_CATEGORY)
+        Me.XtraTabPage1.Controls.Add(Me.lblAi_AA)
+        Me.XtraTabPage1.Controls.Add(Me.lblAi_IA)
+        Me.XtraTabPage1.Controls.Add(Me.pnlControlTransfer)
+        Me.XtraTabPage1.Controls.Add(Me.cboAA)
+        Me.XtraTabPage1.Controls.Add(Me.chkDeductAdjustIncome)
+        Me.XtraTabPage1.Controls.Add(Me.chkDeferred)
+        Me.XtraTabPage1.Controls.Add(Me.chkControlTransfer)
+        Me.XtraTabPage1.Controls.Add(Me.chkAccelerated)
+        Me.XtraTabPage1.Controls.Add(Me.txtTWDV)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl24)
+        Me.XtraTabPage1.Controls.Add(Me.txtRemainingQualifyingCost)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl23)
+        Me.XtraTabPage1.Controls.Add(Me.txtNonQualifyingCost)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl22)
+        Me.XtraTabPage1.Controls.Add(Me.txtQualifyingCost)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl21)
+        Me.XtraTabPage1.Controls.Add(Me.txtPurchaseAmount)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl20)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl19)
+        Me.XtraTabPage1.Controls.Add(Me.cboIncentive)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl18)
+        Me.XtraTabPage1.Controls.Add(Me.txtIA)
+        Me.XtraTabPage1.Controls.Add(Me.lblTitle_CA)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl16)
+        Me.XtraTabPage1.Controls.Add(Me.lblTitle_FA)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl9)
+        Me.XtraTabPage1.Controls.Add(Me.txtCategory)
+        Me.XtraTabPage1.Controls.Add(Me.txtAsset)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl10)
+        Me.XtraTabPage1.Controls.Add(Me.txtDescription)
+        Me.XtraTabPage1.Controls.Add(Me.txtAssetID)
+        Me.XtraTabPage1.Controls.Add(Me.dtDateofPurchase)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl11)
+        Me.XtraTabPage1.Controls.Add(Me.cboCategory)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl12)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl25)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl13)
+        Me.XtraTabPage1.Controls.Add(Me.txtRestrictedQua)
+        Me.XtraTabPage1.Controls.Add(Me.txtPurchaseAmountFA)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl15)
+        Me.XtraTabPage1.Controls.Add(Me.LabelControl14)
+        Me.XtraTabPage1.Controls.Add(Me.txtDeposit)
+        Me.XtraTabPage1.Name = "XtraTabPage1"
+        Me.XtraTabPage1.Size = New System.Drawing.Size(1122, 416)
+        Me.XtraTabPage1.Text = "CA"
+        '
+        'lblAi
+        '
+        Me.lblAi.Location = New System.Drawing.Point(9, 337)
+        Me.lblAi.Name = "lblAi"
+        Me.lblAi.Size = New System.Drawing.Size(6, 13)
+        Me.lblAi.TabIndex = 270
+        Me.lblAi.Text = "x"
+        '
+        'lblAi_CATEGORY
+        '
+        Me.lblAi_CATEGORY.Location = New System.Drawing.Point(9, 394)
+        Me.lblAi_CATEGORY.Name = "lblAi_CATEGORY"
+        Me.lblAi_CATEGORY.Size = New System.Drawing.Size(6, 13)
+        Me.lblAi_CATEGORY.TabIndex = 269
+        Me.lblAi_CATEGORY.Text = "x"
+        '
+        'lblAi_AA
+        '
+        Me.lblAi_AA.Location = New System.Drawing.Point(9, 375)
+        Me.lblAi_AA.Name = "lblAi_AA"
+        Me.lblAi_AA.Size = New System.Drawing.Size(6, 13)
+        Me.lblAi_AA.TabIndex = 268
+        Me.lblAi_AA.Text = "x"
+        '
+        'lblAi_IA
+        '
+        Me.lblAi_IA.Location = New System.Drawing.Point(9, 356)
+        Me.lblAi_IA.Name = "lblAi_IA"
+        Me.lblAi_IA.Size = New System.Drawing.Size(6, 13)
+        Me.lblAi_IA.TabIndex = 267
+        Me.lblAi_IA.Text = "x"
         '
         'pnlControlTransfer
         '
+        Me.pnlControlTransfer.Appearance.BackColor = System.Drawing.Color.Transparent
+        Me.pnlControlTransfer.Appearance.Options.UseBackColor = True
         Me.pnlControlTransfer.Controls.Add(Me.txtTransferVal)
         Me.pnlControlTransfer.Controls.Add(Me.txtTransferorName)
         Me.pnlControlTransfer.Controls.Add(Me.txtTaxFileNumber)
         Me.pnlControlTransfer.Controls.Add(Me.LabelControl17)
         Me.pnlControlTransfer.Controls.Add(Me.LabelControl7)
         Me.pnlControlTransfer.Controls.Add(Me.LabelControl8)
-        Me.pnlControlTransfer.Location = New System.Drawing.Point(575, 308)
+        Me.pnlControlTransfer.Location = New System.Drawing.Point(565, 301)
         Me.pnlControlTransfer.Name = "pnlControlTransfer"
         Me.pnlControlTransfer.Size = New System.Drawing.Size(545, 100)
-        Me.pnlControlTransfer.TabIndex = 244
+        Me.pnlControlTransfer.TabIndex = 266
         Me.pnlControlTransfer.Visible = False
         '
         'txtTransferVal
@@ -704,36 +794,283 @@ Partial Class frmCA_Add3
         Me.LabelControl8.TabIndex = 226
         Me.LabelControl8.Text = "Tax File Number :"
         '
-        'txtCategory
-        '
-        Me.txtCategory.Location = New System.Drawing.Point(357, 127)
-        Me.txtCategory.Name = "txtCategory"
-        Me.txtCategory.Properties.ReadOnly = True
-        Me.txtCategory.Size = New System.Drawing.Size(187, 20)
-        Me.txtCategory.TabIndex = 243
-        '
         'cboAA
         '
-        Me.cboAA.Location = New System.Drawing.Point(733, 101)
+        Me.cboAA.Location = New System.Drawing.Point(723, 94)
         Me.cboAA.Name = "cboAA"
         Me.cboAA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboAA.Properties.Items.AddRange(New Object() {"0", "2", "3", "8", "10", "12", "14", "16", "20", "40", "50", "60", "80", "90", "100"})
         Me.cboAA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         Me.cboAA.Size = New System.Drawing.Size(211, 20)
-        Me.cboAA.TabIndex = 9
+        Me.cboAA.TabIndex = 246
+        '
+        'chkDeductAdjustIncome
+        '
+        Me.chkDeductAdjustIncome.Location = New System.Drawing.Point(949, 199)
+        Me.chkDeductAdjustIncome.Name = "chkDeductAdjustIncome"
+        Me.chkDeductAdjustIncome.Properties.AutoHeight = False
+        Me.chkDeductAdjustIncome.Properties.Caption = "Deduct from Adjusted Income"
+        Me.chkDeductAdjustIncome.Size = New System.Drawing.Size(165, 19)
+        Me.chkDeductAdjustIncome.TabIndex = 256
+        '
+        'chkDeferred
+        '
+        Me.chkDeferred.Location = New System.Drawing.Point(949, 147)
+        Me.chkDeferred.Name = "chkDeferred"
+        Me.chkDeferred.Properties.Caption = "Deferred Claim"
+        Me.chkDeferred.Size = New System.Drawing.Size(137, 19)
+        Me.chkDeferred.TabIndex = 254
+        Me.chkDeferred.Visible = False
+        '
+        'chkControlTransfer
+        '
+        Me.chkControlTransfer.Location = New System.Drawing.Point(949, 172)
+        Me.chkControlTransfer.Name = "chkControlTransfer"
+        Me.chkControlTransfer.Properties.Caption = "Control Transfer"
+        Me.chkControlTransfer.Size = New System.Drawing.Size(121, 19)
+        Me.chkControlTransfer.TabIndex = 255
+        '
+        'chkAccelerated
+        '
+        Me.chkAccelerated.Location = New System.Drawing.Point(565, 276)
+        Me.chkAccelerated.Name = "chkAccelerated"
+        Me.chkAccelerated.Properties.Caption = "Accelerated Capital Allowance"
+        Me.chkAccelerated.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far
+        Me.chkAccelerated.Size = New System.Drawing.Size(175, 19)
+        Me.chkAccelerated.TabIndex = 253
+        '
+        'txtTWDV
+        '
+        Me.txtTWDV.Location = New System.Drawing.Point(723, 250)
+        Me.txtTWDV.Name = "txtTWDV"
+        Me.txtTWDV.Properties.DisplayFormat.FormatString = "n0"
+        Me.txtTWDV.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtTWDV.Properties.Mask.EditMask = "n0"
+        Me.txtTWDV.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtTWDV.Properties.NullText = "0"
+        Me.txtTWDV.Properties.NullValuePrompt = "0"
+        Me.txtTWDV.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.txtTWDV.Size = New System.Drawing.Size(211, 20)
+        Me.txtTWDV.TabIndex = 252
+        '
+        'LabelControl24
+        '
+        Me.LabelControl24.Location = New System.Drawing.Point(565, 253)
+        Me.LabelControl24.Name = "LabelControl24"
+        Me.LabelControl24.Size = New System.Drawing.Size(36, 13)
+        Me.LabelControl24.TabIndex = 265
+        Me.LabelControl24.Text = "TWDV :"
+        '
+        'txtRemainingQualifyingCost
+        '
+        Me.txtRemainingQualifyingCost.Location = New System.Drawing.Point(723, 224)
+        Me.txtRemainingQualifyingCost.Name = "txtRemainingQualifyingCost"
+        Me.txtRemainingQualifyingCost.Properties.DisplayFormat.FormatString = "n0"
+        Me.txtRemainingQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtRemainingQualifyingCost.Properties.Mask.EditMask = "n0"
+        Me.txtRemainingQualifyingCost.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtRemainingQualifyingCost.Properties.NullText = "0"
+        Me.txtRemainingQualifyingCost.Properties.NullValuePrompt = "0"
+        Me.txtRemainingQualifyingCost.Properties.ReadOnly = True
+        Me.txtRemainingQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.txtRemainingQualifyingCost.Size = New System.Drawing.Size(211, 20)
+        Me.txtRemainingQualifyingCost.TabIndex = 251
+        '
+        'LabelControl23
+        '
+        Me.LabelControl23.Location = New System.Drawing.Point(565, 227)
+        Me.LabelControl23.Name = "LabelControl23"
+        Me.LabelControl23.Size = New System.Drawing.Size(158, 13)
+        Me.LabelControl23.TabIndex = 264
+        Me.LabelControl23.Text = "Remaining Qualifying Cost (RM) :"
+        '
+        'txtNonQualifyingCost
+        '
+        Me.txtNonQualifyingCost.Location = New System.Drawing.Point(723, 198)
+        Me.txtNonQualifyingCost.Name = "txtNonQualifyingCost"
+        Me.txtNonQualifyingCost.Properties.DisplayFormat.FormatString = "n0"
+        Me.txtNonQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtNonQualifyingCost.Properties.Mask.EditMask = "n0"
+        Me.txtNonQualifyingCost.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtNonQualifyingCost.Properties.NullText = "0"
+        Me.txtNonQualifyingCost.Properties.NullValuePrompt = "0"
+        Me.txtNonQualifyingCost.Properties.ReadOnly = True
+        Me.txtNonQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.txtNonQualifyingCost.Size = New System.Drawing.Size(211, 20)
+        Me.txtNonQualifyingCost.TabIndex = 250
+        '
+        'LabelControl22
+        '
+        Me.LabelControl22.Location = New System.Drawing.Point(565, 201)
+        Me.LabelControl22.Name = "LabelControl22"
+        Me.LabelControl22.Size = New System.Drawing.Size(128, 13)
+        Me.LabelControl22.TabIndex = 263
+        Me.LabelControl22.Text = "Non Qualifying Cost (RM) :"
+        '
+        'txtQualifyingCost
+        '
+        Me.txtQualifyingCost.Location = New System.Drawing.Point(723, 172)
+        Me.txtQualifyingCost.Name = "txtQualifyingCost"
+        Me.txtQualifyingCost.Properties.DisplayFormat.FormatString = "n0"
+        Me.txtQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtQualifyingCost.Properties.Mask.EditMask = "n0"
+        Me.txtQualifyingCost.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtQualifyingCost.Properties.NullText = "0"
+        Me.txtQualifyingCost.Properties.NullValuePrompt = "0"
+        Me.txtQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.txtQualifyingCost.Size = New System.Drawing.Size(211, 20)
+        Me.txtQualifyingCost.TabIndex = 249
+        '
+        'LabelControl21
+        '
+        Me.LabelControl21.Location = New System.Drawing.Point(565, 175)
+        Me.LabelControl21.Name = "LabelControl21"
+        Me.LabelControl21.Size = New System.Drawing.Size(106, 13)
+        Me.LabelControl21.TabIndex = 262
+        Me.LabelControl21.Text = "Qualifying Cost (RM) :"
+        '
+        'txtPurchaseAmount
+        '
+        Me.txtPurchaseAmount.Location = New System.Drawing.Point(723, 146)
+        Me.txtPurchaseAmount.Name = "txtPurchaseAmount"
+        Me.txtPurchaseAmount.Properties.DisplayFormat.FormatString = "n0"
+        Me.txtPurchaseAmount.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtPurchaseAmount.Properties.Mask.EditMask = "n0"
+        Me.txtPurchaseAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtPurchaseAmount.Properties.NullText = "0"
+        Me.txtPurchaseAmount.Properties.NullValuePrompt = "0"
+        Me.txtPurchaseAmount.Properties.ReadOnly = True
+        Me.txtPurchaseAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.txtPurchaseAmount.Size = New System.Drawing.Size(211, 20)
+        Me.txtPurchaseAmount.TabIndex = 248
+        '
+        'LabelControl20
+        '
+        Me.LabelControl20.Location = New System.Drawing.Point(565, 149)
+        Me.LabelControl20.Name = "LabelControl20"
+        Me.LabelControl20.Size = New System.Drawing.Size(117, 13)
+        Me.LabelControl20.TabIndex = 261
+        Me.LabelControl20.Text = "Purchase Amount (RM) :"
+        '
+        'LabelControl19
+        '
+        Me.LabelControl19.Location = New System.Drawing.Point(565, 123)
+        Me.LabelControl19.Name = "LabelControl19"
+        Me.LabelControl19.Size = New System.Drawing.Size(52, 13)
+        Me.LabelControl19.TabIndex = 260
+        Me.LabelControl19.Text = "Incentive :"
+        '
+        'cboIncentive
+        '
+        Me.cboIncentive.Location = New System.Drawing.Point(723, 120)
+        Me.cboIncentive.Name = "cboIncentive"
+        Me.cboIncentive.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboIncentive.Properties.Items.AddRange(New Object() {"", "RA", "ITA"})
+        Me.cboIncentive.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        Me.cboIncentive.Size = New System.Drawing.Size(211, 20)
+        Me.cboIncentive.TabIndex = 247
+        '
+        'LabelControl18
+        '
+        Me.LabelControl18.Location = New System.Drawing.Point(565, 97)
+        Me.LabelControl18.Name = "LabelControl18"
+        Me.LabelControl18.Size = New System.Drawing.Size(69, 13)
+        Me.LabelControl18.TabIndex = 259
+        Me.LabelControl18.Text = "AA Rate (%) :"
+        '
+        'txtIA
+        '
+        Me.txtIA.Location = New System.Drawing.Point(723, 68)
+        Me.txtIA.Name = "txtIA"
+        Me.txtIA.Properties.DisplayFormat.FormatString = "f0"
+        Me.txtIA.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtIA.Properties.EditFormat.FormatString = "f0"
+        Me.txtIA.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtIA.Properties.Mask.EditMask = "f0"
+        Me.txtIA.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtIA.Properties.NullText = "0"
+        Me.txtIA.Properties.NullValuePrompt = "0"
+        Me.txtIA.Size = New System.Drawing.Size(211, 20)
+        Me.txtIA.TabIndex = 245
+        '
+        'lblTitle_CA
+        '
+        Me.lblTitle_CA.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTitle_CA.Appearance.Options.UseFont = True
+        Me.lblTitle_CA.Location = New System.Drawing.Point(565, 10)
+        Me.lblTitle_CA.Name = "lblTitle_CA"
+        Me.lblTitle_CA.Size = New System.Drawing.Size(337, 19)
+        Me.lblTitle_CA.TabIndex = 258
+        Me.lblTitle_CA.Text = "Capital Allowance Information (Addition)"
+        '
+        'LabelControl16
+        '
+        Me.LabelControl16.Location = New System.Drawing.Point(565, 71)
+        Me.LabelControl16.Name = "LabelControl16"
+        Me.LabelControl16.Size = New System.Drawing.Size(66, 13)
+        Me.LabelControl16.TabIndex = 257
+        Me.LabelControl16.Text = "IA Rate (%) :"
+        '
+        'lblTitle_FA
+        '
+        Me.lblTitle_FA.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTitle_FA.Appearance.Options.UseFont = True
+        Me.lblTitle_FA.Location = New System.Drawing.Point(14, 10)
+        Me.lblTitle_FA.Name = "lblTitle_FA"
+        Me.lblTitle_FA.Size = New System.Drawing.Size(284, 19)
+        Me.lblTitle_FA.TabIndex = 229
+        Me.lblTitle_FA.Text = "Fixed Asset Information (Addition)"
+        '
+        'LabelControl9
+        '
+        Me.LabelControl9.Location = New System.Drawing.Point(14, 71)
+        Me.LabelControl9.Name = "LabelControl9"
+        Me.LabelControl9.Size = New System.Drawing.Size(90, 13)
+        Me.LabelControl9.TabIndex = 230
+        Me.LabelControl9.Text = "Asset Description :"
+        '
+        'txtCategory
+        '
+        Me.txtCategory.Location = New System.Drawing.Point(362, 120)
+        Me.txtCategory.Name = "txtCategory"
+        Me.txtCategory.Properties.ReadOnly = True
+        Me.txtCategory.Size = New System.Drawing.Size(187, 20)
+        Me.txtCategory.TabIndex = 243
+        '
+        'txtAsset
+        '
+        Me.txtAsset.Location = New System.Drawing.Point(153, 68)
+        Me.txtAsset.Name = "txtAsset"
+        Me.txtAsset.Size = New System.Drawing.Size(396, 20)
+        Me.txtAsset.TabIndex = 0
+        '
+        'LabelControl10
+        '
+        Me.LabelControl10.Location = New System.Drawing.Point(14, 97)
+        Me.LabelControl10.Name = "LabelControl10"
+        Me.LabelControl10.Size = New System.Drawing.Size(95, 13)
+        Me.LabelControl10.TabIndex = 232
+        Me.LabelControl10.Text = "Asset ID/ Stock ID :"
         '
         'txtDescription
         '
-        Me.txtDescription.Location = New System.Drawing.Point(148, 258)
+        Me.txtDescription.Location = New System.Drawing.Point(153, 251)
         Me.txtDescription.MenuManager = Me.BarManager1
         Me.txtDescription.Name = "txtDescription"
         Me.txtDescription.Size = New System.Drawing.Size(396, 77)
         Me.txtDescription.TabIndex = 7
         '
+        'txtAssetID
+        '
+        Me.txtAssetID.Location = New System.Drawing.Point(153, 94)
+        Me.txtAssetID.Name = "txtAssetID"
+        Me.txtAssetID.Size = New System.Drawing.Size(203, 20)
+        Me.txtAssetID.TabIndex = 1
+        '
         'dtDateofPurchase
         '
         Me.dtDateofPurchase.EditValue = Nothing
-        Me.dtDateofPurchase.Location = New System.Drawing.Point(148, 153)
+        Me.dtDateofPurchase.Location = New System.Drawing.Point(153, 146)
         Me.dtDateofPurchase.MenuManager = Me.BarManager1
         Me.dtDateofPurchase.Name = "dtDateofPurchase"
         Me.dtDateofPurchase.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
@@ -741,9 +1078,17 @@ Partial Class frmCA_Add3
         Me.dtDateofPurchase.Size = New System.Drawing.Size(203, 20)
         Me.dtDateofPurchase.TabIndex = 3
         '
+        'LabelControl11
+        '
+        Me.LabelControl11.Location = New System.Drawing.Point(14, 123)
+        Me.LabelControl11.Name = "LabelControl11"
+        Me.LabelControl11.Size = New System.Drawing.Size(80, 13)
+        Me.LabelControl11.TabIndex = 234
+        Me.LabelControl11.Text = "Category Code :"
+        '
         'cboCategory
         '
-        Me.cboCategory.Location = New System.Drawing.Point(148, 127)
+        Me.cboCategory.Location = New System.Drawing.Point(153, 120)
         Me.cboCategory.MenuManager = Me.BarManager1
         Me.cboCategory.Name = "cboCategory"
         Me.cboCategory.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
@@ -758,17 +1103,33 @@ Partial Class frmCA_Add3
         Me.CategoryBindingSource.DataMember = "Category"
         Me.CategoryBindingSource.DataSource = Me.DsCA
         '
+        'LabelControl12
+        '
+        Me.LabelControl12.Location = New System.Drawing.Point(14, 150)
+        Me.LabelControl12.Name = "LabelControl12"
+        Me.LabelControl12.Size = New System.Drawing.Size(90, 13)
+        Me.LabelControl12.TabIndex = 235
+        Me.LabelControl12.Text = "Date of Purchase :"
+        '
         'LabelControl25
         '
-        Me.LabelControl25.Location = New System.Drawing.Point(9, 261)
+        Me.LabelControl25.Location = New System.Drawing.Point(14, 254)
         Me.LabelControl25.Name = "LabelControl25"
         Me.LabelControl25.Size = New System.Drawing.Size(87, 13)
         Me.LabelControl25.TabIndex = 242
         Me.LabelControl25.Text = "Description/Note :"
         '
+        'LabelControl13
+        '
+        Me.LabelControl13.Location = New System.Drawing.Point(14, 176)
+        Me.LabelControl13.Name = "LabelControl13"
+        Me.LabelControl13.Size = New System.Drawing.Size(117, 13)
+        Me.LabelControl13.TabIndex = 236
+        Me.LabelControl13.Text = "Purchase Amount (RM) :"
+        '
         'txtRestrictedQua
         '
-        Me.txtRestrictedQua.Location = New System.Drawing.Point(148, 232)
+        Me.txtRestrictedQua.Location = New System.Drawing.Point(153, 225)
         Me.txtRestrictedQua.Name = "txtRestrictedQua"
         Me.txtRestrictedQua.Properties.DisplayFormat.FormatString = "n0"
         Me.txtRestrictedQua.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -780,39 +1141,9 @@ Partial Class frmCA_Add3
         Me.txtRestrictedQua.Size = New System.Drawing.Size(203, 20)
         Me.txtRestrictedQua.TabIndex = 6
         '
-        'LabelControl15
-        '
-        Me.LabelControl15.Location = New System.Drawing.Point(9, 235)
-        Me.LabelControl15.Name = "LabelControl15"
-        Me.LabelControl15.Size = New System.Drawing.Size(132, 13)
-        Me.LabelControl15.TabIndex = 240
-        Me.LabelControl15.Text = "Restricted Qualifying Cost :"
-        '
-        'txtDeposit
-        '
-        Me.txtDeposit.Location = New System.Drawing.Point(148, 206)
-        Me.txtDeposit.Name = "txtDeposit"
-        Me.txtDeposit.Properties.DisplayFormat.FormatString = "n0"
-        Me.txtDeposit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtDeposit.Properties.Mask.EditMask = "n0"
-        Me.txtDeposit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtDeposit.Properties.NullText = "0"
-        Me.txtDeposit.Properties.NullValuePrompt = "0"
-        Me.txtDeposit.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtDeposit.Size = New System.Drawing.Size(203, 20)
-        Me.txtDeposit.TabIndex = 5
-        '
-        'LabelControl14
-        '
-        Me.LabelControl14.Location = New System.Drawing.Point(9, 209)
-        Me.LabelControl14.Name = "LabelControl14"
-        Me.LabelControl14.Size = New System.Drawing.Size(118, 13)
-        Me.LabelControl14.TabIndex = 238
-        Me.LabelControl14.Text = "Deposit/ Payment (RM) :"
-        '
         'txtPurchaseAmountFA
         '
-        Me.txtPurchaseAmountFA.Location = New System.Drawing.Point(148, 180)
+        Me.txtPurchaseAmountFA.Location = New System.Drawing.Point(153, 173)
         Me.txtPurchaseAmountFA.Name = "txtPurchaseAmountFA"
         Me.txtPurchaseAmountFA.Properties.DisplayFormat.FormatString = "n0"
         Me.txtPurchaseAmountFA.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -824,282 +1155,191 @@ Partial Class frmCA_Add3
         Me.txtPurchaseAmountFA.Size = New System.Drawing.Size(203, 20)
         Me.txtPurchaseAmountFA.TabIndex = 4
         '
-        'LabelControl13
+        'LabelControl15
         '
-        Me.LabelControl13.Location = New System.Drawing.Point(9, 183)
-        Me.LabelControl13.Name = "LabelControl13"
-        Me.LabelControl13.Size = New System.Drawing.Size(117, 13)
-        Me.LabelControl13.TabIndex = 236
-        Me.LabelControl13.Text = "Purchase Amount (RM) :"
+        Me.LabelControl15.Location = New System.Drawing.Point(14, 228)
+        Me.LabelControl15.Name = "LabelControl15"
+        Me.LabelControl15.Size = New System.Drawing.Size(132, 13)
+        Me.LabelControl15.TabIndex = 240
+        Me.LabelControl15.Text = "Restricted Qualifying Cost :"
         '
-        'LabelControl12
+        'LabelControl14
         '
-        Me.LabelControl12.Location = New System.Drawing.Point(9, 157)
-        Me.LabelControl12.Name = "LabelControl12"
-        Me.LabelControl12.Size = New System.Drawing.Size(90, 13)
-        Me.LabelControl12.TabIndex = 235
-        Me.LabelControl12.Text = "Date of Purchase :"
+        Me.LabelControl14.Location = New System.Drawing.Point(14, 202)
+        Me.LabelControl14.Name = "LabelControl14"
+        Me.LabelControl14.Size = New System.Drawing.Size(118, 13)
+        Me.LabelControl14.TabIndex = 238
+        Me.LabelControl14.Text = "Deposit/ Payment (RM) :"
         '
-        'LabelControl11
+        'txtDeposit
         '
-        Me.LabelControl11.Location = New System.Drawing.Point(9, 130)
-        Me.LabelControl11.Name = "LabelControl11"
-        Me.LabelControl11.Size = New System.Drawing.Size(80, 13)
-        Me.LabelControl11.TabIndex = 234
-        Me.LabelControl11.Text = "Category Code :"
+        Me.txtDeposit.Location = New System.Drawing.Point(153, 199)
+        Me.txtDeposit.Name = "txtDeposit"
+        Me.txtDeposit.Properties.DisplayFormat.FormatString = "n0"
+        Me.txtDeposit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtDeposit.Properties.Mask.EditMask = "n0"
+        Me.txtDeposit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtDeposit.Properties.NullText = "0"
+        Me.txtDeposit.Properties.NullValuePrompt = "0"
+        Me.txtDeposit.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.txtDeposit.Size = New System.Drawing.Size(203, 20)
+        Me.txtDeposit.TabIndex = 5
         '
-        'txtAssetID
+        'XtraTabPage2
         '
-        Me.txtAssetID.Location = New System.Drawing.Point(148, 101)
-        Me.txtAssetID.Name = "txtAssetID"
-        Me.txtAssetID.Size = New System.Drawing.Size(203, 20)
-        Me.txtAssetID.TabIndex = 1
+        Me.XtraTabPage2.Controls.Add(Me.GridControl1)
+        Me.XtraTabPage2.Name = "XtraTabPage2"
+        Me.XtraTabPage2.Size = New System.Drawing.Size(1122, 416)
+        Me.XtraTabPage2.Text = "Calculation"
         '
-        'LabelControl10
+        'GridControl1
         '
-        Me.LabelControl10.Location = New System.Drawing.Point(9, 104)
-        Me.LabelControl10.Name = "LabelControl10"
-        Me.LabelControl10.Size = New System.Drawing.Size(95, 13)
-        Me.LabelControl10.TabIndex = 232
-        Me.LabelControl10.Text = "Asset ID/ Stock ID :"
+        Me.GridControl1.DataSource = Me.CACALCULATIONBindingSource
+        Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GridControl1.Location = New System.Drawing.Point(0, 0)
+        Me.GridControl1.MainView = Me.GridView1
+        Me.GridControl1.MenuManager = Me.BarManager1
+        Me.GridControl1.Name = "GridControl1"
+        Me.GridControl1.Size = New System.Drawing.Size(1122, 416)
+        Me.GridControl1.TabIndex = 0
+        Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
-        'txtAsset
+        'CACALCULATIONBindingSource
         '
-        Me.txtAsset.Location = New System.Drawing.Point(148, 75)
-        Me.txtAsset.Name = "txtAsset"
-        Me.txtAsset.Size = New System.Drawing.Size(396, 20)
-        Me.txtAsset.TabIndex = 0
+        Me.CACALCULATIONBindingSource.DataMember = "CA_CALCULATION"
+        Me.CACALCULATIONBindingSource.DataSource = Me.DsCA
         '
-        'LabelControl9
+        'GridView1
         '
-        Me.LabelControl9.Location = New System.Drawing.Point(9, 78)
-        Me.LabelControl9.Name = "LabelControl9"
-        Me.LabelControl9.Size = New System.Drawing.Size(90, 13)
-        Me.LabelControl9.TabIndex = 230
-        Me.LabelControl9.Text = "Asset Description :"
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colYA, Me.colQC_BF, Me.colQC_ADD, Me.colQC_DISP, Me.colQC_CF, Me.colTWDV_BF, Me.colTWDV_ADD, Me.colTWDV_DISP, Me.colTWDV_TOTAL, Me.colTWDV_AI, Me.colTWDV_AA, Me.colTWDV_CF})
+        Me.GridView1.GridControl = Me.GridControl1
+        Me.GridView1.Name = "GridView1"
+        Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
+        Me.GridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.[False]
+        Me.GridView1.OptionsBehavior.Editable = False
         '
-        'lblTitle_FA
+        'colYA
         '
-        Me.lblTitle_FA.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTitle_FA.Appearance.Options.UseFont = True
-        Me.lblTitle_FA.Location = New System.Drawing.Point(9, 17)
-        Me.lblTitle_FA.Name = "lblTitle_FA"
-        Me.lblTitle_FA.Size = New System.Drawing.Size(284, 19)
-        Me.lblTitle_FA.TabIndex = 229
-        Me.lblTitle_FA.Text = "Fixed Asset Information (Addition)"
+        Me.colYA.FieldName = "YA"
+        Me.colYA.Name = "colYA"
+        Me.colYA.Visible = True
+        Me.colYA.VisibleIndex = 0
         '
-        'chkDeductAdjustIncome
+        'colQC_BF
         '
-        Me.chkDeductAdjustIncome.Location = New System.Drawing.Point(959, 206)
-        Me.chkDeductAdjustIncome.Name = "chkDeductAdjustIncome"
-        Me.chkDeductAdjustIncome.Properties.AutoHeight = False
-        Me.chkDeductAdjustIncome.Properties.Caption = "Deduct from Adjusted Income"
-        Me.chkDeductAdjustIncome.Size = New System.Drawing.Size(165, 19)
-        Me.chkDeductAdjustIncome.TabIndex = 19
+        Me.colQC_BF.Caption = "QC BF"
+        Me.colQC_BF.DisplayFormat.FormatString = "n0"
+        Me.colQC_BF.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.colQC_BF.FieldName = "QC_BF"
+        Me.colQC_BF.Name = "colQC_BF"
+        Me.colQC_BF.Visible = True
+        Me.colQC_BF.VisibleIndex = 1
         '
-        'chkDeferred
+        'colQC_ADD
         '
-        Me.chkDeferred.Location = New System.Drawing.Point(959, 154)
-        Me.chkDeferred.Name = "chkDeferred"
-        Me.chkDeferred.Properties.Caption = "Deferred Claim"
-        Me.chkDeferred.Size = New System.Drawing.Size(137, 19)
-        Me.chkDeferred.TabIndex = 17
-        Me.chkDeferred.Visible = False
+        Me.colQC_ADD.Caption = "QC ADD"
+        Me.colQC_ADD.DisplayFormat.FormatString = "n0"
+        Me.colQC_ADD.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.colQC_ADD.FieldName = "QC_ADD"
+        Me.colQC_ADD.Name = "colQC_ADD"
+        Me.colQC_ADD.Visible = True
+        Me.colQC_ADD.VisibleIndex = 2
         '
-        'chkControlTransfer
+        'colQC_DISP
         '
-        Me.chkControlTransfer.Location = New System.Drawing.Point(959, 179)
-        Me.chkControlTransfer.Name = "chkControlTransfer"
-        Me.chkControlTransfer.Properties.Caption = "Control Transfer"
-        Me.chkControlTransfer.Size = New System.Drawing.Size(121, 19)
-        Me.chkControlTransfer.TabIndex = 18
+        Me.colQC_DISP.Caption = "QC DISP"
+        Me.colQC_DISP.DisplayFormat.FormatString = "n0"
+        Me.colQC_DISP.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.colQC_DISP.FieldName = "QC_DISP"
+        Me.colQC_DISP.Name = "colQC_DISP"
+        Me.colQC_DISP.Visible = True
+        Me.colQC_DISP.VisibleIndex = 3
         '
-        'chkAccelerated
+        'colQC_CF
         '
-        Me.chkAccelerated.Location = New System.Drawing.Point(575, 283)
-        Me.chkAccelerated.Name = "chkAccelerated"
-        Me.chkAccelerated.Properties.Caption = "Accelerated Capital Allowance"
-        Me.chkAccelerated.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.chkAccelerated.Size = New System.Drawing.Size(175, 19)
-        Me.chkAccelerated.TabIndex = 16
+        Me.colQC_CF.Caption = "QC CF"
+        Me.colQC_CF.DisplayFormat.FormatString = "n0"
+        Me.colQC_CF.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.colQC_CF.FieldName = "QC_CF"
+        Me.colQC_CF.Name = "colQC_CF"
+        Me.colQC_CF.Visible = True
+        Me.colQC_CF.VisibleIndex = 4
         '
-        'txtTWDV
+        'colTWDV_BF
         '
-        Me.txtTWDV.Location = New System.Drawing.Point(733, 257)
-        Me.txtTWDV.Name = "txtTWDV"
-        Me.txtTWDV.Properties.DisplayFormat.FormatString = "n0"
-        Me.txtTWDV.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtTWDV.Properties.Mask.EditMask = "n0"
-        Me.txtTWDV.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtTWDV.Properties.NullText = "0"
-        Me.txtTWDV.Properties.NullValuePrompt = "0"
-        Me.txtTWDV.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtTWDV.Size = New System.Drawing.Size(211, 20)
-        Me.txtTWDV.TabIndex = 15
+        Me.colTWDV_BF.Caption = "TWDV BF"
+        Me.colTWDV_BF.DisplayFormat.FormatString = "n0"
+        Me.colTWDV_BF.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.colTWDV_BF.FieldName = "TWDV_BF"
+        Me.colTWDV_BF.Name = "colTWDV_BF"
+        Me.colTWDV_BF.Visible = True
+        Me.colTWDV_BF.VisibleIndex = 5
         '
-        'LabelControl24
+        'colTWDV_ADD
         '
-        Me.LabelControl24.Location = New System.Drawing.Point(575, 260)
-        Me.LabelControl24.Name = "LabelControl24"
-        Me.LabelControl24.Size = New System.Drawing.Size(36, 13)
-        Me.LabelControl24.TabIndex = 223
-        Me.LabelControl24.Text = "TWDV :"
+        Me.colTWDV_ADD.Caption = "TWDV ADD"
+        Me.colTWDV_ADD.DisplayFormat.FormatString = "n0"
+        Me.colTWDV_ADD.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.colTWDV_ADD.FieldName = "TWDV_ADD"
+        Me.colTWDV_ADD.Name = "colTWDV_ADD"
+        Me.colTWDV_ADD.Visible = True
+        Me.colTWDV_ADD.VisibleIndex = 6
         '
-        'txtRemainingQualifyingCost
+        'colTWDV_DISP
         '
-        Me.txtRemainingQualifyingCost.Location = New System.Drawing.Point(733, 231)
-        Me.txtRemainingQualifyingCost.Name = "txtRemainingQualifyingCost"
-        Me.txtRemainingQualifyingCost.Properties.DisplayFormat.FormatString = "n0"
-        Me.txtRemainingQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtRemainingQualifyingCost.Properties.Mask.EditMask = "n0"
-        Me.txtRemainingQualifyingCost.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtRemainingQualifyingCost.Properties.NullText = "0"
-        Me.txtRemainingQualifyingCost.Properties.NullValuePrompt = "0"
-        Me.txtRemainingQualifyingCost.Properties.ReadOnly = True
-        Me.txtRemainingQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtRemainingQualifyingCost.Size = New System.Drawing.Size(211, 20)
-        Me.txtRemainingQualifyingCost.TabIndex = 14
+        Me.colTWDV_DISP.Caption = "TWDV DISP"
+        Me.colTWDV_DISP.DisplayFormat.FormatString = "n0"
+        Me.colTWDV_DISP.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.colTWDV_DISP.FieldName = "TWDV_DISP"
+        Me.colTWDV_DISP.Name = "colTWDV_DISP"
+        Me.colTWDV_DISP.Visible = True
+        Me.colTWDV_DISP.VisibleIndex = 7
         '
-        'LabelControl23
+        'colTWDV_TOTAL
         '
-        Me.LabelControl23.Location = New System.Drawing.Point(575, 234)
-        Me.LabelControl23.Name = "LabelControl23"
-        Me.LabelControl23.Size = New System.Drawing.Size(158, 13)
-        Me.LabelControl23.TabIndex = 221
-        Me.LabelControl23.Text = "Remaining Qualifying Cost (RM) :"
+        Me.colTWDV_TOTAL.Caption = "TWDV TOTAL"
+        Me.colTWDV_TOTAL.DisplayFormat.FormatString = "n0"
+        Me.colTWDV_TOTAL.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.colTWDV_TOTAL.FieldName = "TWDV_TOTAL"
+        Me.colTWDV_TOTAL.Name = "colTWDV_TOTAL"
+        Me.colTWDV_TOTAL.Visible = True
+        Me.colTWDV_TOTAL.VisibleIndex = 8
         '
-        'txtNonQualifyingCost
+        'colTWDV_AI
         '
-        Me.txtNonQualifyingCost.Location = New System.Drawing.Point(733, 205)
-        Me.txtNonQualifyingCost.Name = "txtNonQualifyingCost"
-        Me.txtNonQualifyingCost.Properties.DisplayFormat.FormatString = "n0"
-        Me.txtNonQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtNonQualifyingCost.Properties.Mask.EditMask = "n0"
-        Me.txtNonQualifyingCost.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtNonQualifyingCost.Properties.NullText = "0"
-        Me.txtNonQualifyingCost.Properties.NullValuePrompt = "0"
-        Me.txtNonQualifyingCost.Properties.ReadOnly = True
-        Me.txtNonQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtNonQualifyingCost.Size = New System.Drawing.Size(211, 20)
-        Me.txtNonQualifyingCost.TabIndex = 13
+        Me.colTWDV_AI.Caption = "TWDV AI"
+        Me.colTWDV_AI.DisplayFormat.FormatString = "n0"
+        Me.colTWDV_AI.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.colTWDV_AI.FieldName = "TWDV_AI"
+        Me.colTWDV_AI.Name = "colTWDV_AI"
+        Me.colTWDV_AI.Visible = True
+        Me.colTWDV_AI.VisibleIndex = 9
         '
-        'LabelControl22
+        'colTWDV_AA
         '
-        Me.LabelControl22.Location = New System.Drawing.Point(575, 208)
-        Me.LabelControl22.Name = "LabelControl22"
-        Me.LabelControl22.Size = New System.Drawing.Size(128, 13)
-        Me.LabelControl22.TabIndex = 219
-        Me.LabelControl22.Text = "Non Qualifying Cost (RM) :"
+        Me.colTWDV_AA.Caption = "TWDV AA"
+        Me.colTWDV_AA.DisplayFormat.FormatString = "n0"
+        Me.colTWDV_AA.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.colTWDV_AA.FieldName = "TWDV_AA"
+        Me.colTWDV_AA.Name = "colTWDV_AA"
+        Me.colTWDV_AA.Visible = True
+        Me.colTWDV_AA.VisibleIndex = 10
         '
-        'txtQualifyingCost
+        'colTWDV_CF
         '
-        Me.txtQualifyingCost.Location = New System.Drawing.Point(733, 179)
-        Me.txtQualifyingCost.Name = "txtQualifyingCost"
-        Me.txtQualifyingCost.Properties.DisplayFormat.FormatString = "n0"
-        Me.txtQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtQualifyingCost.Properties.Mask.EditMask = "n0"
-        Me.txtQualifyingCost.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtQualifyingCost.Properties.NullText = "0"
-        Me.txtQualifyingCost.Properties.NullValuePrompt = "0"
-        Me.txtQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtQualifyingCost.Size = New System.Drawing.Size(211, 20)
-        Me.txtQualifyingCost.TabIndex = 12
-        '
-        'LabelControl21
-        '
-        Me.LabelControl21.Location = New System.Drawing.Point(575, 182)
-        Me.LabelControl21.Name = "LabelControl21"
-        Me.LabelControl21.Size = New System.Drawing.Size(106, 13)
-        Me.LabelControl21.TabIndex = 217
-        Me.LabelControl21.Text = "Qualifying Cost (RM) :"
-        '
-        'txtPurchaseAmount
-        '
-        Me.txtPurchaseAmount.Location = New System.Drawing.Point(733, 153)
-        Me.txtPurchaseAmount.Name = "txtPurchaseAmount"
-        Me.txtPurchaseAmount.Properties.DisplayFormat.FormatString = "n0"
-        Me.txtPurchaseAmount.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtPurchaseAmount.Properties.Mask.EditMask = "n0"
-        Me.txtPurchaseAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtPurchaseAmount.Properties.NullText = "0"
-        Me.txtPurchaseAmount.Properties.NullValuePrompt = "0"
-        Me.txtPurchaseAmount.Properties.ReadOnly = True
-        Me.txtPurchaseAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtPurchaseAmount.Size = New System.Drawing.Size(211, 20)
-        Me.txtPurchaseAmount.TabIndex = 11
-        '
-        'LabelControl20
-        '
-        Me.LabelControl20.Location = New System.Drawing.Point(575, 156)
-        Me.LabelControl20.Name = "LabelControl20"
-        Me.LabelControl20.Size = New System.Drawing.Size(117, 13)
-        Me.LabelControl20.TabIndex = 215
-        Me.LabelControl20.Text = "Purchase Amount (RM) :"
-        '
-        'LabelControl19
-        '
-        Me.LabelControl19.Location = New System.Drawing.Point(575, 130)
-        Me.LabelControl19.Name = "LabelControl19"
-        Me.LabelControl19.Size = New System.Drawing.Size(52, 13)
-        Me.LabelControl19.TabIndex = 214
-        Me.LabelControl19.Text = "Incentive :"
-        '
-        'cboIncentive
-        '
-        Me.cboIncentive.Location = New System.Drawing.Point(733, 127)
-        Me.cboIncentive.Name = "cboIncentive"
-        Me.cboIncentive.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboIncentive.Properties.Items.AddRange(New Object() {"", "RA", "ITA"})
-        Me.cboIncentive.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboIncentive.Size = New System.Drawing.Size(211, 20)
-        Me.cboIncentive.TabIndex = 10
-        '
-        'LabelControl18
-        '
-        Me.LabelControl18.Location = New System.Drawing.Point(575, 104)
-        Me.LabelControl18.Name = "LabelControl18"
-        Me.LabelControl18.Size = New System.Drawing.Size(69, 13)
-        Me.LabelControl18.TabIndex = 212
-        Me.LabelControl18.Text = "AA Rate (%) :"
-        '
-        'txtIA
-        '
-        Me.txtIA.Location = New System.Drawing.Point(733, 75)
-        Me.txtIA.Name = "txtIA"
-        Me.txtIA.Properties.DisplayFormat.FormatString = "f0"
-        Me.txtIA.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtIA.Properties.EditFormat.FormatString = "f0"
-        Me.txtIA.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtIA.Properties.Mask.EditMask = "f0"
-        Me.txtIA.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtIA.Properties.NullText = "0"
-        Me.txtIA.Properties.NullValuePrompt = "0"
-        Me.txtIA.Size = New System.Drawing.Size(211, 20)
-        Me.txtIA.TabIndex = 8
-        '
-        'lblTitle_CA
-        '
-        Me.lblTitle_CA.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTitle_CA.Appearance.Options.UseFont = True
-        Me.lblTitle_CA.Location = New System.Drawing.Point(575, 17)
-        Me.lblTitle_CA.Name = "lblTitle_CA"
-        Me.lblTitle_CA.Size = New System.Drawing.Size(337, 19)
-        Me.lblTitle_CA.TabIndex = 210
-        Me.lblTitle_CA.Text = "Capital Allowance Information (Addition)"
-        '
-        'LabelControl16
-        '
-        Me.LabelControl16.Location = New System.Drawing.Point(575, 78)
-        Me.LabelControl16.Name = "LabelControl16"
-        Me.LabelControl16.Size = New System.Drawing.Size(66, 13)
-        Me.LabelControl16.TabIndex = 209
-        Me.LabelControl16.Text = "IA Rate (%) :"
+        Me.colTWDV_CF.Caption = "TWDV CF"
+        Me.colTWDV_CF.DisplayFormat.FormatString = "n0"
+        Me.colTWDV_CF.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.colTWDV_CF.FieldName = "TWDV_CF"
+        Me.colTWDV_CF.Name = "colTWDV_CF"
+        Me.colTWDV_CF.Visible = True
+        Me.colTWDV_CF.VisibleIndex = 11
         '
         'frmCA_Add3
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1132, 617)
+        Me.ClientSize = New System.Drawing.Size(1132, 645)
         Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.PanelControl1)
         Me.Controls.Add(Me.barDockControlLeft)
@@ -1133,25 +1373,17 @@ Partial Class frmCA_Add3
         CType(Me.chkCAEEO.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pnlMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlMain.ResumeLayout(False)
-        Me.pnlMain.PerformLayout()
+        CType(Me.XtraTabControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.XtraTabControl1.ResumeLayout(False)
+        Me.XtraTabPage1.ResumeLayout(False)
+        Me.XtraTabPage1.PerformLayout()
         CType(Me.pnlControlTransfer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlControlTransfer.ResumeLayout(False)
         Me.pnlControlTransfer.PerformLayout()
         CType(Me.txtTransferVal.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTransferorName.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTaxFileNumber.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtCategory.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboAA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtDescription.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dtDateofPurchase.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dtDateofPurchase.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboCategory.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.CategoryBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtRestrictedQua.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtDeposit.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtPurchaseAmountFA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtAssetID.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtAsset.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkDeductAdjustIncome.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkDeferred.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkControlTransfer.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1163,6 +1395,21 @@ Partial Class frmCA_Add3
         CType(Me.txtPurchaseAmount.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboIncentive.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtIA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtCategory.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtAsset.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtDescription.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtAssetID.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtDateofPurchase.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtDateofPurchase.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboCategory.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.CategoryBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtRestrictedQua.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtPurchaseAmountFA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtDeposit.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.XtraTabPage2.ResumeLayout(False)
+        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.CACALCULATIONBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1196,7 +1443,6 @@ Partial Class frmCA_Add3
     Friend WithEvents chkCAEEO As DevExpress.XtraEditors.CheckEdit
     Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents pnlMain As DevExpress.XtraEditors.PanelControl
-    Friend WithEvents cboAA As DevExpress.XtraEditors.ComboBoxEdit
     Friend WithEvents txtDescription As DevExpress.XtraEditors.MemoEdit
     Friend WithEvents dtDateofPurchase As DevExpress.XtraEditors.DateEdit
     Friend WithEvents cboCategory As DevExpress.XtraEditors.LookUpEdit
@@ -1214,6 +1460,37 @@ Partial Class frmCA_Add3
     Friend WithEvents txtAsset As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl9 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents lblTitle_FA As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtCategory As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents CategoryBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents LabelControl27 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtFileNo As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents LabelControl28 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtCompanyCode As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents btnDuplicate As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents txtDuplicateNo As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents RepositoryItemSpinEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit
+    Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents cboRefNo As DevExpress.XtraEditors.SearchLookUpEdit
+    Friend WithEvents SearchLookUpEdit2View As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents colRefNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyName As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colHandleBy As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colEmployerNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents btnNote As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents XtraTabControl1 As DevExpress.XtraTab.XtraTabControl
+    Friend WithEvents XtraTabPage1 As DevExpress.XtraTab.XtraTabPage
+    Friend WithEvents pnlControlTransfer As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents txtTransferVal As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents txtTransferorName As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents txtTaxFileNumber As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents LabelControl17 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl7 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl8 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents cboAA As DevExpress.XtraEditors.ComboBoxEdit
     Friend WithEvents chkDeductAdjustIncome As DevExpress.XtraEditors.CheckEdit
     Friend WithEvents chkDeferred As DevExpress.XtraEditors.CheckEdit
     Friend WithEvents chkControlTransfer As DevExpress.XtraEditors.CheckEdit
@@ -1234,32 +1511,25 @@ Partial Class frmCA_Add3
     Friend WithEvents txtIA As DevExpress.XtraEditors.TextEdit
     Friend WithEvents lblTitle_CA As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl16 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents txtCategory As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents CategoryBindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents pnlControlTransfer As DevExpress.XtraEditors.PanelControl
-    Friend WithEvents txtTransferVal As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents txtTransferorName As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents txtTaxFileNumber As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents LabelControl17 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelControl7 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelControl8 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelControl27 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents txtFileNo As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents LabelControl28 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents txtCompanyCode As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents btnDuplicate As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents txtDuplicateNo As DevExpress.XtraBars.BarEditItem
-    Friend WithEvents RepositoryItemSpinEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit
-    Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents cboRefNo As DevExpress.XtraEditors.SearchLookUpEdit
-    Friend WithEvents SearchLookUpEdit2View As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents colRefNo As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colCompanyName As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colHandleBy As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colCompanyNo As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colEmployerNo As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents btnNote As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents XtraTabPage2 As DevExpress.XtraTab.XtraTabPage
+    Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
+    Friend WithEvents CACALCULATIONBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents colYA As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colQC_BF As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colQC_ADD As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colQC_DISP As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colQC_CF As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colTWDV_BF As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colTWDV_ADD As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colTWDV_DISP As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colTWDV_TOTAL As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colTWDV_AI As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colTWDV_AA As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colTWDV_CF As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents lblLastmodified As DevExpress.XtraBars.BarStaticItem
+    Friend WithEvents lblAi_AA As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblAi_IA As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblAi_CATEGORY As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblAi As DevExpress.XtraEditors.LabelControl
 End Class

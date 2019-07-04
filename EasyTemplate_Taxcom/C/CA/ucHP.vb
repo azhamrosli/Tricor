@@ -164,7 +164,7 @@
                 .ID = ID
             }
             frm.ShowDialog()
-            Me.LoadData()
+            Me.LoadData(2)
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)

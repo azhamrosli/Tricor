@@ -8,7 +8,11 @@
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)
-
+        Finally
+            Application.DoEvents()
+            If AutoBot_Allow = True AndAlso My.Computer.Name = DeveloperPCName Then
+                btnPrint.PerformClick()
+            End If
         End Try
     End Sub
     Private Sub LoadData()
@@ -76,9 +80,15 @@
                 cboYA.EditValue = mdlProcess.ArgParam3
             End If
 
+            Dim dtDefault As DataTable = ADO.Load_Default(ErrorLog)
+
+            If dtDefault IsNot Nothing Then
+                cboType.SelectedIndex = IIf(IsDBNull(dtDefault.Rows(0)("ReportName")), 0, dtDefault.Rows(0)("ReportName"))
+            End If
+
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -177,7 +187,7 @@
             Dim Status As Boolean = False
             Select Case ListofIndexNo(cboType.SelectedIndex)
                 Case 0, 1, 2
-                    Status = mdlReport_CA.Report_CA(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
+                    Status = mdlReport_CA.Report_CA(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, False, ErrorLog)
 
                 Case 3, 4, 5
                     Status = mdlReport_CA.Report_CA_Summary(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ListofIndexNo(cboType.SelectedIndex), ErrorLog)
@@ -187,19 +197,20 @@
 
                 Case 7
                     'control transfer
-                    Status = mdlReport_CA.Report_CA_ControlTransfer(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
+                    Status = mdlReport_CA.Report_CA_ControlTransfer(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, False, ErrorLog)
+
                 Case 8
                     'Disposal Report
-                    Status = mdlReport_CA.Report_DISPOSAL(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, 0, ErrorLog)
+                    Status = mdlReport_CA.Report_DISPOSAL(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, 0, False, ErrorLog)
                 Case 9
                     'Disposal Report_Written_Out
-                    Status = mdlReport_CA.Report_DISPOSAL(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, 1, ErrorLog)
+                    Status = mdlReport_CA.Report_DISPOSAL(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, 1, False, ErrorLog)
                 Case 10
                     'Disposal Report Control Transfer Out
-                    Status = mdlReport_CA.Report_DISPOSAL(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, 2, ErrorLog)
+                    Status = mdlReport_CA.Report_DISPOSAL(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, 2, False, ErrorLog)
                 Case 11
                     'Hire Purchase
-                    Status = mdlReport_CA.Report_HP(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
+                    Status = mdlReport_CA.Report_HP(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, False, ErrorLog)
                 Case 12
                     'Summary QE
                     Status = mdlReport_CA.Report_CA_SummaryQE(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
@@ -208,6 +219,10 @@
                     Status = mdlReport_CA.Report_CA_Analysis(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
             End Select
 
+            If ID Is Nothing OrElse ID = "" Then
+                MsgBox("No data found.", MsgBoxStyle.Exclamation)
+                Exit Sub
+            End If
             If Status = False Then
                 MsgBox("Failed to generate report", MsgBoxStyle.Critical)
             Else
@@ -297,6 +312,10 @@
                         }
                         frm.Show()
                 End Select
+
+                If ADO.Update_Default(cboType.SelectedIndex) Then
+
+                End If
 
             End If
         Catch ex As Exception

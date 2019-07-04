@@ -21,7 +21,7 @@ Partial Class frmTaxpayerInformation_Add
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTaxpayerInformation_Add))
-        Dim DockingContainer2 As DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer = New DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer()
+        Dim DockingContainer1 As DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer = New DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer()
         Me.DocumentGroup1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(Me.components)
         Me.Document1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(Me.components)
         Me.Document4 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(Me.components)
@@ -265,7 +265,7 @@ Partial Class frmTaxpayerInformation_Add
         Me.colBC_SOURCENO = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.txtNumberic = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.colBC_CODE = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.RepositoryItemSearchLookUpEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit()
+        Me.cboTypeBizSource = New DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colBS_CODE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colBS_TYPE = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -277,6 +277,7 @@ Partial Class frmTaxpayerInformation_Add
         Me.TabbedView1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(Me.components)
         Me.TextEdit6 = New DevExpress.XtraEditors.TextEdit()
         Me.BehaviorManager1 = New DevExpress.Utils.Behaviors.BehaviorManager(Me.components)
+        Me.lblLastmodified = New DevExpress.XtraBars.BarStaticItem()
         CType(Me.DocumentGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Document1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Document4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -435,7 +436,7 @@ Partial Class frmTaxpayerInformation_Add
         CType(Me.dgvBusinessSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboYA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemSearchLookUpEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboTypeBizSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DocumentManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TabbedView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -462,7 +463,7 @@ Partial Class frmTaxpayerInformation_Add
         '
         Me.Document4.Caption = "Source Information"
         Me.Document4.ControlName = "DockPanel4"
-        Me.Document4.FloatLocation = New System.Drawing.Point(173, 163)
+        Me.Document4.FloatLocation = New System.Drawing.Point(170, 180)
         Me.Document4.FloatSize = New System.Drawing.Size(200, 200)
         Me.Document4.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.[False]
         Me.Document4.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.[True]
@@ -497,8 +498,8 @@ Partial Class frmTaxpayerInformation_Add
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.DockManager = Me.DockManager1
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose})
-        Me.BarManager1.MaxItemId = 2
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose, Me.lblLastmodified})
+        Me.BarManager1.MaxItemId = 3
         '
         'Bar1
         '
@@ -506,7 +507,7 @@ Partial Class frmTaxpayerInformation_Add
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose), New DevExpress.XtraBars.LinkPersistInfo(Me.lblLastmodified)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.UseWholeRow = True
         Me.Bar1.Text = "Tools"
@@ -2432,7 +2433,7 @@ Partial Class frmTaxpayerInformation_Add
         '
         Me.DockPanel4.Controls.Add(Me.DockPanel4_Container)
         Me.DockPanel4.DockedAsTabbedDocument = True
-        Me.DockPanel4.FloatLocation = New System.Drawing.Point(173, 163)
+        Me.DockPanel4.FloatLocation = New System.Drawing.Point(170, 180)
         Me.DockPanel4.ID = New System.Guid("1531e893-d326-4825-a6fe-9c98722b3584")
         Me.DockPanel4.Name = "DockPanel4"
         Me.DockPanel4.Options.FloatOnDblClick = False
@@ -2679,7 +2680,7 @@ Partial Class frmTaxpayerInformation_Add
         Me.GCBusinessSource.MainView = Me.dgvBusinessSource
         Me.GCBusinessSource.MenuManager = Me.BarManager1
         Me.GCBusinessSource.Name = "GCBusinessSource"
-        Me.GCBusinessSource.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemSearchLookUpEdit1, Me.txtNumberic, Me.cboYA})
+        Me.GCBusinessSource.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.cboTypeBizSource, Me.txtNumberic, Me.cboYA})
         Me.GCBusinessSource.Size = New System.Drawing.Size(833, 330)
         Me.GCBusinessSource.TabIndex = 95
         Me.GCBusinessSource.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.dgvBusinessSource})
@@ -2748,23 +2749,23 @@ Partial Class frmTaxpayerInformation_Add
         'colBC_CODE
         '
         Me.colBC_CODE.Caption = "Code"
-        Me.colBC_CODE.ColumnEdit = Me.RepositoryItemSearchLookUpEdit1
+        Me.colBC_CODE.ColumnEdit = Me.cboTypeBizSource
         Me.colBC_CODE.FieldName = "BC_CODE"
         Me.colBC_CODE.Name = "colBC_CODE"
         Me.colBC_CODE.Visible = True
         Me.colBC_CODE.VisibleIndex = 2
         Me.colBC_CODE.Width = 100
         '
-        'RepositoryItemSearchLookUpEdit1
+        'cboTypeBizSource
         '
-        Me.RepositoryItemSearchLookUpEdit1.AutoHeight = False
-        Me.RepositoryItemSearchLookUpEdit1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.RepositoryItemSearchLookUpEdit1.DataSource = Me.BUSINESSBindingSource
-        Me.RepositoryItemSearchLookUpEdit1.DisplayMember = "BS_CODE"
-        Me.RepositoryItemSearchLookUpEdit1.Name = "RepositoryItemSearchLookUpEdit1"
-        Me.RepositoryItemSearchLookUpEdit1.PopupFormMinSize = New System.Drawing.Size(300, 0)
-        Me.RepositoryItemSearchLookUpEdit1.ValueMember = "BS_CODE"
-        Me.RepositoryItemSearchLookUpEdit1.View = Me.GridView1
+        Me.cboTypeBizSource.AutoHeight = False
+        Me.cboTypeBizSource.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboTypeBizSource.DataSource = Me.BUSINESSBindingSource
+        Me.cboTypeBizSource.DisplayMember = "BS_CODE"
+        Me.cboTypeBizSource.Name = "cboTypeBizSource"
+        Me.cboTypeBizSource.PopupFormMinSize = New System.Drawing.Size(300, 0)
+        Me.cboTypeBizSource.ValueMember = "BS_CODE"
+        Me.cboTypeBizSource.View = Me.GridView1
         '
         'GridView1
         '
@@ -2835,8 +2836,8 @@ Partial Class frmTaxpayerInformation_Add
         Me.TabbedView1.DocumentGroups.AddRange(New DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup() {Me.DocumentGroup1})
         Me.TabbedView1.Documents.AddRange(New DevExpress.XtraBars.Docking2010.Views.BaseDocument() {Me.Document1, Me.Document3, Me.Document2, Me.Document4})
         Me.TabbedView1.RootContainer.Element = Nothing
-        DockingContainer2.Element = Me.DocumentGroup1
-        Me.TabbedView1.RootContainer.Nodes.AddRange(New DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer() {DockingContainer2})
+        DockingContainer1.Element = Me.DocumentGroup1
+        Me.TabbedView1.RootContainer.Nodes.AddRange(New DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer() {DockingContainer1})
         '
         'TextEdit6
         '
@@ -2845,6 +2846,11 @@ Partial Class frmTaxpayerInformation_Add
         Me.TextEdit6.Name = "TextEdit6"
         Me.TextEdit6.Size = New System.Drawing.Size(389, 20)
         Me.TextEdit6.TabIndex = 4
+        '
+        'lblLastmodified
+        '
+        Me.lblLastmodified.Id = 2
+        Me.lblLastmodified.Name = "lblLastmodified"
         '
         'frmTaxpayerInformation_Add
         '
@@ -3030,7 +3036,7 @@ Partial Class frmTaxpayerInformation_Add
         CType(Me.dgvBusinessSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboYA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemSearchLookUpEdit1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboTypeBizSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DocumentManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TabbedView1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3260,7 +3266,7 @@ Partial Class frmTaxpayerInformation_Add
     Friend WithEvents colBC_SOURCENO As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents txtNumberic As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents colBC_CODE As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents RepositoryItemSearchLookUpEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit
+    Friend WithEvents cboTypeBizSource As DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents colBS_CODE As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colBS_TYPE As DevExpress.XtraGrid.Columns.GridColumn
@@ -3295,4 +3301,5 @@ Partial Class frmTaxpayerInformation_Add
     Friend WithEvents GroupControl10 As DevExpress.XtraEditors.GroupControl
     Friend WithEvents txtPersonIncharge As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl68 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblLastmodified As DevExpress.XtraBars.BarStaticItem
 End Class

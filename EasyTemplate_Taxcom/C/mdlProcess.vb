@@ -22,13 +22,22 @@ Module mdlProcess
 
     Public ArgParam0 As String = "" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
-    Public ArgParam2 As String = "02107096402" '"1054242304" 'RefNo
-    Public ArgParam3 As String = "2017" 'YA"
+    Public ArgParam2 As String = "9876543210" '"1054242304" 'RefNo
+    Public ArgParam3 As String = "2016" 'YA"
     Public Const isVersionLicenseType As VersionLicenseType = VersionLicenseType.Tricor
     Public ListofClsError As List(Of ClsError) = Nothing
     Public dsDataSetErrorlog As DataSet
 
+    Public AutoBot_Allow As Boolean = False
+    Public isOneClickOnly As Boolean = False
+
     Dim MaxYearForCA As Integer = 50
+
+    Public DeveloperPCName As String = "AZHAM-LAPTOP"
+
+    'Allow software automaticlly add sub item data when user keyin percentage in PNL.
+    'Only for less then 100%.
+    Public Const isAllowAddItemInPercentagePNL As Boolean = False
 
 #Region "DATABASE"
 #Region "YGL SERVER"
@@ -67,7 +76,7 @@ Module mdlProcess
     End Function
     Public Function DBSetting_YGLSERVER() As String
         Try
-            Return "Server=175.136.230.74,11443;Database=taxcom;User Id=taxcom;Password=P@$$w0rd;"
+            Return "Server=175.136.230.74,11443;Database=taxcom;User Id=sa;Password=P@$$w0rd333*;"
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
@@ -570,7 +579,7 @@ Module mdlProcess
                     ADO.SaveSupport("CLN-22052018113101BAA", "", "", "", ErrorLog.ErrorCode & " - " & ErrorLog.ErrorName & " - " & ErrorLog.ErrorMessage, "This is automatically generate by software.",
                          0, 1, tmpRefID, tmpYA, My.Computer.Name, Now, Now, Nothing, ErrorLog)
                 End If
-
+                SendNotification("Taxcom Bug detected " & ErrorLog.ErrorName)
             End If
 
 
@@ -1407,6 +1416,83 @@ tryagain:
             Return False
         End Try
     End Function
+    Public Function DataSizeGB(BytesCaller As ULong, ByRef DataType As String) As Double
+        Try
+            Dim DataBytes As Double = 0
+            Select Case BytesCaller
+                Case Is >= 1099511627776
+                    DataBytes = CDbl(BytesCaller / 1099511627776) 'TB
+                    DataType = "TB"
+
+                Case 1073741824 To 1099511627775
+                    DataBytes = CDbl(BytesCaller / 1073741824) 'GB
+                    DataType = "GB"
+                Case 1048576 To 1073741823
+                    DataBytes = CDbl(BytesCaller / 1048576) 'MB
+                    DataType = "MB"
+                Case 1024 To 1048575
+                    DataBytes = CDbl(BytesCaller / 1024) 'KB
+                    DataType = "KB"
+                Case 0 To 1023
+                    DataBytes = BytesCaller ' bytes
+                    DataType = "bytes"
+                Case Else
+                    Return 0
+            End Select
+
+            Return DataBytes
+        Catch ex As Exception
+            Return 0
+        End Try
+    End Function
+    Public Function GetTeamviewerID() As String
+        Try
+            Dim Path As String = "SOFTWARE\Wow6432Node\TeamViewer\Version9"
+            Dim type As Microsoft.Win32.RegistryView
+            If System.Environment.Is64BitOperatingSystem Then
+                type = RegistryView.Registry32
+                Path = "SOFTWARE\Wow6432Node\TeamViewer\Version9"
+            Else
+                type = RegistryView.Registry64
+                Path = "SOFTWARE\TeamViewer\Version9"
+            End If
+            Using ndpKey As RegistryKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, type).OpenSubKey(Path)
+                If ndpKey IsNot Nothing Then
+                    Return ndpKey.GetValue("ClientID").ToString
+                End If
+            End Using
+
+            If System.Environment.Is64BitOperatingSystem Then
+                type = RegistryView.Registry32
+                Path = "SOFTWARE\Wow6432Node\TeamViewer\Version8"
+            Else
+                type = RegistryView.Registry64
+                Path = "SOFTWARE\TeamViewer\Version8"
+            End If
+            Using ndpKey As RegistryKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, type).OpenSubKey(Path)
+                If ndpKey IsNot Nothing Then
+                    Return ndpKey.GetValue("ClientID").ToString
+                End If
+            End Using
+
+            If System.Environment.Is64BitOperatingSystem Then
+                type = RegistryView.Registry32
+                Path = "SOFTWARE\Wow6432Node\TeamViewer\Version7"
+            Else
+                type = RegistryView.Registry64
+                Path = "SOFTWARE\TeamViewer\Version7"
+            End If
+            Using ndpKey As RegistryKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, type).OpenSubKey(Path)
+                If ndpKey IsNot Nothing Then
+                    Return ndpKey.GetValue("ClientID").ToString
+                End If
+            End Using
+
+            Return ""
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
     Public Function LicenseChecking() As Boolean
         Try
 
@@ -1421,6 +1507,11 @@ tryagain:
                 'GOT
                 YGLClient = dt.Rows(0)
 
+                If ADO.LoadUserPC_ByCompanyID(IIf(IsDBNull(YGLClient("ID")), "", YGLClient("ID")), My.Computer.Name) Is Nothing Then
+                    ADO.SaveUserPC_YGLClient(IIf(IsDBNull(YGLClient("ID")), "", YGLClient("ID")), My.Computer.Name, ErrorLog)
+                Else
+                    ADO.UPDATEUserPC_LastLogin(IIf(IsDBNull(YGLClient("ID")), "", YGLClient("ID")), My.Computer.Name, Nothing)
+                End If
             Else
                 'NG
                 If CheckForInternetConnection() = False Then
@@ -1439,15 +1530,22 @@ tryagain:
 
                 tmpID = frm.LicenseKey
 
-                dt = ADO.LoadYGLClient_ByCompanyID(tmpID)
+                If tmpID <> "CLN-22052018113101BAA" Then
+                    dt = ADO.LoadYGLClient_ByCompanyID(tmpID)
 
-                If dt Is Nothing Then
-                    MsgBox("Unable to find your company. please contact support team for more information.", MsgBoxStyle.Critical)
-                    End
+                    If dt Is Nothing Then
+                        MsgBox("Unable to find your company. please contact support team for more information.", MsgBoxStyle.Critical)
+                        End
+                    End If
+
+                    ADO.Save_YGLClient(dt.Rows(0))
+                    YGLClient = dt.Rows(0)
+
+                    If ADO.LoadUserPC_ByCompanyID(tmpID, My.Computer.Name) Is Nothing Then
+                        ADO.SaveUserPC_YGLClient(tmpID, My.Computer.Name, ErrorLog)
+                    End If
+
                 End If
-
-                ADO.Save_YGLClient(dt.Rows(0))
-                YGLClient = dt.Rows(0)
 
                 MsgBox("Succesfully Register Client :" & vbCrLf & IIf(IsDBNull(YGLClient("CompanyName")), "", YGLClient("CompanyName")), MsgBoxStyle.Information)
             End If
@@ -1459,6 +1557,46 @@ tryagain:
             Return True
         Finally
             ADO = Nothing
+        End Try
+    End Function
+    Public Function GetMonthToPrint(ByVal No As Integer, ByVal SubBand As DevExpress.XtraReports.UI.DetailReportBand) As String
+        Try
+
+
+            Dim DateFrom As DateTime = SubBand.GetCurrentColumnValue("DateFrom")
+            Dim DateTo As DateTime = SubBand.GetCurrentColumnValue("DateTo")
+
+
+            Select Case No
+                Case 1
+                    Return Format(DateFrom, "MMM")
+                Case Else
+                    Return Format(DateFrom.AddMonths(+(No - 1)), "MMM")
+            End Select
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            Return ""
+        End Try
+    End Function
+    Public Function GetMonthToPrint(ByVal No As Integer, ByVal SubBand As DevExpress.XtraReports.UI.XtraReport) As String
+        Try
+
+
+            Dim DateFrom As DateTime = SubBand.GetCurrentColumnValue("DateFrom")
+            Dim DateTo As DateTime = SubBand.GetCurrentColumnValue("DateTo")
+
+
+            Select Case No
+                Case 1
+                    Return Format(DateFrom, "MMM")
+                Case Else
+                    Return Format(DateFrom.AddMonths(+(No - 1)), "MMM")
+            End Select
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            Return ""
         End Try
     End Function
 #End Region
@@ -1581,6 +1719,23 @@ tryagain:
 
             Dim dtTable As New DataTable("CA_REPORT_CONTROLTRANSFER_TEMP_2")
             Dim col As DataColumn
+
+            col = Nothing
+            col = New DataColumn With {
+                .ColumnName = "ID",
+                .Caption = "ID",
+                .DataType = System.Type.GetType("System.String"),
+                .MaxLength = 255
+            }
+            dtTable.Columns.Add(col)
+
+            col = Nothing
+            col = New DataColumn With {
+                .ColumnName = "YA",
+                .Caption = "YA",
+                .DataType = System.Type.GetType("System.Int32")
+            }
+            dtTable.Columns.Add(col)
 
             col = Nothing
             col = New DataColumn With {
@@ -1719,8 +1874,8 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_ControlTransferIn(ds As DataSet, ByVal ID As String, ByVal RefNo As String,
-                                                  ByVal YA As String, ByRef rpt As rpt_CAControlTransfer, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_ControlTransferIn(ds As DataSet, ByVal Title As String, ByVal ID As String, ByVal RefNo As String,
+                                                  ByVal YA As String, ShowDraft As Boolean, ByRef rpt As rpt_CAControlTransfer, ByRef rpt_Note As rptCA_Note, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsNote As New clsNote_CA
             If rpt Is Nothing Then
@@ -1730,40 +1885,44 @@ tryagain:
             Dim dtNote As DataTable = Nothing
             Dim dtNote_Child As DataTable = Nothing
             Dim tmpNoteID As Integer = 0
-
+            Dim HasNote As Boolean = False
             Dim Ext As String = Nothing
             Dim dtRowAtt As Byte() = Nothing
             Dim i As Integer = -1
 
-            ds.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
-            ds.Tables("CA_NOTE_COLUMN").Rows.Clear()
-            ds.Tables("CA_NOTE").Rows.Clear()
+            'ds.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
+            'ds.Tables("CA_NOTE_COLUMN").Rows.Clear()
+            'ds.Tables("CA_NOTE").Rows.Clear()
 
             ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").Clear()
 
             'rpt.DsCA1.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").Clear()
 
             '   rpt.DataSource = ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP")
+            Dim tmpTest As String = ""
             For Each rowx As DataRow In ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP_2").Rows
+                tmpTest = rowx("CA_ASSET")
                 ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").ImportRow(rowx)
                 'rpt.DsCA1.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").ImportRow(rowx)
             Next
             rpt.paramID.Value = ID
             rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
             rpt.paramYA.Value = YA
+            rpt.param_ShowDraft.Value = ShowDraft
             rpt.paramSch.Value = SchApex
+            rpt.paramTitle.Value = Title
             rpt.Landscape = True
 
 
             For Each rowx As DataRow In ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").Rows
+                i += 1
                 If IsDBNull(rowx("CA_KEY")) = False Then
 
                     dtNote = clsNote.Load_Note(rowx("CA_KEY"), 0)
 
                     If dtNote IsNot Nothing Then
-                        i = -1
+                        HasNote = True
                         For Each rownote As DataRow In dtNote.Rows
-                            i += 1
                             ds.Tables("CA_NOTE").ImportRow(rownote)
                             ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
 
@@ -1817,9 +1976,32 @@ tryagain:
 
                 End If
             Next
+
+            Dim dtFooter As DataTable = Nothing
+
+            dtFooter = clsNote.Load_Footer_Note_ControlTransfer_IN(RefNo, YA, ErrorLog)
+
+            ds.Tables("CA_REPORT_CONTROLTRANSFER_NOTE").Rows.Clear()
+            If dtFooter IsNot Nothing Then
+                For Each rowx As DataRow In dtFooter.Rows
+                    ds.Tables("CA_REPORT_CONTROLTRANSFER_NOTE").ImportRow(rowx)
+                Next
+            End If
+
             rpt.DataSource = ds
-            rpt.XrSubreport1.ReportSource.DataSource = ds
+            '  rpt.XrSubreport1.ReportSource.DataSource = ds
             rpt.FontSize.Value = 10
+            rpt.CreateDocument()
+            Application.DoEvents()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptCA_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.FontSize.Value = 11
+            rpt_Note.DataSource = ds
+            If HasNote Then
+                rpt_Note.CreateDocument()
+            End If
 
             Return True
         Catch ex As Exception
@@ -1838,16 +2020,17 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_CAAnalysis(ds As DataSet, ID As String, ByRef rpt As rpt_CAAnalysis, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_CAAnalysis(ds As DataSet, Title As String, ID As String, ShowDraft As Boolean, ByRef rpt As rpt_CAAnalysis, ByRef rpt_Note As rptCA_Note,
+                                           ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsNote As New clsNote_CA
             If rpt Is Nothing Then
                 rpt = New rpt_CAAnalysis
             End If
 
-            ds.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
-            ds.Tables("CA_NOTE_COLUMN").Rows.Clear()
-            ds.Tables("CA_NOTE").Rows.Clear()
+            'ds.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
+            'ds.Tables("CA_NOTE_COLUMN").Rows.Clear()
+            'ds.Tables("CA_NOTE").Rows.Clear()
 
             ds.Tables("CA_REPORT_ANALYSIS_PROPERTY").Clear()
 
@@ -1864,12 +2047,15 @@ tryagain:
             Next
             rpt.paramID.Value = ID
             rpt.paramSch.Value = SchApex
+            rpt.param_ShowDraft.Value = ShowDraft
+            rpt.paramTitle.Value = Title
             rpt.Landscape = True
 
             Dim dtNote As DataTable = Nothing
             Dim dtNote_Child As DataTable = Nothing
             Dim tmpNoteID As Integer = 0
             Dim i As Integer = -1
+            Dim HasNote As Boolean = False
             For Each rowx As DataRow In dt.Rows
                 i += 1
                 If IsDBNull(rowx("CA_KEY")) = False Then
@@ -1877,7 +2063,7 @@ tryagain:
                     dtNote = clsNote.Load_Note(rowx("CA_KEY"), 0)
 
                     If dtNote IsNot Nothing Then
-
+                        HasNote = True
                         For Each rownote As DataRow In dtNote.Rows
                             'rpt.DsCA1.Tables("CA_NOTE").ImportRow(rownote)
                             ds.Tables("CA_NOTE").ImportRow(rownote)
@@ -1915,7 +2101,18 @@ tryagain:
             Next
 
             rpt.DataSource = ds
-            rpt.XrSubreport1.ReportSource.DataSource = ds
+            rpt.CreateDocument()
+            Application.DoEvents()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptCA_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.FontSize.Value = 10
+            rpt_Note.DataSource = ds
+            If HasNote Then
+                rpt_Note.CreateDocument()
+            End If
+
 
             Return True
         Catch ex As Exception
@@ -1934,7 +2131,8 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_SummaryQE(ds As DataSet, ID As String, ByRef rpt As rpt_CASummaryQE, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_SummaryQE(ds As DataSet, Title As String, ID As String, ShowDraft As Boolean, ByRef rpt As rpt_CASummaryQE, ByRef rpt_Note As rptCA_Note,
+                                          ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
 
             Dim No40 As Decimal = 0
@@ -1950,7 +2148,19 @@ tryagain:
             Next
             rpt.paramID.Value = ID
             rpt.paramSch.Value = SchApex
+            rpt.param_ShowDraft.Value = ShowDraft
+            rpt.paramTitle.Value = Title
             rpt.Landscape = True
+            rpt.CreateDocument()
+            Application.DoEvents()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptCA_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.FontSize.Value = 10
+            rpt_Note.DataSource = ds
+            'AZHAM 24092018 Disable coz not use
+            'rpt_Note.CreateDocument()
 
             Return True
         Catch ex As Exception
@@ -1969,7 +2179,7 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_ITA(RefNo As String, YA As String, ByRef rpt As rpt_ITA, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_ITA(RefNo As String, YA As String, ByVal Title As String, ShowDraft As Boolean, ByRef rpt As rpt_ITA, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
 
             Dim dtTaxCOM As DataTable = ADO.Load_Tax_Computation(RefNo, YA)
@@ -1994,21 +2204,21 @@ tryagain:
                     ds.Tables("TAX_COMPUTATION").ImportRow(dtTaxCOM.Rows(i))
                     Application.DoEvents()
 
-                    dtCA = ADO.LoadCA_ByRefNoYASourceNo(RefNo, YA, TC_SOURCENO)
+                    dtCA = ADO.LoadCA_ByRefNoYASourceNo_ITA_RA(RefNo, YA, TC_SOURCENO, "ITA")
                     If dtCA IsNot Nothing Then
                         For Each rowx As DataRow In dtCA.Rows
                             ds.Tables("CA").ImportRow(rowx)
                         Next
                     End If
 
-                    dtWithDrawal = ADO.Load_Taxcom_RA_Withdrawal(TC_KEY, ErrorLog)
+                    dtWithDrawal = ADO.Load_Taxcom_ITA_Withdrawal(TC_KEY, ErrorLog)
                     If dtWithDrawal IsNot Nothing Then
                         For Each rowx As DataRow In dtWithDrawal.Rows
                             ds.Tables("TAX_ITA_WITHDRAWAL").ImportRow(rowx)
                         Next
                     End If
 
-                    dtAdjustment = ADO.Load_Taxcom_RA_Adjustment(TC_KEY, ErrorLog)
+                    dtAdjustment = ADO.Load_Taxcom_ITA_Adjustment(TC_KEY, ErrorLog)
                     If dtAdjustment IsNot Nothing Then
                         For Each rowx As DataRow In dtAdjustment.Rows
                             ds.Tables("TAX_ITA_ADJUSTMENT").ImportRow(rowx)
@@ -2022,7 +2232,10 @@ tryagain:
                     rpt = New rpt_ITA
                 End If
                 rpt.paramSch.Value = SchApex
+                rpt.param_ShowDraft.Value = ShowDraft
+                rpt.paramTitle.Value = Title
                 rpt.DataSource = ds
+
                 Return True
             Else
                 Return False
@@ -2045,7 +2258,7 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_RA(RefNo As String, YA As String, ByRef rpt As rpt_RA, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_RA(RefNo As String, YA As String, Title As String, ShowDraft As Boolean, ByRef rpt As rpt_RA, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
 
             Dim dtTaxCOM As DataTable = ADO.Load_Tax_Computation(RefNo, YA)
@@ -2070,7 +2283,7 @@ tryagain:
                     ds.Tables("TAX_COMPUTATION").ImportRow(dtTaxCOM.Rows(i))
                     Application.DoEvents()
 
-                    dtCA = ADO.LoadCA_ByRefNoYASourceNo(RefNo, YA, TC_SOURCENO)
+                    dtCA = ADO.LoadCA_ByRefNoYASourceNo_ITA_RA(RefNo, YA, TC_SOURCENO, "RA")
                     If dtCA IsNot Nothing Then
                         For Each rowx As DataRow In dtCA.Rows
                             ds.Tables("CA").ImportRow(rowx)
@@ -2098,6 +2311,8 @@ tryagain:
                     rpt = New rpt_RA
                 End If
                 rpt.paramSch.Value = SchApex
+                rpt.param_ShowDraft.Value = ShowDraft
+                rpt.paramTitle.Value = Title
                 rpt.DataSource = ds
 
                 Return True
@@ -2121,7 +2336,7 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_CP204(dsCP204 As DataSet, RefNo As String, YA As String, ID As Integer, ByRef rpt As rpt_CP204_Breakdown,
+    Public Function PrintReport_CP204(dsCP204 As DataSet, Title As String, RefNo As String, YA As String, ID As Integer, ShowDraft As Boolean, ByRef rpt As rpt_CP204_Breakdown, ByRef rpt_Note As rpt_CP204_Note,
                                       ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "APPENDIX") As Boolean
         Try
             Dim clsCP204_Note As New clsNote_CP204
@@ -2145,8 +2360,12 @@ tryagain:
             dsCP204.Tables("BORANG_CP204_NOTE_ATTACHMENT").Rows.Clear()
             dsCP204.Tables("BORANG_CP204_NOTE").Rows.Clear()
 
+            Dim tmpNote As String()
+            Dim tmpNoteStr As String = ""
             For i As Integer = 0 To dt.Rows.Count - 1
                 dtRow = Nothing
+                tmpNoteStr = ""
+                tmpNote = Nothing
                 dtRow = dsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").NewRow
                 dtRow("CP_ID") = IIf(IsDBNull(dt.Rows(i)("CP_ID")), 0, dt.Rows(i)("CP_ID"))
                 dtRow("CP_PARENTID") = IIf(IsDBNull(dt.Rows(i)("CP_PARENTID")), 0, dt.Rows(i)("CP_PARENTID"))
@@ -2155,7 +2374,15 @@ tryagain:
                 dtRow("CP_INSTALLMENT_AMOUNT") = IIf(IsDBNull(dt.Rows(i)("CP_INSTALLMENT_AMOUNT")), 0, dt.Rows(i)("CP_INSTALLMENT_AMOUNT"))
                 dtRow("CP_PAYMENT_DATE_1") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_1")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DATE_1"))
                 dtRow("CP_AMOUNT_PAID_1") = IIf(IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_1")), 0, dt.Rows(i)("CP_AMOUNT_PAID_1"))
-                '  dtRow("CP_TOTAL_INSTALLMENT") = IIf(IsDBNull(dt.Rows(i)("BCP_ESTIMATED_TAX")), 0, dt.Rows(i)("BCP_ESTIMATED_TAX"))
+
+                tmpNoteStr = IIf(IsDBNull(dt.Rows(i)("CP_NOTE")), 0, dt.Rows(i)("CP_NOTE"))
+                tmpNote = tmpNoteStr.Split("/")
+
+                If tmpNote IsNot Nothing AndAlso tmpNote.Length > 0 Then
+                    dtRow("CP_NOTE") = tmpNote(0)
+                Else
+                    dtRow("CP_NOTE") = ""
+                End If
 
                 If IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_2")) = False AndAlso IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_2")) = False AndAlso CDec(dt.Rows(i)("CP_AMOUNT_PAID_2")) <> 0 Then
                     dtRow("CP_PENALTY") = 0
@@ -2235,7 +2462,13 @@ tryagain:
                     dtRow("CP_INSTALLMENT_AMOUNT") = DBNull.Value 'IIf(IsDBNull(dt.Rows(i)("CP_INSTALLMENT_AMOUNT")), 0, dt.Rows(i)("CP_INSTALLMENT_AMOUNT"))
                     dtRow("CP_PAYMENT_DATE_1") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_2")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DATE_2"))
                     dtRow("CP_AMOUNT_PAID_1") = IIf(IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_2")), 0, dt.Rows(i)("CP_AMOUNT_PAID_2"))
-                    '  dtRow("CP_TOTAL_INSTALLMENT") = IIf(IsDBNull(dt.Rows(i)("BCP_ESTIMATED_TAX")), 0, dt.Rows(i)("BCP_ESTIMATED_TAX"))
+                    If tmpNote IsNot Nothing AndAlso tmpNote.Length > 1 Then
+                        dtRow("CP_NOTE") = tmpNote(1)
+                    Else
+                        dtRow("CP_NOTE") = ""
+                    End If
+
+
                     dtRow("CP_PENALTY") = IIf(IsDBNull(dt.Rows(i)("CP_PENALTY")), 0, dt.Rows(i)("CP_PENALTY"))
                     dsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").Rows.Add(dtRow)
 
@@ -2250,10 +2483,21 @@ tryagain:
             ' Dim ComName As String = GridView1
             rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
             '  rpt.paramCompanyName.Value =' .ToString.ToUpper
+            rpt.param_ShowDraft.Value = ShowDraft
             rpt.paramYA.Value = YA
             rpt.paramSch.Value = IIf(SchApex = "", "APPENDIX", SchApex)
+            rpt.paramTitle.Value = Title
             rpt.DataSource = dsCP204
-            rpt.XrSubreport1.ReportSource.DataSource = dsCP204
+            ' rpt.XrSubreport1.ReportSource.DataSource = dsCP204
+            rpt.CreateDocument()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rpt_CP204_Note
+            End If
+            rpt_Note.Landscape = False
+            rpt_Note.DataSource = dsCP204
+            If dsCP204.Tables("BORANG_CP204_NOTE").Rows.Count > 0 Then
+                rpt_Note.CreateDocument()
+            End If
 
             Return True
         Catch ex As Exception
@@ -2273,7 +2517,8 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_CAByAsset(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rptCAReport, ByRef ErrorLog As ClsError) As Boolean
+    Public Function PrintReport_CAByAsset(dsCA As DataSet, ComName As String, YA As String, ShowDraft As Boolean, ByRef rpt As rptCAReport, ByRef rpt_Note As rptCA_Note,
+                                          ByRef ErrorLog As ClsError) As Boolean
         Try
             Dim clsNote As New clsNote_CA
             Dim dtNote As DataTable = Nothing
@@ -2282,18 +2527,17 @@ tryagain:
             Dim Ext As String = Nothing
             Dim dtRowAtt As Byte() = Nothing
             Dim i As Integer = -1
+            Dim HasNote As Boolean = False
 
-
-            dsCA.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
-            dsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
-            dsCA.Tables("CA_NOTE").Rows.Clear()
+            'dsCA.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
+            'dsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
+            'dsCA.Tables("CA_NOTE").Rows.Clear()
 
 
             'Capital Allowance Details By Rate
             If rpt Is Nothing Then
                 rpt = New rptCAReport
             End If
-
             rpt.paramCompanyName.Value = ComName
             rpt.paramYA.Value = CInt(YA)
 
@@ -2308,6 +2552,7 @@ tryagain:
 
                     If dtNote IsNot Nothing Then
                         i = -1
+                        HasNote = True
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
@@ -2364,8 +2609,19 @@ tryagain:
             Next
 
             rpt.DataSource = dsCA
-            rpt.XrSubreport1.ReportSource.DataSource = dsCA
+            'rpt.XrSubreport1.ReportSource.DataSource = dsCA
             rpt.FontSize.Value = 8
+            rpt.CreateDocument()
+            Application.DoEvents()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptCA_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.FontSize.Value = 10
+            rpt_Note.DataSource = dsCA
+            If HasNote Then
+                rpt_Note.CreateDocument()
+            End If
 
             Return True
         Catch ex As Exception
@@ -2385,7 +2641,7 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_CAByRate(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_CAByRate,
+    Public Function PrintReport_CAByRate(dsCA As DataSet, Title As String, ComName As String, YA As String, ShowDraft As Boolean, ByRef rpt As rpt_CAByRate, ByRef rpt_Note As rptCA_Note,
                                          ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsNote As New clsNote_CA
@@ -2395,19 +2651,20 @@ tryagain:
             Dim Ext As String = Nothing
             Dim dtRowAtt As Byte() = Nothing
             Dim i As Integer = -1
+            Dim HasNote As Boolean = False
 
-
-            dsCA.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
-            dsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
-            dsCA.Tables("CA_NOTE").Rows.Clear()
+            'dsCA.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
+            'dsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
+            'dsCA.Tables("CA_NOTE").Rows.Clear()
 
 
             'Capital Allowance Details By Rate
             If rpt Is Nothing Then
                 rpt = New rpt_CAByRate
             End If
-
+            rpt.param_ShowDraft.Value = ShowDraft
             rpt.paramCompanyName.Value = ComName
+            rpt.paramTitle.value = Title
             rpt.paramYA.Value = CInt(YA)
 
 
@@ -2419,7 +2676,7 @@ tryagain:
                     dtNote = clsNote.Load_Note(rowx("CA_KEY"), 0)
 
                     If dtNote IsNot Nothing Then
-
+                        HasNote = True
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
@@ -2476,9 +2733,20 @@ tryagain:
             Next
 
             rpt.DataSource = dsCA
-            rpt.XrSubreport1.ReportSource.DataSource = dsCA
-            rpt.FontSize.Value = 8
+            'rpt.XrSubreport1.ReportSource.DataSource = dsCA
+            rpt.FontSize.Value = 8.25
             rpt.paramSch.Value = SchApex
+            rpt.CreateDocument()
+            Application.DoEvents()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptCA_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.FontSize.Value = 8.25
+            rpt_Note.DataSource = dsCA
+            If HasNote Then
+                rpt_Note.CreateDocument()
+            End If
 
             Return True
         Catch ex As Exception
@@ -2498,9 +2766,10 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_CAByCategory(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_CAByCategory,
-                                             ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_CAByCategory(dsCA As DataSet, Title As String, ComName As String, YA As String, ShowDraft As Boolean, ByRef rpt As rpt_CAByCategory, ByRef rpt_Note As rptCA_Note,
+                                             ByVal isSummary As Boolean, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
+            Dim RefNo As String = ""
             Dim clsNote As New clsNote_CA
             Dim dtNote As DataTable = Nothing
             Dim dtNote_Child As DataTable = Nothing
@@ -2508,19 +2777,20 @@ tryagain:
             Dim Ext As String = Nothing
             Dim dtRowAtt As Byte() = Nothing
             Dim i As Integer = -1
+            Dim HasNote As Boolean = False
 
-
-            dsCA.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
-            dsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
-            dsCA.Tables("CA_NOTE").Rows.Clear()
+            'dsCA.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
+            'dsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
+            'dsCA.Tables("CA_NOTE").Rows.Clear()
 
 
             'Capital Allowance Details By Rate
             If rpt Is Nothing Then
                 rpt = New rpt_CAByCategory
             End If
-
+            rpt.param_ShowDraft.Value = ShowDraft
             rpt.paramCompanyName.Value = ComName
+            rpt.paramTitle.Value = Title
             rpt.paramYA.Value = CInt(YA)
 
 
@@ -2530,9 +2800,9 @@ tryagain:
                 If IsDBNull(rowx("CA_KEY")) = False Then
 
                     dtNote = clsNote.Load_Note(rowx("CA_KEY"), 0)
-
+                    RefNo = IIf(IsDBNull(rowx("RefNo")), "", rowx("RefNo"))
                     If dtNote IsNot Nothing Then
-
+                        HasNote = True
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
@@ -2589,10 +2859,35 @@ tryagain:
                 End If
             Next
 
+            Dim dtFooter As DataTable = Nothing
+
+            dtFooter = clsNote.Load_Footer_Note_CA(RefNo, YA, ErrorLog)
+
+            dsCA.Tables("CA_REPORT_NOTE").Rows.Clear()
+            If dtFooter IsNot Nothing Then
+                For Each rowx As DataRow In dtFooter.Rows
+                    dsCA.Tables("CA_REPORT_NOTE").ImportRow(rowx)
+                Next
+
+            End If
             rpt.DataSource = dsCA
-            rpt.XrSubreport1.ReportSource.DataSource = dsCA
-            rpt.FontSize.Value = 8
+            rpt.FontSize.Value = 8.25
             rpt.paramSch.Value = SchApex
+            rpt.CreateDocument()
+            Application.DoEvents()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptCA_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.FontSize.Value = 8.25
+            rpt_Note.DataSource = dsCA
+            If isSummary = False Then
+                If HasNote Then
+                    rpt_Note.CreateDocument()
+                End If
+            End If
+
+
 
             Return True
         Catch ex As Exception
@@ -2612,9 +2907,11 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_ControlTransferOut(dsCA As DataSet, ComName As String, ByVal YA As String, ByRef rpt As rpt_CAControlTransfer_Out,
+    Public Function PrintReport_ControlTransferOut(dsCA As DataSet, Title As String, ComName As String, ByVal YA As String, ShowDraft As Boolean, ByRef rpt As rpt_CAControlTransfer_Out, ByRef rpt_Note As rptCA_Note,
                                                    ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
+            Dim RefNo As String = ""
+
             Dim clsNote As New clsNote_CA
             Dim dtNote As DataTable = Nothing
             Dim dtNote_Child As DataTable = Nothing
@@ -2622,13 +2919,14 @@ tryagain:
             Dim Ext As String = Nothing
             Dim dtRowAtt As Byte() = Nothing
             Dim i As Integer = -1
-
+            Dim HasNote As Boolean = False
             'Control Transfer Out
             If rpt Is Nothing Then
                 rpt = New rpt_CAControlTransfer_Out
             End If
-
+            rpt.param_ShowDraft.Value = ShowDraft
             rpt.paramCompanyName.Value = ComName
+            rpt.paramTitle.Value = Title
             rpt.paramYA.Value = CInt(YA)
 
 
@@ -2639,13 +2937,14 @@ tryagain:
                 If IsDBNull(rowx("CA_KEY")) = False Then
 
                     dtNote = clsNote.Load_Note(rowx("CA_KEY"), 2, CStr(rowx("DISP_KEY")), Nothing)
-
+                    RefNo = IIf(IsDBNull(rowx("RefNo")), "", rowx("RefNo"))
                     If dtNote IsNot Nothing Then
                         i = -1
+                        HasNote = True
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
-                            dsCA.Tables("CA_REPORT_DISPOSAL_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
+                            rowx("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
 
                             tmpNoteID = rownote("ID")
                             dtNote_Child = Nothing
@@ -2698,10 +2997,32 @@ tryagain:
                 End If
             Next
 
+            Dim dtFooter As DataTable = Nothing
+
+            dtFooter = clsNote.Load_Footer_Note_Disposal(RefNo, YA, 2, ErrorLog)
+
+            dsCA.Tables("CA_REPORT_DISPOSAL_NOTE").Rows.Clear()
+            If dtFooter IsNot Nothing Then
+                For Each rowx As DataRow In dtFooter.Rows
+                    dsCA.Tables("CA_REPORT_DISPOSAL_NOTE").ImportRow(rowx)
+                Next
+            End If
+
             rpt.DataSource = dsCA
-            rpt.XrSubreport1.ReportSource.DataSource = dsCA
+            ' rpt.XrSubreport1.ReportSource.DataSource = dsCA
             rpt.FontSize.Value = 11
             rpt.paramSch.Value = SchApex
+            rpt.CreateDocument()
+            Application.DoEvents()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptCA_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.FontSize.Value = 11
+            rpt_Note.DataSource = dsCA
+            If HasNote Then
+                rpt_Note.CreateDocument()
+            End If
 
             Return True
         Catch ex As Exception
@@ -2721,23 +3042,25 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_WrittenOff(dsCA As DataSet, ComName As String, ByVal YA As String, ByRef rpt As rpt_CAWrittenOff,
+    Public Function PrintReport_WrittenOff(dsCA As DataSet, Title As String, ComName As String, ByVal YA As String, ShowDraft As Boolean, ByRef rpt As rpt_CAWrittenOff, ByRef rpt_Note As rptCA_Note,
                                            ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsNote As New clsNote_CA
+            Dim RefNo As String = ""
             Dim dtNote As DataTable = Nothing
             Dim dtNote_Child As DataTable = Nothing
             Dim tmpNoteID As Integer = 0
             Dim Ext As String = Nothing
             Dim dtRowAtt As Byte() = Nothing
             Dim i As Integer = -1
-
+            Dim HasNote As Boolean = False
             'Written Off
             If rpt Is Nothing Then
                 rpt = New rpt_CAWrittenOff
             End If
-
+            rpt.param_ShowDraft.Value = ShowDraft
             rpt.paramCompanyName.Value = ComName
+            rpt.paramTitle.Value = Title
             rpt.paramYA.Value = CInt(YA)
 
 
@@ -2747,13 +3070,15 @@ tryagain:
                 If IsDBNull(rowx("CA_KEY")) = False Then
 
                     dtNote = clsNote.Load_Note(rowx("CA_KEY"), 2, CStr(rowx("DISP_KEY")), Nothing)
-
+                    RefNo = IIf(IsDBNull(rowx("RefNo")), "", rowx("RefNo"))
                     If dtNote IsNot Nothing Then
+                        HasNote = True
                         i = -1
                         For Each rownote As DataRow In dtNote.Rows
+
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
-                            dsCA.Tables("CA_REPORT_DISPOSAL_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rowx("TitleFront")), "", rowx("TitleFront")) & " " & IIf(IsDBNull(rowx("Title")), "", rowx("Title"))
+                            rowx("CA_NOTE_COLUMN") = IIf(IsDBNull(rowx("TitleFront")), "", rowx("TitleFront")) & " " & IIf(IsDBNull(rowx("Title")), "", rowx("Title"))
 
                             tmpNoteID = rownote("ID")
                             dtNote_Child = Nothing
@@ -2805,10 +3130,32 @@ tryagain:
                 End If
             Next
 
+            Dim dtFooter As DataTable = Nothing
+
+            dtFooter = clsNote.Load_Footer_Note_Disposal(RefNo, YA, 1, ErrorLog)
+
+            dsCA.Tables("CA_REPORT_WRITTEROFF_NOTE").Rows.Clear()
+            If dtFooter IsNot Nothing Then
+                For Each rowx As DataRow In dtFooter.Rows
+                    dsCA.Tables("CA_REPORT_WRITTEROFF_NOTE").ImportRow(rowx)
+                Next
+            End If
+
             rpt.DataSource = dsCA
-            rpt.XrSubreport1.ReportSource.DataSource = dsCA
+            ' rpt.XrSubreport1.ReportSource.DataSource = dsCA
             rpt.FontSize.Value = 11
             rpt.paramSch.Value = SchApex
+            rpt.CreateDocument()
+            Application.DoEvents()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptCA_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.FontSize.Value = 11
+            rpt_Note.DataSource = dsCA
+            If HasNote Then
+                rpt_Note.CreateDocument()
+            End If
 
             Return True
         Catch ex As Exception
@@ -2828,41 +3175,46 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_Disposal(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_Disposal,
+    Public Function PrintReport_Disposal(dsCA As DataSet, Title As String, ComName As String, YA As String, ShowDraft As Boolean, ByRef rpt As rpt_Disposal, ByRef rpt_Note As rptCA_Note,
                                          ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             'Disposal
             Dim clsNote As New clsNote_CA
 
+            Dim RefNo As String = ""
             Dim dtNote As DataTable = Nothing
             Dim dtNote_Child As DataTable = Nothing
             Dim tmpNoteID As Integer = 0
             Dim Ext As String = Nothing
             Dim dtRowAtt As Byte() = Nothing
             Dim i As Integer = -1
-
-            dsCA.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
-            dsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
-            dsCA.Tables("CA_NOTE").Rows.Clear()
+            Dim HasNote As Boolean = False
+            'dsCA.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
+            'dsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
+            'dsCA.Tables("CA_NOTE").Rows.Clear()
 
             If rpt Is Nothing Then
                 rpt = New rpt_Disposal
             End If
+            rpt.param_ShowDraft.Value = ShowDraft
             rpt.paramCompanyName.Value = ComName
             rpt.paramYA.Value = CInt(YA)
+            rpt.paramTitle.value = Title
             rpt.Landscape = True
 
             For Each rowx As DataRow In dsCA.Tables("CA_REPORT_DISPOSAL_TEMP").Rows
                 If IsDBNull(rowx("CA_KEY")) = False Then
 
                     dtNote = clsNote.Load_Note(rowx("CA_KEY"), 2, CStr(rowx("DISP_KEY")), Nothing)
+                    RefNo = IIf(IsDBNull(rowx("RefNo")), "", rowx("RefNo"))
 
                     If dtNote IsNot Nothing Then
                         i = -1
+                        HasNote = True
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
-                            dsCA.Tables("CA_REPORT_DISPOSAL_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
+                            rowx("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
 
                             tmpNoteID = rownote("ID")
                             dtNote_Child = Nothing
@@ -2915,10 +3267,34 @@ tryagain:
                 End If
             Next
 
+            Dim dtFooter As DataTable = Nothing
+
+            dtFooter = clsNote.Load_Footer_Note_Disposal(RefNo, YA, 0, ErrorLog)
+
+            dsCA.Tables("CA_REPORT_DISPOSAL_NOTE").Rows.Clear()
+            If dtFooter IsNot Nothing Then
+                For Each rowx As DataRow In dtFooter.Rows
+                    dsCA.Tables("CA_REPORT_DISPOSAL_NOTE").ImportRow(rowx)
+                Next
+            End If
+
             rpt.DataSource = dsCA
-            rpt.XrSubreport1.ReportSource.DataSource = dsCA
+            'rpt.XrSubreport1.ReportSource.DataSource = dsCA
             rpt.FontSize.Value = 11
             rpt.paramSch.Value = SchApex
+            rpt.CreateDocument()
+            Application.DoEvents()
+
+
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptCA_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.FontSize.Value = 11
+            rpt_Note.DataSource = dsCA
+            If HasNote Then
+                rpt_Note.CreateDocument()
+            End If
 
             Return True
         Catch ex As Exception
@@ -2938,11 +3314,11 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function PrintReport_HP(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_HP,
+    Public Function PrintReport_HP(dsCA As DataSet, Title As String, ComName As String, YA As String, ShowDraft As Boolean, ByRef rpt As rpt_HP, ByRef rpt_Note As rptCA_Note,
                                    ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsNote As New clsNote_CA
-
+            Dim RefNo As String = ""
 
             'Capital Allowance Details By Rate
             If rpt Is Nothing Then
@@ -2952,7 +3328,7 @@ tryagain:
             Dim dtNote As DataTable = Nothing
             Dim dtNote_Child As DataTable = Nothing
             Dim tmpNoteID As Integer = 0
-
+            Dim HasNote As Boolean = False
             Dim Ext As String = Nothing
             Dim dtRowAtt As Byte() = Nothing
             Dim i As Integer = -1
@@ -2961,8 +3337,9 @@ tryagain:
             dsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
             dsCA.Tables("CA_NOTE").Rows.Clear()
 
-
+            rpt.param_ShowDraft.Value = ShowDraft
             rpt.ParamCompanyName.Value = ComName
+            rpt.paramTitle.Value = Title
             rpt.ParamYA.Value = CInt(YA)
 
 
@@ -2972,14 +3349,16 @@ tryagain:
                 If IsDBNull(rowx("HP_KEY")) = False Then
 
                     dtNote = clsNote.Load_Note(rowx("HP_KEY"), 1)
+                    RefNo = IIf(IsDBNull(rowx("RefNo")), "", rowx("RefNo"))
 
                     If dtNote IsNot Nothing Then
                         i = -1
+                        HasNote = True
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
-                            dsCA.Tables("HP_REPORT_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rowx("TitleFront")), "", rowx("TitleFront")) & " " & IIf(IsDBNull(rowx("Title")), "", rowx("Title"))
-
+                            'dsCA.Tables("HP_REPORT_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
+                            rowx("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
                             tmpNoteID = rownote("ID")
                             dtNote_Child = Nothing
                             dtNote_Child = clsNote.Load_Note_Column(tmpNoteID)
@@ -3031,10 +3410,33 @@ tryagain:
                 End If
             Next
 
+            Dim dtFooter As DataTable = Nothing
+
+            dtFooter = clsNote.Load_Footer_Note_HP(RefNo, YA, ErrorLog)
+
+            dsCA.Tables("HP_REPORT_NOTE").Rows.Clear()
+            If dtFooter IsNot Nothing Then
+                For Each rowx As DataRow In dtFooter.Rows
+                    dsCA.Tables("HP_REPORT_NOTE").ImportRow(rowx)
+                Next
+            End If
+
+
             rpt.DataSource = dsCA
-            rpt.XrSubreport1.ReportSource.DataSource = dsCA
+            '  rpt.XrSubreport1.ReportSource.DataSource = dsCA
             rpt.FontSize.Value = 9
             rpt.paramSch.Value = SchApex
+            rpt.CreateDocument()
+            Application.DoEvents()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptCA_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.FontSize.Value = 9
+            rpt_Note.DataSource = dsCA
+            If HasNote Then
+                rpt_Note.CreateDocument()
+            End If
 
             Return True
         Catch ex As Exception
@@ -3055,7 +3457,7 @@ tryagain:
         End Try
     End Function
     Public Function PrintReport_MovementComplex(dsMovement As DataSet, ID As Integer, RefNo As String, ByRef rpt As rptMovementComplex,
-                                                ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+                                                 ShowDraft As Boolean, ByRef rpt_Note As rptMovement_Note, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsMovement_Note As New clsNote_Movement
 
@@ -3226,9 +3628,223 @@ tryagain:
             End If
             rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
             rpt.paramParentID.Value = ID
+            rpt.param_ShowDraft.Value = ShowDraft
             rpt.ParamSch.Value = SchApex
             rpt.DataSource = dsMovement.Tables("MOVEMENT_COMPLEX")
-            rpt.XrSubreport1.ReportSource.DataSource = dsMovement.Tables("MOVEMENT_NOTE")
+            ' rpt.XrSubreport1.ReportSource.DataSource = dsMovement.Tables("MOVEMENT_NOTE")
+            rpt.CreateDocument()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptMovement_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.DataSource = dsMovement '.Tables("MOVEMENT_NOTE")
+            If dsMovement.Tables("MOVEMENT_NOTE").Rows.Count > 0 Then
+                rpt_Note.CreateDocument()
+            End If
+
+            Return True
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            If ErrorLog Is Nothing Then
+                ErrorLog = New ClsError
+            End If
+
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function PrintReport_MovementComplexNew(dsMovement As DataSet, ID As Integer, RefNo As String, ByRef rpt As rptMovementComplexNew,
+                                               ShowDraft As Boolean, ByRef rpt_Note As rptMovement_Note, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+        Try
+            Dim clsMovement_Note As New clsNote_Movement
+
+            Dim dt As DataTable = Nothing
+            Dim dtChild As DataTable = Nothing
+            Dim dtNote As DataTable = Nothing
+            Dim dtNoteChild As DataTable = Nothing
+            Dim Ext As String = Nothing
+            Dim dtRowAtt As Byte() = Nothing
+
+            dt = ADO.Load_MovementComplex(ID, ErrorLog)
+
+
+            dsMovement.Tables("MOVEMENT_NOTE_ATTACHMENT").Rows.Clear()
+            dsMovement.Tables("MOVEMENT_NOTE_COLUMN").Rows.Clear()
+            dsMovement.Tables("MOVEMENT_NOTE").Rows.Clear()
+
+            dsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
+            dsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
+            dsMovement.Tables("MOVEMENT_COMPLEX").Rows.Clear()
+
+            If dt Is Nothing Then
+                MsgBox("Data not found.", MsgBoxStyle.Critical)
+                Return False
+            End If
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                dt.Rows(i)("MM_TITLE") = "Movements in " & IIf(IsDBNull(dt.Rows(i)("MM_TITLE")), "", dt.Rows(i)("MM_TITLE")) & " for the " & IIf(IsDBNull(dt.Rows(i)("MM_TYPE")), "Year Ended", dt.Rows(i)("MM_TYPE")) & " " & Format(IIf(IsDBNull(dt.Rows(i)("MM_YEAR_ENDED")), Now, dt.Rows(i)("MM_YEAR_ENDED")), "dd.MM.yyyy")
+                Application.DoEvents()
+                dsMovement.Tables("MOVEMENT_COMPLEX").ImportRow(dt.Rows(i))
+            Next
+
+            dt = ADO.Load_MovementComplex_Add(ID, ErrorLog)
+
+            If dt IsNot Nothing Then
+                For i As Integer = 0 To dt.Rows.Count - 1
+
+                    If IsDBNull(dt.Rows(i)("TagID")) = False Then
+                        dtNote = Nothing
+                        dtNote = clsMovement_Note.Load_Note(dt.Rows(i)("TagID"), ID, 1, 0, ErrorLog)
+
+                        If dtNote IsNot Nothing Then
+                            dt.Rows(i)("MM_NOTE") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                            dsMovement.Tables("MOVEMENT_NOTE").ImportRow(dtNote.Rows(0))
+                        End If
+
+                        dsMovement.Tables("MOVEMENT_COMPLEX_ADD").ImportRow(dt.Rows(i))
+
+
+                        Application.DoEvents()
+                        If dtNote IsNot Nothing Then
+
+                            '                            DsMovement.Tables("MOVEMENT_NOTE").ImportRow(dtNote.Rows(0))
+
+                            dtNoteChild = Nothing
+                            dtNoteChild = clsMovement_Note.Load_Note_Attachment(dtNote.Rows(0)("ID"), ErrorLog)
+                            If dtNoteChild IsNot Nothing Then
+                                For Each rowx As DataRow In dtNoteChild.Rows
+                                    rowx("ParentID") = dtNote.Rows(0)("ID")
+                                    dsMovement.Tables("MOVEMENT_NOTE_ATTACHMENT").ImportRow(rowx)
+
+                                    Ext = Nothing
+                                    dtRowAtt = IIf(IsDBNull(rowx("Attachment")), Nothing, rowx("Attachment"))
+                                    Ext = IIf(IsDBNull(rowx("Extension")), Nothing, rowx("Extension"))
+
+                                    If dtRowAtt IsNot Nothing Then
+                                        Dim frmnote As New frmNote_AttachmentView
+                                        Select Case Ext.ToLower
+                                            Case ".jpg", ".png", ".jpeg", ".bitmap", ".ico", ".gif", ".tif"
+                                                frmnote.Type = 0
+                                            Case ".xls", ".xlsx", ".csv", ".openxml"
+                                                frmnote.Type = 1
+                                            Case ".doc", "docx", ".rtf", ".wordml", ".opendocument"
+                                                frmnote.Type = 2
+                                            Case ".pdf"
+                                                frmnote.Type = 3
+                                        End Select
+                                        frmnote.Title = dt.Rows(i)("MM_NOTE")
+                                        frmnote.Extension = Ext
+                                        frmnote.dataArr = dtRowAtt
+                                        frmnote.Show()
+                                    End If
+                                Next
+                            End If
+
+                            dtNoteChild = Nothing
+                            dtNoteChild = clsMovement_Note.Load_Note_Column(dtNote.Rows(0)("ID"), ErrorLog)
+                            If dtNoteChild IsNot Nothing Then
+                                For Each rowx As DataRow In dtNoteChild.Rows
+                                    rowx("ParentID") = dtNote.Rows(0)("ID")
+                                    dsMovement.Tables("MOVEMENT_NOTE_COLUMN").ImportRow(rowx)
+                                Next
+                            End If
+
+                        End If
+                    End If
+
+                Next
+            End If
+            Application.DoEvents()
+            dt = ADO.Load_MovementComplex_Deduct(ID, ErrorLog)
+
+            If dt IsNot Nothing Then
+                For i As Integer = 0 To dt.Rows.Count - 1
+
+                    If IsDBNull(dt.Rows(i)("TagID")) = False Then
+                        dtNote = Nothing
+                        dtNote = clsMovement_Note.Load_Note(dt.Rows(i)("TagID"), ID, 1, 1, ErrorLog)
+
+                        If dtNote IsNot Nothing Then
+                            dt.Rows(i)("MM_NOTE") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                            dsMovement.Tables("MOVEMENT_NOTE").ImportRow(dtNote.Rows(0))
+                        End If
+
+                        dsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").ImportRow(dt.Rows(i))
+
+                        Application.DoEvents()
+                        If dtNote IsNot Nothing Then
+
+                            dtNoteChild = Nothing
+                            dtNoteChild = clsMovement_Note.Load_Note_Attachment(dtNote.Rows(0)("ID"), ErrorLog)
+                            If dtNoteChild IsNot Nothing Then
+                                For Each rowx As DataRow In dtNoteChild.Rows
+                                    rowx("ParentID") = dtNote.Rows(0)("ID")
+                                    dsMovement.Tables("MOVEMENT_NOTE_ATTACHMENT").ImportRow(rowx)
+
+                                    Ext = Nothing
+                                    dtRowAtt = IIf(IsDBNull(rowx("Attachment")), Nothing, rowx("Attachment"))
+                                    Ext = IIf(IsDBNull(rowx("Extension")), Nothing, rowx("Extension"))
+
+                                    If dtRowAtt IsNot Nothing Then
+                                        Dim frmnote As New frmNote_AttachmentView
+                                        Select Case Ext.ToLower
+                                            Case ".jpg", ".png", ".jpeg", ".bitmap", ".ico", ".gif", ".tif"
+                                                frmnote.Type = 0
+                                            Case ".xls", ".xlsx", ".csv", ".openxml"
+                                                frmnote.Type = 1
+                                            Case ".doc", "docx", ".rtf", ".wordml", ".opendocument"
+                                                frmnote.Type = 2
+                                            Case ".pdf"
+                                                frmnote.Type = 3
+                                        End Select
+                                        frmnote.Title = dt.Rows(i)("MM_NOTE")
+                                        frmnote.Extension = Ext
+                                        frmnote.dataArr = dtRowAtt
+                                        frmnote.Show()
+                                    End If
+                                Next
+                            End If
+
+                            dtNoteChild = Nothing
+                            dtNoteChild = clsMovement_Note.Load_Note_Column(dtNote.Rows(0)("ID"), ErrorLog)
+                            If dtNoteChild IsNot Nothing Then
+                                For Each rowx As DataRow In dtNoteChild.Rows
+                                    rowx("ParentID") = dtNote.Rows(0)("ID")
+                                    dsMovement.Tables("MOVEMENT_NOTE_COLUMN").ImportRow(rowx)
+                                Next
+                            End If
+
+                        End If
+                    End If
+
+                Next
+            End If
+
+            If rpt Is Nothing Then
+                rpt = New rptMovementComplexNew
+            End If
+            rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+            rpt.paramParentID.Value = ID
+            rpt.param_ShowDraft.Value = ShowDraft
+            rpt.ParamSch.Value = SchApex
+            rpt.DataSource = dsMovement
+            ' rpt.XrSubreport1.ReportSource.DataSource = dsMovement.Tables("MOVEMENT_NOTE")
+            rpt.CreateDocument()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptMovement_Note
+            End If
+            rpt_Note.Landscape = True
+            rpt_Note.DataSource = dsMovement '.Tables("MOVEMENT_NOTE")
+            If dsMovement.Tables("MOVEMENT_NOTE").Rows.Count > 0 Then
+                rpt_Note.CreateDocument()
+            End If
 
             Return True
         Catch ex As Exception
@@ -3249,7 +3865,7 @@ tryagain:
         End Try
     End Function
     Public Function PrintReport_MovementNormal(dsMovement As DataSet, ID As Integer, ByVal RefNo As String, ByRef rpt As rptMovementNormal,
-                                               ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+                                               ShowDraft As Boolean, ByRef rpt_Note As rptMovement_Note, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsMovement_Note As New clsNote_Movement
 
@@ -3431,9 +4047,18 @@ tryagain:
 
             rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
             rpt.paramParentID.Value = ID
+            rpt.param_ShowDraft.Value = ShowDraft
             rpt.paramSch.Value = SchApex
             rpt.DataSource = dsMovement.Tables("MOVEMENT_NORMAL")
-            rpt.XrSubreport1.ReportSource.DataSource = dsMovement.Tables("MOVEMENT_NOTE")
+            'rpt.XrSubreport1.ReportSource.DataSource = dsMovement.Tables("MOVEMENT_NOTE")
+            rpt.CreateDocument()
+            If rpt_Note Is Nothing Then
+                rpt_Note = New rptMovement_Note
+            End If
+            rpt_Note.DataSource = dsMovement '.Tables("MOVEMENT_NOTE")
+            If dsMovement.Tables("MOVEMENT_NOTE").Rows.Count > 0 Then
+                rpt_Note.CreateDocument()
+            End If
 
             Return True
         Catch ex As Exception
@@ -3454,8 +4079,8 @@ tryagain:
         End Try
     End Function
     Public Function PrintReport_PNL(RefNo As String, YA As String, ByRef rpt As rptPNL,
-                                   ByRef rpt_details As rptPNL_Details, ByRef rpt_interest As rptPNL_InterestResict _
-                                   , ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+                                   ByRef rpt_details As rptPNL_Details, ByRef rpt_Interest As Object _
+                                   , ByRef TotalColumn As Integer, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
 
             If RefNo Is Nothing OrElse YA Is Nothing OrElse IsNumeric(YA) = False Then
@@ -3469,6 +4094,11 @@ tryagain:
             rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
             rpt.paramYA.Value = CInt(YA)
             rpt.ParamSch.Value = SchApex
+            If isVersionLicenseType = VersionLicenseType.Tricor Then
+                rpt.isTricor.Value = True
+            Else
+                rpt.isTricor.Value = False
+            End If
 
 
             If mdlPNL2.PNL_Report(RefNo, YA, rpt.DsPNL1, ErrorLog) Then
@@ -3487,14 +4117,71 @@ tryagain:
                 rpt.CreateDocument()
                 Application.DoEvents()
 
-                If rpt_interest Is Nothing Then
-                    rpt_interest = New rptPNL_InterestResict
+                If rpt.DsPNL1 IsNot Nothing AndAlso rpt.DsPNL1.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor").Rows.Count > 0 Then
+                    TotalColumn = IIf(IsDBNull(rpt.DsPNL1.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor").Rows(0)("TotalColumn")), 12, rpt.DsPNL1.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor").Rows(0)("TotalColumn"))
+
+                    Select Case TotalColumn
+                        Case 12
+                            Dim rpt_Interest_sub As New rptPNL_InterestResict12
+                            rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                            rpt_Interest_sub.paramYA.Value = CInt(YA)
+                            rpt_Interest_sub.DataSource = rpt.DsPNL1
+                            rpt_Interest_sub.CreateDocument()
+                            rpt_Interest = rpt_Interest_sub
+                        Case 13
+                            Dim rpt_Interest_sub As New rptPNL_InterestResict13
+                            rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                            rpt_Interest_sub.paramYA.Value = CInt(YA)
+                            rpt_Interest_sub.DataSource = rpt.DsPNL1
+                            rpt_Interest_sub.CreateDocument()
+                            rpt_Interest = rpt_Interest_sub
+                        Case 14
+                            Dim rpt_Interest_sub As New rptPNL_InterestResict14
+                            rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                            rpt_Interest_sub.paramYA.Value = CInt(YA)
+                            rpt_Interest_sub.DataSource = rpt.DsPNL1
+                            rpt_Interest_sub.CreateDocument()
+                            rpt_Interest = rpt_Interest_sub
+                        Case 15
+                            Dim rpt_Interest_sub As New rptPNL_InterestResict15
+                            rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                            rpt_Interest_sub.paramYA.Value = CInt(YA)
+                            rpt_Interest_sub.DataSource = rpt.DsPNL1
+                            rpt_Interest_sub.CreateDocument()
+                            rpt_Interest = rpt_Interest_sub
+                        Case 16
+                            Dim rpt_Interest_sub As New rptPNL_InterestResict16
+                            rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                            rpt_Interest_sub.paramYA.Value = CInt(YA)
+                            rpt_Interest_sub.DataSource = rpt.DsPNL1
+                            rpt_Interest_sub.CreateDocument()
+                            rpt_Interest = rpt_Interest_sub
+                        Case 17
+                            Dim rpt_Interest_sub As New rptPNL_InterestResict17
+                            rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                            rpt_Interest_sub.paramYA.Value = CInt(YA)
+                            rpt_Interest_sub.DataSource = rpt.DsPNL1
+                            rpt_Interest_sub.CreateDocument()
+                            rpt_Interest = rpt_Interest_sub
+                        Case 18
+                            Dim rpt_Interest_sub As New rptPNL_InterestResict18
+                            rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                            rpt_Interest_sub.paramYA.Value = CInt(YA)
+                            rpt_Interest_sub.DataSource = rpt.DsPNL1
+                            rpt_Interest_sub.CreateDocument()
+                            rpt_Interest = rpt_Interest_sub
+                    End Select
+                    'If rpt_interest Is Nothing Then
+                    '    rpt_interest = New rptPNL_InterestResict
+                    'End If
+                    'rpt_interest.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                    'rpt_interest.paramYA.Value = CInt(YA)
+                    'rpt_interest.DataSource = rpt.DsPNL1
+                    'rpt_interest.subrptBand12.ReportSource.DataSource = rpt.DsPNL1
+                    'rpt_interest.CreateDocument()
+                    Application.DoEvents()
                 End If
-                rpt_interest.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
-                rpt_interest.paramYA.Value = CInt(YA)
-                rpt_interest.DataSource = rpt.DsPNL1
-                rpt_interest.CreateDocument()
-                Application.DoEvents()
+
 
                 Return True
             Else
@@ -3502,6 +4189,126 @@ tryagain:
                 Return False
             End If
 
+
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+
+            If ErrorLog Is Nothing Then
+                ErrorLog = New ClsError
+            End If
+
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function Report_NonAllowableExpenses(RefNo As String, YA As String, ByRef rpt As rptNonAllowableExpenses,
+                                                ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+        Try
+
+            If RefNo Is Nothing OrElse YA Is Nothing OrElse IsNumeric(YA) = False Then
+                Return False
+            End If
+
+            Dim PNLInfo As DataTable = ADO.Load_PNLINFO(ErrorLog)
+
+            If PNLInfo Is Nothing Then
+                Return False
+            End If
+
+            Dim AdjustedIncome As New AdjustedIncome
+            Dim dsAdjustedIncome As New dsAdjustedIncome
+
+            AdjustedIncome.RefNo = RefNo
+            AdjustedIncome.YA = YA
+            AdjustedIncome.dsAdjustIncome = dsAdjustedIncome
+            AdjustedIncome.Load_NonAllowableExpensesData(PNLInfo)
+            Application.DoEvents()
+
+            If rpt Is Nothing Then
+                rpt = New rptNonAllowableExpenses
+            End If
+
+            Dim ds As New dsAdjustedIncome
+
+            ds.Tables("NON_ALLOWABLE_EXPENSES_REPORT").Clear()
+            For Each rowx As DataRow In AdjustedIncome.dsAdjustIncome.Tables("NON_ALLOWABLE_EXPENSES_REPORT").Rows
+                ds.Tables("NON_ALLOWABLE_EXPENSES_REPORT").ImportRow(rowx)
+            Next
+            rpt.DataSource = ds
+
+            Return True
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+
+            If ErrorLog Is Nothing Then
+                ErrorLog = New ClsError
+            End If
+
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function PrintReport_DeemedInterest(ds As DataSet, Title As String, ByVal RefNo As String, ByVal YA As String, ShowDraft As Boolean, _
+                                               ByRef rpt As rpt_DeemedInterest, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+        Try
+
+            Dim dtTaxcom As DataTable = ADO.Load_Tax_Computation(RefNo, YA, ErrorLog)
+
+            ds.Tables("DEEMED_INTEREST").Rows.Clear()
+            Dim dtRow As DataRow = Nothing
+            Dim TC_KEY As Integer = 0
+            Dim dtDeemedInterest As DataTable = Nothing
+
+            If dtTaxcom IsNot Nothing Then
+
+                For i As Integer = 0 To dtTaxcom.Rows.Count - 1
+
+                    TC_KEY = CInt(IIf(IsDBNull(dtTaxcom.Rows(i)("TC_KEY")), 0, dtTaxcom.Rows(i)("TC_KEY")))
+
+                    dtDeemedInterest = ADO.Load_DeemedInterest(TC_KEY, ErrorLog)
+
+                    If dtDeemedInterest IsNot Nothing Then
+
+                        For Each rowx As DataRow In dtDeemedInterest.Rows
+
+                            rowx("DI_MONTH") = MonthName(CInt(rowx("DI_MONTH")), False) & " " & CStr(rowx("DI_YEAR"))
+                            ds.Tables("DEEMED_INTEREST").ImportRow(rowx)
+
+                        Next
+                    End If
+                Next
+
+                If ds.Tables("DEEMED_INTEREST").Rows.Count > 0 Then
+                    If rpt Is Nothing Then
+                        rpt = New rpt_DeemedInterest
+                    End If
+                    rpt.param_ShowDraft.Value = ShowDraft
+                    rpt.paramSch.Value = SchApex
+                    rpt.paramTitle.Value = Title
+                    rpt.DataSource = ds.Tables("DEEMED_INTEREST")
+
+
+                    Return True
+                Else
+                    Return False
+                End If
+            Else
+                Return False
+            End If
 
         Catch ex As Exception
             Dim st As New StackTrace(True)

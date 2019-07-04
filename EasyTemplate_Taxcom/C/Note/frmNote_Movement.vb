@@ -30,6 +30,11 @@
                 clsNote = New clsNote_Movement
             End If
 
+            If My.Computer.Name = DeveloperPCName Then
+                pnlReference.Visible = True
+            Else
+                pnlReference.Visible = False
+            End If
             Me.LoadData()
         Catch ex As Exception
             Dim st As New StackTrace(True)
@@ -72,6 +77,7 @@
             txtMM_ID.EditValue = MM_ID
             txtData_SubID.EditValue = Data_SubID
             txtDescription.EditValue = RowDescription
+            txtTagID.EditValue = TagID
 
             Dim dtValidate As DataTable = Nothing
             If Type_Movement = 0 Then
@@ -128,7 +134,7 @@
                 DsMovement.Tables("MOVEMENT_NOTE_ATTACHMENT").Rows.Clear()
                 DsMovement.Tables("MOVEMENT_NOTE_COLUMN").Rows.Clear()
                 Select Case IIf(IsDBNull(dt.Rows(0)("TypeNote")), 0, dt.Rows(0)("TypeNote"))
-                    Case 1
+                    Case 2
                         dtChild = clsNote.Load_Note_Attachment(ID, ErrorLog)
 
                         If dtChild IsNot Nothing Then
@@ -136,7 +142,7 @@
                                 DsMovement.Tables("MOVEMENT_NOTE_ATTACHMENT").ImportRow(rowx)
                             Next
                         End If
-                    Case 2
+                    Case 1
                         dtChild = clsNote.Load_Note_Column(ID, ErrorLog)
                         If dtChild IsNot Nothing Then
                             txtCol1.EditValue = IIf(IsDBNull(dtChild.Rows(0)("Col1_Name")), "", dtChild.Rows(0)("Col1_Name"))
@@ -180,7 +186,7 @@
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         Finally
             ValidateMultipleAttachment()
@@ -201,7 +207,7 @@
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -216,7 +222,7 @@
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         Finally
             ValidateMultipleAttachment()
@@ -230,13 +236,13 @@
                 Case 0
                     TabControl.SelectedTabPageIndex = 0
                 Case 1
-                    TabControl.SelectedTabPageIndex = 1
-                Case 2
                     TabControl.SelectedTabPageIndex = 2
+                Case 2
+                    TabControl.SelectedTabPageIndex = 1
             End Select
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -246,7 +252,7 @@
             If isValid() Then
 
 
-                If RGTypeNote.SelectedIndex = 2 Then
+                If RGTypeNote.SelectedIndex = 1 Then
                     If DsMovement.Tables("MOVEMENT_NOTE_COLUMN").Rows.Count > 0 Then
                         For Each rowx As DataRow In DsMovement.Tables("MOVEMENT_NOTE_COLUMN").Rows
                             rowx("Col1_Name") = txtCol1.EditValue
@@ -286,7 +292,7 @@
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -301,27 +307,26 @@
             Select Case RGTypeNote.SelectedIndex
                 Case 0
                     If txtMemo.EditValue Is Nothing OrElse txtMemo.EditValue = "" Then
-                        MsgBox("Please enter note.", MsgBoxStyle.Exclamation)
-                        Return False
+                        txtMemo.EditValue = " "
                     End If
-                Case 1
+                Case 2
                     If DsMovement.Tables("MOVEMENT_NOTE_ATTACHMENT").Rows.Count = 0 Then
                         MsgBox("Please insert at least one attachment.", MsgBoxStyle.Exclamation)
                         Return False
                     End If
                     txtMemo.EditValue = "Please refer to attachment."
 
-                Case 2
+                Case 1
                     If DsMovement.Tables("MOVEMENT_NOTE_COLUMN").Rows.Count = 0 Then
                         MsgBox("Please insert at least one data.", MsgBoxStyle.Exclamation)
                         Return False
                     End If
-                    txtMemo.EditValue = ""
+                    txtMemo.EditValue = " "
             End Select
             Return True
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -359,12 +364,12 @@
         txtCol3.EditValueChanged, txtCol4.EditValueChanged, txtCol5.EditValueChanged, txtCol6.EditValueChanged
         Try
 
-            GridView2.Columns("Col1_Val").Caption = IIf(txtCol1.EditValue Is Nothing, " ", txtCol1.EditValue)
-            GridView2.Columns("Col2_Val").Caption = IIf(txtCol2.EditValue Is Nothing, " ", txtCol2.EditValue)
-            GridView2.Columns("Col3_Val").Caption = IIf(txtCol3.EditValue Is Nothing, " ", txtCol3.EditValue)
-            GridView2.Columns("Col4_Val").Caption = IIf(txtCol4.EditValue Is Nothing, " ", txtCol4.EditValue)
-            GridView2.Columns("Col5_Val").Caption = IIf(txtCol5.EditValue Is Nothing, " ", txtCol5.EditValue)
-            GridView2.Columns("Col6_Val").Caption = IIf(txtCol6.EditValue Is Nothing, " ", txtCol6.EditValue)
+            GridView3.Columns("Col1_Val").Caption = IIf(txtCol1.EditValue Is Nothing, " ", txtCol1.EditValue)
+            GridView3.Columns("Col2_Val").Caption = IIf(txtCol2.EditValue Is Nothing, " ", txtCol2.EditValue)
+            GridView3.Columns("Col3_Val").Caption = IIf(txtCol3.EditValue Is Nothing, " ", txtCol3.EditValue)
+            GridView3.Columns("Col4_Val").Caption = IIf(txtCol4.EditValue Is Nothing, " ", txtCol4.EditValue)
+            GridView3.Columns("Col5_Val").Caption = IIf(txtCol5.EditValue Is Nothing, " ", txtCol5.EditValue)
+            GridView3.Columns("Col6_Val").Caption = IIf(txtCol6.EditValue Is Nothing, " ", txtCol6.EditValue)
 
         Catch ex As Exception
             Dim st As New StackTrace(True)

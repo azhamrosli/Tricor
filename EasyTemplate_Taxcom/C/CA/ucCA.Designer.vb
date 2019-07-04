@@ -90,6 +90,7 @@ Partial Class ucCA
         Me.btnEdit = New DevExpress.XtraBars.BarButtonItem()
         Me.btnPrint = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -119,7 +120,6 @@ Partial Class ucCA
         Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
         Me.btnImportExport = New DevExpress.XtraBars.BarButtonItem()
         Me.btnQuickCA = New DevExpress.XtraBars.BarButtonItem()
-        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.dgvDisposal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -518,7 +518,7 @@ Partial Class ucCA
         '
         'colHP_CODE
         '
-        Me.colHP_CODE.Caption = "HP COde"
+        Me.colHP_CODE.Caption = "HP Code"
         Me.colHP_CODE.FieldName = "HP_CODE"
         Me.colHP_CODE.Name = "colHP_CODE"
         Me.colHP_CODE.Visible = True
@@ -680,6 +680,12 @@ Partial Class ucCA
         Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'BarButtonItem1
+        '
+        Me.BarButtonItem1.Caption = "Quick CA"
+        Me.BarButtonItem1.Id = 8
+        Me.BarButtonItem1.Name = "BarButtonItem1"
         '
         'barDockControlTop
         '
@@ -918,12 +924,6 @@ Partial Class ucCA
         Me.btnQuickCA.ImageOptions.LargeImage = CType(resources.GetObject("btnQuickCA.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnQuickCA.Name = "btnQuickCA"
         Me.btnQuickCA.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        '
-        'BarButtonItem1
-        '
-        Me.BarButtonItem1.Caption = "Quick CA"
-        Me.BarButtonItem1.Id = 8
-        Me.BarButtonItem1.Name = "BarButtonItem1"
         '
         'ucCA
         '

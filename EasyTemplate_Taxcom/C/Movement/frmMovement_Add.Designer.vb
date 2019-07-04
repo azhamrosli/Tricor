@@ -39,6 +39,7 @@ Partial Class frmMovement_Add
         Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
         Me.btnNote_Add = New DevExpress.XtraBars.BarButtonItem()
         Me.btnNote_Less = New DevExpress.XtraBars.BarButtonItem()
+        Me.lblLastmodified = New DevExpress.XtraBars.BarStaticItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -55,6 +56,8 @@ Partial Class frmMovement_Add
         Me.LabelControl8 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl9 = New DevExpress.XtraEditors.LabelControl()
         Me.GridControl2 = New DevExpress.XtraGrid.GridControl()
+        Me.MOVEMENTDEDUCTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsMovement = New EasyTemplate_Taxcom.dsMovement()
         Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GridColumn1 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridColumn2 = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -64,6 +67,10 @@ Partial Class frmMovement_Add
         Me.GridColumn4 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.RepositoryItemCheckEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit()
         Me.colMM_DEDUCT_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_PARENTID1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_Sequence1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colNote1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTagID1 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.RepositoryItemMemoEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
         Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsCA = New EasyTemplate_Taxcom.dsCA()
@@ -89,17 +96,8 @@ Partial Class frmMovement_Add
         Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.txtTotalAmount_AddbackDeduct = New DevExpress.XtraEditors.TextEdit()
         Me.SplitContainerControl1 = New DevExpress.XtraEditors.SplitContainerControl()
-        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
-        Me.LabelControl6 = New DevExpress.XtraEditors.LabelControl()
-        Me.PanelControl2 = New DevExpress.XtraEditors.PanelControl()
-        Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
-        Me.RGType = New DevExpress.XtraEditors.RadioGroup()
-        Me.cboType = New DevExpress.XtraEditors.ComboBoxEdit()
-        Me.cboSourceCode = New DevExpress.XtraEditors.ComboBoxEdit()
-        Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
-        Me.DsMovement = New EasyTemplate_Taxcom.dsMovement()
-        Me.MOVEMENTADDBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
+        Me.MOVEMENTADDBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colMM_ID = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colMM_Description = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -109,16 +107,19 @@ Partial Class frmMovement_Add
         Me.colMM_AddBack = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.chkAddBack = New DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit()
         Me.colMM_AddBack_Amount = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.txtNote = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
         Me.colMM_PARENTID = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colMM_Sequence = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colNote = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colTagID = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.MOVEMENTDEDUCTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.colMM_PARENTID1 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_Sequence1 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colNote1 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colTagID1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.txtNote = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
+        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.LabelControl6 = New DevExpress.XtraEditors.LabelControl()
+        Me.PanelControl2 = New DevExpress.XtraEditors.PanelControl()
+        Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
+        Me.RGType = New DevExpress.XtraEditors.RadioGroup()
+        Me.cboType = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.cboSourceCode = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -130,6 +131,8 @@ Partial Class frmMovement_Add
         CType(Me.dtBalanceEnd.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtBalanceEnd.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MOVEMENTDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtAutoComplete_Deduct, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -148,6 +151,13 @@ Partial Class frmMovement_Add
         CType(Me.txtTotalAmount_AddbackDeduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainerControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainerControl1.SuspendLayout()
+        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MOVEMENTADDBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtAutoComplete, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkAddBack, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.PanelControl2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -155,15 +165,6 @@ Partial Class frmMovement_Add
         CType(Me.RGType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MOVEMENTADDBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtAutoComplete, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.chkAddBack, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MOVEMENTDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -174,8 +175,8 @@ Partial Class frmMovement_Add
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnAddChild, Me.btnDelete, Me.btnMoveUp, Me.btnMoveDown, Me.btnNote_Add, Me.btnNote_Less})
-        Me.BarManager1.MaxItemId = 13
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnAddChild, Me.btnDelete, Me.btnMoveUp, Me.btnMoveDown, Me.btnNote_Add, Me.btnNote_Less, Me.lblLastmodified})
+        Me.BarManager1.MaxItemId = 14
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemTextEdit2})
         '
         'Bar1
@@ -185,7 +186,7 @@ Partial Class frmMovement_Add
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
         Me.Bar1.FloatLocation = New System.Drawing.Point(271, 130)
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Add), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Less)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Add), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Less), New DevExpress.XtraBars.LinkPersistInfo(Me.lblLastmodified)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.DisableClose = True
         Me.Bar1.OptionsBar.DisableCustomization = True
@@ -275,6 +276,11 @@ Partial Class frmMovement_Add
         Me.btnNote_Less.ImageOptions.LargeImage = CType(resources.GetObject("btnNote_Less.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnNote_Less.Name = "btnNote_Less"
         Me.btnNote_Less.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'lblLastmodified
+        '
+        Me.lblLastmodified.Id = 13
+        Me.lblLastmodified.Name = "lblLastmodified"
         '
         'barDockControlTop
         '
@@ -419,6 +425,16 @@ Partial Class frmMovement_Add
         Me.GridControl2.TabIndex = 9
         Me.GridControl2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
+        'MOVEMENTDEDUCTBindingSource
+        '
+        Me.MOVEMENTDEDUCTBindingSource.DataMember = "MOVEMENT_DEDUCT"
+        Me.MOVEMENTDEDUCTBindingSource.DataSource = Me.DsMovement
+        '
+        'DsMovement
+        '
+        Me.DsMovement.DataSetName = "dsMovement"
+        Me.DsMovement.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'GridView2
         '
         Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn1, Me.GridColumn2, Me.GridColumn3, Me.GridColumn4, Me.colMM_DEDUCT_AMOUNT, Me.colMM_PARENTID1, Me.colMM_Sequence1, Me.colNote1, Me.colTagID1})
@@ -496,6 +512,26 @@ Partial Class frmMovement_Add
         Me.colMM_DEDUCT_AMOUNT.OptionsColumn.TabStop = False
         Me.colMM_DEDUCT_AMOUNT.Visible = True
         Me.colMM_DEDUCT_AMOUNT.VisibleIndex = 3
+        '
+        'colMM_PARENTID1
+        '
+        Me.colMM_PARENTID1.FieldName = "MM_PARENTID"
+        Me.colMM_PARENTID1.Name = "colMM_PARENTID1"
+        '
+        'colMM_Sequence1
+        '
+        Me.colMM_Sequence1.FieldName = "MM_Sequence"
+        Me.colMM_Sequence1.Name = "colMM_Sequence1"
+        '
+        'colNote1
+        '
+        Me.colNote1.FieldName = "Note"
+        Me.colNote1.Name = "colNote1"
+        '
+        'colTagID1
+        '
+        Me.colTagID1.FieldName = "TagID"
+        Me.colTagID1.Name = "colTagID1"
         '
         'RepositoryItemMemoEdit1
         '
@@ -753,95 +789,6 @@ Partial Class frmMovement_Add
         Me.SplitContainerControl1.SplitterPosition = 138
         Me.SplitContainerControl1.TabIndex = 191
         '
-        'PanelControl1
-        '
-        Me.PanelControl1.Controls.Add(Me.LabelControl6)
-        Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 0)
-        Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(1161, 26)
-        Me.PanelControl1.TabIndex = 10
-        '
-        'LabelControl6
-        '
-        Me.LabelControl6.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl6.Appearance.Options.UseFont = True
-        Me.LabelControl6.Location = New System.Drawing.Point(9, 5)
-        Me.LabelControl6.Name = "LabelControl6"
-        Me.LabelControl6.Size = New System.Drawing.Size(26, 16)
-        Me.LabelControl6.TabIndex = 9
-        Me.LabelControl6.Text = "Add"
-        '
-        'PanelControl2
-        '
-        Me.PanelControl2.Controls.Add(Me.LabelControl7)
-        Me.PanelControl2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl2.Location = New System.Drawing.Point(0, 0)
-        Me.PanelControl2.Name = "PanelControl2"
-        Me.PanelControl2.Size = New System.Drawing.Size(1161, 26)
-        Me.PanelControl2.TabIndex = 11
-        '
-        'LabelControl7
-        '
-        Me.LabelControl7.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl7.Appearance.Options.UseFont = True
-        Me.LabelControl7.Location = New System.Drawing.Point(9, 5)
-        Me.LabelControl7.Name = "LabelControl7"
-        Me.LabelControl7.Size = New System.Drawing.Size(29, 16)
-        Me.LabelControl7.TabIndex = 9
-        Me.LabelControl7.Text = "Less"
-        '
-        'RGType
-        '
-        Me.RGType.EditValue = False
-        Me.RGType.Location = New System.Drawing.Point(682, 37)
-        Me.RGType.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.RGType.MenuManager = Me.BarManager1
-        Me.RGType.Name = "RGType"
-        Me.RGType.Properties.Appearance.Options.UseTextOptions = True
-        Me.RGType.Properties.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap
-        Me.RGType.Properties.Items.AddRange(New DevExpress.XtraEditors.Controls.RadioGroupItem() {New DevExpress.XtraEditors.Controls.RadioGroupItem(False, "None"), New DevExpress.XtraEditors.Controls.RadioGroupItem(False, "Non Allowable Expenses"), New DevExpress.XtraEditors.Controls.RadioGroupItem(False, "Taxable gain /Income not entered in the Profit and Loss Account but entered in th" & _
-                    "e Balance Sheet"), New DevExpress.XtraEditors.Controls.RadioGroupItem(False, "Allowable expenses not entered not in the Profit and Loss Account (extracted from" & _
-                    " the Balance Sheet)")})
-        Me.RGType.Size = New System.Drawing.Size(493, 110)
-        Me.RGType.TabIndex = 212
-        '
-        'cboType
-        '
-        Me.cboType.Location = New System.Drawing.Point(453, 39)
-        Me.cboType.MenuManager = Me.BarManager1
-        Me.cboType.Name = "cboType"
-        Me.cboType.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboType.Properties.Items.AddRange(New Object() {"Year Ended", "Period Ended"})
-        Me.cboType.Size = New System.Drawing.Size(171, 20)
-        Me.cboType.TabIndex = 217
-        '
-        'cboSourceCode
-        '
-        Me.cboSourceCode.Location = New System.Drawing.Point(94, 116)
-        Me.cboSourceCode.Name = "cboSourceCode"
-        Me.cboSourceCode.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboSourceCode.Size = New System.Drawing.Size(280, 20)
-        Me.cboSourceCode.TabIndex = 222
-        '
-        'LabelControl2
-        '
-        Me.LabelControl2.Location = New System.Drawing.Point(10, 119)
-        Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(68, 13)
-        Me.LabelControl2.TabIndex = 223
-        Me.LabelControl2.Text = "Source Code :"
-        '
-        'DsMovement
-        '
-        Me.DsMovement.DataSetName = "dsMovement"
-        Me.DsMovement.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'MOVEMENTADDBindingSource
-        '
-        Me.MOVEMENTADDBindingSource.DataMember = "MOVEMENT_ADD"
-        Me.MOVEMENTADDBindingSource.DataSource = Me.DsMovement
-        '
         'GridControl1
         '
         Me.GridControl1.DataSource = Me.MOVEMENTADDBindingSource
@@ -854,6 +801,11 @@ Partial Class frmMovement_Add
         Me.GridControl1.Size = New System.Drawing.Size(1161, 112)
         Me.GridControl1.TabIndex = 11
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
+        '
+        'MOVEMENTADDBindingSource
+        '
+        Me.MOVEMENTADDBindingSource.DataMember = "MOVEMENT_ADD"
+        Me.MOVEMENTADDBindingSource.DataSource = Me.DsMovement
         '
         'GridView1
         '
@@ -935,11 +887,6 @@ Partial Class frmMovement_Add
         Me.colMM_AddBack_Amount.Visible = True
         Me.colMM_AddBack_Amount.VisibleIndex = 3
         '
-        'txtNote
-        '
-        Me.txtNote.MaxLength = 3000
-        Me.txtNote.Name = "txtNote"
-        '
         'colMM_PARENTID
         '
         Me.colMM_PARENTID.FieldName = "MM_PARENTID"
@@ -960,41 +907,100 @@ Partial Class frmMovement_Add
         Me.colTagID.FieldName = "TagID"
         Me.colTagID.Name = "colTagID"
         '
-        'MOVEMENTDEDUCTBindingSource
+        'txtNote
         '
-        Me.MOVEMENTDEDUCTBindingSource.DataMember = "MOVEMENT_DEDUCT"
-        Me.MOVEMENTDEDUCTBindingSource.DataSource = Me.DsMovement
+        Me.txtNote.MaxLength = 3000
+        Me.txtNote.Name = "txtNote"
         '
-        'colMM_PARENTID1
+        'PanelControl1
         '
-        Me.colMM_PARENTID1.FieldName = "MM_PARENTID"
-        Me.colMM_PARENTID1.Name = "colMM_PARENTID1"
+        Me.PanelControl1.Controls.Add(Me.LabelControl6)
+        Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 0)
+        Me.PanelControl1.Name = "PanelControl1"
+        Me.PanelControl1.Size = New System.Drawing.Size(1161, 26)
+        Me.PanelControl1.TabIndex = 10
         '
-        'colMM_Sequence1
+        'LabelControl6
         '
-        Me.colMM_Sequence1.FieldName = "MM_Sequence"
-        Me.colMM_Sequence1.Name = "colMM_Sequence1"
+        Me.LabelControl6.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl6.Appearance.Options.UseFont = True
+        Me.LabelControl6.Location = New System.Drawing.Point(9, 5)
+        Me.LabelControl6.Name = "LabelControl6"
+        Me.LabelControl6.Size = New System.Drawing.Size(26, 16)
+        Me.LabelControl6.TabIndex = 9
+        Me.LabelControl6.Text = "Add"
         '
-        'colNote1
+        'PanelControl2
         '
-        Me.colNote1.FieldName = "Note"
-        Me.colNote1.Name = "colNote1"
+        Me.PanelControl2.Controls.Add(Me.LabelControl7)
+        Me.PanelControl2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelControl2.Location = New System.Drawing.Point(0, 0)
+        Me.PanelControl2.Name = "PanelControl2"
+        Me.PanelControl2.Size = New System.Drawing.Size(1161, 26)
+        Me.PanelControl2.TabIndex = 11
         '
-        'colTagID1
+        'LabelControl7
         '
-        Me.colTagID1.FieldName = "TagID"
-        Me.colTagID1.Name = "colTagID1"
+        Me.LabelControl7.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl7.Appearance.Options.UseFont = True
+        Me.LabelControl7.Location = New System.Drawing.Point(9, 5)
+        Me.LabelControl7.Name = "LabelControl7"
+        Me.LabelControl7.Size = New System.Drawing.Size(29, 16)
+        Me.LabelControl7.TabIndex = 9
+        Me.LabelControl7.Text = "Less"
+        '
+        'RGType
+        '
+        Me.RGType.EditValue = False
+        Me.RGType.Location = New System.Drawing.Point(682, 37)
+        Me.RGType.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.RGType.MenuManager = Me.BarManager1
+        Me.RGType.Name = "RGType"
+        Me.RGType.Properties.Appearance.Options.UseTextOptions = True
+        Me.RGType.Properties.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap
+        Me.RGType.Properties.Items.AddRange(New DevExpress.XtraEditors.Controls.RadioGroupItem() {New DevExpress.XtraEditors.Controls.RadioGroupItem(False, "None"), New DevExpress.XtraEditors.Controls.RadioGroupItem(False, "Non Allowable Expenses"), New DevExpress.XtraEditors.Controls.RadioGroupItem(False, "Taxable gain /Income not entered in the Profit and Loss Account but entered in th" & _
+                    "e Balance Sheet"), New DevExpress.XtraEditors.Controls.RadioGroupItem(False, "Allowable expenses not entered not in the Profit and Loss Account (extracted from" & _
+                    " the Balance Sheet)")})
+        Me.RGType.Size = New System.Drawing.Size(493, 110)
+        Me.RGType.TabIndex = 212
+        '
+        'cboType
+        '
+        Me.cboType.Location = New System.Drawing.Point(453, 39)
+        Me.cboType.MenuManager = Me.BarManager1
+        Me.cboType.Name = "cboType"
+        Me.cboType.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboType.Properties.Items.AddRange(New Object() {"Year Ended", "Period Ended"})
+        Me.cboType.Size = New System.Drawing.Size(171, 20)
+        Me.cboType.TabIndex = 217
+        '
+        'cboSourceCode
+        '
+        Me.cboSourceCode.Location = New System.Drawing.Point(94, 116)
+        Me.cboSourceCode.Name = "cboSourceCode"
+        Me.cboSourceCode.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboSourceCode.Size = New System.Drawing.Size(280, 20)
+        Me.cboSourceCode.TabIndex = 222
+        '
+        'LabelControl2
+        '
+        Me.LabelControl2.Location = New System.Drawing.Point(10, 119)
+        Me.LabelControl2.Name = "LabelControl2"
+        Me.LabelControl2.Size = New System.Drawing.Size(68, 13)
+        Me.LabelControl2.TabIndex = 223
+        Me.LabelControl2.Text = "Source Code :"
         '
         'frmMovement_Add
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1187, 569)
+        Me.Controls.Add(Me.SplitContainerControl1)
         Me.Controls.Add(Me.cboSourceCode)
         Me.Controls.Add(Me.LabelControl2)
         Me.Controls.Add(Me.cboType)
         Me.Controls.Add(Me.RGType)
-        Me.Controls.Add(Me.SplitContainerControl1)
         Me.Controls.Add(Me.txtTotalAmount_AddbackDeduct)
         Me.Controls.Add(Me.cboRefNo)
         Me.Controls.Add(Me.txtAmountEnd)
@@ -1035,6 +1041,8 @@ Partial Class frmMovement_Add
         CType(Me.dtBalanceEnd.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtBalanceEnd.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MOVEMENTDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtAutoComplete_Deduct, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1053,6 +1061,13 @@ Partial Class frmMovement_Add
         CType(Me.txtTotalAmount_AddbackDeduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SplitContainerControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainerControl1.ResumeLayout(False)
+        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MOVEMENTADDBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtAutoComplete, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkAddBack, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
@@ -1062,15 +1077,6 @@ Partial Class frmMovement_Add
         CType(Me.RGType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MOVEMENTADDBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtAutoComplete, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.chkAddBack, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MOVEMENTDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1164,4 +1170,5 @@ Partial Class frmMovement_Add
     Friend WithEvents colMM_Sequence1 As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colNote1 As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colTagID1 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents lblLastmodified As DevExpress.XtraBars.BarStaticItem
 End Class

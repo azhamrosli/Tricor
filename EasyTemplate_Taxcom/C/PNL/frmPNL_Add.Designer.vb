@@ -70,7 +70,6 @@ Partial Class frmPNL_Add
         Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.pnlDocInformation = New DevExpress.XtraBars.Docking.DockPanel()
         Me.DockPanel1_Container = New DevExpress.XtraBars.Docking.ControlContainer()
-        Me.XtraScrollableControl1 = New DevExpress.XtraEditors.XtraScrollableControl()
         Me.XtraTabControl1 = New DevExpress.XtraTab.XtraTabControl()
         Me.XtraTabPage1 = New DevExpress.XtraTab.XtraTabPage()
         Me.lbl_p1NonAllowableExpenses = New DevExpress.XtraEditors.LabelControl()
@@ -264,6 +263,8 @@ Partial Class frmPNL_Add
         Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.btnQuickPNL = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnPrintAdmin = New DevExpress.XtraBars.BarButtonItem()
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup3 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
@@ -279,6 +280,7 @@ Partial Class frmPNL_Add
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.PopupMenu1 = New DevExpress.XtraBars.PopupMenu(Me.components)
+        Me.RibbonPageGroup7 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         CType(Me.DockManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.hideContainerRight.SuspendLayout()
         Me.pnlDocImport.SuspendLayout()
@@ -304,7 +306,6 @@ Partial Class frmPNL_Add
         CType(Me.txtSearch.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlDocInformation.SuspendLayout()
         Me.DockPanel1_Container.SuspendLayout()
-        Me.XtraScrollableControl1.SuspendLayout()
         CType(Me.XtraTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.XtraTabControl1.SuspendLayout()
         Me.XtraTabPage1.SuspendLayout()
@@ -417,12 +418,13 @@ Partial Class frmPNL_Add
         Me.hideContainerRight.Controls.Add(Me.pnlDocExport)
         Me.hideContainerRight.Controls.Add(Me.pnlDocAdvanceSearch)
         Me.hideContainerRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.hideContainerRight.Location = New System.Drawing.Point(1068, 141)
+        Me.hideContainerRight.Location = New System.Drawing.Point(1107, 141)
         Me.hideContainerRight.Name = "hideContainerRight"
         Me.hideContainerRight.Size = New System.Drawing.Size(19, 583)
         '
         'pnlDocImport
         '
+        Me.pnlDocImport.AutoScroll = True
         Me.pnlDocImport.Controls.Add(Me.DockPanel2_Container)
         Me.pnlDocImport.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
         Me.pnlDocImport.ID = New System.Guid("be65f503-51a1-4e68-b6dd-9904920f171e")
@@ -455,6 +457,7 @@ Partial Class frmPNL_Add
         '
         'pnlDocExport
         '
+        Me.pnlDocExport.AutoScroll = True
         Me.pnlDocExport.Controls.Add(Me.ControlContainer1)
         Me.pnlDocExport.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
         Me.pnlDocExport.ID = New System.Guid("745323fa-419a-4730-bb91-2039d9d9de58")
@@ -615,7 +618,7 @@ Partial Class frmPNL_Add
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
         Me.barDockControlTop.Manager = Me.BarManager1
-        Me.barDockControlTop.Size = New System.Drawing.Size(1087, 0)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1126, 0)
         '
         'barDockControlBottom
         '
@@ -623,7 +626,7 @@ Partial Class frmPNL_Add
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 724)
         Me.barDockControlBottom.Manager = Me.BarManager1
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1087, 25)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1126, 25)
         '
         'barDockControlLeft
         '
@@ -637,7 +640,7 @@ Partial Class frmPNL_Add
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1087, 0)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1126, 0)
         Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 724)
         '
@@ -654,6 +657,7 @@ Partial Class frmPNL_Add
         '
         'pnlDocAdvanceSearch
         '
+        Me.pnlDocAdvanceSearch.AutoScroll = True
         Me.pnlDocAdvanceSearch.Controls.Add(Me.ControlContainer2)
         Me.pnlDocAdvanceSearch.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
         Me.pnlDocAdvanceSearch.ID = New System.Guid("2e49734a-7050-4a84-9e9a-349ee37f771d")
@@ -778,6 +782,8 @@ Partial Class frmPNL_Add
         '
         'pnlDocInformation
         '
+        Me.pnlDocInformation.AutoScroll = True
+        Me.pnlDocInformation.AutoScrollMinSize = New System.Drawing.Size(702, 556)
         Me.pnlDocInformation.Controls.Add(Me.DockPanel1_Container)
         Me.pnlDocInformation.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left
         Me.pnlDocInformation.ID = New System.Guid("e6a7b213-c5f9-4782-b8c1-9aacd9e4ed1b")
@@ -785,50 +791,36 @@ Partial Class frmPNL_Add
         Me.pnlDocInformation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.pnlDocInformation.Name = "pnlDocInformation"
         Me.pnlDocInformation.Options.ShowCloseButton = False
-        Me.pnlDocInformation.OriginalSize = New System.Drawing.Size(722, 200)
-        Me.pnlDocInformation.Size = New System.Drawing.Size(722, 583)
+        Me.pnlDocInformation.OriginalSize = New System.Drawing.Size(631, 200)
+        Me.pnlDocInformation.Size = New System.Drawing.Size(631, 583)
         Me.pnlDocInformation.Text = "Information"
         '
         'DockPanel1_Container
         '
-        Me.DockPanel1_Container.Controls.Add(Me.XtraScrollableControl1)
+        Me.DockPanel1_Container.Controls.Add(Me.XtraTabControl1)
         Me.DockPanel1_Container.Location = New System.Drawing.Point(4, 23)
         Me.DockPanel1_Container.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.DockPanel1_Container.Name = "DockPanel1_Container"
-        Me.DockPanel1_Container.Size = New System.Drawing.Size(713, 556)
+        Me.DockPanel1_Container.Size = New System.Drawing.Size(622, 556)
         Me.DockPanel1_Container.TabIndex = 0
-        '
-        'XtraScrollableControl1
-        '
-        Me.XtraScrollableControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.XtraScrollableControl1.Controls.Add(Me.XtraTabControl1)
-        Me.XtraScrollableControl1.Location = New System.Drawing.Point(0, 0)
-        Me.XtraScrollableControl1.MinimumSize = New System.Drawing.Size(612, 556)
-        Me.XtraScrollableControl1.Name = "XtraScrollableControl1"
-        Me.XtraScrollableControl1.Size = New System.Drawing.Size(702, 556)
-        Me.XtraScrollableControl1.TabIndex = 1
         '
         'XtraTabControl1
         '
-        Me.XtraTabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.XtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.XtraTabControl1.HeaderOrientation = DevExpress.XtraTab.TabOrientation.Horizontal
         Me.XtraTabControl1.Location = New System.Drawing.Point(0, 0)
         Me.XtraTabControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.XtraTabControl1.MinimumSize = New System.Drawing.Size(612, 556)
         Me.XtraTabControl1.MultiLine = DevExpress.Utils.DefaultBoolean.[True]
         Me.XtraTabControl1.Name = "XtraTabControl1"
         Me.XtraTabControl1.SelectedTabPage = Me.XtraTabPage1
         Me.XtraTabControl1.ShowTabHeader = DevExpress.Utils.DefaultBoolean.[True]
-        Me.XtraTabControl1.Size = New System.Drawing.Size(702, 556)
+        Me.XtraTabControl1.Size = New System.Drawing.Size(622, 556)
         Me.XtraTabControl1.TabIndex = 0
         Me.XtraTabControl1.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage1, Me.XtraTabPage2, Me.XtraTabPage3, Me.XtraTabPage4})
         '
         'XtraTabPage1
         '
+        Me.XtraTabPage1.AutoScroll = True
         Me.XtraTabPage1.Controls.Add(Me.lbl_p1NonAllowableExpenses)
         Me.XtraTabPage1.Controls.Add(Me.ProgressPanel1)
         Me.XtraTabPage1.Controls.Add(Me.txt_p1GrossProfitLoss)
@@ -856,7 +848,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage1.Name = "XtraTabPage1"
         Me.XtraTabPage1.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage1.Size = New System.Drawing.Size(696, 528)
+        Me.XtraTabPage1.Size = New System.Drawing.Size(616, 528)
         Me.XtraTabPage1.Text = "Page 1"
         '
         'lbl_p1NonAllowableExpenses
@@ -882,7 +874,7 @@ Partial Class frmPNL_Add
         Me.ProgressPanel1.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.ProgressPanel1.AppearanceDescription.Options.UseFont = True
         Me.ProgressPanel1.BarAnimationElementThickness = 2
-        Me.ProgressPanel1.Location = New System.Drawing.Point(301, 121)
+        Me.ProgressPanel1.Location = New System.Drawing.Point(342, 182)
         Me.ProgressPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ProgressPanel1.Name = "ProgressPanel1"
         Me.ProgressPanel1.Size = New System.Drawing.Size(218, 62)
@@ -1202,6 +1194,7 @@ Partial Class frmPNL_Add
         '
         'XtraTabPage2
         '
+        Me.XtraTabPage2.AutoScroll = True
         Me.XtraTabPage2.Controls.Add(Me.lbl_p2UnreaGainForeExNon)
         Me.XtraTabPage2.Controls.Add(Me.txt_p2Other)
         Me.XtraTabPage2.Controls.Add(Me.txt_p2NonTaxProfit)
@@ -1239,7 +1232,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage2.Name = "XtraTabPage2"
         Me.XtraTabPage2.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage2.Size = New System.Drawing.Size(696, 528)
+        Me.XtraTabPage2.Size = New System.Drawing.Size(616, 528)
         Me.XtraTabPage2.Text = "Page 2"
         '
         'lbl_p2UnreaGainForeExNon
@@ -1734,6 +1727,7 @@ Partial Class frmPNL_Add
         '
         'XtraTabPage3
         '
+        Me.XtraTabPage3.AutoScroll = True
         Me.XtraTabPage3.Controls.Add(Me.txt_p3ForeignCurrExLoss)
         Me.XtraTabPage3.Controls.Add(Me.lbl_p3ForeignCurrExLoss)
         Me.XtraTabPage3.Controls.Add(Me.LabelControl46)
@@ -1779,7 +1773,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage3.Name = "XtraTabPage3"
         Me.XtraTabPage3.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage3.Size = New System.Drawing.Size(696, 528)
+        Me.XtraTabPage3.Size = New System.Drawing.Size(616, 528)
         Me.XtraTabPage3.Tag = ""
         Me.XtraTabPage3.Text = "Page 3"
         '
@@ -2386,6 +2380,7 @@ Partial Class frmPNL_Add
         '
         'XtraTabPage4
         '
+        Me.XtraTabPage4.AutoScroll = True
         Me.XtraTabPage4.Controls.Add(Me.txt_p4ExpectedExpenses)
         Me.XtraTabPage4.Controls.Add(Me.LabelControl1)
         Me.XtraTabPage4.Controls.Add(Me.txt_p4NonAllowableExpenses)
@@ -2427,7 +2422,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage4.Name = "XtraTabPage4"
         Me.XtraTabPage4.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage4.Size = New System.Drawing.Size(696, 528)
+        Me.XtraTabPage4.Size = New System.Drawing.Size(616, 528)
         Me.XtraTabPage4.Text = "Page 4"
         '
         'txt_p4ExpectedExpenses
@@ -2991,16 +2986,16 @@ Partial Class frmPNL_Add
         '
         Me.RibbonControl1.AllowMinimizeRibbon = False
         Me.RibbonControl1.ExpandCollapseItem.Id = 0
-        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem3, Me.btnImport, Me.btnExport, Me.cboPNLStatus, Me.txtLastModified, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA, Me.SkinRibbonGalleryBarItem1, Me.txtBalacingFigure, Me.btnRefresh, Me.BarSubItem1, Me.BarSubItem2, Me.BarSubItem3, Me.BarButtonItem1, Me.BarButtonItem4, Me.BarButtonItem5, Me.btnErrorLog, Me.cboRefNo})
+        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem3, Me.btnImport, Me.btnExport, Me.cboPNLStatus, Me.txtLastModified, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA, Me.SkinRibbonGalleryBarItem1, Me.txtBalacingFigure, Me.btnRefresh, Me.BarSubItem1, Me.BarSubItem2, Me.BarSubItem3, Me.BarButtonItem1, Me.BarButtonItem4, Me.BarButtonItem5, Me.btnErrorLog, Me.cboRefNo, Me.btnQuickPNL, Me.btnPrintAdmin})
         Me.RibbonControl1.Location = New System.Drawing.Point(0, 0)
-        Me.RibbonControl1.MaxItemId = 1
+        Me.RibbonControl1.MaxItemId = 3
         Me.RibbonControl1.Name = "RibbonControl1"
         Me.RibbonControl1.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1, Me.RibbonPage2})
         Me.RibbonControl1.QuickToolbarItemLinks.Add(Me.BarSubItem1)
         Me.RibbonControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemRadioGroup1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox2, Me.RepositoryItemTextEdit2, Me.RepositoryItemTextEdit3, Me.RepositoryItemTextEdit4, Me.RepositoryItemLookUpEdit2, Me.RepositoryItemComboBox3, Me.RepositoryItemComboBox4, Me.RepositoryItemProgressBar1, Me.RepositoryItemTextEdit7, Me.RepositoryItemSearchLookUpEdit1})
         Me.RibbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.[False]
         Me.RibbonControl1.ShowToolbarCustomizeItem = False
-        Me.RibbonControl1.Size = New System.Drawing.Size(1087, 141)
+        Me.RibbonControl1.Size = New System.Drawing.Size(1126, 141)
         Me.RibbonControl1.Toolbar.ShowCustomizeItem = False
         '
         'btnSave
@@ -3398,6 +3393,22 @@ Partial Class frmPNL_Add
         Me.colCompanyCode.VisibleIndex = 7
         Me.colCompanyCode.Width = 100
         '
+        'btnQuickPNL
+        '
+        Me.btnQuickPNL.Caption = "Quick PNL"
+        Me.btnQuickPNL.Id = 1
+        Me.btnQuickPNL.ImageOptions.Image = CType(resources.GetObject("btnQuickPNL.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnQuickPNL.ImageOptions.LargeImage = CType(resources.GetObject("btnQuickPNL.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnQuickPNL.Name = "btnQuickPNL"
+        '
+        'btnPrintAdmin
+        '
+        Me.btnPrintAdmin.Caption = "Print Quick"
+        Me.btnPrintAdmin.Id = 2
+        Me.btnPrintAdmin.ImageOptions.Image = CType(resources.GetObject("btnPrintAdmin.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnPrintAdmin.ImageOptions.LargeImage = CType(resources.GetObject("btnPrintAdmin.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnPrintAdmin.Name = "btnPrintAdmin"
+        '
         'RibbonPage1
         '
         Me.RibbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup1, Me.RibbonPageGroup3, Me.RibbonPageGroup4})
@@ -3441,6 +3452,8 @@ Partial Class frmPNL_Add
         '
         Me.RibbonPageGroup2.ItemLinks.Add(Me.btnImport)
         Me.RibbonPageGroup2.ItemLinks.Add(Me.btnExport)
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.btnQuickPNL)
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.btnPrintAdmin)
         Me.RibbonPageGroup2.ItemLinks.Add(Me.txtLastModified, True)
         Me.RibbonPageGroup2.ItemLinks.Add(Me.cboPNLStatus)
         Me.RibbonPageGroup2.Name = "RibbonPageGroup2"
@@ -3492,11 +3505,16 @@ Partial Class frmPNL_Add
         Me.PopupMenu1.Name = "PopupMenu1"
         Me.PopupMenu1.Ribbon = Me.RibbonControl1
         '
+        'RibbonPageGroup7
+        '
+        Me.RibbonPageGroup7.Name = "RibbonPageGroup7"
+        Me.RibbonPageGroup7.Text = "RibbonPageGroup7"
+        '
         'frmPNL_Add
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1087, 749)
+        Me.ClientSize = New System.Drawing.Size(1126, 749)
         Me.Controls.Add(Me.pnlDocInformation)
         Me.Controls.Add(Me.hideContainerRight)
         Me.Controls.Add(Me.RibbonControl1)
@@ -3536,7 +3554,6 @@ Partial Class frmPNL_Add
         CType(Me.txtSearch.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlDocInformation.ResumeLayout(False)
         Me.DockPanel1_Container.ResumeLayout(False)
-        Me.XtraScrollableControl1.ResumeLayout(False)
         CType(Me.XtraTabControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.XtraTabControl1.ResumeLayout(False)
         Me.XtraTabPage1.ResumeLayout(False)
@@ -3862,7 +3879,6 @@ Partial Class frmPNL_Add
     Friend WithEvents BarButtonItem1 As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents BarButtonItem4 As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents BarButtonItem5 As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents XtraScrollableControl1 As DevExpress.XtraEditors.XtraScrollableControl
     Friend WithEvents hideContainerRight As DevExpress.XtraBars.Docking.AutoHideContainer
     Friend WithEvents pnlDocExport As DevExpress.XtraBars.Docking.DockPanel
     Friend WithEvents ControlContainer1 As DevExpress.XtraBars.Docking.ControlContainer
@@ -3894,4 +3910,7 @@ Partial Class frmPNL_Add
     Friend WithEvents colValue As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colColumnName As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colParentID As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents btnQuickPNL As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnPrintAdmin As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents RibbonPageGroup7 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
 End Class

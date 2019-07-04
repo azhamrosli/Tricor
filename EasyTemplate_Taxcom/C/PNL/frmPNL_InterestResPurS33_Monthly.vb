@@ -178,7 +178,7 @@ Public Class frmPNL_InterestResPurS33_Monthly
                                         SubDividend += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
                                     End If
                                     txtTotalInv += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
-                                Case "3 LOANS AND INVESTMENTS NON"
+                                Case "3 LOANS AND INVESTMENTS NON INCOME PRODUCING"
                                     If rowx("TypeIncome") = "RENTAL INCOME" Then
                                         SubRental += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
                                     ElseIf rowx("TypeIncome") = "INTEREST INCOME" Then
@@ -187,7 +187,7 @@ Public Class frmPNL_InterestResPurS33_Monthly
                                         SubDividend += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
                                     End If
                                     txtTotalInvNon += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
-                                Case "4 INTEREST"
+                                Case "4 INTEREST EXPENSES"
                                     txtTotalInvInterest += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
                                 Case "5 INTEREST RESTIRCTED"
                                     txtTotalInvSub = txtTotalInv + txtTotalInvNon

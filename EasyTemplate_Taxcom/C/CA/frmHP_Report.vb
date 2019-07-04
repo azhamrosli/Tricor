@@ -100,8 +100,16 @@ Public Class frmHP_Report
 
             'Capital Allowance Details By Rate
             Dim rpt As rpt_HP
+            Dim rpt_Note As rptCA_Note
+            Dim Title As String = ADO.Load_TableOfContent_Title(RefNo, YA, "rpt_HP")
+            If mdlProcess.PrintReport_HP(DsCA, Title, ComName, YA, False, rpt, rpt_Note, clsErrorLog) Then
+                Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
 
-            If mdlProcess.PrintReport_HP(DsCA, ComName, YA, rpt, clsErrorLog) Then
+                Dim x As Integer = 0
+
+                For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                    rpt.Pages.Add(pg)
+                Next
                 If isExport Then
                     rpt.ExportToXlsx(Path)
                 Else

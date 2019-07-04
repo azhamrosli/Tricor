@@ -49,6 +49,8 @@ Partial Public Class dsDefault
     
     Private tableTAXP_PROFILE As TAXP_PROFILEDataTable
     
+    Private tableMENU_LIST_INFO As MENU_LIST_INFODataTable
+    
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -113,6 +115,9 @@ Partial Public Class dsDefault
             End If
             If (Not (ds.Tables("TAXP_PROFILE")) Is Nothing) Then
                 MyBase.Tables.Add(New TAXP_PROFILEDataTable(ds.Tables("TAXP_PROFILE")))
+            End If
+            If (Not (ds.Tables("MENU_LIST_INFO")) Is Nothing) Then
+                MyBase.Tables.Add(New MENU_LIST_INFODataTable(ds.Tables("MENU_LIST_INFO")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -253,6 +258,16 @@ Partial Public Class dsDefault
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
+    Public ReadOnly Property MENU_LIST_INFO() As MENU_LIST_INFODataTable
+        Get
+            Return Me.tableMENU_LIST_INFO
+        End Get
+    End Property
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.BrowsableAttribute(true),  _
      Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Visible)>  _
     Public Overrides Property SchemaSerializationMode() As Global.System.Data.SchemaSerializationMode
@@ -353,6 +368,9 @@ Partial Public Class dsDefault
             End If
             If (Not (ds.Tables("TAXP_PROFILE")) Is Nothing) Then
                 MyBase.Tables.Add(New TAXP_PROFILEDataTable(ds.Tables("TAXP_PROFILE")))
+            End If
+            If (Not (ds.Tables("MENU_LIST_INFO")) Is Nothing) Then
+                MyBase.Tables.Add(New MENU_LIST_INFODataTable(ds.Tables("MENU_LIST_INFO")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -458,6 +476,12 @@ Partial Public Class dsDefault
                 Me.tableTAXP_PROFILE.InitVars
             End If
         End If
+        Me.tableMENU_LIST_INFO = CType(MyBase.Tables("MENU_LIST_INFO"),MENU_LIST_INFODataTable)
+        If (initTable = true) Then
+            If (Not (Me.tableMENU_LIST_INFO) Is Nothing) Then
+                Me.tableMENU_LIST_INFO.InitVars
+            End If
+        End If
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -492,6 +516,8 @@ Partial Public Class dsDefault
         MyBase.Tables.Add(Me.tableTAXP_PARTNERSHIP)
         Me.tableTAXP_PROFILE = New TAXP_PROFILEDataTable()
         MyBase.Tables.Add(Me.tableTAXP_PROFILE)
+        Me.tableMENU_LIST_INFO = New MENU_LIST_INFODataTable()
+        MyBase.Tables.Add(Me.tableMENU_LIST_INFO)
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -563,6 +589,12 @@ Partial Public Class dsDefault
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Private Function ShouldSerializeTAXP_PROFILE() As Boolean
+        Return false
+    End Function
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Private Function ShouldSerializeMENU_LIST_INFO() As Boolean
         Return false
     End Function
     
@@ -659,6 +691,9 @@ Partial Public Class dsDefault
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub TAXP_PROFILERowChangeEventHandler(ByVal sender As Object, ByVal e As TAXP_PROFILERowChangeEvent)
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub MENU_LIST_INFORowChangeEventHandler(ByVal sender As Object, ByVal e As MENU_LIST_INFORowChangeEvent)
     
     '''<summary>
     '''Represents the strongly named DataTable class.
@@ -4144,20 +4179,24 @@ Partial Public Class dsDefault
         
         Private columnHandleBy As Global.System.Data.DataColumn
         
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private columnModifiedBy As Global.System.Data.DataColumn
+
+        Private columnModifiedDateTime As Global.System.Data.DataColumn
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub New()
-            MyBase.New
+            MyBase.New()
             Me.TableName = "TAXP_PROFILE"
-            Me.BeginInit
-            Me.InitClass
-            Me.EndInit
+            Me.BeginInit()
+            Me.InitClass()
+            Me.EndInit()
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New
+            MyBase.New()
             Me.TableName = table.TableName
             If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
                 Me.CaseSensitive = table.CaseSensitive
@@ -4171,819 +4210,837 @@ Partial Public Class dsDefault
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
-            Me.InitVars
+            Me.InitVars()
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_REF_NOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_REF_NO
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_COM_NAMEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_COM_NAME
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ROC_NOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ROC_NO
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_EMPLOYER_NOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_EMPLOYER_NO
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_FILE_NOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_FILE_NO
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_RESIDENCEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_RESIDENCE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_COUNTRYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_COUNTRY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ACC_PERIOD_FRColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ACC_PERIOD_FR
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ACC_PERIOD_TOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ACC_PERIOD_TO
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_EFILINGColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_EFILING
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_PUBLIC_ORDERColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_PUBLIC_ORDER
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_CO_STATUSColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_CO_STATUS
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_EMAILColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_EMAIL
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_REG_ADD_LINE1Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_REG_ADD_LINE1
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_REG_ADD_LINE2Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_REG_ADD_LINE2
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_REG_ADD_LINE3Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_REG_ADD_LINE3
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_REG_POSTCODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_REG_POSTCODE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_REG_CITYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_REG_CITY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_REG_STATEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_REG_STATE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_CURR_ADD_LINE1Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_CURR_ADD_LINE1
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_CURR_ADD_LINE2Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_CURR_ADD_LINE2
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_CURR_ADD_LINE3Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_CURR_ADD_LINE3
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_CURR_POSTCODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_CURR_POSTCODE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_CURR_CITYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_CURR_CITY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_CURR_STATEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_CURR_STATE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_COM_ADD_LINE1Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_COM_ADD_LINE1
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_COM_ADD_LINE2Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_COM_ADD_LINE2
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_COM_ADD_LINE3Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_COM_ADD_LINE3
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_COM_POSTCODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_COM_POSTCODE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_COM_CITYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_COM_CITY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_COM_STATEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_COM_STATE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BANKColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BANK
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BANK_ACCColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BANK_ACC
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BANK_ADD_LINE1Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BANK_ADD_LINE1
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BANK_ADD_LINE2Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BANK_ADD_LINE2
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BANK_ADD_LINE3Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BANK_ADD_LINE3
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BANK_POSTCODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BANK_POSTCODE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BANK_CITYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BANK_CITY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BANK_STATEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BANK_STATE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_RECORD_KEPTColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_RECORD_KEPT
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ALT_ADD_LINE1Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ALT_ADD_LINE1
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ALT_ADD_LINE2Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ALT_ADD_LINE2
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ALT_ADD_LINE3Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ALT_ADD_LINE3
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ALT_POSTCODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ALT_POSTCODE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ALT_CITYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ALT_CITY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ALT_STATEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ALT_STATE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_TAX_FILE_NOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_TAX_FILE_NO
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_CONTACTColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_CONTACT
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_TEL_NOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_TEL_NO
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_FAX_NOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_FAX_NO
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_INV_ANN_DATEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_INV_ANN_DATE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_INV_DETTAXFEEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_INV_DETTAXFEE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_INV_DISBURSEMENTColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_INV_DISBURSEMENT
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_INV_SALESTAXColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_INV_SALESTAX
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_INV_TOTALColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_INV_TOTAL
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_PREFIXColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_PREFIX
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BLOGColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BLOG
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BASIS_PERIOD_FRColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BASIS_PERIOD_FR
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BASIS_PERIOD_TOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BASIS_PERIOD_TO
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_OPN_OPERATIONColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_OPN_OPERATION
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ULT_COMPANYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ULT_COMPANY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ULT_COUNTRY_CODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ULT_COUNTRY_CODE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_IMD_COMPANYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_IMD_COMPANY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_IMD_COUNTRY_CODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_IMD_COUNTRY_CODE
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_REG_COUNTRYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_REG_COUNTRY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_CURR_COUNTRYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_CURR_COUNTRY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_COM_COUNTRYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_COM_COUNTRY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ALT_COUNTRYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ALT_COUNTRY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_COM_STSColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_COM_STS
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_SECTION_127_1Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_SECTION_127_1
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_SECTION_127_2Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_SECTION_127_2
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_SECTION_127_3Column() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_SECTION_127_3
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_ROYALCLAIMColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_ROYALCLAIM
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_CARRYETRANDINGColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_CARRYETRANDING
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_GOODSERVICETAXREGISTRAIONColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_GOODSERVICETAXREGISTRAION
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_LABUAN_STATUSColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_LABUAN_STATUS
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_LABUAN_NAMEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_LABUAN_NAME
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_LABUAN_REGColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_LABUAN_REG
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_LABUAN_INCOME_TAXColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_LABUAN_INCOME_TAX
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_BUILDINGINDUSTRYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_BUILDINGINDUSTRY
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property TP_STS_OTHERColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnTP_STS_OTHER
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property HandleByColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnHandleBy
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Browsable(false)>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property ModifiedByColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnModifiedBy
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property ModifiedDateTimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnModifiedDateTime
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+         Global.System.ComponentModel.Browsable(False)> _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Default ReadOnly Property Item(ByVal index As Integer) As TAXP_PROFILERow
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Default Public ReadOnly Property Item(ByVal index As Integer) As TAXP_PROFILERow
             Get
-                Return CType(Me.Rows(index),TAXP_PROFILERow)
+                Return CType(Me.Rows(index), TAXP_PROFILERow)
             End Get
         End Property
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Event TAXP_PROFILERowChanging As TAXP_PROFILERowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Event TAXP_PROFILERowChanged As TAXP_PROFILERowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Event TAXP_PROFILERowDeleting As TAXP_PROFILERowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Event TAXP_PROFILERowDeleted As TAXP_PROFILERowChangeEventHandler
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Overloads Sub AddTAXP_PROFILERow(ByVal row As TAXP_PROFILERow)
             Me.Rows.Add(row)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Overloads Function AddTAXP_PROFILERow( _
-                    ByVal TP_REF_NO As String,  _
-                    ByVal TP_COM_NAME As String,  _
-                    ByVal TP_ROC_NO As String,  _
-                    ByVal TP_EMPLOYER_NO As String,  _
-                    ByVal TP_FILE_NO As String,  _
-                    ByVal TP_RESIDENCE As String,  _
-                    ByVal TP_COUNTRY As String,  _
-                    ByVal TP_ACC_PERIOD_FR As Date,  _
-                    ByVal TP_ACC_PERIOD_TO As Date,  _
-                    ByVal TP_EFILING As String,  _
-                    ByVal TP_PUBLIC_ORDER As String,  _
-                    ByVal TP_CO_STATUS As String,  _
-                    ByVal TP_EMAIL As String,  _
-                    ByVal TP_REG_ADD_LINE1 As String,  _
-                    ByVal TP_REG_ADD_LINE2 As String,  _
-                    ByVal TP_REG_ADD_LINE3 As String,  _
-                    ByVal TP_REG_POSTCODE As String,  _
-                    ByVal TP_REG_CITY As String,  _
-                    ByVal TP_REG_STATE As String,  _
-                    ByVal TP_CURR_ADD_LINE1 As String,  _
-                    ByVal TP_CURR_ADD_LINE2 As String,  _
-                    ByVal TP_CURR_ADD_LINE3 As String,  _
-                    ByVal TP_CURR_POSTCODE As String,  _
-                    ByVal TP_CURR_CITY As String,  _
-                    ByVal TP_CURR_STATE As String,  _
-                    ByVal TP_COM_ADD_LINE1 As String,  _
-                    ByVal TP_COM_ADD_LINE2 As String,  _
-                    ByVal TP_COM_ADD_LINE3 As String,  _
-                    ByVal TP_COM_POSTCODE As String,  _
-                    ByVal TP_COM_CITY As String,  _
-                    ByVal TP_COM_STATE As String,  _
-                    ByVal TP_BANK As String,  _
-                    ByVal TP_BANK_ACC As String,  _
-                    ByVal TP_BANK_ADD_LINE1 As String,  _
-                    ByVal TP_BANK_ADD_LINE2 As String,  _
-                    ByVal TP_BANK_ADD_LINE3 As String,  _
-                    ByVal TP_BANK_POSTCODE As String,  _
-                    ByVal TP_BANK_CITY As String,  _
-                    ByVal TP_BANK_STATE As String,  _
-                    ByVal TP_RECORD_KEPT As String,  _
-                    ByVal TP_ALT_ADD_LINE1 As String,  _
-                    ByVal TP_ALT_ADD_LINE2 As String,  _
-                    ByVal TP_ALT_ADD_LINE3 As String,  _
-                    ByVal TP_ALT_POSTCODE As String,  _
-                    ByVal TP_ALT_CITY As String,  _
-                    ByVal TP_ALT_STATE As String,  _
-                    ByVal TP_TAX_FILE_NO As String,  _
-                    ByVal TP_CONTACT As String,  _
-                    ByVal TP_TEL_NO As String,  _
-                    ByVal TP_FAX_NO As String,  _
-                    ByVal TP_INV_ANN_DATE As Date,  _
-                    ByVal TP_INV_DETTAXFEE As String,  _
-                    ByVal TP_INV_DISBURSEMENT As String,  _
-                    ByVal TP_INV_SALESTAX As String,  _
-                    ByVal TP_INV_TOTAL As String,  _
-                    ByVal TP_PREFIX As String,  _
-                    ByVal TP_BLOG As String,  _
-                    ByVal TP_BASIS_PERIOD_FR As Date,  _
-                    ByVal TP_BASIS_PERIOD_TO As Date,  _
-                    ByVal TP_OPN_OPERATION As Date,  _
-                    ByVal TP_ULT_COMPANY As String,  _
-                    ByVal TP_ULT_COUNTRY_CODE As String,  _
-                    ByVal TP_IMD_COMPANY As String,  _
-                    ByVal TP_IMD_COUNTRY_CODE As String,  _
-                    ByVal TP_REG_COUNTRY As String,  _
-                    ByVal TP_CURR_COUNTRY As String,  _
-                    ByVal TP_COM_COUNTRY As String,  _
-                    ByVal TP_ALT_COUNTRY As String,  _
-                    ByVal TP_COM_STS As String,  _
-                    ByVal TP_SECTION_127_1 As String,  _
-                    ByVal TP_SECTION_127_2 As String,  _
-                    ByVal TP_SECTION_127_3 As String,  _
-                    ByVal TP_ROYALCLAIM As String,  _
-                    ByVal TP_CARRYETRANDING As String,  _
-                    ByVal TP_GOODSERVICETAXREGISTRAION As String,  _
-                    ByVal TP_LABUAN_STATUS As String,  _
-                    ByVal TP_LABUAN_NAME As String,  _
-                    ByVal TP_LABUAN_REG As String,  _
-                    ByVal TP_LABUAN_INCOME_TAX As String,  _
-                    ByVal TP_BUILDINGINDUSTRY As String,  _
-                    ByVal TP_STS_OTHER As String,  _
-                    ByVal HandleBy As String) As TAXP_PROFILERow
-            Dim rowTAXP_PROFILERow As TAXP_PROFILERow = CType(Me.NewRow,TAXP_PROFILERow)
-            Dim columnValuesArray() As Object = New Object() {TP_REF_NO, TP_COM_NAME, TP_ROC_NO, TP_EMPLOYER_NO, TP_FILE_NO, TP_RESIDENCE, TP_COUNTRY, TP_ACC_PERIOD_FR, TP_ACC_PERIOD_TO, TP_EFILING, TP_PUBLIC_ORDER, TP_CO_STATUS, TP_EMAIL, TP_REG_ADD_LINE1, TP_REG_ADD_LINE2, TP_REG_ADD_LINE3, TP_REG_POSTCODE, TP_REG_CITY, TP_REG_STATE, TP_CURR_ADD_LINE1, TP_CURR_ADD_LINE2, TP_CURR_ADD_LINE3, TP_CURR_POSTCODE, TP_CURR_CITY, TP_CURR_STATE, TP_COM_ADD_LINE1, TP_COM_ADD_LINE2, TP_COM_ADD_LINE3, TP_COM_POSTCODE, TP_COM_CITY, TP_COM_STATE, TP_BANK, TP_BANK_ACC, TP_BANK_ADD_LINE1, TP_BANK_ADD_LINE2, TP_BANK_ADD_LINE3, TP_BANK_POSTCODE, TP_BANK_CITY, TP_BANK_STATE, TP_RECORD_KEPT, TP_ALT_ADD_LINE1, TP_ALT_ADD_LINE2, TP_ALT_ADD_LINE3, TP_ALT_POSTCODE, TP_ALT_CITY, TP_ALT_STATE, TP_TAX_FILE_NO, TP_CONTACT, TP_TEL_NO, TP_FAX_NO, TP_INV_ANN_DATE, TP_INV_DETTAXFEE, TP_INV_DISBURSEMENT, TP_INV_SALESTAX, TP_INV_TOTAL, TP_PREFIX, TP_BLOG, TP_BASIS_PERIOD_FR, TP_BASIS_PERIOD_TO, TP_OPN_OPERATION, TP_ULT_COMPANY, TP_ULT_COUNTRY_CODE, TP_IMD_COMPANY, TP_IMD_COUNTRY_CODE, TP_REG_COUNTRY, TP_CURR_COUNTRY, TP_COM_COUNTRY, TP_ALT_COUNTRY, TP_COM_STS, TP_SECTION_127_1, TP_SECTION_127_2, TP_SECTION_127_3, TP_ROYALCLAIM, TP_CARRYETRANDING, TP_GOODSERVICETAXREGISTRAION, TP_LABUAN_STATUS, TP_LABUAN_NAME, TP_LABUAN_REG, TP_LABUAN_INCOME_TAX, TP_BUILDINGINDUSTRY, TP_STS_OTHER, HandleBy}
+                    ByVal TP_REF_NO As String, _
+                    ByVal TP_COM_NAME As String, _
+                    ByVal TP_ROC_NO As String, _
+                    ByVal TP_EMPLOYER_NO As String, _
+                    ByVal TP_FILE_NO As String, _
+                    ByVal TP_RESIDENCE As String, _
+                    ByVal TP_COUNTRY As String, _
+                    ByVal TP_ACC_PERIOD_FR As Date, _
+                    ByVal TP_ACC_PERIOD_TO As Date, _
+                    ByVal TP_EFILING As String, _
+                    ByVal TP_PUBLIC_ORDER As String, _
+                    ByVal TP_CO_STATUS As String, _
+                    ByVal TP_EMAIL As String, _
+                    ByVal TP_REG_ADD_LINE1 As String, _
+                    ByVal TP_REG_ADD_LINE2 As String, _
+                    ByVal TP_REG_ADD_LINE3 As String, _
+                    ByVal TP_REG_POSTCODE As String, _
+                    ByVal TP_REG_CITY As String, _
+                    ByVal TP_REG_STATE As String, _
+                    ByVal TP_CURR_ADD_LINE1 As String, _
+                    ByVal TP_CURR_ADD_LINE2 As String, _
+                    ByVal TP_CURR_ADD_LINE3 As String, _
+                    ByVal TP_CURR_POSTCODE As String, _
+                    ByVal TP_CURR_CITY As String, _
+                    ByVal TP_CURR_STATE As String, _
+                    ByVal TP_COM_ADD_LINE1 As String, _
+                    ByVal TP_COM_ADD_LINE2 As String, _
+                    ByVal TP_COM_ADD_LINE3 As String, _
+                    ByVal TP_COM_POSTCODE As String, _
+                    ByVal TP_COM_CITY As String, _
+                    ByVal TP_COM_STATE As String, _
+                    ByVal TP_BANK As String, _
+                    ByVal TP_BANK_ACC As String, _
+                    ByVal TP_BANK_ADD_LINE1 As String, _
+                    ByVal TP_BANK_ADD_LINE2 As String, _
+                    ByVal TP_BANK_ADD_LINE3 As String, _
+                    ByVal TP_BANK_POSTCODE As String, _
+                    ByVal TP_BANK_CITY As String, _
+                    ByVal TP_BANK_STATE As String, _
+                    ByVal TP_RECORD_KEPT As String, _
+                    ByVal TP_ALT_ADD_LINE1 As String, _
+                    ByVal TP_ALT_ADD_LINE2 As String, _
+                    ByVal TP_ALT_ADD_LINE3 As String, _
+                    ByVal TP_ALT_POSTCODE As String, _
+                    ByVal TP_ALT_CITY As String, _
+                    ByVal TP_ALT_STATE As String, _
+                    ByVal TP_TAX_FILE_NO As String, _
+                    ByVal TP_CONTACT As String, _
+                    ByVal TP_TEL_NO As String, _
+                    ByVal TP_FAX_NO As String, _
+                    ByVal TP_INV_ANN_DATE As Date, _
+                    ByVal TP_INV_DETTAXFEE As String, _
+                    ByVal TP_INV_DISBURSEMENT As String, _
+                    ByVal TP_INV_SALESTAX As String, _
+                    ByVal TP_INV_TOTAL As String, _
+                    ByVal TP_PREFIX As String, _
+                    ByVal TP_BLOG As String, _
+                    ByVal TP_BASIS_PERIOD_FR As Date, _
+                    ByVal TP_BASIS_PERIOD_TO As Date, _
+                    ByVal TP_OPN_OPERATION As Date, _
+                    ByVal TP_ULT_COMPANY As String, _
+                    ByVal TP_ULT_COUNTRY_CODE As String, _
+                    ByVal TP_IMD_COMPANY As String, _
+                    ByVal TP_IMD_COUNTRY_CODE As String, _
+                    ByVal TP_REG_COUNTRY As String, _
+                    ByVal TP_CURR_COUNTRY As String, _
+                    ByVal TP_COM_COUNTRY As String, _
+                    ByVal TP_ALT_COUNTRY As String, _
+                    ByVal TP_COM_STS As String, _
+                    ByVal TP_SECTION_127_1 As String, _
+                    ByVal TP_SECTION_127_2 As String, _
+                    ByVal TP_SECTION_127_3 As String, _
+                    ByVal TP_ROYALCLAIM As String, _
+                    ByVal TP_CARRYETRANDING As String, _
+                    ByVal TP_GOODSERVICETAXREGISTRAION As String, _
+                    ByVal TP_LABUAN_STATUS As String, _
+                    ByVal TP_LABUAN_NAME As String, _
+                    ByVal TP_LABUAN_REG As String, _
+                    ByVal TP_LABUAN_INCOME_TAX As String, _
+                    ByVal TP_BUILDINGINDUSTRY As String, _
+                    ByVal TP_STS_OTHER As String, _
+                    ByVal HandleBy As String, _
+                    ByVal ModifiedBy As String, _
+                    ByVal ModifiedDateTime As Date) As TAXP_PROFILERow
+            Dim rowTAXP_PROFILERow As TAXP_PROFILERow = CType(Me.NewRow, TAXP_PROFILERow)
+            Dim columnValuesArray() As Object = New Object() {TP_REF_NO, TP_COM_NAME, TP_ROC_NO, TP_EMPLOYER_NO, TP_FILE_NO, TP_RESIDENCE, TP_COUNTRY, TP_ACC_PERIOD_FR, TP_ACC_PERIOD_TO, TP_EFILING, TP_PUBLIC_ORDER, TP_CO_STATUS, TP_EMAIL, TP_REG_ADD_LINE1, TP_REG_ADD_LINE2, TP_REG_ADD_LINE3, TP_REG_POSTCODE, TP_REG_CITY, TP_REG_STATE, TP_CURR_ADD_LINE1, TP_CURR_ADD_LINE2, TP_CURR_ADD_LINE3, TP_CURR_POSTCODE, TP_CURR_CITY, TP_CURR_STATE, TP_COM_ADD_LINE1, TP_COM_ADD_LINE2, TP_COM_ADD_LINE3, TP_COM_POSTCODE, TP_COM_CITY, TP_COM_STATE, TP_BANK, TP_BANK_ACC, TP_BANK_ADD_LINE1, TP_BANK_ADD_LINE2, TP_BANK_ADD_LINE3, TP_BANK_POSTCODE, TP_BANK_CITY, TP_BANK_STATE, TP_RECORD_KEPT, TP_ALT_ADD_LINE1, TP_ALT_ADD_LINE2, TP_ALT_ADD_LINE3, TP_ALT_POSTCODE, TP_ALT_CITY, TP_ALT_STATE, TP_TAX_FILE_NO, TP_CONTACT, TP_TEL_NO, TP_FAX_NO, TP_INV_ANN_DATE, TP_INV_DETTAXFEE, TP_INV_DISBURSEMENT, TP_INV_SALESTAX, TP_INV_TOTAL, TP_PREFIX, TP_BLOG, TP_BASIS_PERIOD_FR, TP_BASIS_PERIOD_TO, TP_OPN_OPERATION, TP_ULT_COMPANY, TP_ULT_COUNTRY_CODE, TP_IMD_COMPANY, TP_IMD_COUNTRY_CODE, TP_REG_COUNTRY, TP_CURR_COUNTRY, TP_COM_COUNTRY, TP_ALT_COUNTRY, TP_COM_STS, TP_SECTION_127_1, TP_SECTION_127_2, TP_SECTION_127_3, TP_ROYALCLAIM, TP_CARRYETRANDING, TP_GOODSERVICETAXREGISTRAION, TP_LABUAN_STATUS, TP_LABUAN_NAME, TP_LABUAN_REG, TP_LABUAN_INCOME_TAX, TP_BUILDINGINDUSTRY, TP_STS_OTHER, HandleBy, ModifiedBy, ModifiedDateTime}
             rowTAXP_PROFILERow.ItemArray = columnValuesArray
             Me.Rows.Add(rowTAXP_PROFILERow)
             Return rowTAXP_PROFILERow
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function FindByTP_REF_NO(ByVal TP_REF_NO As String) As TAXP_PROFILERow
-            Return CType(Me.Rows.Find(New Object() {TP_REF_NO}),TAXP_PROFILERow)
+            Return CType(Me.Rows.Find(New Object() {TP_REF_NO}), TAXP_PROFILERow)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As TAXP_PROFILEDataTable = CType(MyBase.Clone,TAXP_PROFILEDataTable)
-            cln.InitVars
+            Dim cln As TAXP_PROFILEDataTable = CType(MyBase.Clone, TAXP_PROFILEDataTable)
+            cln.InitVars()
             Return cln
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New TAXP_PROFILEDataTable()
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub InitVars()
             Me.columnTP_REF_NO = MyBase.Columns("TP_REF_NO")
             Me.columnTP_COM_NAME = MyBase.Columns("TP_COM_NAME")
@@ -5067,10 +5124,12 @@ Partial Public Class dsDefault
             Me.columnTP_BUILDINGINDUSTRY = MyBase.Columns("TP_BUILDINGINDUSTRY")
             Me.columnTP_STS_OTHER = MyBase.Columns("TP_STS_OTHER")
             Me.columnHandleBy = MyBase.Columns("HandleBy")
+            Me.columnModifiedBy = MyBase.Columns("ModifiedBy")
+            Me.columnModifiedDateTime = MyBase.Columns("ModifiedDateTime")
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Private Sub InitClass()
             Me.columnTP_REF_NO = New Global.System.Data.DataColumn("TP_REF_NO", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnTP_REF_NO)
@@ -5236,9 +5295,13 @@ Partial Public Class dsDefault
             MyBase.Columns.Add(Me.columnTP_STS_OTHER)
             Me.columnHandleBy = New Global.System.Data.DataColumn("HandleBy", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnHandleBy)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnTP_REF_NO}, true))
-            Me.columnTP_REF_NO.AllowDBNull = false
-            Me.columnTP_REF_NO.Unique = true
+            Me.columnModifiedBy = New Global.System.Data.DataColumn("ModifiedBy", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnModifiedBy)
+            Me.columnModifiedDateTime = New Global.System.Data.DataColumn("ModifiedDateTime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnModifiedDateTime)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnTP_REF_NO}, True))
+            Me.columnTP_REF_NO.AllowDBNull = False
+            Me.columnTP_REF_NO.Unique = True
             Me.columnTP_REF_NO.MaxLength = 20
             Me.columnTP_COM_NAME.MaxLength = 255
             Me.columnTP_ROC_NO.MaxLength = 20
@@ -5316,69 +5379,69 @@ Partial Public Class dsDefault
             Me.columnTP_STS_OTHER.MaxLength = 250
             Me.columnHandleBy.MaxLength = 150
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function NewTAXP_PROFILERow() As TAXP_PROFILERow
-            Return CType(Me.NewRow,TAXP_PROFILERow)
+            Return CType(Me.NewRow, TAXP_PROFILERow)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New TAXP_PROFILERow(builder)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(TAXP_PROFILERow)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.TAXP_PROFILERowChangedEvent) Is Nothing) Then
-                RaiseEvent TAXP_PROFILERowChanged(Me, New TAXP_PROFILERowChangeEvent(CType(e.Row,TAXP_PROFILERow), e.Action))
+                RaiseEvent TAXP_PROFILERowChanged(Me, New TAXP_PROFILERowChangeEvent(CType(e.Row, TAXP_PROFILERow), e.Action))
             End If
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.TAXP_PROFILERowChangingEvent) Is Nothing) Then
-                RaiseEvent TAXP_PROFILERowChanging(Me, New TAXP_PROFILERowChangeEvent(CType(e.Row,TAXP_PROFILERow), e.Action))
+                RaiseEvent TAXP_PROFILERowChanging(Me, New TAXP_PROFILERowChangeEvent(CType(e.Row, TAXP_PROFILERow), e.Action))
             End If
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.TAXP_PROFILERowDeletedEvent) Is Nothing) Then
-                RaiseEvent TAXP_PROFILERowDeleted(Me, New TAXP_PROFILERowChangeEvent(CType(e.Row,TAXP_PROFILERow), e.Action))
+                RaiseEvent TAXP_PROFILERowDeleted(Me, New TAXP_PROFILERowChangeEvent(CType(e.Row, TAXP_PROFILERow), e.Action))
             End If
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.TAXP_PROFILERowDeletingEvent) Is Nothing) Then
-                RaiseEvent TAXP_PROFILERowDeleting(Me, New TAXP_PROFILERowChangeEvent(CType(e.Row,TAXP_PROFILERow), e.Action))
+                RaiseEvent TAXP_PROFILERowDeleting(Me, New TAXP_PROFILERowChangeEvent(CType(e.Row, TAXP_PROFILERow), e.Action))
             End If
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub RemoveTAXP_PROFILERow(ByVal row As TAXP_PROFILERow)
             Me.Rows.Remove(row)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -5407,35 +5470,35 @@ Partial Public Class dsDefault
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try 
+                Try
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-                            
-                            Do While ((s1.Position <> s1.Length)  _
+
+                            Do While ((s1.Position <> s1.Length) _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-                                
-                                
+
+
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-                        
+
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
-                        s1.Close
+                        s1.Close()
                     End If
                     If (Not (s2) Is Nothing) Then
-                        s2.Close
+                        s2.Close()
                     End If
                 End Try
             End If
@@ -5443,3686 +5506,4171 @@ Partial Public Class dsDefault
             Return type
         End Function
     End Class
-    
+
+    '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(), _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
+    Partial Public Class MENU_LIST_INFODataTable
+        Inherits Global.System.Data.TypedTableBase(Of MENU_LIST_INFORow)
+
+        Private columnID As Global.System.Data.DataColumn
+
+        Private columnParentID As Global.System.Data.DataColumn
+
+        Private columnKeyName As Global.System.Data.DataColumn
+
+        Private columnTitle As Global.System.Data.DataColumn
+
+        Private columnLicenseType As Global.System.Data.DataColumn
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub New()
+            MyBase.New()
+            Me.TableName = "MENU_LIST_INFO"
+            Me.BeginInit()
+            Me.InitClass()
+            Me.EndInit()
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New()
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars()
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnID
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property ParentIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnParentID
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property KeyNameColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnKeyName
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property TitleColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnTitle
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property LicenseTypeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnLicenseType
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+         Global.System.ComponentModel.Browsable(False)> _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Default Public ReadOnly Property Item(ByVal index As Integer) As MENU_LIST_INFORow
+            Get
+                Return CType(Me.Rows(index), MENU_LIST_INFORow)
+            End Get
+        End Property
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event MENU_LIST_INFORowChanging As MENU_LIST_INFORowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event MENU_LIST_INFORowChanged As MENU_LIST_INFORowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event MENU_LIST_INFORowDeleting As MENU_LIST_INFORowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event MENU_LIST_INFORowDeleted As MENU_LIST_INFORowChangeEventHandler
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overloads Sub AddMENU_LIST_INFORow(ByVal row As MENU_LIST_INFORow)
+            Me.Rows.Add(row)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overloads Function AddMENU_LIST_INFORow(ByVal ParentID As Integer, ByVal KeyName As String, ByVal Title As String, ByVal LicenseType As Integer) As MENU_LIST_INFORow
+            Dim rowMENU_LIST_INFORow As MENU_LIST_INFORow = CType(Me.NewRow, MENU_LIST_INFORow)
+            Dim columnValuesArray() As Object = New Object() {Nothing, ParentID, KeyName, Title, LicenseType}
+            rowMENU_LIST_INFORow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowMENU_LIST_INFORow)
+            Return rowMENU_LIST_INFORow
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As MENU_LIST_INFODataTable = CType(MyBase.Clone, MENU_LIST_INFODataTable)
+            cln.InitVars()
+            Return cln
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New MENU_LIST_INFODataTable()
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub InitVars()
+            Me.columnID = MyBase.Columns("ID")
+            Me.columnParentID = MyBase.Columns("ParentID")
+            Me.columnKeyName = MyBase.Columns("KeyName")
+            Me.columnTitle = MyBase.Columns("Title")
+            Me.columnLicenseType = MyBase.Columns("LicenseType")
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Private Sub InitClass()
+            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnID)
+            Me.columnParentID = New Global.System.Data.DataColumn("ParentID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnParentID)
+            Me.columnKeyName = New Global.System.Data.DataColumn("KeyName", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnKeyName)
+            Me.columnTitle = New Global.System.Data.DataColumn("Title", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnTitle)
+            Me.columnLicenseType = New Global.System.Data.DataColumn("LicenseType", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnLicenseType)
+            Me.columnID.AutoIncrement = True
+            Me.columnID.AutoIncrementSeed = -1
+            Me.columnID.AutoIncrementStep = -1
+            Me.columnID.AllowDBNull = False
+            Me.columnID.ReadOnly = True
+            Me.columnParentID.AllowDBNull = False
+            Me.columnKeyName.MaxLength = 50
+            Me.columnTitle.MaxLength = 250
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function NewMENU_LIST_INFORow() As MENU_LIST_INFORow
+            Return CType(Me.NewRow, MENU_LIST_INFORow)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New MENU_LIST_INFORow(builder)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(MENU_LIST_INFORow)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.MENU_LIST_INFORowChangedEvent) Is Nothing) Then
+                RaiseEvent MENU_LIST_INFORowChanged(Me, New MENU_LIST_INFORowChangeEvent(CType(e.Row, MENU_LIST_INFORow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.MENU_LIST_INFORowChangingEvent) Is Nothing) Then
+                RaiseEvent MENU_LIST_INFORowChanging(Me, New MENU_LIST_INFORowChangeEvent(CType(e.Row, MENU_LIST_INFORow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.MENU_LIST_INFORowDeletedEvent) Is Nothing) Then
+                RaiseEvent MENU_LIST_INFORowDeleted(Me, New MENU_LIST_INFORowChangeEvent(CType(e.Row, MENU_LIST_INFORow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.MENU_LIST_INFORowDeletingEvent) Is Nothing) Then
+                RaiseEvent MENU_LIST_INFORowDeleting(Me, New MENU_LIST_INFORowChangeEvent(CType(e.Row, MENU_LIST_INFORow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub RemoveMENU_LIST_INFORow(ByVal row As MENU_LIST_INFORow)
+            Me.Rows.Remove(row)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dsDefault = New dsDefault()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "MENU_LIST_INFODataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+
+                            Do While ((s1.Position <> s1.Length) _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+
+
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close()
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close()
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class TaxPayerFindRow
         Inherits Global.System.Data.DataRow
-        
+
         Private tableTaxPayerFind As TaxPayerFindDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableTaxPayerFind = CType(Me.Table,TaxPayerFindDataTable)
+            Me.tableTaxPayerFind = CType(Me.Table, TaxPayerFindDataTable)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property RefNo() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTaxPayerFind.RefNoColumn),String)
+                Try
+                    Return CType(Me(Me.tableTaxPayerFind.RefNoColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'RefNo' in table 'TaxPayerFind' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTaxPayerFind.RefNoColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property CompanyName() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTaxPayerFind.CompanyNameColumn),String)
+                Try
+                    Return CType(Me(Me.tableTaxPayerFind.CompanyNameColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'CompanyName' in table 'TaxPayerFind' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTaxPayerFind.CompanyNameColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property CompanyNo() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTaxPayerFind.CompanyNoColumn),String)
+                Try
+                    Return CType(Me(Me.tableTaxPayerFind.CompanyNoColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'CompanyNo' in table 'TaxPayerFind' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTaxPayerFind.CompanyNoColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property EmployerNo() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTaxPayerFind.EmployerNoColumn),String)
+                Try
+                    Return CType(Me(Me.tableTaxPayerFind.EmployerNoColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'EmployerNo' in table 'TaxPayerFind' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTaxPayerFind.EmployerNoColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property FileNo() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTaxPayerFind.FileNoColumn),String)
+                Try
+                    Return CType(Me(Me.tableTaxPayerFind.FileNoColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'FileNo' in table 'TaxPayerFind' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTaxPayerFind.FileNoColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property Country() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTaxPayerFind.CountryColumn),String)
+                Try
+                    Return CType(Me(Me.tableTaxPayerFind.CountryColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'Country' in table 'TaxPayerFind' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTaxPayerFind.CountryColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property CompanyCode() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTaxPayerFind.CompanyCodeColumn),String)
+                Try
+                    Return CType(Me(Me.tableTaxPayerFind.CompanyCodeColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'CompanyCode' in table 'TaxPayerFind' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTaxPayerFind.CompanyCodeColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property HandleBy() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTaxPayerFind.HandleByColumn),String)
+                Try
+                    Return CType(Me(Me.tableTaxPayerFind.HandleByColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'HandleBy' in table 'TaxPayerFind' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTaxPayerFind.HandleByColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsRefNoNull() As Boolean
             Return Me.IsNull(Me.tableTaxPayerFind.RefNoColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetRefNoNull()
             Me(Me.tableTaxPayerFind.RefNoColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsCompanyNameNull() As Boolean
             Return Me.IsNull(Me.tableTaxPayerFind.CompanyNameColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetCompanyNameNull()
             Me(Me.tableTaxPayerFind.CompanyNameColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsCompanyNoNull() As Boolean
             Return Me.IsNull(Me.tableTaxPayerFind.CompanyNoColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetCompanyNoNull()
             Me(Me.tableTaxPayerFind.CompanyNoColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsEmployerNoNull() As Boolean
             Return Me.IsNull(Me.tableTaxPayerFind.EmployerNoColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetEmployerNoNull()
             Me(Me.tableTaxPayerFind.EmployerNoColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsFileNoNull() As Boolean
             Return Me.IsNull(Me.tableTaxPayerFind.FileNoColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetFileNoNull()
             Me(Me.tableTaxPayerFind.FileNoColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsCountryNull() As Boolean
             Return Me.IsNull(Me.tableTaxPayerFind.CountryColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetCountryNull()
             Me(Me.tableTaxPayerFind.CountryColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsCompanyCodeNull() As Boolean
             Return Me.IsNull(Me.tableTaxPayerFind.CompanyCodeColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetCompanyCodeNull()
             Me(Me.tableTaxPayerFind.CompanyCodeColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsHandleByNull() As Boolean
             Return Me.IsNull(Me.tableTaxPayerFind.HandleByColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetHandleByNull()
             Me(Me.tableTaxPayerFind.HandleByColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-    
+
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class dtErrorLogRow
         Inherits Global.System.Data.DataRow
-        
+
         Private tabledtErrorLog As dtErrorLogDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tabledtErrorLog = CType(Me.Table,dtErrorLogDataTable)
+            Me.tabledtErrorLog = CType(Me.Table, dtErrorLogDataTable)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property No() As Long
             Get
-                Try 
-                    Return CType(Me(Me.tabledtErrorLog.NoColumn),Long)
+                Try
+                    Return CType(Me(Me.tabledtErrorLog.NoColumn), Long)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'No' in table 'dtErrorLog' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As Long)
                 Me(Me.tabledtErrorLog.NoColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property ErrorDateTime() As Date
             Get
-                Try 
-                    Return CType(Me(Me.tabledtErrorLog.ErrorDateTimeColumn),Date)
+                Try
+                    Return CType(Me(Me.tabledtErrorLog.ErrorDateTimeColumn), Date)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'ErrorDateTime' in table 'dtErrorLog' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As Date)
                 Me(Me.tabledtErrorLog.ErrorDateTimeColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property ErrorCode() As String
             Get
-                Try 
-                    Return CType(Me(Me.tabledtErrorLog.ErrorCodeColumn),String)
+                Try
+                    Return CType(Me(Me.tabledtErrorLog.ErrorCodeColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'ErrorCode' in table 'dtErrorLog' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tabledtErrorLog.ErrorCodeColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property ErrorName() As String
             Get
-                Try 
-                    Return CType(Me(Me.tabledtErrorLog.ErrorNameColumn),String)
+                Try
+                    Return CType(Me(Me.tabledtErrorLog.ErrorNameColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'ErrorName' in table 'dtErrorLog' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tabledtErrorLog.ErrorNameColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property ErrorMessage() As String
             Get
-                Try 
-                    Return CType(Me(Me.tabledtErrorLog.ErrorMessageColumn),String)
+                Try
+                    Return CType(Me(Me.tabledtErrorLog.ErrorMessageColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'ErrorMessage' in table 'dtErrorLog' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tabledtErrorLog.ErrorMessageColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsNoNull() As Boolean
             Return Me.IsNull(Me.tabledtErrorLog.NoColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetNoNull()
             Me(Me.tabledtErrorLog.NoColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsErrorDateTimeNull() As Boolean
             Return Me.IsNull(Me.tabledtErrorLog.ErrorDateTimeColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetErrorDateTimeNull()
             Me(Me.tabledtErrorLog.ErrorDateTimeColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsErrorCodeNull() As Boolean
             Return Me.IsNull(Me.tabledtErrorLog.ErrorCodeColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetErrorCodeNull()
             Me(Me.tabledtErrorLog.ErrorCodeColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsErrorNameNull() As Boolean
             Return Me.IsNull(Me.tabledtErrorLog.ErrorNameColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetErrorNameNull()
             Me(Me.tabledtErrorLog.ErrorNameColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsErrorMessageNull() As Boolean
             Return Me.IsNull(Me.tabledtErrorLog.ErrorMessageColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetErrorMessageNull()
             Me(Me.tabledtErrorLog.ErrorMessageColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-    
+
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class YEAR_ASSESSMENTRow
         Inherits Global.System.Data.DataRow
-        
+
         Private tableYEAR_ASSESSMENT As YEAR_ASSESSMENTDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableYEAR_ASSESSMENT = CType(Me.Table,YEAR_ASSESSMENTDataTable)
+            Me.tableYEAR_ASSESSMENT = CType(Me.Table, YEAR_ASSESSMENTDataTable)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property YA() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableYEAR_ASSESSMENT.YAColumn),String)
+                Try
+                    Return CType(Me(Me.tableYEAR_ASSESSMENT.YAColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'YA' in table 'YEAR_ASSESSMENT' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableYEAR_ASSESSMENT.YAColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsYANull() As Boolean
             Return Me.IsNull(Me.tableYEAR_ASSESSMENT.YAColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetYANull()
             Me(Me.tableYEAR_ASSESSMENT.YAColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-    
+
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class dtDatabaseColumnListRow
         Inherits Global.System.Data.DataRow
-        
+
         Private tabledtDatabaseColumnList As dtDatabaseColumnListDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tabledtDatabaseColumnList = CType(Me.Table,dtDatabaseColumnListDataTable)
+            Me.tabledtDatabaseColumnList = CType(Me.Table, dtDatabaseColumnListDataTable)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property TABLE_CATALOG() As String
             Get
-                Try 
-                    Return CType(Me(Me.tabledtDatabaseColumnList.TABLE_CATALOGColumn),String)
+                Try
+                    Return CType(Me(Me.tabledtDatabaseColumnList.TABLE_CATALOGColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TABLE_CATALOG' in table 'dtDatabaseColumnList' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tabledtDatabaseColumnList.TABLE_CATALOGColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property TABLE_SCHEMA() As String
             Get
-                Try 
-                    Return CType(Me(Me.tabledtDatabaseColumnList.TABLE_SCHEMAColumn),String)
+                Try
+                    Return CType(Me(Me.tabledtDatabaseColumnList.TABLE_SCHEMAColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TABLE_SCHEMA' in table 'dtDatabaseColumnList' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tabledtDatabaseColumnList.TABLE_SCHEMAColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property TABLE_NAME() As String
             Get
-                Try 
-                    Return CType(Me(Me.tabledtDatabaseColumnList.TABLE_NAMEColumn),String)
+                Try
+                    Return CType(Me(Me.tabledtDatabaseColumnList.TABLE_NAMEColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TABLE_NAME' in table 'dtDatabaseColumnList' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tabledtDatabaseColumnList.TABLE_NAMEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsTABLE_CATALOGNull() As Boolean
             Return Me.IsNull(Me.tabledtDatabaseColumnList.TABLE_CATALOGColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetTABLE_CATALOGNull()
             Me(Me.tabledtDatabaseColumnList.TABLE_CATALOGColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsTABLE_SCHEMANull() As Boolean
             Return Me.IsNull(Me.tabledtDatabaseColumnList.TABLE_SCHEMAColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetTABLE_SCHEMANull()
             Me(Me.tabledtDatabaseColumnList.TABLE_SCHEMAColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsTABLE_NAMENull() As Boolean
             Return Me.IsNull(Me.tabledtDatabaseColumnList.TABLE_NAMEColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetTABLE_NAMENull()
             Me(Me.tabledtDatabaseColumnList.TABLE_NAMEColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-    
+
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class BANK_CODERow
         Inherits Global.System.Data.DataRow
-        
+
         Private tableBANK_CODE As BANK_CODEDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableBANK_CODE = CType(Me.Table,BANK_CODEDataTable)
+            Me.tableBANK_CODE = CType(Me.Table, BANK_CODEDataTable)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BKC_DESC() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBANK_CODE.BKC_DESCColumn),String)
+                Try
+                    Return CType(Me(Me.tableBANK_CODE.BKC_DESCColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BKC_DESC' in table 'BANK_CODE' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBANK_CODE.BKC_DESCColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BKC_CODE() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBANK_CODE.BKC_CODEColumn),String)
+                Try
+                    Return CType(Me(Me.tableBANK_CODE.BKC_CODEColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BKC_CODE' in table 'BANK_CODE' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBANK_CODE.BKC_CODEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBKC_DESCNull() As Boolean
             Return Me.IsNull(Me.tableBANK_CODE.BKC_DESCColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBKC_DESCNull()
             Me(Me.tableBANK_CODE.BKC_DESCColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBKC_CODENull() As Boolean
             Return Me.IsNull(Me.tableBANK_CODE.BKC_CODEColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBKC_CODENull()
             Me(Me.tableBANK_CODE.BKC_CODEColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-    
+
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class BANKRow
         Inherits Global.System.Data.DataRow
-        
+
         Private tableBANK As BANKDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableBANK = CType(Me.Table,BANKDataTable)
+            Me.tableBANK = CType(Me.Table, BANKDataTable)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BK_KEY() As Integer
             Get
-                Try 
-                    Return CType(Me(Me.tableBANK.BK_KEYColumn),Integer)
+                Try
+                    Return CType(Me(Me.tableBANK.BK_KEYColumn), Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BK_KEY' in table 'BANK' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As Integer)
                 Me(Me.tableBANK.BK_KEYColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BK_NAME() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBANK.BK_NAMEColumn),String)
+                Try
+                    Return CType(Me(Me.tableBANK.BK_NAMEColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BK_NAME' in table 'BANK' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBANK.BK_NAMEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BK_DESC() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBANK.BK_DESCColumn),String)
+                Try
+                    Return CType(Me(Me.tableBANK.BK_DESCColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BK_DESC' in table 'BANK' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBANK.BK_DESCColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BK_CODE() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBANK.BK_CODEColumn),String)
+                Try
+                    Return CType(Me(Me.tableBANK.BK_CODEColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BK_CODE' in table 'BANK' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBANK.BK_CODEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBK_KEYNull() As Boolean
             Return Me.IsNull(Me.tableBANK.BK_KEYColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBK_KEYNull()
             Me(Me.tableBANK.BK_KEYColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBK_NAMENull() As Boolean
             Return Me.IsNull(Me.tableBANK.BK_NAMEColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBK_NAMENull()
             Me(Me.tableBANK.BK_NAMEColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBK_DESCNull() As Boolean
             Return Me.IsNull(Me.tableBANK.BK_DESCColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBK_DESCNull()
             Me(Me.tableBANK.BK_DESCColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBK_CODENull() As Boolean
             Return Me.IsNull(Me.tableBANK.BK_CODEColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBK_CODENull()
             Me(Me.tableBANK.BK_CODEColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-    
+
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class COUNTRYRow
         Inherits Global.System.Data.DataRow
-        
+
         Private tableCOUNTRY As COUNTRYDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableCOUNTRY = CType(Me.Table,COUNTRYDataTable)
+            Me.tableCOUNTRY = CType(Me.Table, COUNTRYDataTable)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property CT_CODE() As String
             Get
-                Return CType(Me(Me.tableCOUNTRY.CT_CODEColumn),String)
+                Return CType(Me(Me.tableCOUNTRY.CT_CODEColumn), String)
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableCOUNTRY.CT_CODEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property CT_DESC() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableCOUNTRY.CT_DESCColumn),String)
+                Try
+                    Return CType(Me(Me.tableCOUNTRY.CT_DESCColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'CT_DESC' in table 'COUNTRY' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableCOUNTRY.CT_DESCColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsCT_DESCNull() As Boolean
             Return Me.IsNull(Me.tableCOUNTRY.CT_DESCColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetCT_DESCNull()
             Me(Me.tableCOUNTRY.CT_DESCColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-    
+
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class STATESRow
         Inherits Global.System.Data.DataRow
-        
+
         Private tableSTATES As STATESDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableSTATES = CType(Me.Table,STATESDataTable)
+            Me.tableSTATES = CType(Me.Table, STATESDataTable)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property CT_CODE() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableSTATES.CT_CODEColumn),String)
+                Try
+                    Return CType(Me(Me.tableSTATES.CT_CODEColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'CT_CODE' in table 'STATES' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableSTATES.CT_CODEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property ST_DESC() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableSTATES.ST_DESCColumn),String)
+                Try
+                    Return CType(Me(Me.tableSTATES.ST_DESCColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'ST_DESC' in table 'STATES' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableSTATES.ST_DESCColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsCT_CODENull() As Boolean
             Return Me.IsNull(Me.tableSTATES.CT_CODEColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetCT_CODENull()
             Me(Me.tableSTATES.CT_CODEColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsST_DESCNull() As Boolean
             Return Me.IsNull(Me.tableSTATES.ST_DESCColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetST_DESCNull()
             Me(Me.tableSTATES.ST_DESCColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-    
+
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class BUSINESS_SOURCERow
         Inherits Global.System.Data.DataRow
-        
+
         Private tableBUSINESS_SOURCE As BUSINESS_SOURCEDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableBUSINESS_SOURCE = CType(Me.Table,BUSINESS_SOURCEDataTable)
+            Me.tableBUSINESS_SOURCE = CType(Me.Table, BUSINESS_SOURCEDataTable)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BC_KEY() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_KEYColumn),String)
+                Try
+                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_KEYColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BC_KEY' in table 'BUSINESS_SOURCE' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBUSINESS_SOURCE.BC_KEYColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BC_SOURCEKEY() As Integer
             Get
-                Try 
-                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_SOURCEKEYColumn),Integer)
+                Try
+                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_SOURCEKEYColumn), Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BC_SOURCEKEY' in table 'BUSINESS_SOURCE' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As Integer)
                 Me(Me.tableBUSINESS_SOURCE.BC_SOURCEKEYColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BC_YA() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_YAColumn),String)
+                Try
+                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_YAColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BC_YA' in table 'BUSINESS_SOURCE' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBUSINESS_SOURCE.BC_YAColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BC_SOURCENO() As Integer
             Get
-                Try 
-                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_SOURCENOColumn),Integer)
+                Try
+                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_SOURCENOColumn), Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BC_SOURCENO' in table 'BUSINESS_SOURCE' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As Integer)
                 Me(Me.tableBUSINESS_SOURCE.BC_SOURCENOColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BC_CODE() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_CODEColumn),String)
+                Try
+                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_CODEColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BC_CODE' in table 'BUSINESS_SOURCE' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBUSINESS_SOURCE.BC_CODEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BC_TYPE() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_TYPEColumn),String)
+                Try
+                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_TYPEColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BC_TYPE' in table 'BUSINESS_SOURCE' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBUSINESS_SOURCE.BC_TYPEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BC_COMPANY() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_COMPANYColumn),String)
+                Try
+                    Return CType(Me(Me.tableBUSINESS_SOURCE.BC_COMPANYColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BC_COMPANY' in table 'BUSINESS_SOURCE' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBUSINESS_SOURCE.BC_COMPANYColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBC_KEYNull() As Boolean
             Return Me.IsNull(Me.tableBUSINESS_SOURCE.BC_KEYColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBC_KEYNull()
             Me(Me.tableBUSINESS_SOURCE.BC_KEYColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBC_SOURCEKEYNull() As Boolean
             Return Me.IsNull(Me.tableBUSINESS_SOURCE.BC_SOURCEKEYColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBC_SOURCEKEYNull()
             Me(Me.tableBUSINESS_SOURCE.BC_SOURCEKEYColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBC_YANull() As Boolean
             Return Me.IsNull(Me.tableBUSINESS_SOURCE.BC_YAColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBC_YANull()
             Me(Me.tableBUSINESS_SOURCE.BC_YAColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBC_SOURCENONull() As Boolean
             Return Me.IsNull(Me.tableBUSINESS_SOURCE.BC_SOURCENOColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBC_SOURCENONull()
             Me(Me.tableBUSINESS_SOURCE.BC_SOURCENOColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBC_CODENull() As Boolean
             Return Me.IsNull(Me.tableBUSINESS_SOURCE.BC_CODEColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBC_CODENull()
             Me(Me.tableBUSINESS_SOURCE.BC_CODEColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBC_TYPENull() As Boolean
             Return Me.IsNull(Me.tableBUSINESS_SOURCE.BC_TYPEColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBC_TYPENull()
             Me(Me.tableBUSINESS_SOURCE.BC_TYPEColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBC_COMPANYNull() As Boolean
             Return Me.IsNull(Me.tableBUSINESS_SOURCE.BC_COMPANYColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBC_COMPANYNull()
             Me(Me.tableBUSINESS_SOURCE.BC_COMPANYColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-    
+
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class BUSINESSRow
         Inherits Global.System.Data.DataRow
-        
+
         Private tableBUSINESS As BUSINESSDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableBUSINESS = CType(Me.Table,BUSINESSDataTable)
+            Me.tableBUSINESS = CType(Me.Table, BUSINESSDataTable)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BS_CODE() As String
             Get
-                Return CType(Me(Me.tableBUSINESS.BS_CODEColumn),String)
+                Return CType(Me(Me.tableBUSINESS.BS_CODEColumn), String)
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBUSINESS.BS_CODEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BS_CATEGORY() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBUSINESS.BS_CATEGORYColumn),String)
+                Try
+                    Return CType(Me(Me.tableBUSINESS.BS_CATEGORYColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BS_CATEGORY' in table 'BUSINESS' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBUSINESS.BS_CATEGORYColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property BS_TYPE() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableBUSINESS.BS_TYPEColumn),String)
+                Try
+                    Return CType(Me(Me.tableBUSINESS.BS_TYPEColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'BS_TYPE' in table 'BUSINESS' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableBUSINESS.BS_TYPEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBS_CATEGORYNull() As Boolean
             Return Me.IsNull(Me.tableBUSINESS.BS_CATEGORYColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBS_CATEGORYNull()
             Me(Me.tableBUSINESS.BS_CATEGORYColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsBS_TYPENull() As Boolean
             Return Me.IsNull(Me.tableBUSINESS.BS_TYPEColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetBS_TYPENull()
             Me(Me.tableBUSINESS.BS_TYPEColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-    
+
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class TAXP_PARTNERSHIPRow
         Inherits Global.System.Data.DataRow
-        
+
         Private tableTAXP_PARTNERSHIP As TAXP_PARTNERSHIPDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableTAXP_PARTNERSHIP = CType(Me.Table,TAXP_PARTNERSHIPDataTable)
+            Me.tableTAXP_PARTNERSHIP = CType(Me.Table, TAXP_PARTNERSHIPDataTable)
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_PREFIX() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_PREFIXColumn),String)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_PREFIXColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_PREFIX' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_PREFIXColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_KEY() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_KEYColumn),String)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_KEYColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_KEY' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_KEYColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_SOURCEKEY() As Integer
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_SOURCEKEYColumn),Integer)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_SOURCEKEYColumn), Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_SOURCEKEY' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As Integer)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_SOURCEKEYColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_YA() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_YAColumn),String)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_YAColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_YA' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_YAColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_SOURCENO() As Integer
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_SOURCENOColumn),Integer)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_SOURCENOColumn), Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_SOURCENO' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As Integer)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_SOURCENOColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_FILE_NO1() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO1Column),String)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO1Column), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_FILE_NO1' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO1Column) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_FILE_NO2() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO2Column),String)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO2Column), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_FILE_NO2' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO2Column) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_FILE_NO3() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO3Column),String)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO3Column), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_FILE_NO3' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO3Column) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_CODE() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_CODEColumn),String)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_CODEColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_CODE' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_CODEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_TYPE() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_TYPEColumn),String)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_TYPEColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_TYPE' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_TYPEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_COM_REG_NO() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_COM_REG_NOColumn),String)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_COM_REG_NOColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_COM_REG_NO' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_COM_REG_NOColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property PS_COM_NAME() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_COM_NAMEColumn),String)
+                Try
+                    Return CType(Me(Me.tableTAXP_PARTNERSHIP.PS_COM_NAMEColumn), String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'PS_COM_NAME' in table 'TAXP_PARTNERSHIP' is DBNull.", e)
                 End Try
             End Get
-            Set
+            Set(value As String)
                 Me(Me.tableTAXP_PARTNERSHIP.PS_COM_NAMEColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_PREFIXNull() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_PREFIXColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_PREFIXNull()
             Me(Me.tableTAXP_PARTNERSHIP.PS_PREFIXColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_KEYNull() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_KEYColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_KEYNull()
             Me(Me.tableTAXP_PARTNERSHIP.PS_KEYColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_SOURCEKEYNull() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_SOURCEKEYColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_SOURCEKEYNull()
             Me(Me.tableTAXP_PARTNERSHIP.PS_SOURCEKEYColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_YANull() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_YAColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_YANull()
             Me(Me.tableTAXP_PARTNERSHIP.PS_YAColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_SOURCENONull() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_SOURCENOColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_SOURCENONull()
             Me(Me.tableTAXP_PARTNERSHIP.PS_SOURCENOColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_FILE_NO1Null() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO1Column)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_FILE_NO1Null()
             Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO1Column) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_FILE_NO2Null() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO2Column)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_FILE_NO2Null()
             Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO2Column) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_FILE_NO3Null() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO3Column)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_FILE_NO3Null()
             Me(Me.tableTAXP_PARTNERSHIP.PS_FILE_NO3Column) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_CODENull() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_CODEColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_CODENull()
             Me(Me.tableTAXP_PARTNERSHIP.PS_CODEColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_TYPENull() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_TYPEColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_TYPENull()
             Me(Me.tableTAXP_PARTNERSHIP.PS_TYPEColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_COM_REG_NONull() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_COM_REG_NOColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_COM_REG_NONull()
             Me(Me.tableTAXP_PARTNERSHIP.PS_COM_REG_NOColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsPS_COM_NAMENull() As Boolean
             Return Me.IsNull(Me.tableTAXP_PARTNERSHIP.PS_COM_NAMEColumn)
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPS_COM_NAMENull()
             Me(Me.tableTAXP_PARTNERSHIP.PS_COM_NAMEColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+
+    '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class TAXP_PROFILERow
+        Inherits Global.System.Data.DataRow
+
+        Private tableTAXP_PROFILE As TAXP_PROFILEDataTable
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tableTAXP_PROFILE = CType(Me.Table, TAXP_PROFILEDataTable)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_REF_NO() As String
+            Get
+                Return CType(Me(Me.tableTAXP_PROFILE.TP_REF_NOColumn), String)
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_REF_NOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_COM_NAME() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_NAMEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_NAME' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_COM_NAMEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ROC_NO() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ROC_NOColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ROC_NO' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_ROC_NOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_EMPLOYER_NO() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_EMPLOYER_NOColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_EMPLOYER_NO' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_EMPLOYER_NOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_FILE_NO() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_FILE_NOColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_FILE_NO' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_FILE_NOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_RESIDENCE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_RESIDENCEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_RESIDENCE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_RESIDENCEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_COUNTRY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COUNTRYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COUNTRY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_COUNTRYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ACC_PERIOD_FR() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_FRColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ACC_PERIOD_FR' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_FRColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ACC_PERIOD_TO() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_TOColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ACC_PERIOD_TO' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_TOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_EFILING() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_EFILINGColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_EFILING' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_EFILINGColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_PUBLIC_ORDER() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_PUBLIC_ORDERColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_PUBLIC_ORDER' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_PUBLIC_ORDERColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_CO_STATUS() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CO_STATUSColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CO_STATUS' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_CO_STATUSColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_EMAIL() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_EMAILColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_EMAIL' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_EMAILColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_REG_ADD_LINE1() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE1Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_ADD_LINE1' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE1Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_REG_ADD_LINE2() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE2Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_ADD_LINE2' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE2Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_REG_ADD_LINE3() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE3Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_ADD_LINE3' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE3Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_REG_POSTCODE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_POSTCODEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_POSTCODE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_REG_POSTCODEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_REG_CITY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_CITYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_CITY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_REG_CITYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_REG_STATE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_STATEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_STATE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_REG_STATEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_CURR_ADD_LINE1() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE1Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_ADD_LINE1' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE1Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_CURR_ADD_LINE2() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE2Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_ADD_LINE2' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE2Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_CURR_ADD_LINE3() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE3Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_ADD_LINE3' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE3Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_CURR_POSTCODE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_POSTCODEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_POSTCODE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_CURR_POSTCODEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_CURR_CITY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_CITYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_CITY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_CURR_CITYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_CURR_STATE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_STATEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_STATE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_CURR_STATEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_COM_ADD_LINE1() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE1Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_ADD_LINE1' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE1Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_COM_ADD_LINE2() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE2Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_ADD_LINE2' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE2Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_COM_ADD_LINE3() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE3Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_ADD_LINE3' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE3Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_COM_POSTCODE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_POSTCODEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_POSTCODE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_COM_POSTCODEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_COM_CITY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_CITYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_CITY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_COM_CITYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_COM_STATE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_STATEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_STATE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_COM_STATEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BANK() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANKColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_BANKColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BANK_ACC() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_ACCColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_ACC' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_BANK_ACCColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BANK_ADD_LINE1() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE1Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_ADD_LINE1' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE1Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BANK_ADD_LINE2() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE2Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_ADD_LINE2' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE2Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BANK_ADD_LINE3() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE3Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_ADD_LINE3' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE3Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BANK_POSTCODE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_POSTCODEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_POSTCODE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_BANK_POSTCODEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BANK_CITY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_CITYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_CITY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_BANK_CITYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BANK_STATE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_STATEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_STATE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_BANK_STATEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_RECORD_KEPT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_RECORD_KEPTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_RECORD_KEPT' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_RECORD_KEPTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ALT_ADD_LINE1() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE1Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_ADD_LINE1' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE1Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ALT_ADD_LINE2() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE2Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_ADD_LINE2' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE2Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ALT_ADD_LINE3() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE3Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_ADD_LINE3' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE3Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ALT_POSTCODE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_POSTCODEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_POSTCODE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_ALT_POSTCODEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ALT_CITY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_CITYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_CITY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_ALT_CITYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ALT_STATE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_STATEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_STATE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_ALT_STATEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_TAX_FILE_NO() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_TAX_FILE_NOColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_TAX_FILE_NO' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_TAX_FILE_NOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_CONTACT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CONTACTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CONTACT' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_CONTACTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_TEL_NO() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_TEL_NOColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_TEL_NO' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_TEL_NOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_FAX_NO() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_FAX_NOColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_FAX_NO' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_FAX_NOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_INV_ANN_DATE() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_INV_ANN_DATEColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_INV_ANN_DATE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableTAXP_PROFILE.TP_INV_ANN_DATEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_INV_DETTAXFEE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_INV_DETTAXFEEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_INV_DETTAXFEE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_INV_DETTAXFEEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_INV_DISBURSEMENT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_INV_DISBURSEMENTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_INV_DISBURSEMENT' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_INV_DISBURSEMENTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_INV_SALESTAX() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_INV_SALESTAXColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_INV_SALESTAX' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_INV_SALESTAXColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_INV_TOTAL() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_INV_TOTALColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_INV_TOTAL' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_INV_TOTALColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_PREFIX() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_PREFIXColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_PREFIX' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_PREFIXColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BLOG() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BLOGColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BLOG' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_BLOGColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BASIS_PERIOD_FR() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_FRColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BASIS_PERIOD_FR' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_FRColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BASIS_PERIOD_TO() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_TOColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BASIS_PERIOD_TO' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_TOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_OPN_OPERATION() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_OPN_OPERATIONColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_OPN_OPERATION' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableTAXP_PROFILE.TP_OPN_OPERATIONColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ULT_COMPANY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ULT_COMPANYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ULT_COMPANY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_ULT_COMPANYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ULT_COUNTRY_CODE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ULT_COUNTRY_CODEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ULT_COUNTRY_CODE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_ULT_COUNTRY_CODEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_IMD_COMPANY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_IMD_COMPANYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_IMD_COMPANY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_IMD_COMPANYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_IMD_COUNTRY_CODE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_IMD_COUNTRY_CODEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_IMD_COUNTRY_CODE' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_IMD_COUNTRY_CODEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_REG_COUNTRY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_COUNTRYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_COUNTRY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_REG_COUNTRYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_CURR_COUNTRY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_COUNTRYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_COUNTRY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_CURR_COUNTRYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_COM_COUNTRY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_COUNTRYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_COUNTRY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_COM_COUNTRYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ALT_COUNTRY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_COUNTRYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_COUNTRY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_ALT_COUNTRYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_COM_STS() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_STSColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_STS' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_COM_STSColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_SECTION_127_1() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_SECTION_127_1Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_SECTION_127_1' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_SECTION_127_1Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_SECTION_127_2() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_SECTION_127_2Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_SECTION_127_2' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_SECTION_127_2Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_SECTION_127_3() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_SECTION_127_3Column), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_SECTION_127_3' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_SECTION_127_3Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_ROYALCLAIM() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ROYALCLAIMColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ROYALCLAIM' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_ROYALCLAIMColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_CARRYETRANDING() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CARRYETRANDINGColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CARRYETRANDING' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_CARRYETRANDINGColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_GOODSERVICETAXREGISTRAION() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_GOODSERVICETAXREGISTRAIONColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_GOODSERVICETAXREGISTRAION' in table 'TAXP_PROFILE' is DB" & _
+                            "Null.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_GOODSERVICETAXREGISTRAIONColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_LABUAN_STATUS() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_LABUAN_STATUSColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_LABUAN_STATUS' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_LABUAN_STATUSColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_LABUAN_NAME() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_LABUAN_NAMEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_LABUAN_NAME' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_LABUAN_NAMEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_LABUAN_REG() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_LABUAN_REGColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_LABUAN_REG' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_LABUAN_REGColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_LABUAN_INCOME_TAX() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_LABUAN_INCOME_TAXColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_LABUAN_INCOME_TAX' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_LABUAN_INCOME_TAXColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_BUILDINGINDUSTRY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BUILDINGINDUSTRYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BUILDINGINDUSTRY' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_BUILDINGINDUSTRYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property TP_STS_OTHER() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.TP_STS_OTHERColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_STS_OTHER' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.TP_STS_OTHERColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property HandleBy() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.HandleByColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'HandleBy' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.HandleByColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property ModifiedBy() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.ModifiedByColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ModifiedBy' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTAXP_PROFILE.ModifiedByColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property ModifiedDateTime() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableTAXP_PROFILE.ModifiedDateTimeColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ModifiedDateTime' in table 'TAXP_PROFILE' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableTAXP_PROFILE.ModifiedDateTimeColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_COM_NAMENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_NAMEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_COM_NAMENull()
+            Me(Me.tableTAXP_PROFILE.TP_COM_NAMEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ROC_NONull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ROC_NOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ROC_NONull()
+            Me(Me.tableTAXP_PROFILE.TP_ROC_NOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_EMPLOYER_NONull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_EMPLOYER_NOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_EMPLOYER_NONull()
+            Me(Me.tableTAXP_PROFILE.TP_EMPLOYER_NOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_FILE_NONull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_FILE_NOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_FILE_NONull()
+            Me(Me.tableTAXP_PROFILE.TP_FILE_NOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_RESIDENCENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_RESIDENCEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_RESIDENCENull()
+            Me(Me.tableTAXP_PROFILE.TP_RESIDENCEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_COUNTRYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COUNTRYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_COUNTRYNull()
+            Me(Me.tableTAXP_PROFILE.TP_COUNTRYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ACC_PERIOD_FRNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_FRColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ACC_PERIOD_FRNull()
+            Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_FRColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ACC_PERIOD_TONull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_TOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ACC_PERIOD_TONull()
+            Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_TOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_EFILINGNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_EFILINGColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_EFILINGNull()
+            Me(Me.tableTAXP_PROFILE.TP_EFILINGColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_PUBLIC_ORDERNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_PUBLIC_ORDERColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_PUBLIC_ORDERNull()
+            Me(Me.tableTAXP_PROFILE.TP_PUBLIC_ORDERColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_CO_STATUSNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CO_STATUSColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_CO_STATUSNull()
+            Me(Me.tableTAXP_PROFILE.TP_CO_STATUSColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_EMAILNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_EMAILColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_EMAILNull()
+            Me(Me.tableTAXP_PROFILE.TP_EMAILColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_REG_ADD_LINE1Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE1Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_REG_ADD_LINE1Null()
+            Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE1Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_REG_ADD_LINE2Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE2Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_REG_ADD_LINE2Null()
+            Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE2Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_REG_ADD_LINE3Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE3Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_REG_ADD_LINE3Null()
+            Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE3Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_REG_POSTCODENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_POSTCODEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_REG_POSTCODENull()
+            Me(Me.tableTAXP_PROFILE.TP_REG_POSTCODEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_REG_CITYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_CITYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_REG_CITYNull()
+            Me(Me.tableTAXP_PROFILE.TP_REG_CITYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_REG_STATENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_STATEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_REG_STATENull()
+            Me(Me.tableTAXP_PROFILE.TP_REG_STATEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_CURR_ADD_LINE1Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE1Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_CURR_ADD_LINE1Null()
+            Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE1Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_CURR_ADD_LINE2Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE2Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_CURR_ADD_LINE2Null()
+            Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE2Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_CURR_ADD_LINE3Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE3Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_CURR_ADD_LINE3Null()
+            Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE3Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_CURR_POSTCODENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_POSTCODEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_CURR_POSTCODENull()
+            Me(Me.tableTAXP_PROFILE.TP_CURR_POSTCODEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_CURR_CITYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_CITYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_CURR_CITYNull()
+            Me(Me.tableTAXP_PROFILE.TP_CURR_CITYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_CURR_STATENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_STATEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_CURR_STATENull()
+            Me(Me.tableTAXP_PROFILE.TP_CURR_STATEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_COM_ADD_LINE1Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE1Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_COM_ADD_LINE1Null()
+            Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE1Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_COM_ADD_LINE2Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE2Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_COM_ADD_LINE2Null()
+            Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE2Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_COM_ADD_LINE3Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE3Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_COM_ADD_LINE3Null()
+            Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE3Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_COM_POSTCODENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_POSTCODEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_COM_POSTCODENull()
+            Me(Me.tableTAXP_PROFILE.TP_COM_POSTCODEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_COM_CITYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_CITYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_COM_CITYNull()
+            Me(Me.tableTAXP_PROFILE.TP_COM_CITYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_COM_STATENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_STATEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_COM_STATENull()
+            Me(Me.tableTAXP_PROFILE.TP_COM_STATEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BANKNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANKColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BANKNull()
+            Me(Me.tableTAXP_PROFILE.TP_BANKColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BANK_ACCNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_ACCColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BANK_ACCNull()
+            Me(Me.tableTAXP_PROFILE.TP_BANK_ACCColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BANK_ADD_LINE1Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE1Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BANK_ADD_LINE1Null()
+            Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE1Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BANK_ADD_LINE2Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE2Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BANK_ADD_LINE2Null()
+            Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE2Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BANK_ADD_LINE3Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE3Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BANK_ADD_LINE3Null()
+            Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE3Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BANK_POSTCODENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_POSTCODEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BANK_POSTCODENull()
+            Me(Me.tableTAXP_PROFILE.TP_BANK_POSTCODEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BANK_CITYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_CITYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BANK_CITYNull()
+            Me(Me.tableTAXP_PROFILE.TP_BANK_CITYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BANK_STATENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_STATEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BANK_STATENull()
+            Me(Me.tableTAXP_PROFILE.TP_BANK_STATEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_RECORD_KEPTNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_RECORD_KEPTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_RECORD_KEPTNull()
+            Me(Me.tableTAXP_PROFILE.TP_RECORD_KEPTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ALT_ADD_LINE1Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE1Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ALT_ADD_LINE1Null()
+            Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE1Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ALT_ADD_LINE2Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE2Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ALT_ADD_LINE2Null()
+            Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE2Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ALT_ADD_LINE3Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE3Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ALT_ADD_LINE3Null()
+            Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE3Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ALT_POSTCODENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_POSTCODEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ALT_POSTCODENull()
+            Me(Me.tableTAXP_PROFILE.TP_ALT_POSTCODEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ALT_CITYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_CITYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ALT_CITYNull()
+            Me(Me.tableTAXP_PROFILE.TP_ALT_CITYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ALT_STATENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_STATEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ALT_STATENull()
+            Me(Me.tableTAXP_PROFILE.TP_ALT_STATEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_TAX_FILE_NONull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_TAX_FILE_NOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_TAX_FILE_NONull()
+            Me(Me.tableTAXP_PROFILE.TP_TAX_FILE_NOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_CONTACTNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CONTACTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_CONTACTNull()
+            Me(Me.tableTAXP_PROFILE.TP_CONTACTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_TEL_NONull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_TEL_NOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_TEL_NONull()
+            Me(Me.tableTAXP_PROFILE.TP_TEL_NOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_FAX_NONull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_FAX_NOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_FAX_NONull()
+            Me(Me.tableTAXP_PROFILE.TP_FAX_NOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_INV_ANN_DATENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_INV_ANN_DATEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_INV_ANN_DATENull()
+            Me(Me.tableTAXP_PROFILE.TP_INV_ANN_DATEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_INV_DETTAXFEENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_INV_DETTAXFEEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_INV_DETTAXFEENull()
+            Me(Me.tableTAXP_PROFILE.TP_INV_DETTAXFEEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_INV_DISBURSEMENTNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_INV_DISBURSEMENTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_INV_DISBURSEMENTNull()
+            Me(Me.tableTAXP_PROFILE.TP_INV_DISBURSEMENTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_INV_SALESTAXNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_INV_SALESTAXColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_INV_SALESTAXNull()
+            Me(Me.tableTAXP_PROFILE.TP_INV_SALESTAXColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_INV_TOTALNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_INV_TOTALColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_INV_TOTALNull()
+            Me(Me.tableTAXP_PROFILE.TP_INV_TOTALColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_PREFIXNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_PREFIXColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_PREFIXNull()
+            Me(Me.tableTAXP_PROFILE.TP_PREFIXColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BLOGNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BLOGColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BLOGNull()
+            Me(Me.tableTAXP_PROFILE.TP_BLOGColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BASIS_PERIOD_FRNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_FRColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BASIS_PERIOD_FRNull()
+            Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_FRColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BASIS_PERIOD_TONull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_TOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BASIS_PERIOD_TONull()
+            Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_TOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_OPN_OPERATIONNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_OPN_OPERATIONColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_OPN_OPERATIONNull()
+            Me(Me.tableTAXP_PROFILE.TP_OPN_OPERATIONColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ULT_COMPANYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ULT_COMPANYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ULT_COMPANYNull()
+            Me(Me.tableTAXP_PROFILE.TP_ULT_COMPANYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ULT_COUNTRY_CODENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ULT_COUNTRY_CODEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ULT_COUNTRY_CODENull()
+            Me(Me.tableTAXP_PROFILE.TP_ULT_COUNTRY_CODEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_IMD_COMPANYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_IMD_COMPANYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_IMD_COMPANYNull()
+            Me(Me.tableTAXP_PROFILE.TP_IMD_COMPANYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_IMD_COUNTRY_CODENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_IMD_COUNTRY_CODEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_IMD_COUNTRY_CODENull()
+            Me(Me.tableTAXP_PROFILE.TP_IMD_COUNTRY_CODEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_REG_COUNTRYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_COUNTRYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_REG_COUNTRYNull()
+            Me(Me.tableTAXP_PROFILE.TP_REG_COUNTRYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_CURR_COUNTRYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_COUNTRYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_CURR_COUNTRYNull()
+            Me(Me.tableTAXP_PROFILE.TP_CURR_COUNTRYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_COM_COUNTRYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_COUNTRYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_COM_COUNTRYNull()
+            Me(Me.tableTAXP_PROFILE.TP_COM_COUNTRYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ALT_COUNTRYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_COUNTRYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ALT_COUNTRYNull()
+            Me(Me.tableTAXP_PROFILE.TP_ALT_COUNTRYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_COM_STSNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_STSColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_COM_STSNull()
+            Me(Me.tableTAXP_PROFILE.TP_COM_STSColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_SECTION_127_1Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_SECTION_127_1Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_SECTION_127_1Null()
+            Me(Me.tableTAXP_PROFILE.TP_SECTION_127_1Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_SECTION_127_2Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_SECTION_127_2Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_SECTION_127_2Null()
+            Me(Me.tableTAXP_PROFILE.TP_SECTION_127_2Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_SECTION_127_3Null() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_SECTION_127_3Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_SECTION_127_3Null()
+            Me(Me.tableTAXP_PROFILE.TP_SECTION_127_3Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_ROYALCLAIMNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ROYALCLAIMColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_ROYALCLAIMNull()
+            Me(Me.tableTAXP_PROFILE.TP_ROYALCLAIMColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_CARRYETRANDINGNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CARRYETRANDINGColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_CARRYETRANDINGNull()
+            Me(Me.tableTAXP_PROFILE.TP_CARRYETRANDINGColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_GOODSERVICETAXREGISTRAIONNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_GOODSERVICETAXREGISTRAIONColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_GOODSERVICETAXREGISTRAIONNull()
+            Me(Me.tableTAXP_PROFILE.TP_GOODSERVICETAXREGISTRAIONColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_LABUAN_STATUSNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_LABUAN_STATUSColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_LABUAN_STATUSNull()
+            Me(Me.tableTAXP_PROFILE.TP_LABUAN_STATUSColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_LABUAN_NAMENull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_LABUAN_NAMEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_LABUAN_NAMENull()
+            Me(Me.tableTAXP_PROFILE.TP_LABUAN_NAMEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_LABUAN_REGNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_LABUAN_REGColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_LABUAN_REGNull()
+            Me(Me.tableTAXP_PROFILE.TP_LABUAN_REGColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_LABUAN_INCOME_TAXNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_LABUAN_INCOME_TAXColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_LABUAN_INCOME_TAXNull()
+            Me(Me.tableTAXP_PROFILE.TP_LABUAN_INCOME_TAXColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_BUILDINGINDUSTRYNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BUILDINGINDUSTRYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_BUILDINGINDUSTRYNull()
+            Me(Me.tableTAXP_PROFILE.TP_BUILDINGINDUSTRYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsTP_STS_OTHERNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_STS_OTHERColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetTP_STS_OTHERNull()
+            Me(Me.tableTAXP_PROFILE.TP_STS_OTHERColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsHandleByNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.HandleByColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetHandleByNull()
+            Me(Me.tableTAXP_PROFILE.HandleByColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsModifiedByNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.ModifiedByColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetModifiedByNull()
+            Me(Me.tableTAXP_PROFILE.ModifiedByColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsModifiedDateTimeNull() As Boolean
+            Return Me.IsNull(Me.tableTAXP_PROFILE.ModifiedDateTimeColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetModifiedDateTimeNull()
+            Me(Me.tableTAXP_PROFILE.ModifiedDateTimeColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
-    Partial Public Class TAXP_PROFILERow
+    Partial Public Class MENU_LIST_INFORow
         Inherits Global.System.Data.DataRow
         
-        Private tableTAXP_PROFILE As TAXP_PROFILEDataTable
+        Private tableMENU_LIST_INFO As MENU_LIST_INFODataTable
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableTAXP_PROFILE = CType(Me.Table,TAXP_PROFILEDataTable)
+            Me.tableMENU_LIST_INFO = CType(Me.Table,MENU_LIST_INFODataTable)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_REF_NO() As String
+        Public Property ID() As Integer
             Get
-                Return CType(Me(Me.tableTAXP_PROFILE.TP_REF_NOColumn),String)
+                Return CType(Me(Me.tableMENU_LIST_INFO.IDColumn),Integer)
             End Get
             Set
-                Me(Me.tableTAXP_PROFILE.TP_REF_NOColumn) = value
+                Me(Me.tableMENU_LIST_INFO.IDColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_COM_NAME() As String
+        Public Property ParentID() As Integer
             Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_NAMEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_NAME' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_COM_NAMEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ROC_NO() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ROC_NOColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ROC_NO' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ROC_NOColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_EMPLOYER_NO() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_EMPLOYER_NOColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_EMPLOYER_NO' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_EMPLOYER_NOColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_FILE_NO() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_FILE_NOColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_FILE_NO' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_FILE_NOColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_RESIDENCE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_RESIDENCEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_RESIDENCE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_RESIDENCEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_COUNTRY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COUNTRYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COUNTRY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_COUNTRYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ACC_PERIOD_FR() As Date
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_FRColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ACC_PERIOD_FR' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_FRColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ACC_PERIOD_TO() As Date
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_TOColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ACC_PERIOD_TO' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_TOColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_EFILING() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_EFILINGColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_EFILING' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_EFILINGColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_PUBLIC_ORDER() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_PUBLIC_ORDERColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_PUBLIC_ORDER' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_PUBLIC_ORDERColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_CO_STATUS() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CO_STATUSColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CO_STATUS' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_CO_STATUSColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_EMAIL() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_EMAILColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_EMAIL' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_EMAILColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_REG_ADD_LINE1() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE1Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_ADD_LINE1' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE1Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_REG_ADD_LINE2() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE2Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_ADD_LINE2' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE2Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_REG_ADD_LINE3() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE3Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_ADD_LINE3' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE3Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_REG_POSTCODE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_POSTCODEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_POSTCODE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_REG_POSTCODEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_REG_CITY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_CITYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_CITY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_REG_CITYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_REG_STATE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_STATEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_STATE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_REG_STATEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_CURR_ADD_LINE1() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE1Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_ADD_LINE1' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE1Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_CURR_ADD_LINE2() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE2Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_ADD_LINE2' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE2Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_CURR_ADD_LINE3() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE3Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_ADD_LINE3' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE3Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_CURR_POSTCODE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_POSTCODEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_POSTCODE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_CURR_POSTCODEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_CURR_CITY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_CITYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_CITY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_CURR_CITYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_CURR_STATE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_STATEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_STATE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
+                Return CType(Me(Me.tableMENU_LIST_INFO.ParentIDColumn),Integer)
             End Get
             Set
-                Me(Me.tableTAXP_PROFILE.TP_CURR_STATEColumn) = value
+                Me(Me.tableMENU_LIST_INFO.ParentIDColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_COM_ADD_LINE1() As String
+        Public Property KeyName() As String
             Get
                 Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE1Column),String)
+                    Return CType(Me(Me.tableMENU_LIST_INFO.KeyNameColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_ADD_LINE1' in table 'TAXP_PROFILE' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'KeyName' in table 'MENU_LIST_INFO' is DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE1Column) = value
+                Me(Me.tableMENU_LIST_INFO.KeyNameColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_COM_ADD_LINE2() As String
+        Public Property Title() As String
             Get
                 Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE2Column),String)
+                    Return CType(Me(Me.tableMENU_LIST_INFO.TitleColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_ADD_LINE2' in table 'TAXP_PROFILE' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'Title' in table 'MENU_LIST_INFO' is DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE2Column) = value
+                Me(Me.tableMENU_LIST_INFO.TitleColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_COM_ADD_LINE3() As String
+        Public Property LicenseType() As Integer
             Get
                 Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE3Column),String)
+                    Return CType(Me(Me.tableMENU_LIST_INFO.LicenseTypeColumn),Integer)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_ADD_LINE3' in table 'TAXP_PROFILE' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'LicenseType' in table 'MENU_LIST_INFO' is DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE3Column) = value
+                Me(Me.tableMENU_LIST_INFO.LicenseTypeColumn) = value
             End Set
         End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_COM_POSTCODE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_POSTCODEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_POSTCODE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_COM_POSTCODEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_COM_CITY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_CITYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_CITY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_COM_CITYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_COM_STATE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_STATEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_STATE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_COM_STATEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BANK() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANKColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BANKColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BANK_ACC() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_ACCColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_ACC' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BANK_ACCColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BANK_ADD_LINE1() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE1Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_ADD_LINE1' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE1Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BANK_ADD_LINE2() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE2Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_ADD_LINE2' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE2Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BANK_ADD_LINE3() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE3Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_ADD_LINE3' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE3Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BANK_POSTCODE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_POSTCODEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_POSTCODE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BANK_POSTCODEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BANK_CITY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_CITYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_CITY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BANK_CITYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BANK_STATE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BANK_STATEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BANK_STATE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BANK_STATEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_RECORD_KEPT() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_RECORD_KEPTColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_RECORD_KEPT' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_RECORD_KEPTColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ALT_ADD_LINE1() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE1Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_ADD_LINE1' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE1Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ALT_ADD_LINE2() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE2Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_ADD_LINE2' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE2Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ALT_ADD_LINE3() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE3Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_ADD_LINE3' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE3Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ALT_POSTCODE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_POSTCODEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_POSTCODE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ALT_POSTCODEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ALT_CITY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_CITYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_CITY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ALT_CITYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ALT_STATE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_STATEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_STATE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ALT_STATEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_TAX_FILE_NO() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_TAX_FILE_NOColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_TAX_FILE_NO' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_TAX_FILE_NOColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_CONTACT() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CONTACTColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CONTACT' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_CONTACTColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_TEL_NO() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_TEL_NOColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_TEL_NO' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_TEL_NOColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_FAX_NO() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_FAX_NOColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_FAX_NO' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_FAX_NOColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_INV_ANN_DATE() As Date
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_INV_ANN_DATEColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_INV_ANN_DATE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_INV_ANN_DATEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_INV_DETTAXFEE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_INV_DETTAXFEEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_INV_DETTAXFEE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_INV_DETTAXFEEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_INV_DISBURSEMENT() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_INV_DISBURSEMENTColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_INV_DISBURSEMENT' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_INV_DISBURSEMENTColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_INV_SALESTAX() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_INV_SALESTAXColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_INV_SALESTAX' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_INV_SALESTAXColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_INV_TOTAL() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_INV_TOTALColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_INV_TOTAL' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_INV_TOTALColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_PREFIX() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_PREFIXColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_PREFIX' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_PREFIXColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BLOG() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BLOGColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BLOG' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BLOGColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BASIS_PERIOD_FR() As Date
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_FRColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BASIS_PERIOD_FR' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_FRColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BASIS_PERIOD_TO() As Date
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_TOColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BASIS_PERIOD_TO' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_TOColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_OPN_OPERATION() As Date
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_OPN_OPERATIONColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_OPN_OPERATION' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_OPN_OPERATIONColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ULT_COMPANY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ULT_COMPANYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ULT_COMPANY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ULT_COMPANYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ULT_COUNTRY_CODE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ULT_COUNTRY_CODEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ULT_COUNTRY_CODE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ULT_COUNTRY_CODEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_IMD_COMPANY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_IMD_COMPANYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_IMD_COMPANY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_IMD_COMPANYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_IMD_COUNTRY_CODE() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_IMD_COUNTRY_CODEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_IMD_COUNTRY_CODE' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_IMD_COUNTRY_CODEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_REG_COUNTRY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_REG_COUNTRYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_REG_COUNTRY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_REG_COUNTRYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_CURR_COUNTRY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CURR_COUNTRYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CURR_COUNTRY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_CURR_COUNTRYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_COM_COUNTRY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_COUNTRYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_COUNTRY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_COM_COUNTRYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ALT_COUNTRY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ALT_COUNTRYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ALT_COUNTRY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ALT_COUNTRYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_COM_STS() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_COM_STSColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_COM_STS' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_COM_STSColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_SECTION_127_1() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_SECTION_127_1Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_SECTION_127_1' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_SECTION_127_1Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_SECTION_127_2() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_SECTION_127_2Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_SECTION_127_2' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_SECTION_127_2Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_SECTION_127_3() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_SECTION_127_3Column),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_SECTION_127_3' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_SECTION_127_3Column) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_ROYALCLAIM() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_ROYALCLAIMColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_ROYALCLAIM' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_ROYALCLAIMColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_CARRYETRANDING() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_CARRYETRANDINGColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_CARRYETRANDING' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_CARRYETRANDINGColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_GOODSERVICETAXREGISTRAION() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_GOODSERVICETAXREGISTRAIONColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_GOODSERVICETAXREGISTRAION' in table 'TAXP_PROFILE' is DB"& _ 
-                            "Null.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_GOODSERVICETAXREGISTRAIONColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_LABUAN_STATUS() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_LABUAN_STATUSColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_LABUAN_STATUS' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_LABUAN_STATUSColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_LABUAN_NAME() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_LABUAN_NAMEColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_LABUAN_NAME' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_LABUAN_NAMEColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_LABUAN_REG() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_LABUAN_REGColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_LABUAN_REG' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_LABUAN_REGColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_LABUAN_INCOME_TAX() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_LABUAN_INCOME_TAXColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_LABUAN_INCOME_TAX' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_LABUAN_INCOME_TAXColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_BUILDINGINDUSTRY() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_BUILDINGINDUSTRYColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_BUILDINGINDUSTRY' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_BUILDINGINDUSTRYColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TP_STS_OTHER() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.TP_STS_OTHERColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TP_STS_OTHER' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.TP_STS_OTHERColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property HandleBy() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tableTAXP_PROFILE.HandleByColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'HandleBy' in table 'TAXP_PROFILE' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tableTAXP_PROFILE.HandleByColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_COM_NAMENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_NAMEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_COM_NAMENull()
-            Me(Me.tableTAXP_PROFILE.TP_COM_NAMEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ROC_NONull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ROC_NOColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ROC_NONull()
-            Me(Me.tableTAXP_PROFILE.TP_ROC_NOColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_EMPLOYER_NONull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_EMPLOYER_NOColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_EMPLOYER_NONull()
-            Me(Me.tableTAXP_PROFILE.TP_EMPLOYER_NOColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_FILE_NONull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_FILE_NOColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_FILE_NONull()
-            Me(Me.tableTAXP_PROFILE.TP_FILE_NOColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_RESIDENCENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_RESIDENCEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_RESIDENCENull()
-            Me(Me.tableTAXP_PROFILE.TP_RESIDENCEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_COUNTRYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COUNTRYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_COUNTRYNull()
-            Me(Me.tableTAXP_PROFILE.TP_COUNTRYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ACC_PERIOD_FRNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_FRColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ACC_PERIOD_FRNull()
-            Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_FRColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ACC_PERIOD_TONull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_TOColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ACC_PERIOD_TONull()
-            Me(Me.tableTAXP_PROFILE.TP_ACC_PERIOD_TOColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_EFILINGNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_EFILINGColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_EFILINGNull()
-            Me(Me.tableTAXP_PROFILE.TP_EFILINGColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_PUBLIC_ORDERNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_PUBLIC_ORDERColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_PUBLIC_ORDERNull()
-            Me(Me.tableTAXP_PROFILE.TP_PUBLIC_ORDERColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_CO_STATUSNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CO_STATUSColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_CO_STATUSNull()
-            Me(Me.tableTAXP_PROFILE.TP_CO_STATUSColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_EMAILNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_EMAILColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_EMAILNull()
-            Me(Me.tableTAXP_PROFILE.TP_EMAILColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_REG_ADD_LINE1Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE1Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_REG_ADD_LINE1Null()
-            Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE1Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_REG_ADD_LINE2Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE2Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_REG_ADD_LINE2Null()
-            Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE2Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_REG_ADD_LINE3Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE3Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_REG_ADD_LINE3Null()
-            Me(Me.tableTAXP_PROFILE.TP_REG_ADD_LINE3Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_REG_POSTCODENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_POSTCODEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_REG_POSTCODENull()
-            Me(Me.tableTAXP_PROFILE.TP_REG_POSTCODEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_REG_CITYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_CITYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_REG_CITYNull()
-            Me(Me.tableTAXP_PROFILE.TP_REG_CITYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_REG_STATENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_STATEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_REG_STATENull()
-            Me(Me.tableTAXP_PROFILE.TP_REG_STATEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_CURR_ADD_LINE1Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE1Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_CURR_ADD_LINE1Null()
-            Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE1Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_CURR_ADD_LINE2Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE2Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_CURR_ADD_LINE2Null()
-            Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE2Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_CURR_ADD_LINE3Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE3Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_CURR_ADD_LINE3Null()
-            Me(Me.tableTAXP_PROFILE.TP_CURR_ADD_LINE3Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_CURR_POSTCODENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_POSTCODEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_CURR_POSTCODENull()
-            Me(Me.tableTAXP_PROFILE.TP_CURR_POSTCODEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_CURR_CITYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_CITYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_CURR_CITYNull()
-            Me(Me.tableTAXP_PROFILE.TP_CURR_CITYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_CURR_STATENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_STATEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_CURR_STATENull()
-            Me(Me.tableTAXP_PROFILE.TP_CURR_STATEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_COM_ADD_LINE1Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE1Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_COM_ADD_LINE1Null()
-            Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE1Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_COM_ADD_LINE2Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE2Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_COM_ADD_LINE2Null()
-            Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE2Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_COM_ADD_LINE3Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE3Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_COM_ADD_LINE3Null()
-            Me(Me.tableTAXP_PROFILE.TP_COM_ADD_LINE3Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_COM_POSTCODENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_POSTCODEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_COM_POSTCODENull()
-            Me(Me.tableTAXP_PROFILE.TP_COM_POSTCODEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_COM_CITYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_CITYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_COM_CITYNull()
-            Me(Me.tableTAXP_PROFILE.TP_COM_CITYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_COM_STATENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_STATEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_COM_STATENull()
-            Me(Me.tableTAXP_PROFILE.TP_COM_STATEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BANKNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANKColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BANKNull()
-            Me(Me.tableTAXP_PROFILE.TP_BANKColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BANK_ACCNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_ACCColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BANK_ACCNull()
-            Me(Me.tableTAXP_PROFILE.TP_BANK_ACCColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BANK_ADD_LINE1Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE1Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BANK_ADD_LINE1Null()
-            Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE1Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BANK_ADD_LINE2Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE2Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BANK_ADD_LINE2Null()
-            Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE2Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BANK_ADD_LINE3Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE3Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BANK_ADD_LINE3Null()
-            Me(Me.tableTAXP_PROFILE.TP_BANK_ADD_LINE3Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BANK_POSTCODENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_POSTCODEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BANK_POSTCODENull()
-            Me(Me.tableTAXP_PROFILE.TP_BANK_POSTCODEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BANK_CITYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_CITYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BANK_CITYNull()
-            Me(Me.tableTAXP_PROFILE.TP_BANK_CITYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BANK_STATENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BANK_STATEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BANK_STATENull()
-            Me(Me.tableTAXP_PROFILE.TP_BANK_STATEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_RECORD_KEPTNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_RECORD_KEPTColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_RECORD_KEPTNull()
-            Me(Me.tableTAXP_PROFILE.TP_RECORD_KEPTColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ALT_ADD_LINE1Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE1Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ALT_ADD_LINE1Null()
-            Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE1Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ALT_ADD_LINE2Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE2Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ALT_ADD_LINE2Null()
-            Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE2Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ALT_ADD_LINE3Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE3Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ALT_ADD_LINE3Null()
-            Me(Me.tableTAXP_PROFILE.TP_ALT_ADD_LINE3Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ALT_POSTCODENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_POSTCODEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ALT_POSTCODENull()
-            Me(Me.tableTAXP_PROFILE.TP_ALT_POSTCODEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ALT_CITYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_CITYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ALT_CITYNull()
-            Me(Me.tableTAXP_PROFILE.TP_ALT_CITYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ALT_STATENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_STATEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ALT_STATENull()
-            Me(Me.tableTAXP_PROFILE.TP_ALT_STATEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_TAX_FILE_NONull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_TAX_FILE_NOColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_TAX_FILE_NONull()
-            Me(Me.tableTAXP_PROFILE.TP_TAX_FILE_NOColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_CONTACTNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CONTACTColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_CONTACTNull()
-            Me(Me.tableTAXP_PROFILE.TP_CONTACTColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_TEL_NONull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_TEL_NOColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_TEL_NONull()
-            Me(Me.tableTAXP_PROFILE.TP_TEL_NOColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_FAX_NONull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_FAX_NOColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_FAX_NONull()
-            Me(Me.tableTAXP_PROFILE.TP_FAX_NOColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_INV_ANN_DATENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_INV_ANN_DATEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_INV_ANN_DATENull()
-            Me(Me.tableTAXP_PROFILE.TP_INV_ANN_DATEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_INV_DETTAXFEENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_INV_DETTAXFEEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_INV_DETTAXFEENull()
-            Me(Me.tableTAXP_PROFILE.TP_INV_DETTAXFEEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_INV_DISBURSEMENTNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_INV_DISBURSEMENTColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_INV_DISBURSEMENTNull()
-            Me(Me.tableTAXP_PROFILE.TP_INV_DISBURSEMENTColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_INV_SALESTAXNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_INV_SALESTAXColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_INV_SALESTAXNull()
-            Me(Me.tableTAXP_PROFILE.TP_INV_SALESTAXColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_INV_TOTALNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_INV_TOTALColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_INV_TOTALNull()
-            Me(Me.tableTAXP_PROFILE.TP_INV_TOTALColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_PREFIXNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_PREFIXColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_PREFIXNull()
-            Me(Me.tableTAXP_PROFILE.TP_PREFIXColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BLOGNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BLOGColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BLOGNull()
-            Me(Me.tableTAXP_PROFILE.TP_BLOGColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BASIS_PERIOD_FRNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_FRColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BASIS_PERIOD_FRNull()
-            Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_FRColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BASIS_PERIOD_TONull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_TOColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BASIS_PERIOD_TONull()
-            Me(Me.tableTAXP_PROFILE.TP_BASIS_PERIOD_TOColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_OPN_OPERATIONNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_OPN_OPERATIONColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_OPN_OPERATIONNull()
-            Me(Me.tableTAXP_PROFILE.TP_OPN_OPERATIONColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ULT_COMPANYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ULT_COMPANYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ULT_COMPANYNull()
-            Me(Me.tableTAXP_PROFILE.TP_ULT_COMPANYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ULT_COUNTRY_CODENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ULT_COUNTRY_CODEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ULT_COUNTRY_CODENull()
-            Me(Me.tableTAXP_PROFILE.TP_ULT_COUNTRY_CODEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_IMD_COMPANYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_IMD_COMPANYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_IMD_COMPANYNull()
-            Me(Me.tableTAXP_PROFILE.TP_IMD_COMPANYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_IMD_COUNTRY_CODENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_IMD_COUNTRY_CODEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_IMD_COUNTRY_CODENull()
-            Me(Me.tableTAXP_PROFILE.TP_IMD_COUNTRY_CODEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_REG_COUNTRYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_REG_COUNTRYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_REG_COUNTRYNull()
-            Me(Me.tableTAXP_PROFILE.TP_REG_COUNTRYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_CURR_COUNTRYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CURR_COUNTRYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_CURR_COUNTRYNull()
-            Me(Me.tableTAXP_PROFILE.TP_CURR_COUNTRYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_COM_COUNTRYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_COUNTRYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_COM_COUNTRYNull()
-            Me(Me.tableTAXP_PROFILE.TP_COM_COUNTRYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ALT_COUNTRYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ALT_COUNTRYColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ALT_COUNTRYNull()
-            Me(Me.tableTAXP_PROFILE.TP_ALT_COUNTRYColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_COM_STSNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_COM_STSColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_COM_STSNull()
-            Me(Me.tableTAXP_PROFILE.TP_COM_STSColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_SECTION_127_1Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_SECTION_127_1Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_SECTION_127_1Null()
-            Me(Me.tableTAXP_PROFILE.TP_SECTION_127_1Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_SECTION_127_2Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_SECTION_127_2Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_SECTION_127_2Null()
-            Me(Me.tableTAXP_PROFILE.TP_SECTION_127_2Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_SECTION_127_3Null() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_SECTION_127_3Column)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_SECTION_127_3Null()
-            Me(Me.tableTAXP_PROFILE.TP_SECTION_127_3Column) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_ROYALCLAIMNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_ROYALCLAIMColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_ROYALCLAIMNull()
-            Me(Me.tableTAXP_PROFILE.TP_ROYALCLAIMColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_CARRYETRANDINGNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_CARRYETRANDINGColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_CARRYETRANDINGNull()
-            Me(Me.tableTAXP_PROFILE.TP_CARRYETRANDINGColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_GOODSERVICETAXREGISTRAIONNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_GOODSERVICETAXREGISTRAIONColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_GOODSERVICETAXREGISTRAIONNull()
-            Me(Me.tableTAXP_PROFILE.TP_GOODSERVICETAXREGISTRAIONColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_LABUAN_STATUSNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_LABUAN_STATUSColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_LABUAN_STATUSNull()
-            Me(Me.tableTAXP_PROFILE.TP_LABUAN_STATUSColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_LABUAN_NAMENull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_LABUAN_NAMEColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_LABUAN_NAMENull()
-            Me(Me.tableTAXP_PROFILE.TP_LABUAN_NAMEColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_LABUAN_REGNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_LABUAN_REGColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_LABUAN_REGNull()
-            Me(Me.tableTAXP_PROFILE.TP_LABUAN_REGColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_LABUAN_INCOME_TAXNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_LABUAN_INCOME_TAXColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_LABUAN_INCOME_TAXNull()
-            Me(Me.tableTAXP_PROFILE.TP_LABUAN_INCOME_TAXColumn) = Global.System.Convert.DBNull
-        End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_BUILDINGINDUSTRYNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_BUILDINGINDUSTRYColumn)
+        Public Function IsKeyNameNull() As Boolean
+            Return Me.IsNull(Me.tableMENU_LIST_INFO.KeyNameColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_BUILDINGINDUSTRYNull()
-            Me(Me.tableTAXP_PROFILE.TP_BUILDINGINDUSTRYColumn) = Global.System.Convert.DBNull
+        Public Sub SetKeyNameNull()
+            Me(Me.tableMENU_LIST_INFO.KeyNameColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTP_STS_OTHERNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.TP_STS_OTHERColumn)
+        Public Function IsTitleNull() As Boolean
+            Return Me.IsNull(Me.tableMENU_LIST_INFO.TitleColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTP_STS_OTHERNull()
-            Me(Me.tableTAXP_PROFILE.TP_STS_OTHERColumn) = Global.System.Convert.DBNull
+        Public Sub SetTitleNull()
+            Me(Me.tableMENU_LIST_INFO.TitleColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsHandleByNull() As Boolean
-            Return Me.IsNull(Me.tableTAXP_PROFILE.HandleByColumn)
+        Public Function IsLicenseTypeNull() As Boolean
+            Return Me.IsNull(Me.tableMENU_LIST_INFO.LicenseTypeColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetHandleByNull()
-            Me(Me.tableTAXP_PROFILE.HandleByColumn) = Global.System.Convert.DBNull
+        Public Sub SetLicenseTypeNull()
+            Me(Me.tableMENU_LIST_INFO.LicenseTypeColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -9544,6 +10092,42 @@ Partial Public Class dsDefault
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property Row() As TAXP_PROFILERow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class MENU_LIST_INFORowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As MENU_LIST_INFORow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As MENU_LIST_INFORow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As MENU_LIST_INFORow
             Get
                 Return Me.eventRow
             End Get

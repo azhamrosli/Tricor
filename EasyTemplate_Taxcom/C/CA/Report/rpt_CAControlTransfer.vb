@@ -1,3 +1,4 @@
+Imports System.Drawing.Printing
 Imports DevExpress.XtraReports.UI
 Public Class rpt_CAControlTransfer
     Inherits DevExpress.XtraReports.UI.XtraReport
@@ -14,14 +15,13 @@ Public Class rpt_CAControlTransfer
     Friend WithEvents detailBand1 As DevExpress.XtraReports.UI.DetailBand
     Friend WithEvents pageHeaderBand1 As DevExpress.XtraReports.UI.PageHeaderBand
     Friend WithEvents FormattingRule1 As DevExpress.XtraReports.UI.FormattingRule
-    Friend WithEvents XrLabel3 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents lblTitle As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel2 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel4 As DevExpress.XtraReports.UI.XRLabel
-    Friend WithEvents XrLabel1 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents paramCompanyName As DevExpress.XtraReports.Parameters.Parameter
     Friend WithEvents paramYA As DevExpress.XtraReports.Parameters.Parameter
     Friend WithEvents paramID As DevExpress.XtraReports.Parameters.Parameter
-    Friend WithEvents table1 As DevExpress.XtraReports.UI.XRTable
+    Friend WithEvents tblTitle As DevExpress.XtraReports.UI.XRTable
     Friend WithEvents tableRow1 As DevExpress.XtraReports.UI.XRTableRow
     Friend WithEvents NoDescription As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents NoYE As DevExpress.XtraReports.UI.XRTableCell
@@ -140,7 +140,6 @@ Public Class rpt_CAControlTransfer
     Friend WithEvents No90_Report As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents No100_Report As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents lineReport_Bot As DevExpress.XtraReports.UI.XRLine
-    Friend WithEvents XrSubreport1 As DevExpress.XtraReports.UI.XRSubreport
     Friend WithEvents FontSize As DevExpress.XtraReports.Parameters.Parameter
     Friend WithEvents XrLabel7 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents paramSch As DevExpress.XtraReports.Parameters.Parameter
@@ -149,7 +148,43 @@ Public Class rpt_CAControlTransfer
     Friend WithEvents XrTableCell1 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell3 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell2 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents dtNoteFooter As XRTable
+    Friend WithEvents XrTableRow5 As XRTableRow
+    Friend WithEvents NoOriCost_NoteFooter As XRTableCell
+    Friend WithEvents NoTWDV_NoteFooter As XRTableCell
+    Friend WithEvents NoTransferVal_NoteFooter As XRTableCell
+    Friend WithEvents NoDescription_NoteFooter As XRTableCell
+    Friend WithEvents XrTableCell8 As XRTableCell
+    Friend WithEvents GroupFooter2 As DevExpress.XtraReports.UI.GroupFooterBand
+    Friend WithEvents XrLabel8 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents ReportHeader As DevExpress.XtraReports.UI.ReportHeaderBand
+    Friend WithEvents lblDraft_Report As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents param_ShowDraft As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents ShowDraft As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents lineReport_top As DevExpress.XtraReports.UI.XRLine
+    Friend WithEvents XrLabel1 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents SubBand1 As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents XrTableRow6 As DevExpress.XtraReports.UI.XRTableRow
+    Friend WithEvents NoDescription_Top As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents NoYE_Top As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents NoOriCost_Top As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents NoTWDV_Top As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents NoTransferVal_Top As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents NoClaim_Top As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents NoHeader_Top As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell25 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents LineDetails As DevExpress.XtraReports.UI.XRLine
+    Friend WithEvents lblDraft_Page As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents paramTitle As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents PageFooter As DevExpress.XtraReports.UI.PageFooterBand
+    Friend WithEvents lblPageNo As DevExpress.XtraReports.UI.XRPageInfo
+    Friend WithEvents PageHeader_Sub2 As DevExpress.XtraReports.UI.SubBand
+    Friend WithEvents XrPageInfo1 As DevExpress.XtraReports.UI.XRPageInfo
+    Friend WithEvents PageHeader_Sub1 As DevExpress.XtraReports.UI.SubBand
     Friend WithEvents topMarginBand1 As DevExpress.XtraReports.UI.TopMarginBand
+
+
+    Public Property CurrentPage As Integer = 0
     Public Sub New()
         InitializeComponent()
     End Sub
@@ -193,14 +228,25 @@ Public Class rpt_CAControlTransfer
         Me.topMarginBand1 = New DevExpress.XtraReports.UI.TopMarginBand()
         Me.XrLabel7 = New DevExpress.XtraReports.UI.XRLabel()
         Me.paramSch = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.XrLabel3 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.lblTitle = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramTitle = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel2 = New DevExpress.XtraReports.UI.XRLabel()
         Me.paramYA = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel4 = New DevExpress.XtraReports.UI.XRLabel()
         Me.paramCompanyName = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
         Me.pageHeaderBand1 = New DevExpress.XtraReports.UI.PageHeaderBand()
-        Me.table1 = New DevExpress.XtraReports.UI.XRTable()
+        Me.PageHeader_Sub1 = New DevExpress.XtraReports.UI.SubBand()
+        Me.PageHeader_Sub2 = New DevExpress.XtraReports.UI.SubBand()
+        Me.tblTitle = New DevExpress.XtraReports.UI.XRTable()
+        Me.XrTableRow6 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.NoDescription_Top = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.NoYE_Top = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.NoOriCost_Top = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.NoTWDV_Top = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.NoTransferVal_Top = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.NoClaim_Top = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.NoHeader_Top = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell25 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableRow1 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.NoDescription = New DevExpress.XtraReports.UI.XRTableCell()
         Me.NoYE = New DevExpress.XtraReports.UI.XRTableCell()
@@ -245,8 +291,11 @@ Public Class rpt_CAControlTransfer
         Me.No90_Bot = New DevExpress.XtraReports.UI.XRTableCell()
         Me.No100_Bot = New DevExpress.XtraReports.UI.XRTableCell()
         Me.NoNote_Bot = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.lblDraft_Page = New DevExpress.XtraReports.UI.XRLabel()
+        Me.ShowDraft = New DevExpress.XtraReports.UI.FormattingRule()
         Me.FormattingRule1 = New DevExpress.XtraReports.UI.FormattingRule()
         Me.detailBand1 = New DevExpress.XtraReports.UI.DetailBand()
+        Me.LineDetails = New DevExpress.XtraReports.UI.XRLine()
         Me.table2 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow2 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.NoDescription_Details = New DevExpress.XtraReports.UI.XRTableCell()
@@ -271,6 +320,14 @@ Public Class rpt_CAControlTransfer
         Me.No100_Details = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell1 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.reportFooterBand1 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.lineReport_top = New DevExpress.XtraReports.UI.XRLine()
+        Me.dtNoteFooter = New DevExpress.XtraReports.UI.XRTable()
+        Me.XrTableRow5 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.NoDescription_NoteFooter = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.NoOriCost_NoteFooter = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.NoTWDV_NoteFooter = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.NoTransferVal_NoteFooter = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell8 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.lineReport_Bot = New DevExpress.XtraReports.UI.XRLine()
         Me.table2_Report = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow4 = New DevExpress.XtraReports.UI.XRTableRow()
@@ -295,7 +352,6 @@ Public Class rpt_CAControlTransfer
         Me.No90_Report = New DevExpress.XtraReports.UI.XRTableCell()
         Me.No100_Report = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell3 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrSubreport1 = New DevExpress.XtraReports.UI.XRSubreport()
         Me.FontSize = New DevExpress.XtraReports.Parameters.Parameter()
         Me.bottomMarginBand1 = New DevExpress.XtraReports.UI.BottomMarginBand()
         Me.ReportHeaderBandStyle = New DevExpress.XtraReports.UI.XRControlStyle()
@@ -338,8 +394,19 @@ Public Class rpt_CAControlTransfer
         Me.No90_Footer = New DevExpress.XtraReports.UI.XRTableCell()
         Me.No100_Footer = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell2 = New DevExpress.XtraReports.UI.XRTableCell()
-        CType(Me.table1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SubBand1 = New DevExpress.XtraReports.UI.SubBand()
+        Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.GroupFooter2 = New DevExpress.XtraReports.UI.GroupFooterBand()
+        Me.XrLabel8 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
+        Me.lblDraft_Report = New DevExpress.XtraReports.UI.XRLabel()
+        Me.param_ShowDraft = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
+        Me.XrPageInfo1 = New DevExpress.XtraReports.UI.XRPageInfo()
+        Me.lblPageNo = New DevExpress.XtraReports.UI.XRPageInfo()
+        CType(Me.tblTitle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtNoteFooter, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table2_Report, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsCA1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table2_Footer, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -347,20 +414,19 @@ Public Class rpt_CAControlTransfer
         '
         'topMarginBand1
         '
-        Me.topMarginBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel7, Me.XrLabel3, Me.XrLabel2, Me.XrLabel4, Me.XrLabel1})
         Me.topMarginBand1.Dpi = 254.0!
-        Me.topMarginBand1.HeightF = 372.5966!
+        Me.topMarginBand1.HeightF = 54.37499!
         Me.topMarginBand1.Name = "topMarginBand1"
         '
         'XrLabel7
         '
         Me.XrLabel7.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramSch, "Text", "")})
         Me.XrLabel7.Dpi = 254.0!
-        Me.XrLabel7.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel7.LocationFloat = New DevExpress.Utils.PointFloat(2017.029!, 50.16498!)
+        Me.XrLabel7.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel7.LocationFloat = New DevExpress.Utils.PointFloat(1923.312!, 115.1716!)
         Me.XrLabel7.Name = "XrLabel7"
         Me.XrLabel7.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel7.SizeF = New System.Drawing.SizeF(801.6876!, 58.41999!)
+        Me.XrLabel7.SizeF = New System.Drawing.SizeF(801.6876!, 58.41997!)
         Me.XrLabel7.StylePriority.UseFont = False
         Me.XrLabel7.StylePriority.UseTextAlignment = False
         Me.XrLabel7.Text = "XrLabel7"
@@ -372,29 +438,35 @@ Public Class rpt_CAControlTransfer
         Me.paramSch.Name = "paramSch"
         Me.paramSch.ValueInfo = "Schedule"
         '
-        'XrLabel3
+        'lblTitle
         '
-        Me.XrLabel3.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel3.Dpi = 254.0!
-        Me.XrLabel3.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(0!, 274.4891!)
-        Me.XrLabel3.Name = "XrLabel3"
-        Me.XrLabel3.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel3.SizeF = New System.Drawing.SizeF(1690.687!, 58.42001!)
-        Me.XrLabel3.StylePriority.UseBackColor = False
-        Me.XrLabel3.StylePriority.UseFont = False
-        Me.XrLabel3.Text = "CONTROLLED TRANSFER OF PROPERTY, PLANT AND EQUIPMENT FROM RELATED COMPANIES"
+        Me.lblTitle.BackColor = System.Drawing.Color.Transparent
+        Me.lblTitle.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramTitle, "Text", "")})
+        Me.lblTitle.Dpi = 254.0!
+        Me.lblTitle.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTitle.LocationFloat = New DevExpress.Utils.PointFloat(2.999817!, 314.9548!)
+        Me.lblTitle.Name = "lblTitle"
+        Me.lblTitle.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.lblTitle.SizeF = New System.Drawing.SizeF(2722.0!, 58.42004!)
+        Me.lblTitle.StylePriority.UseBackColor = False
+        Me.lblTitle.StylePriority.UseFont = False
+        Me.lblTitle.Text = "CONTROLLED TRANSFER OF PROPERTY, PLANT AND EQUIPMENT FROM RELATED COMPANIES"
+        '
+        'paramTitle
+        '
+        Me.paramTitle.Description = "paramTitle"
+        Me.paramTitle.Name = "paramTitle"
         '
         'XrLabel2
         '
         Me.XrLabel2.BackColor = System.Drawing.Color.Transparent
         Me.XrLabel2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramYA, "Text", "INCOME TAX COMPUTATION - YEAR OF ASSESSMENT  {0}")})
         Me.XrLabel2.Dpi = 254.0!
-        Me.XrLabel2.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(0!, 216.0692!)
+        Me.XrLabel2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(2.999817!, 256.5349!)
         Me.XrLabel2.Name = "XrLabel2"
         Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel2.SizeF = New System.Drawing.SizeF(920.75!, 58.42!)
+        Me.XrLabel2.SizeF = New System.Drawing.SizeF(2722.0!, 58.41998!)
         Me.XrLabel2.StylePriority.UseBackColor = False
         Me.XrLabel2.StylePriority.UseFont = False
         '
@@ -408,13 +480,13 @@ Public Class rpt_CAControlTransfer
         'XrLabel4
         '
         Me.XrLabel4.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel4.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCompanyName, "Text", "")})
+        Me.XrLabel4.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCompanyName, "Text", "NAME: {0}")})
         Me.XrLabel4.Dpi = 254.0!
-        Me.XrLabel4.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel4.LocationFloat = New DevExpress.Utils.PointFloat(156.1042!, 157.6491!)
+        Me.XrLabel4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel4.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 198.1148!)
         Me.XrLabel4.Name = "XrLabel4"
         Me.XrLabel4.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel4.SizeF = New System.Drawing.SizeF(1397.0!, 58.42!)
+        Me.XrLabel4.SizeF = New System.Drawing.SizeF(2725.0!, 58.41998!)
         Me.XrLabel4.StylePriority.UseBackColor = False
         Me.XrLabel4.StylePriority.UseFont = False
         '
@@ -423,42 +495,141 @@ Public Class rpt_CAControlTransfer
         Me.paramCompanyName.Description = "paramCompanyName"
         Me.paramCompanyName.Name = "paramCompanyName"
         '
-        'XrLabel1
-        '
-        Me.XrLabel1.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel1.Dpi = 254.0!
-        Me.XrLabel1.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(0!, 157.6491!)
-        Me.XrLabel1.Name = "XrLabel1"
-        Me.XrLabel1.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel1.SizeF = New System.Drawing.SizeF(156.1042!, 58.42!)
-        Me.XrLabel1.StylePriority.UseBackColor = False
-        Me.XrLabel1.StylePriority.UseFont = False
-        Me.XrLabel1.Text = "NAME : "
-        '
         'pageHeaderBand1
         '
-        Me.pageHeaderBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.table1})
+        Me.pageHeaderBand1.BackColor = System.Drawing.Color.Transparent
         Me.pageHeaderBand1.Dpi = 254.0!
-        Me.pageHeaderBand1.HeightF = 202.7707!
+        Me.pageHeaderBand1.HeightF = 0.0!
         Me.pageHeaderBand1.Name = "pageHeaderBand1"
         Me.pageHeaderBand1.StyleName = "ReportHeaderBandStyle"
+        Me.pageHeaderBand1.StylePriority.UseBackColor = False
+        Me.pageHeaderBand1.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.PageHeader_Sub1, Me.PageHeader_Sub2})
         '
-        'table1
+        'PageHeader_Sub1
         '
-        Me.table1.BackColor = System.Drawing.Color.Transparent
-        Me.table1.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.table1.BorderWidth = 0!
-        Me.table1.Dpi = 254.0!
-        Me.table1.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.table1.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
-        Me.table1.Name = "table1"
-        Me.table1.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow1, Me.XrTableRow1})
-        Me.table1.SizeF = New System.Drawing.SizeF(2830.0!, 183.2913!)
-        Me.table1.StylePriority.UseBackColor = False
-        Me.table1.StylePriority.UseBorders = False
-        Me.table1.StylePriority.UseBorderWidth = False
-        Me.table1.StylePriority.UseFont = False
+        Me.PageHeader_Sub1.Dpi = 254.0!
+        Me.PageHeader_Sub1.HeightF = 0.0!
+        Me.PageHeader_Sub1.KeepTogether = True
+        Me.PageHeader_Sub1.Name = "PageHeader_Sub1"
+        Me.PageHeader_Sub1.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254.0!)
+        Me.PageHeader_Sub1.StylePriority.UsePadding = False
+        '
+        'PageHeader_Sub2
+        '
+        Me.PageHeader_Sub2.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.tblTitle, Me.lblDraft_Page})
+        Me.PageHeader_Sub2.Dpi = 254.0!
+        Me.PageHeader_Sub2.HeightF = 277.3362!
+        Me.PageHeader_Sub2.Name = "PageHeader_Sub2"
+        '
+        'tblTitle
+        '
+        Me.tblTitle.BackColor = System.Drawing.Color.Transparent
+        Me.tblTitle.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.tblTitle.BorderWidth = 0.0!
+        Me.tblTitle.Dpi = 254.0!
+        Me.tblTitle.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tblTitle.LocationFloat = New DevExpress.Utils.PointFloat(0.0009689331!, 58.42004!)
+        Me.tblTitle.Name = "tblTitle"
+        Me.tblTitle.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow6, Me.tableRow1, Me.XrTableRow1})
+        Me.tblTitle.SizeF = New System.Drawing.SizeF(2725.0!, 218.9161!)
+        Me.tblTitle.StylePriority.UseBackColor = False
+        Me.tblTitle.StylePriority.UseBorders = False
+        Me.tblTitle.StylePriority.UseBorderWidth = False
+        Me.tblTitle.StylePriority.UseFont = False
+        '
+        'XrTableRow6
+        '
+        Me.XrTableRow6.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.NoDescription_Top, Me.NoYE_Top, Me.NoOriCost_Top, Me.NoTWDV_Top, Me.NoTransferVal_Top, Me.NoClaim_Top, Me.NoHeader_Top, Me.XrTableCell25})
+        Me.XrTableRow6.Dpi = 254.0!
+        Me.XrTableRow6.Name = "XrTableRow6"
+        Me.XrTableRow6.Weight = 10.46953028649871R
+        '
+        'NoDescription_Top
+        '
+        Me.NoDescription_Top.Dpi = 254.0!
+        Me.NoDescription_Top.Name = "NoDescription_Top"
+        Me.NoDescription_Top.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 10, 0, 0, 254.0!)
+        Me.NoDescription_Top.StylePriority.UsePadding = False
+        Me.NoDescription_Top.StylePriority.UseTextAlignment = False
+        Me.NoDescription_Top.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomLeft
+        Me.NoDescription_Top.Weight = 2.1813121229792407R
+        '
+        'NoYE_Top
+        '
+        Me.NoYE_Top.Dpi = 254.0!
+        Me.NoYE_Top.Name = "NoYE_Top"
+        Me.NoYE_Top.RowSpan = 2
+        Me.NoYE_Top.StylePriority.UseTextAlignment = False
+        Me.NoYE_Top.Text = "Year of Purchase"
+        Me.NoYE_Top.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
+        Me.NoYE_Top.Weight = 0.0089009331106998379R
+        '
+        'NoOriCost_Top
+        '
+        Me.NoOriCost_Top.Dpi = 254.0!
+        Me.NoOriCost_Top.Multiline = True
+        Me.NoOriCost_Top.Name = "NoOriCost_Top"
+        Me.NoOriCost_Top.RowSpan = 2
+        Me.NoOriCost_Top.StylePriority.UseTextAlignment = False
+        Me.NoOriCost_Top.Text = "Original Cost Transferred" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.NoOriCost_Top.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
+        Me.NoOriCost_Top.Weight = 0.014047399127225635R
+        '
+        'NoTWDV_Top
+        '
+        Me.NoTWDV_Top.Dpi = 254.0!
+        Me.NoTWDV_Top.Name = "NoTWDV_Top"
+        Me.NoTWDV_Top.RowSpan = 2
+        Me.NoTWDV_Top.StylePriority.UseTextAlignment = False
+        Me.NoTWDV_Top.Text = "Tax WDV Transferred"
+        Me.NoTWDV_Top.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
+        Me.NoTWDV_Top.Weight = 0.01669067362054788R
+        '
+        'NoTransferVal_Top
+        '
+        Me.NoTransferVal_Top.BackColor = System.Drawing.Color.Transparent
+        Me.NoTransferVal_Top.Dpi = 254.0!
+        Me.NoTransferVal_Top.Name = "NoTransferVal_Top"
+        Me.NoTransferVal_Top.RowSpan = 2
+        Me.NoTransferVal_Top.StylePriority.UseBackColor = False
+        Me.NoTransferVal_Top.StylePriority.UseTextAlignment = False
+        Me.NoTransferVal_Top.Text = "Transfer Value"
+        Me.NoTransferVal_Top.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
+        Me.NoTransferVal_Top.Weight = 0.02311111293681356R
+        '
+        'NoClaim_Top
+        '
+        Me.NoClaim_Top.BackColor = System.Drawing.Color.Transparent
+        Me.NoClaim_Top.Dpi = 254.0!
+        Me.NoClaim_Top.Name = "NoClaim_Top"
+        Me.NoClaim_Top.RowSpan = 2
+        Me.NoClaim_Top.StylePriority.UseBackColor = False
+        Me.NoClaim_Top.StylePriority.UseTextAlignment = False
+        Me.NoClaim_Top.Text = "No Claim"
+        Me.NoClaim_Top.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
+        Me.NoClaim_Top.Visible = False
+        Me.NoClaim_Top.Weight = 0.014047667142847775R
+        '
+        'NoHeader_Top
+        '
+        Me.NoHeader_Top.BackColor = System.Drawing.Color.Transparent
+        Me.NoHeader_Top.Dpi = 254.0!
+        Me.NoHeader_Top.Name = "NoHeader_Top"
+        Me.NoHeader_Top.Padding = New DevExpress.XtraPrinting.PaddingInfo(10, 10, 0, 10, 254.0!)
+        Me.NoHeader_Top.StylePriority.UseBackColor = False
+        Me.NoHeader_Top.StylePriority.UsePadding = False
+        Me.NoHeader_Top.StylePriority.UseTextAlignment = False
+        Me.NoHeader_Top.Text = "Qualifying Expenditure"
+        Me.NoHeader_Top.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
+        Me.NoHeader_Top.Weight = 0.19197515918704688R
+        '
+        'XrTableCell25
+        '
+        Me.XrTableCell25.Dpi = 254.0!
+        Me.XrTableCell25.Name = "XrTableCell25"
+        Me.XrTableCell25.StylePriority.UseTextAlignment = False
+        Me.XrTableCell25.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
+        Me.XrTableCell25.Weight = 0.051247247265371554R
         '
         'tableRow1
         '
@@ -472,63 +643,58 @@ Public Class rpt_CAControlTransfer
         Me.NoDescription.CanShrink = True
         Me.NoDescription.Dpi = 254.0!
         Me.NoDescription.Name = "NoDescription"
+        Me.NoDescription.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 10, 0, 0, 254.0!)
+        Me.NoDescription.StylePriority.UsePadding = False
         Me.NoDescription.StylePriority.UseTextAlignment = False
         Me.NoDescription.Text = "Description"
         Me.NoDescription.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomLeft
-        Me.NoDescription.Weight = 2.4056103126195065R
+        Me.NoDescription.Weight = 2.1813121270109681R
         '
         'NoYE
         '
-        Me.NoYE.CanShrink = True
         Me.NoYE.Dpi = 254.0!
         Me.NoYE.Name = "NoYE"
         Me.NoYE.StylePriority.UseTextAlignment = False
-        Me.NoYE.Text = "Year of Purchase"
         Me.NoYE.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
-        Me.NoYE.Weight = 0.0046824805181084894R
+        Me.NoYE.Weight = 0.0089007670503689074R
         '
         'NoOriCost
         '
-        Me.NoOriCost.CanShrink = True
         Me.NoOriCost.Dpi = 254.0!
         Me.NoOriCost.Multiline = True
         Me.NoOriCost.Name = "NoOriCost"
         Me.NoOriCost.StylePriority.UseTextAlignment = False
-        Me.NoOriCost.Text = "Original Cost Transferred" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.NoOriCost.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
-        Me.NoOriCost.Weight = 0.0046826320128987575R
+        Me.NoOriCost.Weight = 0.014047466639143913R
         '
         'NoTWDV
         '
-        Me.NoTWDV.CanShrink = True
         Me.NoTWDV.Dpi = 254.0!
         Me.NoTWDV.Name = "NoTWDV"
         Me.NoTWDV.StylePriority.UseTextAlignment = False
-        Me.NoTWDV.Text = "Tax WDV Transferred"
         Me.NoTWDV.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
-        Me.NoTWDV.Weight = 0.00468238285854361R
+        Me.NoTWDV.Weight = 0.016690646615780347R
         '
         'NoTransferVal
         '
-        Me.NoTransferVal.CanShrink = True
         Me.NoTransferVal.Dpi = 254.0!
         Me.NoTransferVal.Multiline = True
         Me.NoTransferVal.Name = "NoTransferVal"
         Me.NoTransferVal.StylePriority.UseTextAlignment = False
-        Me.NoTransferVal.Text = "Transfer Value"
         Me.NoTransferVal.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
-        Me.NoTransferVal.Weight = 0.00468262785082052R
+        Me.NoTransferVal.Weight = 0.02311111293681356R
         '
         'NoClaim
         '
-        Me.NoClaim.CanShrink = True
+        Me.NoClaim.BackColor = System.Drawing.Color.Transparent
         Me.NoClaim.Dpi = 254.0!
         Me.NoClaim.Multiline = True
         Me.NoClaim.Name = "NoClaim"
+        Me.NoClaim.StylePriority.UseBackColor = False
         Me.NoClaim.StylePriority.UseTextAlignment = False
-        Me.NoClaim.Text = "No Claim"
         Me.NoClaim.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
-        Me.NoClaim.Weight = 0.0046828460189862753R
+        Me.NoClaim.Visible = False
+        Me.NoClaim.Weight = 0.014047667142847775R
         '
         'No2
         '
@@ -538,9 +704,9 @@ Public Class rpt_CAControlTransfer
         Me.No2.Name = "No2"
         Me.No2.StylePriority.UseTextAlignment = False
         Me.No2.Text = "2%"
-        Me.No2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No2.Visible = False
-        Me.No2.Weight = 0.0046824489632271149R
+        Me.No2.Weight = 0.0140479182014972R
         '
         'No3
         '
@@ -549,9 +715,9 @@ Public Class rpt_CAControlTransfer
         Me.No3.Name = "No3"
         Me.No3.StylePriority.UseTextAlignment = False
         Me.No3.Text = "3%"
-        Me.No3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No3.Visible = False
-        Me.No3.Weight = 0.00468259989930897R
+        Me.No3.Weight = 0.025754554623444559R
         '
         'No8
         '
@@ -561,20 +727,22 @@ Public Class rpt_CAControlTransfer
         Me.No8.Name = "No8"
         Me.No8.StylePriority.UseTextAlignment = False
         Me.No8.Text = "8%"
-        Me.No8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No8.Visible = False
-        Me.No8.Weight = 0.0046826038186884578R
+        Me.No8.Weight = 0.0210706762210906R
         '
         'No10
         '
+        Me.No10.BackColor = System.Drawing.Color.Transparent
         Me.No10.CanShrink = True
         Me.No10.Dpi = 254.0!
         Me.No10.Name = "No10"
+        Me.No10.StylePriority.UseBackColor = False
         Me.No10.StylePriority.UseTextAlignment = False
         Me.No10.Text = "10%"
-        Me.No10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No10.Visible = False
-        Me.No10.Weight = 0.0046823977467992384R
+        Me.No10.Weight = 0.014047664449316277R
         '
         'No12
         '
@@ -583,9 +751,9 @@ Public Class rpt_CAControlTransfer
         Me.No12.Name = "No12"
         Me.No12.StylePriority.UseTextAlignment = False
         Me.No12.Text = "12%"
-        Me.No12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No12.Visible = False
-        Me.No12.Weight = 0.0046826319765025382R
+        Me.No12.Weight = 0.02107150101953259R
         '
         'No14
         '
@@ -594,9 +762,9 @@ Public Class rpt_CAControlTransfer
         Me.No14.Name = "No14"
         Me.No14.StylePriority.UseTextAlignment = False
         Me.No14.Text = "14%"
-        Me.No14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No14.Visible = False
-        Me.No14.Weight = 0.0046826535209293363R
+        Me.No14.Weight = 0.017924927111595323R
         '
         'No16
         '
@@ -605,64 +773,61 @@ Public Class rpt_CAControlTransfer
         Me.No16.Name = "No16"
         Me.No16.StylePriority.UseTextAlignment = False
         Me.No16.Text = "16%"
-        Me.No16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No16.Visible = False
-        Me.No16.Weight = 0.0057232971089635765R
+        Me.No16.Weight = 0.018235145761460569R
         '
         'No20
         '
-        Me.No20.CanShrink = True
         Me.No20.Dpi = 254.0!
         Me.No20.Name = "No20"
         Me.No20.StylePriority.UseTextAlignment = False
         Me.No20.Text = "20%"
-        Me.No20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No20.Visible = False
-        Me.No20.Weight = 0.0046826241353906672R
+        Me.No20.Weight = 0.015348858991146241R
         '
         'No40
         '
-        Me.No40.CanShrink = True
         Me.No40.Dpi = 254.0!
         Me.No40.Name = "No40"
         Me.No40.StylePriority.UseTextAlignment = False
         Me.No40.Text = "40%"
-        Me.No40.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No40.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No40.Visible = False
-        Me.No40.Weight = 0.0046826206982207852R
+        Me.No40.Weight = 0.018470606620687446R
         '
         'No50
         '
-        Me.No50.CanShrink = True
         Me.No50.Dpi = 254.0!
         Me.No50.Name = "No50"
         Me.No50.StylePriority.UseTextAlignment = False
         Me.No50.Text = "50%"
-        Me.No50.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No50.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No50.Visible = False
-        Me.No50.Weight = 0.0046824208353244967R
+        Me.No50.Weight = 0.014306703760647688R
         '
         'No60
         '
-        Me.No60.CanShrink = True
         Me.No60.Dpi = 254.0!
         Me.No60.Name = "No60"
         Me.No60.StylePriority.UseTextAlignment = False
         Me.No60.Text = "60%"
-        Me.No60.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No60.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No60.Visible = False
-        Me.No60.Weight = 0.0046832803050831928R
+        Me.No60.Weight = 0.016659354380040625R
         '
         'No80
         '
-        Me.No80.CanShrink = True
+        Me.No80.BackColor = System.Drawing.Color.Transparent
         Me.No80.Dpi = 254.0!
         Me.No80.Name = "No80"
+        Me.No80.StylePriority.UseBackColor = False
         Me.No80.StylePriority.UseTextAlignment = False
-        Me.No80.Text = "80%"
-        Me.No80.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No80.Text = "ACA 80%"
+        Me.No80.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No80.Visible = False
-        Me.No80.Weight = 0.0048167837334453512R
+        Me.No80.Weight = 0.017159481276564026R
         '
         'No90
         '
@@ -671,9 +836,9 @@ Public Class rpt_CAControlTransfer
         Me.No90.Name = "No90"
         Me.No90.StylePriority.UseTextAlignment = False
         Me.No90.Text = "90%"
-        Me.No90.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No90.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No90.Visible = False
-        Me.No90.Weight = 0.004682633436370931R
+        Me.No90.Weight = 0.014182687682242012R
         '
         'No100
         '
@@ -681,10 +846,10 @@ Public Class rpt_CAControlTransfer
         Me.No100.Dpi = 254.0!
         Me.No100.Name = "No100"
         Me.No100.StylePriority.UseTextAlignment = False
-        Me.No100.Text = "100%"
-        Me.No100.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No100.Text = "ACA 100%"
+        Me.No100.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No100.Visible = False
-        Me.No100.Weight = 0.0058356129401771761R
+        Me.No100.Weight = 0.010518023502107843R
         '
         'NoNote
         '
@@ -692,7 +857,7 @@ Public Class rpt_CAControlTransfer
         Me.NoNote.Name = "NoNote"
         Me.NoNote.StylePriority.UseTextAlignment = False
         Me.NoNote.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
-        Me.NoNote.Weight = 0.0073370505234594541R
+        Me.NoNote.Weight = 0.0044244243724974857R
         '
         'XrTableRow1
         '
@@ -707,7 +872,7 @@ Public Class rpt_CAControlTransfer
         Me.NoDescription_Bot.Name = "NoDescription_Bot"
         Me.NoDescription_Bot.StylePriority.UseTextAlignment = False
         Me.NoDescription_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomLeft
-        Me.NoDescription_Bot.Weight = 2.4056103126195065R
+        Me.NoDescription_Bot.Weight = 2.1813121270109681R
         '
         'NoYE_Bot
         '
@@ -715,7 +880,7 @@ Public Class rpt_CAControlTransfer
         Me.NoYE_Bot.Name = "NoYE_Bot"
         Me.NoYE_Bot.StylePriority.UseTextAlignment = False
         Me.NoYE_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
-        Me.NoYE_Bot.Weight = 0.0046824805181084894R
+        Me.NoYE_Bot.Weight = 0.008900780552752896R
         '
         'NoOriCost_Bot
         '
@@ -724,7 +889,7 @@ Public Class rpt_CAControlTransfer
         Me.NoOriCost_Bot.StylePriority.UseTextAlignment = False
         Me.NoOriCost_Bot.Text = "RM"
         Me.NoOriCost_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        Me.NoOriCost_Bot.Weight = 0.0046826320128987575R
+        Me.NoOriCost_Bot.Weight = 0.014047453136760257R
         '
         'NoTWDV_Bot
         '
@@ -733,7 +898,7 @@ Public Class rpt_CAControlTransfer
         Me.NoTWDV_Bot.StylePriority.UseTextAlignment = False
         Me.NoTWDV_Bot.Text = "RM"
         Me.NoTWDV_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        Me.NoTWDV_Bot.Weight = 0.00468238285854361R
+        Me.NoTWDV_Bot.Weight = 0.016690646615780791R
         '
         'NoTransferVal_Bot
         '
@@ -742,7 +907,7 @@ Public Class rpt_CAControlTransfer
         Me.NoTransferVal_Bot.StylePriority.UseTextAlignment = False
         Me.NoTransferVal_Bot.Text = "RM"
         Me.NoTransferVal_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        Me.NoTransferVal_Bot.Weight = 0.00468262785082052R
+        Me.NoTransferVal_Bot.Weight = 0.02311111293681356R
         '
         'NoClaim_Bot
         '
@@ -751,7 +916,8 @@ Public Class rpt_CAControlTransfer
         Me.NoClaim_Bot.StylePriority.UseTextAlignment = False
         Me.NoClaim_Bot.Text = "RM"
         Me.NoClaim_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        Me.NoClaim_Bot.Weight = 0.0046828460189862753R
+        Me.NoClaim_Bot.Visible = False
+        Me.NoClaim_Bot.Weight = 0.014047667142847775R
         '
         'No2_Bot
         '
@@ -759,8 +925,8 @@ Public Class rpt_CAControlTransfer
         Me.No2_Bot.Name = "No2_Bot"
         Me.No2_Bot.StylePriority.UseTextAlignment = False
         Me.No2_Bot.Text = "RM"
-        Me.No2_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No2_Bot.Weight = 0.0046824489632271149R
+        Me.No2_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No2_Bot.Weight = 0.014047918201497422R
         '
         'No3_Bot
         '
@@ -768,8 +934,8 @@ Public Class rpt_CAControlTransfer
         Me.No3_Bot.Name = "No3_Bot"
         Me.No3_Bot.StylePriority.UseTextAlignment = False
         Me.No3_Bot.Text = "RM"
-        Me.No3_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No3_Bot.Weight = 0.00468259989930897R
+        Me.No3_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No3_Bot.Weight = 0.025754554623444337R
         '
         'No8_Bot
         '
@@ -777,8 +943,8 @@ Public Class rpt_CAControlTransfer
         Me.No8_Bot.Name = "No8_Bot"
         Me.No8_Bot.StylePriority.UseTextAlignment = False
         Me.No8_Bot.Text = "RM"
-        Me.No8_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No8_Bot.Weight = 0.0046826038186884578R
+        Me.No8_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No8_Bot.Weight = 0.021070676221090823R
         '
         'No10_Bot
         '
@@ -786,8 +952,8 @@ Public Class rpt_CAControlTransfer
         Me.No10_Bot.Name = "No10_Bot"
         Me.No10_Bot.StylePriority.UseTextAlignment = False
         Me.No10_Bot.Text = "RM"
-        Me.No10_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No10_Bot.Weight = 0.0046823977467992384R
+        Me.No10_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No10_Bot.Weight = 0.01404766444931627R
         '
         'No12_Bot
         '
@@ -795,8 +961,8 @@ Public Class rpt_CAControlTransfer
         Me.No12_Bot.Name = "No12_Bot"
         Me.No12_Bot.StylePriority.UseTextAlignment = False
         Me.No12_Bot.Text = "RM"
-        Me.No12_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No12_Bot.Weight = 0.0046826319765025382R
+        Me.No12_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No12_Bot.Weight = 0.02107150101953259R
         '
         'No14_Bot
         '
@@ -804,8 +970,8 @@ Public Class rpt_CAControlTransfer
         Me.No14_Bot.Name = "No14_Bot"
         Me.No14_Bot.StylePriority.UseTextAlignment = False
         Me.No14_Bot.Text = "RM"
-        Me.No14_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No14_Bot.Weight = 0.0046826535209293363R
+        Me.No14_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No14_Bot.Weight = 0.017924927111595323R
         '
         'No16_Bot
         '
@@ -813,8 +979,8 @@ Public Class rpt_CAControlTransfer
         Me.No16_Bot.Name = "No16_Bot"
         Me.No16_Bot.StylePriority.UseTextAlignment = False
         Me.No16_Bot.Text = "RM"
-        Me.No16_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No16_Bot.Weight = 0.0057232971089635765R
+        Me.No16_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No16_Bot.Weight = 0.018235145761460458R
         '
         'No20_Bot
         '
@@ -822,8 +988,8 @@ Public Class rpt_CAControlTransfer
         Me.No20_Bot.Name = "No20_Bot"
         Me.No20_Bot.StylePriority.UseTextAlignment = False
         Me.No20_Bot.Text = "RM"
-        Me.No20_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No20_Bot.Weight = 0.0046826241353906672R
+        Me.No20_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No20_Bot.Weight = 0.01534885899114613R
         '
         'No40_Bot
         '
@@ -831,8 +997,8 @@ Public Class rpt_CAControlTransfer
         Me.No40_Bot.Name = "No40_Bot"
         Me.No40_Bot.StylePriority.UseTextAlignment = False
         Me.No40_Bot.Text = "RM"
-        Me.No40_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No40_Bot.Weight = 0.0046826206982207852R
+        Me.No40_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No40_Bot.Weight = 0.018470606620687446R
         '
         'No50_Bot
         '
@@ -840,8 +1006,8 @@ Public Class rpt_CAControlTransfer
         Me.No50_Bot.Name = "No50_Bot"
         Me.No50_Bot.StylePriority.UseTextAlignment = False
         Me.No50_Bot.Text = "RM"
-        Me.No50_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No50_Bot.Weight = 0.0046824208353244967R
+        Me.No50_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No50_Bot.Weight = 0.014306703760647466R
         '
         'No60_Bot
         '
@@ -849,8 +1015,8 @@ Public Class rpt_CAControlTransfer
         Me.No60_Bot.Name = "No60_Bot"
         Me.No60_Bot.StylePriority.UseTextAlignment = False
         Me.No60_Bot.Text = "RM"
-        Me.No60_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No60_Bot.Weight = 0.0046832803050831928R
+        Me.No60_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No60_Bot.Weight = 0.016659354380040625R
         '
         'No80_Bot
         '
@@ -858,8 +1024,8 @@ Public Class rpt_CAControlTransfer
         Me.No80_Bot.Name = "No80_Bot"
         Me.No80_Bot.StylePriority.UseTextAlignment = False
         Me.No80_Bot.Text = "RM"
-        Me.No80_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No80_Bot.Weight = 0.0048167837334453512R
+        Me.No80_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No80_Bot.Weight = 0.017159481276564026R
         '
         'No90_Bot
         '
@@ -867,8 +1033,8 @@ Public Class rpt_CAControlTransfer
         Me.No90_Bot.Name = "No90_Bot"
         Me.No90_Bot.StylePriority.UseTextAlignment = False
         Me.No90_Bot.Text = "RM"
-        Me.No90_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No90_Bot.Weight = 0.004682633436370931R
+        Me.No90_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No90_Bot.Weight = 0.014182687682242068R
         '
         'No100_Bot
         '
@@ -876,8 +1042,8 @@ Public Class rpt_CAControlTransfer
         Me.No100_Bot.Name = "No100_Bot"
         Me.No100_Bot.StylePriority.UseTextAlignment = False
         Me.No100_Bot.Text = "RM"
-        Me.No100_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.No100_Bot.Weight = 0.0058356129401771761R
+        Me.No100_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.No100_Bot.Weight = 0.010518023502107898R
         '
         'NoNote_Bot
         '
@@ -885,7 +1051,31 @@ Public Class rpt_CAControlTransfer
         Me.NoNote_Bot.Name = "NoNote_Bot"
         Me.NoNote_Bot.StylePriority.UseTextAlignment = False
         Me.NoNote_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        Me.NoNote_Bot.Weight = 0.0073370505234594541R
+        Me.NoNote_Bot.Weight = 0.0044244243724974857R
+        '
+        'lblDraft_Page
+        '
+        Me.lblDraft_Page.BackColor = System.Drawing.Color.Transparent
+        Me.lblDraft_Page.CanShrink = True
+        Me.lblDraft_Page.Dpi = 254.0!
+        Me.lblDraft_Page.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDraft_Page.FormattingRules.Add(Me.ShowDraft)
+        Me.lblDraft_Page.LocationFloat = New DevExpress.Utils.PointFloat(2404.855!, 0.0!)
+        Me.lblDraft_Page.Name = "lblDraft_Page"
+        Me.lblDraft_Page.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.lblDraft_Page.SizeF = New System.Drawing.SizeF(320.1453!, 58.42001!)
+        Me.lblDraft_Page.StylePriority.UseBackColor = False
+        Me.lblDraft_Page.StylePriority.UseFont = False
+        Me.lblDraft_Page.StylePriority.UseTextAlignment = False
+        Me.lblDraft_Page.Text = "DRAFT"
+        Me.lblDraft_Page.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.lblDraft_Page.Visible = False
+        '
+        'ShowDraft
+        '
+        Me.ShowDraft.Condition = "[Parameters.param_ShowDraft]=true"
+        Me.ShowDraft.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[True]
+        Me.ShowDraft.Name = "ShowDraft"
         '
         'FormattingRule1
         '
@@ -895,13 +1085,28 @@ Public Class rpt_CAControlTransfer
         '
         'detailBand1
         '
-        Me.detailBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.table2})
+        Me.detailBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.LineDetails, Me.table2})
         Me.detailBand1.Dpi = 254.0!
         Me.detailBand1.EvenStyleName = "ReportEvenStyle"
-        Me.detailBand1.HeightF = 66.64565!
+        Me.detailBand1.HeightF = 57.94405!
+        Me.detailBand1.KeepTogether = True
+        Me.detailBand1.KeepTogetherWithDetailReports = True
         Me.detailBand1.Name = "detailBand1"
         Me.detailBand1.OddStyleName = "ReportOddStyle"
+        Me.detailBand1.SortFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("CA_PURCHASE_YEAR", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending), New DevExpress.XtraReports.UI.GroupField("CA_ASSET", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
         Me.detailBand1.StyleName = "ReportDetailBandStyle"
+        '
+        'LineDetails
+        '
+        Me.LineDetails.Borders = DevExpress.XtraPrinting.BorderSide.Top
+        Me.LineDetails.Dpi = 254.0!
+        Me.LineDetails.LocationFloat = New DevExpress.Utils.PointFloat(2.999918!, 49.79483!)
+        Me.LineDetails.Name = "LineDetails"
+        Me.LineDetails.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254.0!)
+        Me.LineDetails.SizeF = New System.Drawing.SizeF(280.8204!, 8.149216!)
+        Me.LineDetails.StylePriority.UseBorders = False
+        Me.LineDetails.StylePriority.UsePadding = False
+        Me.LineDetails.Visible = False
         '
         'table2
         '
@@ -910,10 +1115,10 @@ Public Class rpt_CAControlTransfer
         Me.table2.BorderWidth = 1.0!
         Me.table2.Dpi = 254.0!
         Me.table2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.table2.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
+        Me.table2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.table2.Name = "table2"
         Me.table2.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow2})
-        Me.table2.SizeF = New System.Drawing.SizeF(2830.0!, 66.64565!)
+        Me.table2.SizeF = New System.Drawing.SizeF(2725.0!, 49.79483!)
         Me.table2.StylePriority.UseBackColor = False
         Me.table2.StylePriority.UseBorders = False
         Me.table2.StylePriority.UseBorderWidth = False
@@ -928,10 +1133,14 @@ Public Class rpt_CAControlTransfer
         '
         'NoDescription_Details
         '
+        Me.NoDescription_Details.BackColor = System.Drawing.Color.Transparent
         Me.NoDescription_Details.CanShrink = True
         Me.NoDescription_Details.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_REPORT_CONTROLTRANSFER_TEMP.CA_ASSET")})
         Me.NoDescription_Details.Dpi = 254.0!
         Me.NoDescription_Details.Name = "NoDescription_Details"
+        Me.NoDescription_Details.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 10, 0, 0, 254.0!)
+        Me.NoDescription_Details.StylePriority.UseBackColor = False
+        Me.NoDescription_Details.StylePriority.UsePadding = False
         Me.NoDescription_Details.StylePriority.UseTextAlignment = False
         Me.NoDescription_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         Me.NoDescription_Details.Weight = 3.8684133739674507R
@@ -997,6 +1206,7 @@ Public Class rpt_CAControlTransfer
         Me.NoClaim_Details.StylePriority.UsePadding = False
         Me.NoClaim_Details.StylePriority.UseTextAlignment = False
         Me.NoClaim_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.NoClaim_Details.Visible = False
         Me.NoClaim_Details.Weight = 0.0075158673588977543R
         '
         'No2_Details
@@ -1108,7 +1318,7 @@ Public Class rpt_CAControlTransfer
         'No40_Details
         '
         Me.No40_Details.CanShrink = True
-        Me.No40_Details.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_REPORT_CONTROLTRANSFER_TEMP.AA_40", "{0:#,# ;(#,#); 0}")})
+        Me.No40_Details.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_REPORT_CONTROLTRANSFER_TEMP.AA_40", "{0:#,# ;(#,#); }")})
         Me.No40_Details.Dpi = 254.0!
         Me.No40_Details.Name = "No40_Details"
         Me.No40_Details.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254.0!)
@@ -1196,18 +1406,92 @@ Public Class rpt_CAControlTransfer
         '
         'reportFooterBand1
         '
-        Me.reportFooterBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.lineReport_Bot, Me.table2_Report, Me.XrSubreport1})
+        Me.reportFooterBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.lineReport_top, Me.dtNoteFooter, Me.lineReport_Bot, Me.table2_Report})
         Me.reportFooterBand1.Dpi = 254.0!
-        Me.reportFooterBand1.HeightF = 209.5206!
+        Me.reportFooterBand1.HeightF = 163.2956!
         Me.reportFooterBand1.Name = "reportFooterBand1"
+        '
+        'lineReport_top
+        '
+        Me.lineReport_top.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.lineReport_top.Dpi = 254.0!
+        Me.lineReport_top.LocationFloat = New DevExpress.Utils.PointFloat(2.999913!, 0.9757513!)
+        Me.lineReport_top.Name = "lineReport_top"
+        Me.lineReport_top.SizeF = New System.Drawing.SizeF(218.5629!, 5.0!)
+        Me.lineReport_top.StylePriority.UseBorders = False
+        Me.lineReport_top.Visible = False
+        '
+        'dtNoteFooter
+        '
+        Me.dtNoteFooter.Dpi = 254.0!
+        Me.dtNoteFooter.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 96.64558!)
+        Me.dtNoteFooter.Name = "dtNoteFooter"
+        Me.dtNoteFooter.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow5})
+        Me.dtNoteFooter.SizeF = New System.Drawing.SizeF(2725.0!, 66.65001!)
+        '
+        'XrTableRow5
+        '
+        Me.XrTableRow5.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.NoDescription_NoteFooter, Me.NoOriCost_NoteFooter, Me.NoTWDV_NoteFooter, Me.NoTransferVal_NoteFooter, Me.XrTableCell8})
+        Me.XrTableRow5.Dpi = 254.0!
+        Me.XrTableRow5.Name = "XrTableRow5"
+        Me.XrTableRow5.Weight = 0.5679012345679012R
+        '
+        'NoDescription_NoteFooter
+        '
+        Me.NoDescription_NoteFooter.BackColor = System.Drawing.Color.Transparent
+        Me.NoDescription_NoteFooter.Dpi = 254.0!
+        Me.NoDescription_NoteFooter.Name = "NoDescription_NoteFooter"
+        Me.NoDescription_NoteFooter.StylePriority.UseBackColor = False
+        Me.NoDescription_NoteFooter.Weight = 0.64682599624872983R
+        '
+        'NoOriCost_NoteFooter
+        '
+        Me.NoOriCost_NoteFooter.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_REPORT_CONTROLTRANSFER_NOTE.CA_PURCHASE_AMOUNT")})
+        Me.NoOriCost_NoteFooter.Dpi = 254.0!
+        Me.NoOriCost_NoteFooter.Font = New System.Drawing.Font("Arial", 9.75!)
+        Me.NoOriCost_NoteFooter.Name = "NoOriCost_NoteFooter"
+        Me.NoOriCost_NoteFooter.StylePriority.UseFont = False
+        Me.NoOriCost_NoteFooter.StylePriority.UseTextAlignment = False
+        Me.NoOriCost_NoteFooter.Text = "NoOriCost_NoteFooter"
+        Me.NoOriCost_NoteFooter.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.NoOriCost_NoteFooter.Weight = 0.0012658687213003561R
+        '
+        'NoTWDV_NoteFooter
+        '
+        Me.NoTWDV_NoteFooter.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_REPORT_CONTROLTRANSFER_NOTE.TWDV_BF")})
+        Me.NoTWDV_NoteFooter.Dpi = 254.0!
+        Me.NoTWDV_NoteFooter.Font = New System.Drawing.Font("Arial", 9.75!)
+        Me.NoTWDV_NoteFooter.Name = "NoTWDV_NoteFooter"
+        Me.NoTWDV_NoteFooter.StylePriority.UseFont = False
+        Me.NoTWDV_NoteFooter.StylePriority.UseTextAlignment = False
+        Me.NoTWDV_NoteFooter.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.NoTWDV_NoteFooter.Weight = 0.0012658731683157509R
+        '
+        'NoTransferVal_NoteFooter
+        '
+        Me.NoTransferVal_NoteFooter.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_REPORT_CONTROLTRANSFER_NOTE.CA_TRANSFER_VAL")})
+        Me.NoTransferVal_NoteFooter.Dpi = 254.0!
+        Me.NoTransferVal_NoteFooter.Font = New System.Drawing.Font("Arial", 9.75!)
+        Me.NoTransferVal_NoteFooter.Name = "NoTransferVal_NoteFooter"
+        Me.NoTransferVal_NoteFooter.StylePriority.UseFont = False
+        Me.NoTransferVal_NoteFooter.StylePriority.UseTextAlignment = False
+        Me.NoTransferVal_NoteFooter.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.NoTransferVal_NoteFooter.Weight = 0.0012658023324561563R
+        '
+        'XrTableCell8
+        '
+        Me.XrTableCell8.Dpi = 254.0!
+        Me.XrTableCell8.Name = "XrTableCell8"
+        Me.XrTableCell8.Weight = 0.0012383184537496233R
         '
         'lineReport_Bot
         '
+        Me.lineReport_Bot.Borders = DevExpress.XtraPrinting.BorderSide.Top
         Me.lineReport_Bot.Dpi = 254.0!
-        Me.lineReport_Bot.LineWidth = 5
-        Me.lineReport_Bot.LocationFloat = New DevExpress.Utils.PointFloat(0!, 66.64564!)
+        Me.lineReport_Bot.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 72.62135!)
         Me.lineReport_Bot.Name = "lineReport_Bot"
-        Me.lineReport_Bot.SizeF = New System.Drawing.SizeF(218.5629!, 16.08671!)
+        Me.lineReport_Bot.SizeF = New System.Drawing.SizeF(2720.18!, 24.02421!)
+        Me.lineReport_Bot.StylePriority.UseBorders = False
         '
         'table2_Report
         '
@@ -1216,10 +1500,10 @@ Public Class rpt_CAControlTransfer
         Me.table2_Report.BorderWidth = 1.0!
         Me.table2_Report.Dpi = 254.0!
         Me.table2_Report.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.table2_Report.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
+        Me.table2_Report.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 5.975715!)
         Me.table2_Report.Name = "table2_Report"
         Me.table2_Report.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow4})
-        Me.table2_Report.SizeF = New System.Drawing.SizeF(2830.0!, 66.64565!)
+        Me.table2_Report.SizeF = New System.Drawing.SizeF(2725.0!, 66.64565!)
         Me.table2_Report.StylePriority.UseBackColor = False
         Me.table2_Report.StylePriority.UseBorders = False
         Me.table2_Report.StylePriority.UseBorderWidth = False
@@ -1239,12 +1523,14 @@ Public Class rpt_CAControlTransfer
         Me.NoDescription_Report.Dpi = 254.0!
         Me.NoDescription_Report.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NoDescription_Report.Name = "NoDescription_Report"
+        Me.NoDescription_Report.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 254.0!)
         Me.NoDescription_Report.StylePriority.UseBorders = False
         Me.NoDescription_Report.StylePriority.UseFont = False
+        Me.NoDescription_Report.StylePriority.UsePadding = False
         Me.NoDescription_Report.StylePriority.UseTextAlignment = False
         Me.NoDescription_Report.Text = "TOTAL"
-        Me.NoDescription_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        Me.NoDescription_Report.Weight = 3.4108268670170796R
+        Me.NoDescription_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        Me.NoDescription_Report.Weight = 3.4033079716039962R
         '
         'NoYE_Report
         '
@@ -1255,7 +1541,7 @@ Public Class rpt_CAControlTransfer
         Me.NoYE_Report.StylePriority.UseBorders = False
         Me.NoYE_Report.StylePriority.UseTextAlignment = False
         Me.NoYE_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        Me.NoYE_Report.Weight = 0.00663901240059489R
+        Me.NoYE_Report.Weight = 0.0068951748042156424R
         '
         'NoOriCost_Report
         '
@@ -1270,8 +1556,8 @@ Public Class rpt_CAControlTransfer
         XrSummary1.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary1.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.NoOriCost_Report.Summary = XrSummary1
-        Me.NoOriCost_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.NoOriCost_Report.Weight = 0.0066390268493672355R
+        Me.NoOriCost_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.NoOriCost_Report.Weight = 0.006895268781831998R
         '
         'NoTWDV_Report
         '
@@ -1285,8 +1571,8 @@ Public Class rpt_CAControlTransfer
         XrSummary2.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary2.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.NoTWDV_Report.Summary = XrSummary2
-        Me.NoTWDV_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.NoTWDV_Report.Weight = 0.0066393172517856813R
+        Me.NoTWDV_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.NoTWDV_Report.Weight = 0.0086628491355891235R
         '
         'NoTransferVal_Report
         '
@@ -1301,8 +1587,8 @@ Public Class rpt_CAControlTransfer
         XrSummary3.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary3.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.NoTransferVal_Report.Summary = XrSummary3
-        Me.NoTransferVal_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.NoTransferVal_Report.Weight = 0.006639020481121749R
+        Me.NoTransferVal_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.NoTransferVal_Report.Weight = 0.0068947852405281118R
         '
         'NoClaim_Report
         '
@@ -1317,8 +1603,9 @@ Public Class rpt_CAControlTransfer
         XrSummary4.FormatString = "{0:#,# ;(#,#); }"
         XrSummary4.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.NoClaim_Report.Summary = XrSummary4
-        Me.NoClaim_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.NoClaim_Report.Weight = 0.0066393261951251392R
+        Me.NoClaim_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.NoClaim_Report.Visible = False
+        Me.NoClaim_Report.Weight = 0.0068947728391575147R
         '
         'No2_Report
         '
@@ -1333,9 +1620,9 @@ Public Class rpt_CAControlTransfer
         XrSummary5.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary5.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No2_Report.Summary = XrSummary5
-        Me.No2_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No2_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No2_Report.Visible = False
-        Me.No2_Report.Weight = 0.0066393158421488851R
+        Me.No2_Report.Weight = 0.0068950806015553034R
         '
         'No3_Report
         '
@@ -1349,9 +1636,9 @@ Public Class rpt_CAControlTransfer
         XrSummary6.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary6.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No3_Report.Summary = XrSummary6
-        Me.No3_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No3_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No3_Report.Visible = False
-        Me.No3_Report.Weight = 0.0066390122462165468R
+        Me.No3_Report.Weight = 0.0068950951209934R
         '
         'No8_Report
         '
@@ -1366,9 +1653,9 @@ Public Class rpt_CAControlTransfer
         XrSummary7.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary7.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No8_Report.Summary = XrSummary7
-        Me.No8_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No8_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No8_Report.Visible = False
-        Me.No8_Report.Weight = 0.0066393135231501144R
+        Me.No8_Report.Weight = 0.0068950782825560886R
         '
         'No10_Report
         '
@@ -1382,9 +1669,9 @@ Public Class rpt_CAControlTransfer
         XrSummary8.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary8.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No10_Report.Summary = XrSummary8
-        Me.No10_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No10_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No10_Report.Visible = False
-        Me.No10_Report.Weight = 0.0066393059552091183R
+        Me.No10_Report.Weight = 0.006895229772300171R
         '
         'No12_Report
         '
@@ -1398,9 +1685,9 @@ Public Class rpt_CAControlTransfer
         XrSummary9.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary9.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No12_Report.Summary = XrSummary9
-        Me.No12_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No12_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No12_Report.Visible = False
-        Me.No12_Report.Weight = 0.0066393286225252535R
+        Me.No12_Report.Weight = 0.0068950933819316162R
         '
         'No14_Report
         '
@@ -1414,9 +1701,9 @@ Public Class rpt_CAControlTransfer
         XrSummary10.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary10.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No14_Report.Summary = XrSummary10
-        Me.No14_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No14_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No14_Report.Visible = False
-        Me.No14_Report.Weight = 0.0066390222821014477R
+        Me.No14_Report.Weight = 0.0068951051568788557R
         '
         'No16_Report
         '
@@ -1430,9 +1717,9 @@ Public Class rpt_CAControlTransfer
         XrSummary11.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary11.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No16_Report.Summary = XrSummary11
-        Me.No16_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No16_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No16_Report.Visible = False
-        Me.No16_Report.Weight = 0.008114837830731747R
+        Me.No16_Report.Weight = 0.007725782730292563R
         '
         'No20_Report
         '
@@ -1446,9 +1733,9 @@ Public Class rpt_CAControlTransfer
         XrSummary12.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary12.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No20_Report.Summary = XrSummary12
-        Me.No20_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No20_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No20_Report.Visible = False
-        Me.No20_Report.Weight = 0.006639330747660821R
+        Me.No20_Report.Weight = 0.0068950955070663511R
         '
         'No40_Report
         '
@@ -1462,9 +1749,9 @@ Public Class rpt_CAControlTransfer
         XrSummary13.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary13.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No40_Report.Summary = XrSummary13
-        Me.No40_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No40_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No40_Report.Visible = False
-        Me.No40_Report.Weight = 0.0066393188735191511R
+        Me.No40_Report.Weight = 0.0068951631617677478R
         '
         'No50_Report
         '
@@ -1478,9 +1765,9 @@ Public Class rpt_CAControlTransfer
         XrSummary14.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary14.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No50_Report.Summary = XrSummary14
-        Me.No50_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No50_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No50_Report.Visible = False
-        Me.No50_Report.Weight = 0.0066393188735097142R
+        Me.No50_Report.Weight = 0.0068951631617584219R
         '
         'No60_Report
         '
@@ -1494,9 +1781,9 @@ Public Class rpt_CAControlTransfer
         XrSummary15.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary15.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No60_Report.Summary = XrSummary15
-        Me.No60_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No60_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No60_Report.Visible = False
-        Me.No60_Report.Weight = 0.0066393393598807027R
+        Me.No60_Report.Weight = 0.0071016405248137682R
         '
         'No80_Report
         '
@@ -1510,9 +1797,9 @@ Public Class rpt_CAControlTransfer
         XrSummary16.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary16.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No80_Report.Summary = XrSummary16
-        Me.No80_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No80_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No80_Report.Visible = False
-        Me.No80_Report.Weight = 0.0068310899107651979R
+        Me.No80_Report.Weight = 0.0068948322785087335R
         '
         'No90_Report
         '
@@ -1526,9 +1813,9 @@ Public Class rpt_CAControlTransfer
         XrSummary17.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary17.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No90_Report.Summary = XrSummary17
-        Me.No90_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No90_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No90_Report.Visible = False
-        Me.No90_Report.Weight = 0.0066393151624814517R
+        Me.No90_Report.Weight = 0.0074308657378433507R
         '
         'No100_Report
         '
@@ -1542,9 +1829,9 @@ Public Class rpt_CAControlTransfer
         XrSummary18.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary18.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.No100_Report.Summary = XrSummary18
-        Me.No100_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No100_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.No100_Report.Visible = False
-        Me.No100_Report.Weight = 0.0066393329770983445R
+        Me.No100_Report.Weight = 0.0078797045784880781R
         '
         'XrTableCell3
         '
@@ -1556,15 +1843,6 @@ Public Class rpt_CAControlTransfer
         Me.XrTableCell3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.XrTableCell3.Weight = 0.012036788122213926R
         '
-        'XrSubreport1
-        '
-        Me.XrSubreport1.Dpi = 254.0!
-        Me.XrSubreport1.LocationFloat = New DevExpress.Utils.PointFloat(0!, 151.1006!)
-        Me.XrSubreport1.Name = "XrSubreport1"
-        Me.XrSubreport1.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("FontSize", Me.FontSize))
-        Me.XrSubreport1.ReportSource = New EasyTemplate_Taxcom.rptCA_Note()
-        Me.XrSubreport1.SizeF = New System.Drawing.SizeF(2830.0!, 58.42001!)
-        '
         'FontSize
         '
         Me.FontSize.Description = "FontSize"
@@ -1575,7 +1853,7 @@ Public Class rpt_CAControlTransfer
         'bottomMarginBand1
         '
         Me.bottomMarginBand1.Dpi = 254.0!
-        Me.bottomMarginBand1.HeightF = 108.4792!
+        Me.bottomMarginBand1.HeightF = 109.0!
         Me.bottomMarginBand1.Name = "bottomMarginBand1"
         '
         'ReportHeaderBandStyle
@@ -1642,7 +1920,9 @@ Public Class rpt_CAControlTransfer
         Me.GroupHeader1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel6})
         Me.GroupHeader1.Dpi = 254.0!
         Me.GroupHeader1.GroupFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("CA_CATEGORY_CODE", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
-        Me.GroupHeader1.HeightF = 58.42!
+        Me.GroupHeader1.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WholePage
+        Me.GroupHeader1.HeightF = 84.8783!
+        Me.GroupHeader1.KeepTogether = True
         Me.GroupHeader1.Name = "GroupHeader1"
         '
         'XrLabel6
@@ -1650,10 +1930,10 @@ Public Class rpt_CAControlTransfer
         Me.XrLabel6.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_REPORT_CONTROLTRANSFER_TEMP.CA_CATEGORY_CODE")})
         Me.XrLabel6.Dpi = 254.0!
         Me.XrLabel6.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
+        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.XrLabel6.Name = "XrLabel6"
         Me.XrLabel6.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel6.SizeF = New System.Drawing.SizeF(2830.0!, 58.42!)
+        Me.XrLabel6.SizeF = New System.Drawing.SizeF(2725.0!, 58.42!)
         Me.XrLabel6.StylePriority.UseFont = False
         Me.XrLabel6.Text = "XrLabel6"
         '
@@ -1662,18 +1942,20 @@ Public Class rpt_CAControlTransfer
         Me.XrLabel5.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_REPORT_CONTROLTRANSFER_TEMP.CA_TRANSFERROR_NAME")})
         Me.XrLabel5.Dpi = 254.0!
         Me.XrLabel5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
+        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 18.0!)
         Me.XrLabel5.Name = "XrLabel5"
         Me.XrLabel5.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel5.SizeF = New System.Drawing.SizeF(2827.0!, 58.42!)
+        Me.XrLabel5.SizeF = New System.Drawing.SizeF(2722.0!, 58.42!)
         Me.XrLabel5.StylePriority.UseFont = False
+        Me.XrLabel5.StylePriority.UseTextAlignment = False
         Me.XrLabel5.Text = "XrLabel5"
+        Me.XrLabel5.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
         'GroupHeader2
         '
         Me.GroupHeader2.Dpi = 254.0!
         Me.GroupHeader2.GroupFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("CA_CAEEO", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
-        Me.GroupHeader2.HeightF = 0!
+        Me.GroupHeader2.HeightF = 3.0!
         Me.GroupHeader2.Level = 1
         Me.GroupHeader2.Name = "GroupHeader2"
         '
@@ -1682,7 +1964,7 @@ Public Class rpt_CAControlTransfer
         Me.GroupHeader3.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel5})
         Me.GroupHeader3.Dpi = 254.0!
         Me.GroupHeader3.GroupFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("CA_TRANSFERROR_NAME", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
-        Me.GroupHeader3.HeightF = 119.0625!
+        Me.GroupHeader3.HeightF = 100.1875!
         Me.GroupHeader3.Level = 2
         Me.GroupHeader3.Name = "GroupHeader3"
         '
@@ -1690,22 +1972,25 @@ Public Class rpt_CAControlTransfer
         '
         Me.GroupFooter1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.lineFooter_Bot, Me.lineFooter_Top, Me.table2_Footer})
         Me.GroupFooter1.Dpi = 254.0!
-        Me.GroupFooter1.HeightF = 164.2532!
+        Me.GroupFooter1.HeightF = 104.1151!
+        Me.GroupFooter1.KeepTogether = True
         Me.GroupFooter1.Name = "GroupFooter1"
+        Me.GroupFooter1.SubBands.AddRange(New DevExpress.XtraReports.UI.SubBand() {Me.SubBand1})
         '
         'lineFooter_Bot
         '
+        Me.lineFooter_Bot.Borders = DevExpress.XtraPrinting.BorderSide.Top
         Me.lineFooter_Bot.Dpi = 254.0!
-        Me.lineFooter_Bot.LineWidth = 5
-        Me.lineFooter_Bot.LocationFloat = New DevExpress.Utils.PointFloat(0!, 91.64557!)
+        Me.lineFooter_Bot.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 82.7367!)
         Me.lineFooter_Bot.Name = "lineFooter_Bot"
-        Me.lineFooter_Bot.SizeF = New System.Drawing.SizeF(218.5629!, 16.08671!)
+        Me.lineFooter_Bot.SizeF = New System.Drawing.SizeF(218.5629!, 21.37837!)
+        Me.lineFooter_Bot.StylePriority.UseBorders = False
         '
         'lineFooter_Top
         '
         Me.lineFooter_Top.Dpi = 254.0!
         Me.lineFooter_Top.LineWidth = 3
-        Me.lineFooter_Top.LocationFloat = New DevExpress.Utils.PointFloat(0!, 0!)
+        Me.lineFooter_Top.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.lineFooter_Top.Name = "lineFooter_Top"
         Me.lineFooter_Top.SizeF = New System.Drawing.SizeF(218.5629!, 16.08671!)
         '
@@ -1716,10 +2001,10 @@ Public Class rpt_CAControlTransfer
         Me.table2_Footer.BorderWidth = 1.0!
         Me.table2_Footer.Dpi = 254.0!
         Me.table2_Footer.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.table2_Footer.LocationFloat = New DevExpress.Utils.PointFloat(0!, 16.08671!)
+        Me.table2_Footer.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 16.08671!)
         Me.table2_Footer.Name = "table2_Footer"
         Me.table2_Footer.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow3})
-        Me.table2_Footer.SizeF = New System.Drawing.SizeF(2830.0!, 66.64999!)
+        Me.table2_Footer.SizeF = New System.Drawing.SizeF(2725.0!, 66.64999!)
         Me.table2_Footer.StylePriority.UseBackColor = False
         Me.table2_Footer.StylePriority.UseBorders = False
         Me.table2_Footer.StylePriority.UseBorderWidth = False
@@ -1735,7 +2020,6 @@ Public Class rpt_CAControlTransfer
         'NoDescription_Footer
         '
         Me.NoDescription_Footer.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.NoDescription_Footer.CanShrink = True
         Me.NoDescription_Footer.Dpi = 254.0!
         Me.NoDescription_Footer.Name = "NoDescription_Footer"
         Me.NoDescription_Footer.StylePriority.UseBorders = False
@@ -1768,7 +2052,7 @@ Public Class rpt_CAControlTransfer
         XrSummary19.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
         Me.NoOriCost_Footer.Summary = XrSummary19
         Me.NoOriCost_Footer.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.NoOriCost_Footer.Weight = 0.011224328020101052R
+        Me.NoOriCost_Footer.Weight = 0.011224328020101051R
         '
         'NoTWDV_Footer
         '
@@ -1815,6 +2099,7 @@ Public Class rpt_CAControlTransfer
         XrSummary22.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
         Me.NoClaim_Footer.Summary = XrSummary22
         Me.NoClaim_Footer.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.NoClaim_Footer.Visible = False
         Me.NoClaim_Footer.Weight = 0.011224330240709672R
         '
         'No2_Footer
@@ -1993,7 +2278,7 @@ Public Class rpt_CAControlTransfer
         Me.No60_Footer.Summary = XrSummary33
         Me.No60_Footer.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No60_Footer.Visible = False
-        Me.No60_Footer.Weight = 0.011225880727499416R
+        Me.No60_Footer.Weight = 0.011225880727499415R
         '
         'No80_Footer
         '
@@ -2036,7 +2321,7 @@ Public Class rpt_CAControlTransfer
         Me.No100_Footer.Name = "No100_Footer"
         Me.No100_Footer.StylePriority.UseBorders = False
         Me.No100_Footer.StylePriority.UseTextAlignment = False
-        XrSummary36.FormatString = "{0:#,# ;(#,#);0 }"
+        XrSummary36.FormatString = "{0:#,# ;(#,#); }"
         XrSummary36.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
         Me.No100_Footer.Summary = XrSummary36
         Me.No100_Footer.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
@@ -2053,26 +2338,136 @@ Public Class rpt_CAControlTransfer
         Me.XrTableCell2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.XrTableCell2.Weight = 0.01122437904319544R
         '
+        'SubBand1
+        '
+        Me.SubBand1.BackColor = System.Drawing.Color.Transparent
+        Me.SubBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel1})
+        Me.SubBand1.Dpi = 254.0!
+        Me.SubBand1.HeightF = 41.35746!
+        Me.SubBand1.Name = "SubBand1"
+        Me.SubBand1.StylePriority.UseBackColor = False
+        '
+        'XrLabel1
+        '
+        Me.XrLabel1.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel1.Dpi = 254.0!
+        Me.XrLabel1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(2.999918!, 0.0!)
+        Me.XrLabel1.Name = "XrLabel1"
+        Me.XrLabel1.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel1.SizeF = New System.Drawing.SizeF(156.1042!, 41.35746!)
+        Me.XrLabel1.StylePriority.UseBackColor = False
+        Me.XrLabel1.StylePriority.UseFont = False
+        Me.XrLabel1.Text = " "
+        '
+        'GroupFooter2
+        '
+        Me.GroupFooter2.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel8})
+        Me.GroupFooter2.Dpi = 254.0!
+        Me.GroupFooter2.HeightF = 33.41996!
+        Me.GroupFooter2.KeepTogether = True
+        Me.GroupFooter2.Level = 1
+        Me.GroupFooter2.Name = "GroupFooter2"
+        '
+        'XrLabel8
+        '
+        Me.XrLabel8.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel8.Dpi = 254.0!
+        Me.XrLabel8.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel8.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrLabel8.Name = "XrLabel8"
+        Me.XrLabel8.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel8.SizeF = New System.Drawing.SizeF(156.1042!, 33.41996!)
+        Me.XrLabel8.StylePriority.UseBackColor = False
+        Me.XrLabel8.StylePriority.UseFont = False
+        '
+        'ReportHeader
+        '
+        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.lblDraft_Report, Me.XrLabel7, Me.lblTitle, Me.XrLabel4, Me.XrLabel2})
+        Me.ReportHeader.Dpi = 254.0!
+        Me.ReportHeader.HeightF = 373.3748!
+        Me.ReportHeader.Name = "ReportHeader"
+        '
+        'lblDraft_Report
+        '
+        Me.lblDraft_Report.CanShrink = True
+        Me.lblDraft_Report.Dpi = 254.0!
+        Me.lblDraft_Report.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDraft_Report.FormattingRules.Add(Me.ShowDraft)
+        Me.lblDraft_Report.LocationFloat = New DevExpress.Utils.PointFloat(2404.855!, 24.99999!)
+        Me.lblDraft_Report.Name = "lblDraft_Report"
+        Me.lblDraft_Report.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.lblDraft_Report.SizeF = New System.Drawing.SizeF(320.1453!, 58.42001!)
+        Me.lblDraft_Report.StylePriority.UseFont = False
+        Me.lblDraft_Report.StylePriority.UseTextAlignment = False
+        Me.lblDraft_Report.Text = "DRAFT"
+        Me.lblDraft_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.lblDraft_Report.Visible = False
+        '
+        'param_ShowDraft
+        '
+        Me.param_ShowDraft.Description = "param_ShowDraft"
+        Me.param_ShowDraft.Name = "param_ShowDraft"
+        Me.param_ShowDraft.Type = GetType(Boolean)
+        Me.param_ShowDraft.ValueInfo = "False"
+        '
+        'PageFooter
+        '
+        Me.PageFooter.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrPageInfo1, Me.lblPageNo})
+        Me.PageFooter.Dpi = 254.0!
+        Me.PageFooter.HeightF = 58.42!
+        Me.PageFooter.Name = "PageFooter"
+        '
+        'XrPageInfo1
+        '
+        Me.XrPageInfo1.AnchorVertical = DevExpress.XtraReports.UI.VerticalAnchorStyles.Bottom
+        Me.XrPageInfo1.Dpi = 254.0!
+        Me.XrPageInfo1.Font = New System.Drawing.Font("Arial", 9.0!)
+        Me.XrPageInfo1.Format = "{0}"
+        Me.XrPageInfo1.LocationFloat = New DevExpress.Utils.PointFloat(2165.549!, 0.0!)
+        Me.XrPageInfo1.Name = "XrPageInfo1"
+        Me.XrPageInfo1.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrPageInfo1.SizeF = New System.Drawing.SizeF(253.9995!, 58.42!)
+        Me.XrPageInfo1.StylePriority.UseFont = False
+        Me.XrPageInfo1.StylePriority.UseTextAlignment = False
+        Me.XrPageInfo1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.XrPageInfo1.Visible = False
+        '
+        'lblPageNo
+        '
+        Me.lblPageNo.AnchorVertical = DevExpress.XtraReports.UI.VerticalAnchorStyles.Bottom
+        Me.lblPageNo.Dpi = 254.0!
+        Me.lblPageNo.Font = New System.Drawing.Font("Arial", 9.0!)
+        Me.lblPageNo.Format = "Page {0} / {1}"
+        Me.lblPageNo.LocationFloat = New DevExpress.Utils.PointFloat(2471.001!, 0.0!)
+        Me.lblPageNo.Name = "lblPageNo"
+        Me.lblPageNo.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.lblPageNo.SizeF = New System.Drawing.SizeF(253.9995!, 58.42!)
+        Me.lblPageNo.StylePriority.UseFont = False
+        Me.lblPageNo.StylePriority.UseTextAlignment = False
+        Me.lblPageNo.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        '
         'rpt_CAControlTransfer
         '
-        Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.topMarginBand1, Me.pageHeaderBand1, Me.detailBand1, Me.reportFooterBand1, Me.bottomMarginBand1, Me.GroupHeader1, Me.GroupHeader2, Me.GroupHeader3, Me.GroupFooter1})
+        Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.topMarginBand1, Me.pageHeaderBand1, Me.detailBand1, Me.reportFooterBand1, Me.bottomMarginBand1, Me.GroupHeader1, Me.GroupHeader2, Me.GroupHeader3, Me.GroupFooter1, Me.GroupFooter2, Me.ReportHeader, Me.PageFooter})
         Me.DataMember = "CA_REPORT_CONTROLTRANSFER_TEMP"
         Me.DataSource = Me.DsCA1
         Me.Dpi = 254.0!
-        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.FormattingRule1})
+        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.FormattingRule1, Me.ShowDraft})
         Me.Landscape = True
-        Me.Margins = New System.Drawing.Printing.Margins(45, 95, 373, 108)
+        Me.Margins = New System.Drawing.Printing.Margins(195, 50, 54, 109)
         Me.PageHeight = 2100
         Me.PageWidth = 2970
         Me.PaperKind = System.Drawing.Printing.PaperKind.A4
-        Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramCompanyName, Me.paramYA, Me.paramID, Me.FontSize, Me.paramSch})
+        Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramCompanyName, Me.paramYA, Me.paramID, Me.FontSize, Me.paramSch, Me.param_ShowDraft, Me.paramTitle})
         Me.ReportUnit = DevExpress.XtraReports.UI.ReportUnit.TenthsOfAMillimeter
         Me.RequestParameters = False
         Me.SnapGridSize = 25.0!
         Me.StyleSheet.AddRange(New DevExpress.XtraReports.UI.XRControlStyle() {Me.ReportHeaderBandStyle, Me.ReportGroupHeaderBandStyle, Me.ReportDetailBandStyle, Me.ReportGroupFooterBandStyle, Me.ReportFooterBandStyle, Me.ReportOddStyle, Me.ReportEvenStyle})
         Me.Version = "17.1"
-        CType(Me.table1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tblTitle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.table2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtNoteFooter, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.table2_Report, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsCA1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.table2_Footer, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2291,7 +2686,7 @@ Public Class rpt_CAControlTransfer
     '    Me.pageHeaderBand1.Controls.Add(CreateXRTable(6))
     'End Sub
 
-    Private Sub No2_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles table1.BeforePrint  ', No3.BeforePrint, No8.BeforePrint, No10.BeforePrint, No12.BeforePrint, No14.BeforePrint, No16.BeforePrint, No20.BeforePrint, No40.BeforePrint, No50.BeforePrint, No60.BeforePrint, No8.BeforePrint, No90.BeforePrint, No100.BeforePrint
+    Private Sub No2_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles tblTitle.BeforePrint  ', No3.BeforePrint, No8.BeforePrint, No10.BeforePrint, No12.BeforePrint, No14.BeforePrint, No16.BeforePrint, No20.BeforePrint, No40.BeforePrint, No50.BeforePrint, No60.BeforePrint, No8.BeforePrint, No90.BeforePrint, No100.BeforePrint
         Try
             Dim dt As DataTable = Nothing
             dt = ADO.Load_CAReport_ControlTransfer_Temp(paramID.Value)
@@ -2299,11 +2694,12 @@ Public Class rpt_CAControlTransfer
             If dt Is Nothing Then
                 Exit Sub
             End If
-            Dim ListofAA As List(Of String) = mdlCA.Get_ListofAA()
+            Dim ListofAA As List(Of String) = mdlCA.Get_ListofAA(True)
 
             Dim tmpStatus As Boolean = False
 
-            Dim TotalWidth As Decimal = 2830
+            Dim TotalWidth_Main As Decimal = 2830
+            Dim TotalWidth As Decimal = 0
             Dim DynamicWidth As Decimal = 0
             Dim TotalColumn As Integer = 6
 
@@ -2315,6 +2711,9 @@ Public Class rpt_CAControlTransfer
                         tmpStatus = True
                         If IsNumeric(ListofAA(y).Replace("AA_", "")) Then
                             Select Case CInt(ListofAA(y).Replace("AA_", ""))
+                                Case 0
+                                    NoClaim.Visible = True
+                                    TotalColumn += 1
                                 Case 2
                                     No2.Visible = True
                                     TotalColumn += 1
@@ -2366,177 +2765,270 @@ Public Class rpt_CAControlTransfer
 
             Next
 
+            Dim TotalQF As Decimal = 0
             Dim DynamicColumn As Integer = TotalColumn - 6
             Dim BalanceWidth As Decimal = 0
 
             If DynamicColumn = 0 AndAlso DynamicColumn <= 10 Then
-                DynamicWidth = (TotalWidth - 1621.18) / DynamicColumn
+                DynamicWidth = (TotalWidth_Main - 1611.18) / DynamicColumn
             Else
-                DynamicWidth = (TotalWidth - 1205.51) / DynamicColumn
+                DynamicWidth = (TotalWidth_Main - 1205.51) / DynamicColumn
             End If
 
             If DynamicWidth > 200 Then
                 BalanceWidth = (DynamicWidth * DynamicColumn) - (200 * DynamicColumn)
                 DynamicWidth = 200
-
+                If DynamicColumn = 1 Then
+                    DynamicWidth = 230
+                End If
             End If
 
             For i As Integer = 0 To TotalColumn
                 Select Case i
                     Case 0
                         If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
+                            NoDescription_Top.WidthF = 504.26 '+ BalanceWidth - 50
                             NoDescription.WidthF = 504.26 '+ BalanceWidth - 50
                             NoDescription_Bot.WidthF = 504.26
                         Else
+                            NoDescription_Top.WidthF = 215.23 '+ BalanceWidth - 50
                             NoDescription.WidthF = 215.23 '+ BalanceWidth - 50
                             NoDescription_Bot.WidthF = 215.23
                         End If
                     Case 1
                         If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
+                            NoYE_Top.WidthF = 187.04
                             NoYE.WidthF = 187.04
                             NoYE_Bot.WidthF = 187.04
                         Else
+                            NoYE_Top.WidthF = 187.04
                             NoYE.WidthF = 187.04
                             NoYE_Bot.WidthF = 187.04
                         End If
                     Case 2
                         If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
-                            NoOriCost.WidthF = 238.35
-                            NoOriCost_Bot.WidthF = 238.35
+                            NoOriCost_Top.WidthF = 250.35
+                            NoOriCost.WidthF = 250.35
+                            NoOriCost_Bot.WidthF = 250.35
                         Else
+                            NoOriCost_Top.WidthF = 205.37
                             NoOriCost.WidthF = 205.37
                             NoOriCost_Bot.WidthF = 205.37
                         End If
+
+                        TotalWidth += NoOriCost_Top.WidthF
                     Case 3
                         If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
+                            NoTWDV_Top.WidthF = 226.46
                             NoTWDV.WidthF = 226.46
                             NoTWDV_Bot.WidthF = 226.46
                         Else
+                            NoTWDV_Top.WidthF = 190.42
                             NoTWDV.WidthF = 190.42
                             NoTWDV_Bot.WidthF = 190.42
                         End If
+                        TotalWidth += NoTWDV_Top.WidthF
                     Case 4
                         If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
+                            NoTransferVal_Top.WidthF = 226.77
                             NoTransferVal.WidthF = 226.77
                             NoTransferVal_Bot.WidthF = 226.77
                         Else
+                            NoTransferVal_Top.WidthF = 180.75
                             NoTransferVal.WidthF = 180.75
                             NoTransferVal_Bot.WidthF = 180.75
                         End If
-                    Case 5
-                        If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
-                            NoClaim.WidthF = 238.2
-                            NoClaim_Bot.WidthF = 238.2
-                        Else
-                            NoClaim.WidthF = 231.84
-                            NoClaim_Bot.WidthF = 231.84
-                        End If
+                        TotalWidth += NoTransferVal_Top.WidthF
+                        'Case 5
+                        '    If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
+                        '        NoClaim.WidthF = 238.2
+                        '        NoClaim_Bot.WidthF = 238.2
+                        '    Else
+                        '        NoClaim.WidthF = 231.84
+                        '        NoClaim_Bot.WidthF = 231.84
+                        '    End If
                     Case Else
-                       
+
                 End Select
                 Application.DoEvents()
             Next
+            If NoClaim.Visible = False Then
+                NoClaim_Top.WidthF = 0
+                NoClaim.WidthF = 0
+                NoClaim_Bot.WidthF = 0
+                TotalWidth += 5
+            Else
+                NoClaim.WidthF = DynamicWidth
+                NoClaim_Top.WidthF = DynamicWidth
+                NoClaim.WidthF = DynamicWidth
+                NoClaim_Bot.WidthF = DynamicWidth
+                TotalWidth += NoClaim_Top.WidthF
+            End If
+
             If No2.Visible = False Then
                 No2.WidthF = 0
                 No2_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No2.WidthF = DynamicWidth
                 No2_Bot.WidthF = DynamicWidth
+                TotalWidth += DynamicWidth
+                TotalQF += DynamicWidth
             End If
             If No3.Visible = False Then
                 No3.WidthF = 0
                 No3_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No3.WidthF = DynamicWidth
                 No3_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No8.Visible = False Then
                 No8.WidthF = 0
                 No8_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No8.WidthF = DynamicWidth
                 No8_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No10.Visible = False Then
                 No10.WidthF = 0
                 No10_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No10.WidthF = DynamicWidth
                 No10_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No12.Visible = False Then
                 No12.WidthF = 0
                 No12_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
+
             Else
                 No12.WidthF = DynamicWidth
                 No12_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No14.Visible = False Then
                 No14.WidthF = 0
                 No14_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No14.WidthF = DynamicWidth
                 No14_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No16.Visible = False Then
                 No16.WidthF = 0
                 No16_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No16.WidthF = DynamicWidth
                 No16_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No20.Visible = False Then
                 No20.WidthF = 0
                 No20_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No20.WidthF = DynamicWidth
                 No20_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No40.Visible = False Then
                 No40.WidthF = 0
                 No40_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No40.WidthF = DynamicWidth
                 No40_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No50.Visible = False Then
                 No50.WidthF = 0
                 No50_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No50.WidthF = DynamicWidth
                 No50_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No60.Visible = False Then
                 No60.WidthF = 0
                 No60_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No60.WidthF = DynamicWidth
                 No60_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No80.Visible = False Then
                 No80.WidthF = 0
                 No80_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No80.WidthF = DynamicWidth
                 No80_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No90.Visible = False Then
                 No90.WidthF = 0
                 No90_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No90.WidthF = DynamicWidth
                 No90_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
             If No100.Visible = False Then
                 No100.WidthF = 0
                 No100_Bot.WidthF = 0
+                TotalWidth += 5
+                TotalQF += 5
             Else
                 No100.WidthF = DynamicWidth
                 No100_Bot.WidthF = DynamicWidth
+                TotalQF += DynamicWidth
+                TotalWidth += DynamicWidth
             End If
+
+            NoHeader_Top.WidthF = TotalQF
+
+            LineDetails.LocationF = New PointF(NoOriCost_Top.LocationF.X, NoOriCost_Top.LocationF.Y + 70)
+            LineDetails.SizeF = New SizeF(TotalWidth, 10)
+
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2548,7 +3040,7 @@ Public Class rpt_CAControlTransfer
             If dt Is Nothing Then
                 Exit Sub
             End If
-            Dim ListofAA As List(Of String) = mdlCA.Get_ListofAA()
+            Dim ListofAA As List(Of String) = mdlCA.Get_ListofAA(True)
             Dim tmpStatus As Boolean = False
 
             Dim TotalWidth As Decimal = 2830
@@ -2563,6 +3055,9 @@ Public Class rpt_CAControlTransfer
                         tmpStatus = True
                         If IsNumeric(ListofAA(y).Replace("AA_", "")) Then
                             Select Case CInt(ListofAA(y).Replace("AA_", ""))
+                                Case 0
+                                    NoClaim_Details.Visible = True
+                                    TotalColumn += 1
                                 Case 2
                                     No2_Details.Visible = True
                                     TotalColumn += 1
@@ -2618,7 +3113,7 @@ Public Class rpt_CAControlTransfer
             Dim BalanceWidth As Decimal = 0
 
             If DynamicColumn = 0 AndAlso DynamicColumn <= 10 Then
-                DynamicWidth = (TotalWidth - 1621.18) / DynamicColumn
+                DynamicWidth = (TotalWidth - 1611.18) / DynamicColumn
             Else
                 DynamicWidth = (TotalWidth - 1205.51) / DynamicColumn
             End If
@@ -2626,7 +3121,9 @@ Public Class rpt_CAControlTransfer
             If DynamicWidth > 200 Then
                 BalanceWidth = (DynamicWidth * DynamicColumn) - (200 * DynamicColumn)
                 DynamicWidth = 200
-
+                If DynamicColumn = 1 Then
+                    DynamicWidth = 230
+                End If
             End If
 
             For i As Integer = 0 To TotalColumn
@@ -2645,7 +3142,7 @@ Public Class rpt_CAControlTransfer
                         End If
                     Case 2
                         If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
-                            NoOriCost_Details.WidthF = 238.35
+                            NoOriCost_Details.WidthF = 250.35
                         Else
                             NoOriCost_Details.WidthF = 205.37
                         End If
@@ -2661,18 +3158,23 @@ Public Class rpt_CAControlTransfer
                         Else
                             NoTransferVal_Details.WidthF = 180.75
                         End If
-                    Case 5
-                        If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
-                            NoClaim_Details.WidthF = 238.2
-                        Else
-                            NoClaim_Details.WidthF = 231.84
-                        End If
+                        'Case 5
+                        '    If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
+                        '        NoClaim_Details.WidthF = 238.2
+                        '    Else
+                        '        NoClaim_Details.WidthF = 231.84
+                        '    End If
                     Case Else
-                        
+
                 End Select
                 Application.DoEvents()
 
             Next
+            If NoClaim.Visible = False Then
+                NoClaim_Details.WidthF = 0
+            Else
+                NoClaim_Details.WidthF = DynamicWidth
+            End If
             If No2.Visible = False Then
                 No2_Details.WidthF = 0
             Else
@@ -2745,11 +3247,11 @@ Public Class rpt_CAControlTransfer
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
-    Private Sub table2_Footer_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles table2_Footer.BeforePrint  ', No3.BeforePrint, No8.BeforePrint, No10.BeforePrint, No12.BeforePrint, No14.BeforePrint, No16.BeforePrint, No20.BeforePrint, No40.BeforePrint, No50.BeforePrint, No60.BeforePrint, No8.BeforePrint, No90.BeforePrint, No100.BeforePrint
+    Private Sub table2_Footer_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles table2_Footer.BeforePrint
         Try
             Dim dt As DataTable = Nothing
             dt = ADO.Load_CAReport_ControlTransfer_Temp(paramID.Value)
@@ -2761,20 +3263,24 @@ Public Class rpt_CAControlTransfer
             Dim CA_TRANSFERROR_NAME As String = Me.GetCurrentColumnValue("CA_TRANSFERROR_NAME")
             Dim ID As String = Me.GetCurrentColumnValue("ID")
             Dim YA As String = Me.GetCurrentColumnValue("YA")
-            Dim Count As Integer = ADO.Load_CAReport_CA_REPORT_CONTROLTRANSFER_TEMP_CountByControlTransfer(ID, YA, CA_TRANSFERROR_NAME)
+            Dim CA_CATEGORY_CODE As String = Me.GetCurrentColumnValue("CA_CATEGORY_CODE")
+            Dim Count As Integer = ADO.Load_CAReport_CA_REPORT_CONTROLTRANSFER_TEMP_CountByCATEGORY(ID, YA, CA_CATEGORY_CODE, CA_TRANSFERROR_NAME)
 
             If Count <= 1 Then
                 lineFooter_Top.Visible = False
                 lineFooter_Bot.Visible = False
                 table2_Footer.Visible = False
+                'txtBlank.Visible = True
             Else
                 lineFooter_Top.Visible = True
                 lineFooter_Bot.Visible = True
                 table2_Footer.Visible = True
+                'txtBlank.Visible = False
+
             End If
 
 
-            Dim ListofAA As List(Of String) = mdlCA.Get_ListofAA()
+            Dim ListofAA As List(Of String) = mdlCA.Get_ListofAA(True)
 
             Dim tmpStatus As Boolean = False
 
@@ -2790,6 +3296,9 @@ Public Class rpt_CAControlTransfer
                         tmpStatus = True
                         If IsNumeric(ListofAA(y).Replace("AA_", "")) Then
                             Select Case CInt(ListofAA(y).Replace("AA_", ""))
+                                Case 0
+                                    NoClaim_Footer.Visible = True
+                                    TotalColumn += 1
                                 Case 2
                                     No2_Footer.Visible = True
                                     TotalColumn += 1
@@ -2845,7 +3354,7 @@ Public Class rpt_CAControlTransfer
             Dim BalanceWidth As Decimal = 0
 
             If DynamicColumn = 0 AndAlso DynamicColumn <= 10 Then
-                DynamicWidth = (TotalWidth - 1621.18) / DynamicColumn
+                DynamicWidth = (TotalWidth - 1611.18) / DynamicColumn
             Else
                 DynamicWidth = (TotalWidth - 1205.51) / DynamicColumn
             End If
@@ -2853,7 +3362,9 @@ Public Class rpt_CAControlTransfer
             If DynamicWidth > 200 Then
                 BalanceWidth = (DynamicWidth * DynamicColumn) - (200 * DynamicColumn)
                 DynamicWidth = 200
-
+                If DynamicColumn = 1 Then
+                    DynamicWidth = 230
+                End If
             End If
 
             Dim StartCell As XRTableCell = Nothing
@@ -2861,6 +3372,8 @@ Public Class rpt_CAControlTransfer
             Dim isFirst As Boolean = False
             Dim isLast As Boolean = False
             Dim TotalWith As Decimal = 0
+            Dim FooterNoteTotal As Decimal = 0
+
             For i As Integer = 0 To TotalColumn
                 Select Case i
                     Case 0
@@ -2877,39 +3390,58 @@ Public Class rpt_CAControlTransfer
                         End If
                     Case 2
                         If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
-                            NoOriCost_Footer.WidthF = 238.35
+                            NoOriCost_Footer.WidthF = 250.35
+                            NoOriCost_NoteFooter.WidthF = 250.35
                         Else
                             NoOriCost_Footer.WidthF = 205.37
+                            NoOriCost_NoteFooter.WidthF = 205.37
                         End If
                         TotalWith += NoOriCost_Footer.WidthF
+                        FooterNoteTotal += NoOriCost_Footer.WidthF
                     Case 3
                         If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
                             NoTWDV_Footer.WidthF = 226.46
+                            NoTWDV_NoteFooter.WidthF = 226.46
                         Else
                             NoTWDV_Footer.WidthF = 190.42
+                            NoTWDV_NoteFooter.WidthF = 190.42
                         End If
                         TotalWith += NoTWDV_Footer.WidthF
+                        FooterNoteTotal += NoTWDV_Footer.WidthF
                     Case 4
                         If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
                             NoTransferVal_Footer.WidthF = 226.77
+                            NoTransferVal_NoteFooter.WidthF = 226.77
                         Else
                             NoTransferVal_Footer.WidthF = 180.75
+                            NoTransferVal_NoteFooter.WidthF = 180.75
                         End If
                         TotalWith += NoTransferVal_Footer.WidthF
-                    Case 5
-                        If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
-                            NoClaim_Footer.WidthF = 238.2
-                        Else
-                            NoClaim_Footer.WidthF = 231.84
-                        End If
-                        TotalWith += NoClaim_Footer.WidthF
+                        FooterNoteTotal += NoTransferVal_Footer.WidthF
+                        'Case 5
+                        '    If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
+                        '        NoClaim_Footer.WidthF = 238.2
+                        '    Else
+                        '        NoClaim_Footer.WidthF = 231.84
+                        '    End If
+                        '    TotalWith += NoClaim_Footer.WidthF
                     Case Else
 
                 End Select
                 Application.DoEvents()
 
             Next
-
+            If NoClaim.Visible = False Then
+                NoClaim_Footer.WidthF = 0
+                TotalWith += 5
+            Else
+                If isFirst = False Then
+                    isFirst = True
+                    StartCell = No2
+                End If
+                NoClaim_Footer.WidthF = DynamicWidth
+                TotalWith += NoClaim_Footer.WidthF
+            End If
 
             If No2.Visible = False Then
                 No2_Footer.WidthF = 0
@@ -3070,12 +3602,15 @@ Public Class rpt_CAControlTransfer
             lineFooter_Top.LocationF = New PointF(NoOriCost_Footer.LocationF.X, NoOriCost_Footer.LocationF.Y)
             lineFooter_Top.SizeF = New SizeF(TotalWith, 1)
             lineFooter_Bot.LocationF = New PointF(NoOriCost_Footer.LocationF.X, NoOriCost_Footer.LocationF.Y + 70)
-            lineFooter_Bot.SizeF = New SizeF(TotalWith, 1)
+            lineFooter_Bot.SizeF = New SizeF(TotalWith, 10)
 
+
+            'dtNoteFooter.LocationF = New PointF(NoOriCost_Footer.LocationF.X, NoOriCost_Footer.LocationF.Y)
+            'dtNoteFooter.WidthF = FooterNoteTotal
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3088,7 +3623,7 @@ Public Class rpt_CAControlTransfer
                 Exit Sub
             End If
 
-            Dim ListofAA As List(Of String) = Get_ListofAA()
+            Dim ListofAA As List(Of String) = Get_ListofAA(True)
 
             Dim tmpStatus As Boolean = False
 
@@ -3104,6 +3639,9 @@ Public Class rpt_CAControlTransfer
                         tmpStatus = True
                         If IsNumeric(ListofAA(y).Replace("AA_", "")) Then
                             Select Case CInt(ListofAA(y).Replace("AA_", ""))
+                                Case 0
+                                    NoClaim_Report.Visible = True
+                                    TotalColumn += 1
                                 Case 2
                                     No2_Report.Visible = True
                                     TotalColumn += 1
@@ -3159,7 +3697,7 @@ Public Class rpt_CAControlTransfer
             Dim BalanceWidth As Decimal = 0
 
             If DynamicColumn = 0 AndAlso DynamicColumn <= 10 Then
-                DynamicWidth = (TotalWidth - 1621.18) / DynamicColumn
+                DynamicWidth = (TotalWidth - 1611.18) / DynamicColumn
             Else
                 DynamicWidth = (TotalWidth - 1205.51) / DynamicColumn
             End If
@@ -3167,7 +3705,9 @@ Public Class rpt_CAControlTransfer
             If DynamicWidth > 200 Then
                 BalanceWidth = (DynamicWidth * DynamicColumn) - (200 * DynamicColumn)
                 DynamicWidth = 200
-
+                If DynamicColumn = 1 Then
+                    DynamicWidth = 230
+                End If
             End If
 
             Dim StartCell As XRTableCell = Nothing
@@ -3191,7 +3731,7 @@ Public Class rpt_CAControlTransfer
                         End If
                     Case 2
                         If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
-                            NoOriCost_Report.WidthF = 238.35
+                            NoOriCost_Report.WidthF = 250.35
                         Else
                             NoOriCost_Report.WidthF = 205.37
                         End If
@@ -3210,13 +3750,13 @@ Public Class rpt_CAControlTransfer
                             NoTransferVal_Report.WidthF = 180.75
                         End If
                         TotalWith += NoTransferVal_Report.WidthF
-                    Case 5
-                        If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
-                            NoClaim_Report.WidthF = 238.2
-                        Else
-                            NoClaim_Report.WidthF = 231.84
-                        End If
-                        TotalWith += NoClaim_Report.WidthF
+                        'Case 5
+                        '    If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
+                        '        NoClaim_Report.WidthF = 238.2
+                        '    Else
+                        '        NoClaim_Report.WidthF = 231.84
+                        '    End If
+                        '    TotalWith += NoClaim_Report.WidthF
                     Case Else
 
                 End Select
@@ -3224,7 +3764,17 @@ Public Class rpt_CAControlTransfer
 
             Next
 
-
+            If NoClaim.Visible = False Then
+                NoClaim_Report.WidthF = 0
+                TotalWith += 5
+            Else
+                If isFirst = False Then
+                    isFirst = True
+                    StartCell = No2
+                End If
+                NoClaim_Report.WidthF = DynamicWidth
+                TotalWith += NoClaim_Report.WidthF
+            End If
             If No2.Visible = False Then
                 No2_Report.WidthF = 0
                 TotalWith += 5
@@ -3381,16 +3931,245 @@ Public Class rpt_CAControlTransfer
                 TotalWith += No100_Report.WidthF
             End If
 
-            'lineReport_Top.LocationF = New PointF(NoOriCost_Report.LocationF.X, NoOriCost_Report.LocationF.Y)
-            'lineReport_Top.SizeF = New SizeF(TotalWith, 1)
-            lineReport_Bot.LocationF = New PointF(NoOriCost_Report.LocationF.X, NoOriCost_Report.LocationF.Y + 80)
-            lineReport_Bot.SizeF = New SizeF(TotalWith, 1)
+            lineReport_top.LocationF = New PointF(NoOriCost_Report.LocationF.X, 0)
+            lineReport_top.SizeF = New SizeF(TotalWith, 1)
+            lineReport_Bot.LocationF = New PointF(NoOriCost_Report.LocationF.X, NoOriCost_Report.LocationF.Y + 74)
+            lineReport_Bot.SizeF = New SizeF(TotalWith, 10)
 
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
+
+    Private Sub dtNoteFooter_BeforePrint(sender As Object, e As PrintEventArgs) Handles dtNoteFooter.BeforePrint
+        Try
+            Dim dt As DataTable = Nothing
+            dt = ADO.Load_CAReport_ControlTransfer_Temp(paramID.Value)
+
+            If dt Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim ListofAA As List(Of String) = mdlCA.Get_ListofAA()
+
+            Dim tmpStatus As Boolean = False
+
+            Dim TotalWidth As Decimal = 2830
+            Dim DynamicWidth As Decimal = 0
+            Dim TotalColumn As Integer = 6
+
+            For y As Integer = 0 To ListofAA.Count - 1
+                tmpStatus = False
+                For x As Integer = 0 To dt.Rows.Count - 1
+
+                    If tmpStatus = False AndAlso IsDBNull(dt.Rows(x)(ListofAA(y))) = False AndAlso dt.Rows(x)(ListofAA(y)) <> 0 Then
+                        tmpStatus = True
+                        If IsNumeric(ListofAA(y).Replace("AA_", "")) Then
+                            Select Case CInt(ListofAA(y).Replace("AA_", ""))
+                                Case 2
+                                    No2_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 3
+                                    No3_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 8
+                                    No8_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 10
+                                    No10_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 12
+                                    No12_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 14
+                                    No14_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 16
+                                    No16_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 20
+                                    No20_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 40
+                                    No40_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 50
+                                    No50_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 60
+                                    No60_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 80
+                                    No80_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 90
+                                    No90_Footer.Visible = True
+                                    TotalColumn += 1
+                                Case 100
+                                    No100_Footer.Visible = True
+                                    TotalColumn += 1
+                            End Select
+                        End If
+
+                    End If
+
+                Next
+
+            Next
+
+            Dim DynamicColumn As Integer = TotalColumn - 6
+            Dim BalanceWidth As Decimal = 0
+
+            If DynamicColumn = 0 AndAlso DynamicColumn <= 10 Then
+                DynamicWidth = (TotalWidth - 1611.18) / DynamicColumn
+            Else
+                DynamicWidth = (TotalWidth - 1205.51) / DynamicColumn
+            End If
+
+            If DynamicWidth > 200 Then
+                BalanceWidth = (DynamicWidth * DynamicColumn) - (200 * DynamicColumn)
+                DynamicWidth = 200
+
+            End If
+
+            If DynamicColumn >= 0 AndAlso DynamicColumn <= 10 Then
+                NoDescription_NoteFooter.WidthF = 691.3
+                NoOriCost_NoteFooter.WidthF = 250.35
+                NoTWDV_NoteFooter.WidthF = 226.46
+                NoTransferVal_NoteFooter.WidthF = 226.77
+            Else
+                NoDescription_NoteFooter.WidthF = 402.27
+                NoOriCost_NoteFooter.WidthF = 205.37
+                NoTWDV_NoteFooter.WidthF = 190.42
+                NoTransferVal_NoteFooter.WidthF = 180.75
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub XrLabel6_BeforePrint(sender As Object, e As PrintEventArgs) Handles XrLabel6.BeforePrint
+        Try
+            Dim Val As String = Me.GetCurrentColumnValue("CA_CATEGORY_CODE")
+            Dim CA_TRANSFERROR_NAME As String = Me.GetCurrentColumnValue("CA_TRANSFERROR_NAME")
+            Dim ID As String = Me.GetCurrentColumnValue("ID")
+            Dim YA As String = Me.GetCurrentColumnValue("YA")
+
+            Dim Count As Integer = ADO.Load_CAReport_CA_REPORT_CONTROLTRANSFER_TEMP_CountByCATEGORY(ID, YA, Val, CA_TRANSFERROR_NAME)
+
+            If Count <= 1 Then
+                LineDetails.Visible = True
+            Else
+                LineDetails.Visible = False
+                detailBand1.HeightF = 60
+            End If
+
+
+            If Val.ToUpper <> "Capital Expenditure Expensed Off in Income Statement" Then
+                XrLabel6.Text = Val.Remove(0, 1)
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub lblDraft_Report_PrintOnPage(sender As Object, e As DevExpress.XtraReports.UI.PrintOnPageEventArgs) Handles lblDraft_Report.PrintOnPage
+        Try
+            If e.PageIndex = 0 Then
+                lblDraft_Report.Visible = True
+                tblTitle.LocationF = New PointF(0, 0)
+            Else
+                lblDraft_Report.Visible = False
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub lblDraft_Page_PrintOnPage(sender As Object, e As DevExpress.XtraReports.UI.PrintOnPageEventArgs) Handles lblDraft_Page.PrintOnPage
+        Try
+            If e.PageIndex <> 0 Then
+                lblDraft_Page.Visible = True
+            Else
+                lblDraft_Page.Visible = False
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub lblTitle_BeforePrint(sender As Object, e As PrintEventArgs) Handles lblTitle.BeforePrint
+        Try
+            lblTitle.Text = lblTitle.Text.ToUpper
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub lblPageNo_PrintOnPage(sender As Object, e As PrintOnPageEventArgs) Handles lblPageNo.PrintOnPage
+        Try
+            If e.PageCount > 1 Then
+                lblPageNo.Visible = True
+            Else
+                lblPageNo.Visible = False
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    'Private Sub lblPageHeaderGAP_BeforePrint(sender As Object, e As PrintEventArgs)
+    '    Try
+    '        'If CurrentPage = 0 Then
+    '        '    lblPageHeaderGAP.Visible = False
+    '        '    lblPageHeaderGAP.HeightF = 1
+    '        'Else
+    '        '    lblPageHeaderGAP.Visible = True
+    '        '    lblPageHeaderGAP.HeightF = 92.6
+    '        'End If
+    '    Catch ex As Exception
+
+    '    End Try
+    'End Sub
+    'Private Sub lblPageHeaderGAP_PrintOnPage(sender As Object, e As PrintOnPageEventArgs)
+    '    Try
+    '        CurrentPage = e.PageIndex
+
+    '        If e.PageIndex = 0 Then
+    '            lblPageHeaderGAP.Visible = False
+    '            lblPageHeaderGAP.HeightF = 1
+    '        Else
+    '            lblPageHeaderGAP.Visible = True
+    '            lblPageHeaderGAP.HeightF = 92.6
+    '        End If
+    '    Catch ex As Exception
+
+    '    End Try
+    'End Sub
+
+
+
+    Private Sub lblPageHeaderGAP_PrintOnPage(sender As Object, e As PrintOnPageEventArgs)
+
+    End Sub
+    Private Sub lblPageHeaderGAP_BeforePrint(sender As Object, e As PrintEventArgs)
+
+    End Sub
+
+    'Private Sub XrPanel1_PrintOnPage(sender As Object, e As PrintOnPageEventArgs)
+    '    Try
+    '        If e.PageIndex = 0 Then
+    '            XrLabel3.Visible = False
+    '            XrLabel3.Text = ""
+    '            PageHeader_Sub1.HeightF = 2
+    '        Else
+    '            XrLabel3.Visible = True
+    '        End If
+
+    '    Catch ex As Exception
+
+    '    End Try
+    'End Sub
 End Class

@@ -1,5 +1,5 @@
 ﻿Public Class rpt_CAAnalysis
-    Private Sub No2_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles table1.BeforePrint  ', No3.BeforePrint, No8.BeforePrint, No10.BeforePrint, No12.BeforePrint, No14.BeforePrint, No16.BeforePrint, No20.BeforePrint, No40.BeforePrint, No50.BeforePrint, No60.BeforePrint, No8.BeforePrint, No90.BeforePrint, No100.BeforePrint
+    Private Sub No2_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles tblTitle.BeforePrint  ', No3.BeforePrint, No8.BeforePrint, No10.BeforePrint, No12.BeforePrint, No14.BeforePrint, No16.BeforePrint, No20.BeforePrint, No40.BeforePrint, No50.BeforePrint, No60.BeforePrint, No8.BeforePrint, No90.BeforePrint, No100.BeforePrint
         Try
             Dim dt As DataTable = Nothing
             dt = ADO.Load_CAReport_Analysis_Temp(paramID.Value)
@@ -11,20 +11,30 @@
 
             Dim tmpStatus As Boolean = False
 
-            Dim TotalWidth As Decimal = 1046
-            Dim DynamicWidth As Decimal = 0
+            Dim TotalWidth As Integer = 1116
+            Dim DynamicWidth As Integer = 0
             Dim TotalColumn As Integer = 4
             Dim RAITA_Status As Boolean = False
             Dim DeferredStatus As Boolean = False
+            Dim RecStatus As Boolean = False
+            Dim NoClaimStatus As Boolean = False
+
             For y As Integer = 0 To ListofAA.Count - 1
                 tmpStatus = False
                 For x As Integer = 0 To dt.Rows.Count - 1
-                    If IsDBNull(dt.Rows(0)("CA_INCENTIVE")) = False AndAlso IsNumeric(dt.Rows(0)("CA_INCENTIVE")) AndAlso CInt(dt.Rows(0)("CA_INCENTIVE")) <> 0 Then
+                    '  CA_ACCELERATED = False
+                    If IsDBNull(dt.Rows(x)("CA_INCENTIVE")) = False AndAlso IsNumeric(dt.Rows(x)("CA_INCENTIVE")) AndAlso CInt(dt.Rows(x)("CA_INCENTIVE")) <> 0 Then
                         RAITA_Status = True
-                        NoRAITA.Text = dt.Rows(0)("CA_INCENTIVE_TITLE")
+                        NoRAITA.Text = dt.Rows(x)("CA_INCENTIVE_TITLE")
                     End If
-                    If IsDBNull(dt.Rows(0)("CA_DEFERRED")) = False AndAlso IsNumeric(dt.Rows(0)("CA_DEFERRED")) AndAlso CInt(dt.Rows(0)("CA_DEFERRED")) <> 0 Then
+                    If IsDBNull(dt.Rows(x)("CA_DEFERRED")) = False AndAlso IsNumeric(dt.Rows(x)("CA_DEFERRED")) AndAlso CInt(dt.Rows(x)("CA_DEFERRED")) <> 0 Then
                         DeferredStatus = True
+                    End If
+                    If IsDBNull(dt.Rows(x)("CA_REC")) = False AndAlso IsNumeric(dt.Rows(x)("CA_REC")) AndAlso CInt(dt.Rows(x)("CA_REC")) <> 0 Then
+                        RecStatus = True
+                    End If
+                    If IsDBNull(dt.Rows(x)("AA_0")) = False AndAlso IsNumeric(dt.Rows(x)("AA_0")) AndAlso CInt(dt.Rows(x)("AA_0")) <> 0 Then
+                        NoClaimStatus = True
                     End If
 
                     If tmpStatus = False AndAlso IsDBNull(dt.Rows(x)(ListofAA(y))) = False AndAlso dt.Rows(x)(ListofAA(y)) <> 0 Then
@@ -35,58 +45,72 @@
                                     No2.Visible = True
                                     No2_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No2, 2)
                                 Case 3
                                     No3.Visible = True
                                     No3_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No3, 3)
                                 Case 8
                                     No8.Visible = True
                                     No8_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No8, 8)
                                 Case 10
                                     No10.Visible = True
                                     No10_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No10, 10)
                                 Case 12
                                     No12.Visible = True
                                     No12_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No12, 12)
                                 Case 14
                                     No14.Visible = True
                                     No14_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No14, 14)
                                 Case 16
                                     No16.Visible = True
                                     No16_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No16, 16)
                                 Case 20
                                     No20.Visible = True
                                     No20_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No20, 20)
                                 Case 40
                                     No40.Visible = True
                                     No40_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No40, 40)
                                 Case 50
                                     No50.Visible = True
                                     No50_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No50, 50)
                                 Case 60
                                     No60.Visible = True
                                     No60_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No60, 60)
                                 Case 80
                                     No80.Visible = True
                                     No80_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No80, 80)
                                 Case 90
                                     No90.Visible = True
                                     No90_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No90, 90)
                                 Case 100
                                     No100.Visible = True
                                     No100_Bot.Visible = True
                                     TotalColumn += 1
+                                    GetACA(No100, 100)
                             End Select
                         End If
 
@@ -97,21 +121,47 @@
             Next
 
             If RAITA_Status Then
+                NoRAITA_Top.Visible = True
                 NoRAITA.Visible = True
                 NoRAITA_Bot.Visible = True
                 TotalColumn += 1
             Else
+                NoRAITA_Top.Visible = False
                 NoRAITA.Visible = False
                 NoRAITA_Bot.Visible = False
             End If
 
             If DeferredStatus Then
                 NoDeferred.Visible = True
+                NoDeferred_Top.Visible = True
                 NoDeferred_Bot.Visible = True
                 TotalColumn += 1
             Else
                 NoDeferred.Visible = False
+                NoDeferred_Top.Visible = False
                 NoDeferred_Bot.Visible = False
+            End If
+
+            If RecStatus Then
+                NoRec2.Visible = True
+                NoREC_Top.Visible = True
+                NoRec_Bot.Visible = True
+                TotalColumn += 1
+            Else
+                NoRec2.Visible = False
+                NoREC_Top.Visible = False
+                NoRec_Bot.Visible = False
+            End If
+
+            If NoClaimStatus Then
+                NoClaim.Visible = True
+                NoClaim_Top.Visible = True
+                NoClaim_Bot.Visible = True
+                TotalColumn += 1
+            Else
+                NoClaim.Visible = False
+                NoClaim_Top.Visible = False
+                NoClaim_Bot.Visible = False
             End If
 
 
@@ -124,45 +174,49 @@
                 DynamicWidth = (TotalWidth - 435.23) / DynamicColumn
             End If
 
-            If DynamicWidth > 200 Then
-                BalanceWidth = (DynamicWidth * DynamicColumn) - (200 * DynamicColumn)
-                DynamicWidth = 200
+            If DynamicWidth > 80 Then
+                BalanceWidth = (DynamicWidth * DynamicColumn) - (80 * DynamicColumn)
+                DynamicWidth = 80
 
             End If
 
             If DynamicColumn >= 0 AndAlso DynamicColumn <= 6 Then
-                NoDescription.WidthF = 150.26 '+ BalanceWidth - 50
-                NoDescription_Bot.WidthF = 150.26
-                NoDescription_Top.WidthF = 150.26
+                NoDescription.WidthF = 250.26 '+ BalanceWidth - 50
+                NoDescription_Bot.WidthF = 250.26
+                NoDescription_Top.WidthF = 250.26
 
                 NoCost.WidthF = 80
                 NoCost_Bot.WidthF = 80
                 NoCost_Top.WidthF = 80
 
-                NoREC.WidthF = 80
-                NoREC_Bot.WidthF = 80
-                NoREC_Top.WidthF = 80
 
-                NoClaim.WidthF = 80
-                NoClaim_Bot.WidthF = 80
-                NoClaim_Top.WidthF = 80
+
+                'NoREC_Top.WidthF = 100
+                'NoRec2.WidthF = 100
+                'NoRec_Bot.WidthF = 100
+                ''NoRec2.Visible = True
+
+                'NoClaim.WidthF = 80
+                'NoClaim_Bot.WidthF = 80
+                'NoClaim_Top.WidthF = 80
 
             ElseIf DynamicColumn >= 7 AndAlso DynamicColumn <= 10 Then
-                NoDescription.WidthF = 100.26 '+ BalanceWidth - 50
-                NoDescription_Bot.WidthF = 100.26
-                NoDescription_Top.WidthF = 100.26
+                NoDescription.WidthF = 200.26 '+ BalanceWidth - 50
+                NoDescription_Bot.WidthF = 200.26
+                NoDescription_Top.WidthF = 200.26
 
                 NoCost.WidthF = 70
                 NoCost_Bot.WidthF = 70
                 NoCost_Top.WidthF = 70
 
-                NoREC.WidthF = 70
-                NoREC_Bot.WidthF = 70
-                NoREC_Top.WidthF = 70
+                'NoRec2.WidthF = 70
+                'NoRec_Bot.WidthF = 70
+                'NoREC_Top.WidthF = 70
 
-                NoClaim.WidthF = 70
-                NoClaim_Bot.WidthF = 70
-                NoClaim_Top.WidthF = 70
+
+                'NoClaim.WidthF = 70
+                'NoClaim_Bot.WidthF = 70
+                'NoClaim_Top.WidthF = 70
             Else
                 NoDescription.WidthF = 80.23 '+ BalanceWidth - 50
                 NoDescription_Bot.WidthF = 80.23
@@ -172,13 +226,14 @@
                 NoCost_Bot.WidthF = 60
                 NoCost_Top.WidthF = 60
 
-                NoREC.WidthF = 60
-                NoREC_Bot.WidthF = 60
-                NoREC_Top.WidthF = 60
+                'NoRec2.WidthF = 60
+                'NoRec_Bot.WidthF = 60
+                'NoREC_Top.WidthF = 60
 
-                NoClaim.WidthF = 60
-                NoClaim_Bot.WidthF = 60
-                NoClaim_Top.WidthF = 60
+
+                'NoClaim.WidthF = 60
+                'NoClaim_Bot.WidthF = 60
+                'NoClaim_Top.WidthF = 60
             End If
 
 
@@ -190,6 +245,26 @@
                 NoRAITA.WidthF = DynamicWidth
                 NoRAITA_Bot.WidthF = DynamicWidth
                 NoRAITA_Top.WidthF = DynamicWidth
+            End If
+
+            If NoRec2.Visible = False Then
+                NoRec2.WidthF = 0
+                NoRec_Bot.WidthF = 0
+                NoREC_Top.WidthF = 0
+            Else
+                NoRec2.WidthF = DynamicWidth
+                NoRec_Bot.WidthF = DynamicWidth
+                NoREC_Top.WidthF = DynamicWidth
+            End If
+
+            If NoClaim.Visible = False Then
+                NoClaim.WidthF = 0
+                NoClaim_Bot.WidthF = 0
+                NoClaim_Top.WidthF = 0
+            Else
+                NoClaim.WidthF = DynamicWidth
+                NoClaim_Bot.WidthF = DynamicWidth
+                NoClaim_Top.WidthF = DynamicWidth
             End If
 
             If NoDeferred.Visible = False Then
@@ -348,15 +423,16 @@
                 TotalQF += DynamicWidth
             End If
 
-            NoHeader_Top.WidthF = TotalQF
+
 
             NoTotal.WidthF = 80
             NoTotal_Bot.WidthF = 80
-            NoTotal_Top.WidthF = 80
+            ' NoTotal_Top.WidthF = 80
 
+            NoHeader_Top.WidthF = TotalQF '+ 90
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -372,21 +448,35 @@
 
             Dim tmpStatus As Boolean = False
 
-            Dim TotalWidth As Decimal = 1046
-            Dim DynamicWidth As Decimal = 0
+            Dim TotalWidth As Integer = 1116
+            Dim DynamicWidth As Integer = 0
             Dim TotalColumn As Integer = 4
             Dim RAITA_Status As Boolean = False
             Dim DeferredStatus As Boolean = False
+            Dim RecStatus As Boolean = False
+            Dim NoClaimStatus As Boolean = False
+            ' Dim CA_ACCELERATED As Boolean = False
             For y As Integer = 0 To ListofAA.Count - 1
                 tmpStatus = False
                 For x As Integer = 0 To dt.Rows.Count - 1
-                    If IsDBNull(dt.Rows(0)("CA_INCENTIVE")) = False AndAlso IsNumeric(dt.Rows(0)("CA_INCENTIVE")) AndAlso CInt(dt.Rows(0)("CA_INCENTIVE")) <> 0 Then
+                    If IsDBNull(dt.Rows(x)("CA_INCENTIVE")) = False AndAlso IsNumeric(dt.Rows(x)("CA_INCENTIVE")) AndAlso CInt(dt.Rows(x)("CA_INCENTIVE")) <> 0 Then
                         RAITA_Status = True
-                        NoRAITA.Text = dt.Rows(0)("CA_INCENTIVE_TITLE")
+                        NoRAITA.Text = dt.Rows(x)("CA_INCENTIVE_TITLE")
                     End If
-                    If IsDBNull(dt.Rows(0)("CA_DEFERRED")) = False AndAlso IsNumeric(dt.Rows(0)("CA_DEFERRED")) AndAlso CInt(dt.Rows(0)("CA_DEFERRED")) <> 0 Then
+                    If IsDBNull(dt.Rows(x)("CA_DEFERRED")) = False AndAlso IsNumeric(dt.Rows(x)("CA_DEFERRED")) AndAlso CInt(dt.Rows(x)("CA_DEFERRED")) <> 0 Then
                         DeferredStatus = True
                     End If
+                    If IsDBNull(dt.Rows(x)("CA_REC")) = False AndAlso IsNumeric(dt.Rows(x)("CA_REC")) AndAlso CInt(dt.Rows(x)("CA_REC")) <> 0 Then
+                        RecStatus = True
+                    End If
+                    If IsDBNull(dt.Rows(x)("AA_0")) = False AndAlso IsNumeric(dt.Rows(x)("AA_0")) AndAlso CInt(dt.Rows(x)("AA_0")) <> 0 Then
+                        NoClaimStatus = True
+                    End If
+                    'If IsDBNull(dt.Rows(x)("CA_ACCELERATED")) = False AndAlso dt.Rows(x)("CA_ACCELERATED") = True Then
+                    '    CA_ACCELERATED = True
+                    'Else
+                    '    CA_ACCELERATED = False
+                    'End If
 
                     If tmpStatus = False AndAlso IsDBNull(dt.Rows(x)(ListofAA(y))) = False AndAlso dt.Rows(x)(ListofAA(y)) <> 0 Then
                         tmpStatus = True
@@ -396,58 +486,100 @@
                                     No2.Visible = True
                                     No2_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No2.Text = "ACA " & No2.Text
+                                    'End If
                                 Case 3
                                     No3.Visible = True
                                     No3_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No3.Text = "ACA " & No3.Text
+                                    'End If
                                 Case 8
                                     No8.Visible = True
                                     No8_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No8.Text = "ACA " & No8.Text
+                                    'End If
                                 Case 10
                                     No10.Visible = True
                                     No10_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No10.Text = "ACA " & No10.Text
+                                    'End If
                                 Case 12
                                     No12.Visible = True
                                     No12_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No12.Text = "ACA " & No12.Text
+                                    'End If
                                 Case 14
                                     No14.Visible = True
                                     No14_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No14.Text = "ACA " & No14.Text
+                                    'End If
                                 Case 16
                                     No16.Visible = True
                                     No16_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No16.Text = "ACA " & No16.Text
+                                    'End If
                                 Case 20
                                     No20.Visible = True
                                     No20_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No20.Text = "ACA " & No20.Text
+                                    'End If
                                 Case 40
                                     No40.Visible = True
                                     No40_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No40.Text = "ACA " & No40.Text
+                                    'End If
                                 Case 50
                                     No50.Visible = True
                                     No50_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No50.Text = "ACA " & No50.Text
+                                    'End If
                                 Case 60
                                     No60.Visible = True
                                     No60_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No60.Text = "ACA " & No60.Text
+                                    'End If
                                 Case 80
                                     No80.Visible = True
                                     No80_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No80.Text = "ACA " & No80.Text
+                                    'End If
                                 Case 90
                                     No90.Visible = True
                                     No90_Details.Visible = True
                                     TotalColumn += 1
+                                    If CA_ACCELERATED Then
+                                        No90.Text = "ACA " & No90.Text
+                                    End If
                                 Case 100
                                     No100.Visible = True
                                     No100_Details.Visible = True
                                     TotalColumn += 1
+                                    'If CA_ACCELERATED Then
+                                    '    No100.Text = "ACA " & No100.Text
+                                    'End If
                             End Select
                         End If
 
@@ -461,13 +593,15 @@
             If obj IsNot Nothing AndAlso IsNumeric(obj) AndAlso CInt(obj) > 1 Then
                 Table1_Footer.Visible = True
                 lineFooter_Bot.Visible = True
-                lineFooter_Top.LineWidth = 1
+                lineFooter2_Top.Visible = False
+                lineFooter2_Bot.Visible = True
+
                 NoTotal_Details.Text = ""
             Else
                 Table1_Footer.Visible = False
                 lineFooter_Bot.Visible = False
-                lineFooter_Top.LineWidth = 2
-
+                lineFooter2_Top.Visible = True
+                lineFooter2_Bot.Visible = False
             End If
 
             If RAITA_Status Then
@@ -488,6 +622,23 @@
                 NoDeferred_Details.Visible = False
             End If
 
+            If RecStatus Then
+                NoRec2.Visible = True
+                NoREC_Details.Visible = True
+                TotalColumn += 1
+            Else
+                NoRec2.Visible = False
+                NoREC_Details.Visible = False
+            End If
+
+            If NoClaimStatus Then
+                NoClaim.Visible = True
+                NoClaim_Details.Visible = True
+                TotalColumn += 1
+            Else
+                NoClaim.Visible = False
+                NoClaim_Details.Visible = False
+            End If
 
             Dim DynamicColumn As Integer = TotalColumn - 3
             Dim BalanceWidth As Decimal = 0
@@ -498,15 +649,15 @@
                 DynamicWidth = (TotalWidth - 435.23) / DynamicColumn
             End If
 
-            If DynamicWidth > 200 Then
-                BalanceWidth = (DynamicWidth * DynamicColumn) - (200 * DynamicColumn)
-                DynamicWidth = 200
+            If DynamicWidth > 80 Then
+                BalanceWidth = (DynamicWidth * DynamicColumn) - (80 * DynamicColumn)
+                DynamicWidth = 80
 
             End If
 
             If DynamicColumn >= 0 AndAlso DynamicColumn <= 6 Then
-                NoDescription.WidthF = 150.26 '+ BalanceWidth - 50
-                NoDescription_Details.WidthF = 150.26
+                NoDescription.WidthF = 250.26 '+ BalanceWidth - 50
+                NoDescription_Details.WidthF = 250.26
 
                 If NoRAITA.Visible = False Then
                     NoRAITA.WidthF = 0
@@ -518,13 +669,13 @@
 
                 NoCost.WidthF = 80
                 NoCost_Details.WidthF = 80
-                NoREC.WidthF = 80
-                NoREC_Details.WidthF = 80
-                NoClaim.WidthF = 80
-                NoClaim_Details.WidthF = 80
+                'NoRec2.WidthF = 100
+                'NoREC_Details.WidthF = 100
+                'NoClaim.WidthF = 80
+                'NoClaim_Details.WidthF = 80
             ElseIf DynamicColumn >= 7 AndAlso DynamicColumn <= 10 Then
-                NoDescription.WidthF = 100.26 '+ BalanceWidth - 50
-                NoDescription_Details.WidthF = 100.26
+                NoDescription.WidthF = 200.26 '+ BalanceWidth - 50
+                NoDescription_Details.WidthF = 200.26
 
                 If NoRAITA.Visible = False Then
                     NoRAITA.WidthF = 0
@@ -536,10 +687,10 @@
 
                 NoCost.WidthF = 70
                 NoCost_Details.WidthF = 70
-                NoREC.WidthF = 70
-                NoREC_Details.WidthF = 70
-                NoClaim.WidthF = 70
-                NoClaim_Details.WidthF = 70
+                'NoRec2.WidthF = 70
+                'NoREC_Details.WidthF = 70
+                'NoClaim.WidthF = 70
+                'NoClaim_Details.WidthF = 70
             Else
                 NoDescription.WidthF = 80.23 '+ BalanceWidth - 50
                 NoDescription_Details.WidthF = 80.23
@@ -553,10 +704,26 @@
                 End If
                 NoCost.WidthF = 60
                 NoCost_Details.WidthF = 60
-                NoREC.WidthF = 60
-                NoREC_Details.WidthF = 60
-                NoClaim.WidthF = 60
-                NoClaim_Details.WidthF = 60
+                'NoRec2.WidthF = 60
+                'NoREC_Details.WidthF = 60
+                'NoClaim.WidthF = 60
+                'NoClaim_Details.WidthF = 60
+            End If
+
+            If NoRec2.Visible = False Then
+                NoRec2.WidthF = 0
+                NoREC_Details.WidthF = 0
+            Else
+                NoRec2.WidthF = DynamicWidth
+                NoREC_Details.WidthF = DynamicWidth
+            End If
+
+            If NoClaim.Visible = False Then
+                NoClaim.WidthF = 0
+                NoClaim_Details.WidthF = 0
+            Else
+                NoClaim.WidthF = DynamicWidth
+                NoClaim_Details.WidthF = DynamicWidth
             End If
 
             If NoDeferred.Visible = False Then
@@ -674,16 +841,23 @@
             obj = dt.Compute("SUM(CA_REC)", "CA_CATEGORY = '" & Me.GetCurrentColumnValue("CA_CATEGORY") & "'")
             If obj IsNot Nothing AndAlso IsNumeric(obj) AndAlso CDec(obj) > 0 Then
                 lblDeduct.Visible = True
-                lblDeduct.LocationF = New PointF(NoREC_Details.LocationF.X, 46.91)
+                If Table1_Footer.Visible = True Then
+                    lblDeduct.LocationF = New PointF(NoREC_Details.LocationF.X, 43.91)
+                Else
+                    lblDeduct.LocationF = New PointF(NoREC_Details.LocationF.X, 1)
+                End If
+
                 lblDeduct.SizeF = New SizeF(NoREC_Details.WidthF, 23)
+                SubBand1.Visible = True
             Else
                 lblDeduct.Visible = False
+                SubBand1.Visible = False
             End If
 
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -699,20 +873,28 @@
 
             Dim tmpStatus As Boolean = False
 
-            Dim TotalWidth As Decimal = 1046
-            Dim DynamicWidth As Decimal = 0
+            Dim TotalWidth As Integer = 1116
+            Dim DynamicWidth As Integer = 0
             Dim TotalColumn As Integer = 4
             Dim RAITA_Status As Boolean = False
             Dim DeferredStatus As Boolean = False
+            Dim RecStatus As Boolean = False
+            Dim NoClaimStatus As Boolean = False
             For y As Integer = 0 To ListofAA.Count - 1
                 tmpStatus = False
                 For x As Integer = 0 To dt.Rows.Count - 1
-                    If IsDBNull(dt.Rows(0)("CA_INCENTIVE")) = False AndAlso IsNumeric(dt.Rows(0)("CA_INCENTIVE")) AndAlso CInt(dt.Rows(0)("CA_INCENTIVE")) <> 0 Then
+                    If IsDBNull(dt.Rows(x)("CA_INCENTIVE")) = False AndAlso IsNumeric(dt.Rows(x)("CA_INCENTIVE")) AndAlso CInt(dt.Rows(x)("CA_INCENTIVE")) <> 0 Then
                         RAITA_Status = True
-                        NoRAITA.Text = dt.Rows(0)("CA_INCENTIVE_TITLE")
+                        NoRAITA.Text = dt.Rows(x)("CA_INCENTIVE_TITLE")
                     End If
-                    If IsDBNull(dt.Rows(0)("CA_DEFERRED")) = False AndAlso IsNumeric(dt.Rows(0)("CA_DEFERRED")) AndAlso CInt(dt.Rows(0)("CA_DEFERRED")) <> 0 Then
+                    If IsDBNull(dt.Rows(x)("CA_DEFERRED")) = False AndAlso IsNumeric(dt.Rows(x)("CA_DEFERRED")) AndAlso CInt(dt.Rows(x)("CA_DEFERRED")) <> 0 Then
                         DeferredStatus = True
+                    End If
+                    If IsDBNull(dt.Rows(x)("CA_REC")) = False AndAlso IsNumeric(dt.Rows(x)("CA_REC")) AndAlso CInt(dt.Rows(x)("CA_REC")) <> 0 Then
+                        RecStatus = True
+                    End If
+                    If IsDBNull(dt.Rows(x)("AA_0")) = False AndAlso IsNumeric(dt.Rows(x)("AA_0")) AndAlso CInt(dt.Rows(x)("AA_0")) <> 0 Then
+                        NoClaimStatus = True
                     End If
 
                     If tmpStatus = False AndAlso IsDBNull(dt.Rows(x)(ListofAA(y))) = False AndAlso dt.Rows(x)(ListofAA(y)) <> 0 Then
@@ -802,6 +984,23 @@
                 NoDeferred_Footer.Visible = False
             End If
 
+            If RecStatus Then
+                NoRec2.Visible = True
+                NoREC_Footer.Visible = True
+                TotalColumn += 1
+            Else
+                NoRec2.Visible = False
+                NoREC_Footer.Visible = False
+            End If
+
+            If NoClaimStatus Then
+                NoClaim.Visible = True
+                NoClaim_Footer.Visible = True
+                TotalColumn += 1
+            Else
+                NoClaim.Visible = False
+                NoClaim_Footer.Visible = False
+            End If
 
             Dim DynamicColumn As Integer = TotalColumn - 3
             Dim BalanceWidth As Decimal = 0
@@ -813,15 +1012,15 @@
                 DynamicWidth = (TotalWidth - 435.23) / DynamicColumn
             End If
 
-            If DynamicWidth > 200 Then
-                BalanceWidth = (DynamicWidth * DynamicColumn) - (200 * DynamicColumn)
-                DynamicWidth = 200
+            If DynamicWidth > 80 Then
+                BalanceWidth = (DynamicWidth * DynamicColumn) - (80 * DynamicColumn)
+                DynamicWidth = 80
 
             End If
 
             If DynamicColumn >= 0 AndAlso DynamicColumn <= 6 Then
-                NoDescription.WidthF = 150.26 '+ BalanceWidth - 50
-                NoDescription_Footer.WidthF = 150.26
+                NoDescription.WidthF = 250.26 '+ BalanceWidth - 50
+                NoDescription_Footer.WidthF = 250.26
 
                 If NoRAITA.Visible = False Then
                     NoRAITA.WidthF = 0
@@ -834,14 +1033,14 @@
                 NoCost.WidthF = 80
                 NoCost_Footer.WidthF = 80
 
-                NoREC.WidthF = 80
-                NoREC_Footer.WidthF = 80
+                'NoRec2.WidthF = 100
+                'NoREC_Footer.WidthF = 100
 
-                NoClaim.WidthF = 80
-                NoClaim_Footer.WidthF = 80
+                'NoClaim.WidthF = 80
+                'NoClaim_Footer.WidthF = 80
             ElseIf DynamicColumn >= 7 AndAlso DynamicColumn <= 10 Then
-                NoDescription.WidthF = 100.26 '+ BalanceWidth - 50
-                NoDescription_Footer.WidthF = 100.26
+                NoDescription.WidthF = 200.26 '+ BalanceWidth - 50
+                NoDescription_Footer.WidthF = 200.26
 
                 If NoRAITA.Visible = False Then
                     NoRAITA.WidthF = 0
@@ -853,10 +1052,10 @@
 
                 NoCost.WidthF = 70
                 NoCost_Footer.WidthF = 70
-                NoREC.WidthF = 70
-                NoREC_Footer.WidthF = 70
-                NoClaim.WidthF = 70
-                NoClaim_Footer.WidthF = 70
+                'NoRec2.WidthF = 70
+                'NoREC_Footer.WidthF = 70
+                'NoClaim.WidthF = 70
+                'NoClaim_Footer.WidthF = 70
             Else
                 NoDescription.WidthF = 80.23 '+ BalanceWidth - 50
                 NoDescription_Footer.WidthF = 80.23
@@ -870,16 +1069,35 @@
                 End If
                 NoCost.WidthF = 60
                 NoCost_Footer.WidthF = 60
-                NoREC.WidthF = 60
-                NoREC_Footer.WidthF = 60
-                NoClaim.WidthF = 60
-                NoClaim_Footer.WidthF = 60
+                'NoRec2.WidthF = 60
+                'NoREC_Footer.WidthF = 60
+                'NoClaim.WidthF = 60
+                'NoClaim_Footer.WidthF = 60
             End If
             TotalWith = NoRAITA_Footer.WidthF
             TotalWith += NoCost_Footer.WidthF
-            TotalWith += NoREC_Footer.WidthF
-            TotalWith += NoClaim_Footer.WidthF
+            'TotalWith += NoREC_Footer.WidthF
+            'TotalWith += NoClaim_Footer.WidthF
 
+            If NoRec2.Visible = False Then
+                NoRec2.WidthF = 0
+                NoREC_Footer.WidthF = 0
+                TotalWith += 5
+            Else
+                NoRec2.WidthF = DynamicWidth
+                NoREC_Footer.WidthF = DynamicWidth
+                TotalWith += NoREC_Footer.WidthF
+            End If
+
+            If NoClaim.Visible = False Then
+                NoClaim.WidthF = 0
+                NoClaim_Footer.WidthF = 0
+                TotalWith += 5
+            Else
+                NoClaim.WidthF = DynamicWidth
+                NoClaim_Footer.WidthF = DynamicWidth
+                TotalWith += NoClaim_Footer.WidthF
+            End If
 
             If NoDeferred.Visible = False Then
                 NoDeferred.WidthF = 0
@@ -1033,21 +1251,85 @@
 
             NoTotal.WidthF = 80
             NoTotal_Footer.WidthF = 80
-            TotalWith += 80
+            ' TotalWith += 80
             'TotalWith += NoTotal_Footer.WidthF
+            '   Dim tmpTotal As Decimal = Table1_Footer.WidthF
 
+            '  tmpTotal = TotalWith - NoTotal_Footer.WidthF
+
+            TotalWith -= 35
             lineFooter_Top.LocationF = New PointF(NoRAITA_Footer.LocationF.X, NoRAITA_Footer.LocationF.Y)
             lineFooter_Top.SizeF = New SizeF(TotalWith, 1)
+            lineFooter2_Top.LocationF = New PointF(NoRAITA_Footer.LocationF.X, NoRAITA_Footer.LocationF.Y + 3)
+            lineFooter2_Top.SizeF = New SizeF(TotalWith, 1)
+
             lineFooter_Bot.LocationF = New PointF(NoRAITA_Footer.LocationF.X, NoRAITA_Footer.LocationF.Y + 40)
             lineFooter_Bot.SizeF = New SizeF(TotalWith, 1)
+            lineFooter2_Bot.LocationF = New PointF(NoRAITA_Footer.LocationF.X, NoRAITA_Footer.LocationF.Y + 43)
+            lineFooter2_Bot.SizeF = New SizeF(TotalWith, 1)
 
-            lblTotal.LocationF = New PointF(NoTotal_Footer.LocationF.X, 10)
-            lineTotal_Top.LocationF = New PointF(NoTotal_Footer.LocationF.X, 7.92)
-            lineTotal_Bot.LocationF = New PointF(NoTotal_Footer.LocationF.X, 33)
+            lblTotal.LocationF = New PointF(NoTotal_Footer.LocationF.X, 3)
+            lineTotal_Top.LocationF = New PointF(NoTotal_Footer.LocationF.X, 0)
+            lineTotal_Bot.LocationF = New PointF(NoTotal_Footer.LocationF.X, 23)
+            lineTotal2_Bot.LocationF = New PointF(NoTotal_Footer.LocationF.X, 27)
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
+
+        End Try
+    End Sub
+
+    'Private Sub SubBand1_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles SubBand1.BeforePrint
+    '    Try
+    '        Dim dt As DataTable = Nothing
+    '        dt = ADO.Load_CAReport_Analysis_Temp(paramID.Value)
+
+    '        If dt Is Nothing Then
+    '            Exit Sub
+    '        End If
+    '        Dim obj As Object
+    '        obj = Nothing
+    '        obj = dt.Compute("SUM(CA_REC)", "CA_CATEGORY = '" & Me.GetCurrentColumnValue("CA_CATEGORY") & "'")
+    '        If obj IsNot Nothing AndAlso IsNumeric(obj) AndAlso CDec(obj) > 0 Then
+    '            SubBand1.Visible = True
+    '        Else
+    '            SubBand1.Visible = False
+    '        End If
+    '    Catch ex As Exception
+
+    '    End Try
+    'End Sub
+    Private Function GetACA(ByVal lbl As DevExpress.XtraReports.UI.XRTableCell, Rate As Integer) As Boolean
+        Try
+            If ADO.Load_CAReport_Analysis_ACA_Temp(paramID.Value, Rate) Then
+                lbl.Text = "ACA " & Rate.ToString & "%"
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Function
+    Private Sub lblDraft_Report_PrintOnPage(sender As Object, e As DevExpress.XtraReports.UI.PrintOnPageEventArgs) Handles lblDraft_Report.PrintOnPage
+        Try
+            If e.PageIndex = 0 Then
+                lblDraft_Report.Visible = True
+                tblTitle.LocationF = New PointF(0, 0)
+            Else
+                lblDraft_Report.Visible = False
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub lblDraft_Page_PrintOnPage(sender As Object, e As DevExpress.XtraReports.UI.PrintOnPageEventArgs) Handles lblDraft_Page.PrintOnPage
+        Try
+            If e.PageIndex <> 0 Then
+                lblDraft_Page.Visible = True
+            Else
+                lblDraft_Page.Visible = False
+            End If
+        Catch ex As Exception
 
         End Try
     End Sub

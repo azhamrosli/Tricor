@@ -22,8 +22,7 @@
         SUBTOTAL = 1
         TOTAL = 2
         NORMAL = 3
-    End Enum
-    
+    End Enum    
     Public Enum CAReport_Type
 
         '1.   Capital Allowance Details By Rate
@@ -132,9 +131,7 @@
         COSTOFSALES
         LESSCOSTSALES_TITLEONLY
     End Enum
-
-
-
-
+ 
+    
 
 End Module

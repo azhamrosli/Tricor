@@ -3,6 +3,9 @@
     Dim ErrorLog As ClsError = Nothing
     Public isEdit As Boolean = False
     Public ID As Integer = 0
+    Dim isBusy As Boolean = False
+    Dim WithEvents clsAi As CA_Ai = Nothing
+
     Shared Sub New()
         DevExpress.UserSkins.BonusSkins.Register()
         DevExpress.Skins.SkinManager.EnableFormSkins()
@@ -14,8 +17,11 @@
         '    DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Office 2013" ' "Office 2013"
         'End If
         InitializeComponent()
-    End Sub
 
+        If clsAi Is Nothing Then
+            clsAi = New CA_Ai
+        End If
+    End Sub
     Private Sub frmCA_Add_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             LoadData()
@@ -25,7 +31,6 @@
 
         End Try
     End Sub
-
     Private Sub LoadData()
         Try
             If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
@@ -93,6 +98,7 @@
                 cboYA.ReadOnly = False
                 cboPurchaseYE.ReadOnly = False
                 cboSourceCode.ReadOnly = False
+
                 Exit Sub
             Else
                 btnDuplicate.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
@@ -158,7 +164,20 @@
                 txtTaxFileNumber.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_TAX_FILE_NUMBER")), "", dt.Rows(0)("CA_TAX_FILE_NUMBER"))
                 txtTransferorName.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_TRANSFERROR_NAME")), "", dt.Rows(0)("CA_TRANSFERROR_NAME"))
                 txtTransferVal.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_TRANSFER_VAL")), "", dt.Rows(0)("CA_TRANSFER_VAL"))
+                If IsDBNull(dt.Rows(0)("CA_ACCELERATED")) = False AndAlso dt.Rows(0)("CA_ACCELERATED") = "True" Then
+                    chkAccelerated.Checked = True
+                Else
+                    chkAccelerated.Checked = False
+                End If
 
+                If IsDBNull(dt.Rows(0)("ModifiedBy")) = False AndAlso dt.Rows(0)("ModifiedBy") <> "" Then
+                    lblLastmodified.Caption = dt.Rows(0)("ModifiedBy") & " | " & IIf(IsDBNull(dt.Rows(0)("ModifiedDateTime")), "", dt.Rows(0)("ModifiedDateTime"))
+                Else
+                    lblLastmodified.Caption = ""
+                End If
+
+
+                ReCalculate_Schedule()
             End If
 
         Catch ex As Exception
@@ -167,11 +186,9 @@
             MsgBox(ex.Message, MsgBoxStyle.Critical)
         End Try
     End Sub
-
     Private Sub rgTypeCA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles rgTypeCA.SelectedIndexChanged
         TypeCA_Add_Open()
     End Sub
-
     Private Sub cboPurchaseYE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboPurchaseYE.SelectedIndexChanged
         Try
             DefaultTaxPayer(cboRefNo)
@@ -188,13 +205,13 @@
                 cboPurchaseYE.ReadOnly = True
                 lblTitle_FA.Text = "Fixed Asset Information (Addition)"
                 lblTitle_CA.Text = "Capital Allowance Information (Addition)"
-                txtIA.ReadOnly = True
+                '  txtIA.ReadOnly = True
                 txtIA.EditValue = 20
             Else
                 cboPurchaseYE.ReadOnly = False
                 lblTitle_FA.Text = "Fixed Asset Information (Opening)"
                 lblTitle_CA.Text = "Capital Allowance Information (Opening)"
-                txtIA.ReadOnly = False
+                ' txtIA.ReadOnly = False
                 txtIA.EditValue = 0
             End If
         Catch ex As Exception
@@ -235,7 +252,12 @@
                         cboHP.SelectedIndex = 0
                     End If
 
-                    dtDateofPurchase.EditValue = Now
+                    '  dtDateofPurchase.EditValue = Now
+
+                    If isEdit = False Then
+                        dtDateofPurchase.EditValue = New Date(cboPurchaseYE.EditValue, 1, 1)
+                    End If
+
                     chkHP.Visible = True
                     chkREC.Visible = True
                     chkCAEEO.Visible = True
@@ -244,6 +266,7 @@
             End If
 
 
+           
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
@@ -253,7 +276,6 @@
             TypeCA_Add_Open()
         End Try
     End Sub
-
     Private Sub cboSourceCode_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSourceCode.SelectedIndexChanged
         ShowMainCA()
     End Sub
@@ -277,7 +299,6 @@
 
         End Try
     End Sub
-
     Private Sub chkHP_CheckedChanged(sender As Object, e As EventArgs) Handles chkHP.CheckedChanged
         Try
             If chkHP.Checked = True Then
@@ -294,7 +315,6 @@
 
         End Try
     End Sub
-
     Private Sub txtPurchaseAmountFA_EditValueChanged(sender As Object, e As EventArgs) Handles txtPurchaseAmountFA.EditValueChanged
         Try
             If chkREC.Checked = False Then
@@ -302,7 +322,6 @@
                 txtRestrictedQua.EditValue = txtPurchaseAmountFA.EditValue
                 txtPurchaseAmount.EditValue = txtPurchaseAmountFA.EditValue
             End If
-
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
@@ -331,8 +350,7 @@
 
         End Try
     End Sub
-
-    Private Sub txtQualifyingCost_EditValueChanged(sender As Object, e As EventArgs) Handles txtQualifyingCost.EditValueChanged
+    Private Sub txtQualifyingCost_EditValueChanged(sender As Object, e As EventArgs)
         CalcNonQualifyingCost()
     End Sub
     Private Sub CalcNonQualifyingCost()
@@ -365,14 +383,13 @@
                 txtRemainingQualifyingCost.EditValue = txtQualifyingCost.EditValue
                 txtTWDV.EditValue = 0
             End If
-
+            ReCalculate_Schedule()
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
 
         End Try
     End Sub
-
     Private Sub cboCategory_EditValueChanged(sender As Object, e As EventArgs) Handles cboCategory.EditValueChanged
         Try
             Dim editor As DevExpress.XtraEditors.LookUpEdit = CType(sender, DevExpress.XtraEditors.LookUpEdit)
@@ -386,7 +403,6 @@
 
         End Try
     End Sub
-
     Private Sub chkCAEEO_CheckedChanged(sender As Object, e As EventArgs) Handles chkCAEEO.CheckedChanged
         Try
             If chkCAEEO.Checked = True Then
@@ -410,7 +426,6 @@
 
         End Try
     End Sub
-
     Private Sub chkControlTransfer_CheckedChanged(sender As Object, e As EventArgs) Handles chkControlTransfer.CheckedChanged
         Try
             If chkControlTransfer.Checked = True Then
@@ -430,7 +445,6 @@
 
         End Try
     End Sub
-
     Private Sub chkREC_CheckedChanged(sender As Object, e As EventArgs) Handles chkREC.CheckedChanged
         Try
             If chkREC.Checked Then
@@ -441,7 +455,7 @@
                 txtQualifyingCost.EditValue = 0
                 txtTWDV.EditValue = 0
                 cboAA.ReadOnly = True
-                txtIA.ReadOnly = True
+                ' txtIA.ReadOnly = True
             Else
                 cboAA.ReadOnly = False
                 TypeCA_Add_Open()
@@ -455,7 +469,6 @@
 
         End Try
     End Sub
-
     Private Sub btnSave_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnSave.ItemClick
         Save()
     End Sub
@@ -476,6 +489,7 @@
                                       txtTransferVal.EditValue, ErrorLog) Then
 
                         MsgBox("Successfully updated CA.", MsgBoxStyle.Information)
+                        Me.LoadData()
                     Else
                         MsgBox("Failed to update CA." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                     End If
@@ -567,6 +581,12 @@
                 Return False
             End If
 
+            If chkControlTransfer.EditValue = False Then
+                txtTaxFileNumber.EditValue = ""
+                txtTransferorName.EditValue = ""
+                txtTransferVal.EditValue = ""
+            End If
+
             Return True
         Catch ex As Exception
             Dim st As New StackTrace(True)
@@ -574,7 +594,6 @@
             Return False
         End Try
     End Function
-
     Private Sub btnClose_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnClose.ItemClick
         Me.Close()
     End Sub
@@ -610,7 +629,6 @@
 
         End Try
     End Sub
-
     Private Sub btnDuplicate_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDuplicate.ItemClick
         Try
 
@@ -642,24 +660,18 @@
 
         End Try
     End Sub
-
     Private Sub cboYA_EditValueChanged(sender As Object, e As EventArgs) Handles cboYA.EditValueChanged
         Try
             If rgTypeCA.SelectedIndex = 0 Then
                 cboPurchaseYE.EditValue = cboYA.EditValue
             End If
-
-            If isEdit = False Then
-                dtDateofPurchase.EditValue = New Date(cboYA.EditValue, 1, 1)
-            End If
+            ReCalculate_Schedule()
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
 
         End Try
     End Sub
-
-
     Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
         Try
             DefaultTaxPayer(sender)
@@ -669,11 +681,6 @@
 
         End Try
     End Sub
-
-    Private Sub txtCategory_EditValueChanged(sender As Object, e As EventArgs) Handles txtCategory.EditValueChanged
-
-    End Sub
-
     Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
         Try
             If isEdit = False Then
@@ -690,14 +697,158 @@
             }
             frm.ShowDialog()
 
-
-
-
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
 
         End Try
     End Sub
+    Private Sub chkDeductAdjustIncome_CheckedChanged(sender As Object, e As EventArgs)
+        Try
+            'If isEdit Then
+            '    Dim rlst As DialogResult = MessageBox.Show("Are sure want to change to 'deduct from adjusted income'?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
+            '    If rlst <> Windows.Forms.DialogResult.Yes Then
+            '        Exit Sub
+            '    End If
+            'End If
+            If chkDeductAdjustIncome.Checked = True Then
+                txtIA.EditValue = 0
+                cboAA.EditValue = 0
+                txtTWDV.EditValue = 0
+
+                ' txtIA.ReadOnly = True
+                cboAA.ReadOnly = True
+                txtTWDV.ReadOnly = True
+            Else
+                txtTWDV.ReadOnly = False
+                TypeCA_Add_Open()
+                Application.DoEvents()
+                CalcNonQualifyingCost()
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub ReCalculate_Schedule()
+        Try
+            If isBusy = False Then
+                isBusy = True
+
+                DsCA.Tables("CA_CALCULATION").Rows.Clear()
+                Application.DoEvents()
+                Dim tmpID As Integer = 0
+                Dim CA_QUALIFYING_COST As Decimal = 0
+                Dim CA_RATE_IA As Integer = 0
+                Dim CA_RATE_AA As Integer = 0
+                Dim CA_MODE As String = "OPN"
+                Dim CA_NAME As String = ""
+                Dim HP_CODE As String = ""
+                Dim CA_SOURCENO As Integer = 0
+                Dim CA_YA As Integer = 0
+                Dim CA_PURCHASE_YE As Integer = 0
+                Dim TWDV As Integer = 0
+
+                If isEdit = False Then
+                    tmpID = 0
+                Else
+                    tmpID = ID
+                End If
+
+                If txtQualifyingCost.EditValue IsNot Nothing AndAlso IsNumeric(txtQualifyingCost.EditValue) Then
+                    CA_QUALIFYING_COST = CDec(txtQualifyingCost.EditValue)
+                End If
+                If txtIA.EditValue IsNot Nothing AndAlso IsNumeric(txtIA.EditValue) Then
+                    CA_RATE_IA = CDec(txtIA.EditValue)
+                End If
+                If cboAA.EditValue IsNot Nothing AndAlso IsNumeric(cboAA.EditValue) AndAlso CInt(cboAA.EditValue) > 0 Then
+                    CA_RATE_AA = CDec(cboAA.EditValue)
+                Else
+                    DsCA.Tables("CA_CALCULATION").Rows.Clear()
+                    isBusy = False
+                    Exit Sub
+                End If
+                If cboSourceCode.EditValue Is Nothing OrElse IsNumeric(cboSourceCode.EditValue) = False Then
+                    isBusy = False
+                    Exit Sub
+                Else
+                    CA_SOURCENO = CInt(cboSourceCode.EditValue)
+                End If
+                If cboYA.EditValue Is Nothing OrElse IsNumeric(cboYA.EditValue) = False Then
+                    isBusy = False
+                    Exit Sub
+                Else
+                    CA_YA = CInt(cboYA.EditValue)
+                End If
+                If cboPurchaseYE.EditValue Is Nothing OrElse IsNumeric(cboPurchaseYE.EditValue) = False Then
+                    isBusy = False
+                    Exit Sub
+                Else
+                    CA_PURCHASE_YE = CInt(cboPurchaseYE.EditValue)
+                End If
+
+                If rgTypeCA.SelectedIndex = 0 Then
+                    CA_MODE = "ADD"
+                Else
+                    CA_MODE = "OPN"
+                End If
+
+                If txtTWDV.EditValue IsNot Nothing AndAlso IsNumeric(txtTWDV.EditValue) Then
+                    TWDV = CDec(txtTWDV.EditValue)
+                End If
+
+                If mdlReport_CA.GenerateCA_Calculation(DsCA, tmpID, CA_QUALIFYING_COST, CA_RATE_IA, CA_RATE_AA, CA_MODE, CA_NAME, HP_CODE, CA_SOURCENO, CA_YA, CA_PURCHASE_YE, TWDV) = False Then
+
+                End If
+                CACALCULATIONBindingSource.DataSource = DsCA.Tables("CA_CALCULATION")
+
+                isBusy = False
+            End If
+
+        Catch ex As Exception
+            isBusy = False
+        End Try
+    End Sub
+   
+    Private Sub txtAsset_EditValueChanged(sender As Object, e As EventArgs) Handles txtAsset.EditValueChanged
+        Try
+            If txtAsset.EditValue IsNot Nothing AndAlso txtAsset.EditValue <> "" Then
+                If clsAi.isBusy = False Then
+                    clsAi.Description = txtAsset.EditValue.ToString
+                    clsAi.Search()
+                End If
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub clsAi_OnDataResult(dt_ As DataTable) Handles clsAi.OnDataResult
+        Try
+            If dt_ Is Nothing Then
+                lblAi.Text = ""
+                lblAi_CATEGORY.Text = ""
+                lblAi_IA.Text = ""
+                lblAi_AA.Text = ""
+                Exit Sub
+            End If
+            Dim Total As Integer = 0
+
+            For Each rowx As DataRow In dt_.Rows
+                If IsDBNull(rowx("COUNTX")) = False Then
+                    Total += CInt(rowx("COUNTX"))
+                End If
+            Next
+            lblAi.Text = "We suggestion follow this data, " & (CInt(dt_(0)("COUNTX")) / Total * 100).ToString("N0") & "% Accurate from our artificial intelligence"
+            lblAi_CATEGORY.Text = "Category : " & dt_(0)("CA_CATEGORY_CODE")
+            lblAi_IA.Text = "Ai       : " & dt_(0)("CA_RATE_IA")
+            lblAi_AA.Text = "AA       : " & dt_(0)("CA_RATE_AA")
+
+
+            Application.DoEvents()
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

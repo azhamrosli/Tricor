@@ -21,6 +21,7 @@ Partial Class frmHome
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DockingContainer1 As DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer = New DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmHome))
         Me.DocumentGroup1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(Me.components)
         Me.dockPanel3Document = New DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(Me.components)
         Me.DockPanel2_Container = New DevExpress.XtraBars.Docking.ControlContainer()
@@ -46,6 +47,7 @@ Partial Class frmHome
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.BarSubItem2 = New DevExpress.XtraBars.BarSubItem()
         Me.BarButtonItem3 = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnSetting = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem2 = New DevExpress.XtraBars.BarButtonItem()
         Me.BarSubItem5 = New DevExpress.XtraBars.BarSubItem()
         Me.BarButtonItem5 = New DevExpress.XtraBars.BarButtonItem()
@@ -58,6 +60,8 @@ Partial Class frmHome
         Me.BarSubItem6 = New DevExpress.XtraBars.BarSubItem()
         Me.BarButtonItem10 = New DevExpress.XtraBars.BarButtonItem()
         Me.btnFileCompare = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarToggleSwitchItem1 = New DevExpress.XtraBars.BarToggleSwitchItem()
+        Me.btnCopyGoogleDrive = New DevExpress.XtraBars.BarButtonItem()
         Me.BarSubItem3 = New DevExpress.XtraBars.BarSubItem()
         Me.BarSubItem4 = New DevExpress.XtraBars.BarSubItem()
         Me.BarButtonItem4 = New DevExpress.XtraBars.BarButtonItem()
@@ -74,9 +78,15 @@ Partial Class frmHome
         Me.docMenu = New DevExpress.XtraBars.Docking.DockPanel()
         Me.DockPanel1_Container = New DevExpress.XtraBars.Docking.ControlContainer()
         Me.tlMenu = New DevExpress.XtraTreeList.TreeList()
-        Me.Menu = New DevExpress.XtraTreeList.Columns.TreeListColumn()
+        Me.colKeyName = New DevExpress.XtraTreeList.Columns.TreeListColumn()
+        Me.colTitle = New DevExpress.XtraTreeList.Columns.TreeListColumn()
+        Me.colLicenseType = New DevExpress.XtraTreeList.Columns.TreeListColumn()
+        Me.ContextMenuTreeList = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MENULISTINFOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.docDefaultCompany = New DevExpress.XtraBars.Docking.DockPanel()
         Me.ControlContainer1 = New DevExpress.XtraBars.Docking.ControlContainer()
+        Me.lblNotification = New DevExpress.XtraEditors.LabelControl()
         Me.btnDefaultCompanyOK = New DevExpress.XtraEditors.SimpleButton()
         Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
@@ -98,6 +108,7 @@ Partial Class frmHome
         Me.DocumentManager1 = New DevExpress.XtraBars.Docking2010.DocumentManager(Me.components)
         Me.TabbedView1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(Me.components)
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.ToastNotificationsManager1 = New DevExpress.XtraBars.ToastNotifications.ToastNotificationsManager(Me.components)
         CType(Me.DocumentGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dockPanel3Document, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DockPanel2.SuspendLayout()
@@ -115,6 +126,8 @@ Partial Class frmHome
         Me.docMenu.SuspendLayout()
         Me.DockPanel1_Container.SuspendLayout()
         CType(Me.tlMenu, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuTreeList.SuspendLayout()
+        CType(Me.MENULISTINFOBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.docDefaultCompany.SuspendLayout()
         Me.ControlContainer1.SuspendLayout()
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -125,6 +138,7 @@ Partial Class frmHome
         Me.docMain.SuspendLayout()
         CType(Me.DocumentManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TabbedView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ToastNotificationsManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DocumentGroup1
@@ -180,7 +194,7 @@ Partial Class frmHome
         Me.docErrorLog.Controls.Add(Me.ControlContainer2)
         Me.docErrorLog.Dock = DevExpress.XtraBars.Docking.DockingStyle.Bottom
         Me.docErrorLog.ID = New System.Guid("a1f5d224-6349-409b-bcc1-cb701ef0452d")
-        Me.docErrorLog.Location = New System.Drawing.Point(0, 0)
+        Me.docErrorLog.Location = New System.Drawing.Point(0, 281)
         Me.docErrorLog.Name = "docErrorLog"
         Me.docErrorLog.OriginalSize = New System.Drawing.Size(200, 200)
         Me.docErrorLog.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Bottom
@@ -315,8 +329,8 @@ Partial Class frmHome
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.DockManager = Me.DockManager1
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.BarSubItem1, Me.BarButtonItem1, Me.BarSubItem2, Me.BarButtonItem2, Me.BarButtonItem3, Me.BarSubItem3, Me.BarSubItem4, Me.BarButtonItem4, Me.BarSubItem5, Me.BarButtonItem5, Me.BarButtonItem6, Me.SkinBarSubItem1, Me.BarButtonItem7, Me.txtPCName, Me.BarButtonItem8, Me.BarSubItem6, Me.BarButtonItem10, Me.BarButtonItem9, Me.BarButtonItem11, Me.BarButtonItem12, Me.btnFileCompare})
-        Me.BarManager1.MaxItemId = 24
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.BarSubItem1, Me.BarButtonItem1, Me.BarSubItem2, Me.BarButtonItem2, Me.BarButtonItem3, Me.BarSubItem3, Me.BarSubItem4, Me.BarButtonItem4, Me.BarSubItem5, Me.BarButtonItem5, Me.BarButtonItem6, Me.SkinBarSubItem1, Me.BarButtonItem7, Me.txtPCName, Me.BarButtonItem8, Me.BarSubItem6, Me.BarButtonItem10, Me.BarButtonItem9, Me.BarButtonItem11, Me.BarButtonItem12, Me.btnFileCompare, Me.btnSetting, Me.BarToggleSwitchItem1, Me.btnCopyGoogleDrive})
+        Me.BarManager1.MaxItemId = 27
         Me.BarManager1.StatusBar = Me.Bar3
         '
         'Bar1
@@ -335,7 +349,7 @@ Partial Class frmHome
         '
         Me.BarSubItem2.Caption = "File"
         Me.BarSubItem2.Id = 2
-        Me.BarSubItem2.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem3), New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem2)})
+        Me.BarSubItem2.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem3), New DevExpress.XtraBars.LinkPersistInfo(Me.btnSetting), New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem2)})
         Me.BarSubItem2.Name = "BarSubItem2"
         '
         'BarButtonItem3
@@ -343,6 +357,12 @@ Partial Class frmHome
         Me.BarButtonItem3.Caption = "Database Configuration"
         Me.BarButtonItem3.Id = 4
         Me.BarButtonItem3.Name = "BarButtonItem3"
+        '
+        'btnSetting
+        '
+        Me.btnSetting.Caption = "Setting"
+        Me.btnSetting.Id = 24
+        Me.btnSetting.Name = "btnSetting"
         '
         'BarButtonItem2
         '
@@ -403,7 +423,7 @@ Partial Class frmHome
         '
         Me.BarSubItem6.Caption = "Developer"
         Me.BarSubItem6.Id = 18
-        Me.BarSubItem6.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem10), New DevExpress.XtraBars.LinkPersistInfo(Me.btnFileCompare)})
+        Me.BarSubItem6.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem10), New DevExpress.XtraBars.LinkPersistInfo(Me.btnFileCompare), New DevExpress.XtraBars.LinkPersistInfo(Me.BarToggleSwitchItem1), New DevExpress.XtraBars.LinkPersistInfo(Me.btnCopyGoogleDrive)})
         Me.BarSubItem6.Name = "BarSubItem6"
         '
         'BarButtonItem10
@@ -417,6 +437,18 @@ Partial Class frmHome
         Me.btnFileCompare.Caption = "File Compare"
         Me.btnFileCompare.Id = 23
         Me.btnFileCompare.Name = "btnFileCompare"
+        '
+        'BarToggleSwitchItem1
+        '
+        Me.BarToggleSwitchItem1.Caption = "I am Developer"
+        Me.BarToggleSwitchItem1.Id = 25
+        Me.BarToggleSwitchItem1.Name = "BarToggleSwitchItem1"
+        '
+        'btnCopyGoogleDrive
+        '
+        Me.btnCopyGoogleDrive.Caption = "Copy to Google Drive"
+        Me.btnCopyGoogleDrive.Id = 26
+        Me.btnCopyGoogleDrive.Name = "btnCopyGoogleDrive"
         '
         'BarSubItem3
         '
@@ -525,8 +557,8 @@ Partial Class frmHome
         Me.docMenu.ID = New System.Guid("64f710db-03c4-497e-b50b-12f24813f095")
         Me.docMenu.Location = New System.Drawing.Point(0, 0)
         Me.docMenu.Name = "docMenu"
-        Me.docMenu.OriginalSize = New System.Drawing.Size(290, 214)
-        Me.docMenu.Size = New System.Drawing.Size(290, 226)
+        Me.docMenu.OriginalSize = New System.Drawing.Size(338, 335)
+        Me.docMenu.Size = New System.Drawing.Size(290, 250)
         Me.docMenu.Text = "Menu"
         '
         'DockPanel1_Container
@@ -534,62 +566,74 @@ Partial Class frmHome
         Me.DockPanel1_Container.Controls.Add(Me.tlMenu)
         Me.DockPanel1_Container.Location = New System.Drawing.Point(4, 23)
         Me.DockPanel1_Container.Name = "DockPanel1_Container"
-        Me.DockPanel1_Container.Size = New System.Drawing.Size(281, 198)
+        Me.DockPanel1_Container.Size = New System.Drawing.Size(281, 222)
         Me.DockPanel1_Container.TabIndex = 0
         '
         'tlMenu
         '
-        Me.tlMenu.Columns.AddRange(New DevExpress.XtraTreeList.Columns.TreeListColumn() {Me.Menu})
+        Me.tlMenu.Columns.AddRange(New DevExpress.XtraTreeList.Columns.TreeListColumn() {Me.colKeyName, Me.colTitle, Me.colLicenseType})
+        Me.tlMenu.ContextMenuStrip = Me.ContextMenuTreeList
+        Me.tlMenu.DataSource = Me.MENULISTINFOBindingSource
         Me.tlMenu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlMenu.Location = New System.Drawing.Point(0, 0)
         Me.tlMenu.Name = "tlMenu"
-        Me.tlMenu.BeginUnboundLoad()
-        Me.tlMenu.AppendNode(New Object() {"Master Data"}, -1)
-        Me.tlMenu.AppendNode(New Object() {"A.2 Deemed Interest Rate"}, 0)
-        Me.tlMenu.AppendNode(New Object() {"A.1 Bank"}, 0)
-        Me.tlMenu.AppendNode(New Object() {"A.9 Tax Payer Information"}, 0)
-        Me.tlMenu.AppendNode(New Object() {"Audited Account"}, -1)
-        Me.tlMenu.AppendNode(New Object() {"B.2 Profit And Loss"}, 4)
-        Me.tlMenu.AppendNode(New Object() {"B.4 Movement Normal"}, 4)
-        Me.tlMenu.AppendNode(New Object() {"B.5 Movement Complex"}, 4)
-        Me.tlMenu.AppendNode(New Object() {"Tax Computation"}, -1)
-        Me.tlMenu.AppendNode(New Object() {"Capital Allowance"}, 8)
-        Me.tlMenu.AppendNode(New Object() {"C.1.1 Capital Allowance"}, 9)
-        Me.tlMenu.AppendNode(New Object() {"C.1.2 Hire Purchase Schedule"}, 9)
-        Me.tlMenu.AppendNode(New Object() {"C.1.3 Disposal"}, 9)
-        Me.tlMenu.AppendNode(New Object() {"Income Tax Forms"}, -1)
-        Me.tlMenu.AppendNode(New Object() {"D.3 Form CP204"}, 13)
-        Me.tlMenu.AppendNode(New Object() {"Report"}, -1)
-        Me.tlMenu.AppendNode(New Object() {"Table of Content"}, 15)
-        Me.tlMenu.AppendNode(New Object() {"Deemed Interest Report"}, 15)
-        Me.tlMenu.EndUnboundLoad()
         Me.tlMenu.OptionsBehavior.Editable = False
         Me.tlMenu.OptionsView.FocusRectStyle = DevExpress.XtraTreeList.DrawFocusRectStyle.RowFocus
-        Me.tlMenu.Size = New System.Drawing.Size(281, 198)
+        Me.tlMenu.Size = New System.Drawing.Size(281, 222)
         Me.tlMenu.TabIndex = 0
         '
-        'Menu
+        'colKeyName
         '
-        Me.Menu.Caption = "Menu"
-        Me.Menu.FieldName = "Menu"
-        Me.Menu.MinWidth = 70
-        Me.Menu.Name = "Menu"
-        Me.Menu.Visible = True
-        Me.Menu.VisibleIndex = 0
+        Me.colKeyName.FieldName = "KeyName"
+        Me.colKeyName.Name = "colKeyName"
+        Me.colKeyName.Width = 88
+        '
+        'colTitle
+        '
+        Me.colTitle.FieldName = "Title"
+        Me.colTitle.Name = "colTitle"
+        Me.colTitle.Visible = True
+        Me.colTitle.VisibleIndex = 0
+        Me.colTitle.Width = 88
+        '
+        'colLicenseType
+        '
+        Me.colLicenseType.FieldName = "LicenseType"
+        Me.colLicenseType.Name = "colLicenseType"
+        Me.colLicenseType.Width = 87
+        '
+        'ContextMenuTreeList
+        '
+        Me.ContextMenuTreeList.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ContextMenuTreeList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
+        Me.ContextMenuTreeList.Name = "ContMenu_ErrorLog"
+        Me.ContextMenuTreeList.Size = New System.Drawing.Size(135, 26)
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(134, 22)
+        Me.ToolStripMenuItem1.Text = "Refresh List"
+        '
+        'MENULISTINFOBindingSource
+        '
+        Me.MENULISTINFOBindingSource.DataMember = "MENU_LIST_INFO"
+        Me.MENULISTINFOBindingSource.DataSource = Me.DsDefault
         '
         'docDefaultCompany
         '
         Me.docDefaultCompany.Controls.Add(Me.ControlContainer1)
         Me.docDefaultCompany.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill
         Me.docDefaultCompany.ID = New System.Guid("cc0c9281-0892-42e0-92d7-96df66d16a85")
-        Me.docDefaultCompany.Location = New System.Drawing.Point(0, 226)
+        Me.docDefaultCompany.Location = New System.Drawing.Point(0, 250)
         Me.docDefaultCompany.Name = "docDefaultCompany"
-        Me.docDefaultCompany.OriginalSize = New System.Drawing.Size(290, 214)
-        Me.docDefaultCompany.Size = New System.Drawing.Size(290, 226)
+        Me.docDefaultCompany.OriginalSize = New System.Drawing.Size(338, 279)
+        Me.docDefaultCompany.Size = New System.Drawing.Size(290, 202)
         Me.docDefaultCompany.Text = "Default Company"
         '
         'ControlContainer1
         '
+        Me.ControlContainer1.Controls.Add(Me.lblNotification)
         Me.ControlContainer1.Controls.Add(Me.btnDefaultCompanyOK)
         Me.ControlContainer1.Controls.Add(Me.txtRefNo)
         Me.ControlContainer1.Controls.Add(Me.LabelControl11)
@@ -598,8 +642,17 @@ Partial Class frmHome
         Me.ControlContainer1.Controls.Add(Me.cboRefNo)
         Me.ControlContainer1.Location = New System.Drawing.Point(4, 23)
         Me.ControlContainer1.Name = "ControlContainer1"
-        Me.ControlContainer1.Size = New System.Drawing.Size(281, 199)
+        Me.ControlContainer1.Size = New System.Drawing.Size(281, 175)
         Me.ControlContainer1.TabIndex = 0
+        '
+        'lblNotification
+        '
+        Me.lblNotification.Location = New System.Drawing.Point(77, 128)
+        Me.lblNotification.Name = "lblNotification"
+        Me.lblNotification.Size = New System.Drawing.Size(66, 13)
+        Me.lblNotification.TabIndex = 165
+        Me.lblNotification.Text = "LabelControl1"
+        Me.lblNotification.Visible = False
         '
         'btnDefaultCompanyOK
         '
@@ -768,8 +821,16 @@ Partial Class frmHome
         DockingContainer1.Element = Me.DocumentGroup1
         Me.TabbedView1.RootContainer.Nodes.AddRange(New DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer() {DockingContainer1})
         '
+        'ToastNotificationsManager1
+        '
+        Me.ToastNotificationsManager1.ApplicationId = "93ef3fd0-3060-40e3-a2df-8a66ec12f9fb"
+        Me.ToastNotificationsManager1.ApplicationName = "YGLClient"
+        Me.ToastNotificationsManager1.CreateApplicationShortcut = DevExpress.Utils.DefaultBoolean.[True]
+        Me.ToastNotificationsManager1.Notifications.AddRange(New DevExpress.XtraBars.ToastNotifications.IToastNotificationProperties() {New DevExpress.XtraBars.ToastNotifications.ToastNotification("f375baf8-1ec6-43de-9b74-75ecb169ce03", CType(resources.GetObject("ToastNotificationsManager1.Notifications"), System.Drawing.Image), "Notification", "", "", DevExpress.XtraBars.ToastNotifications.ToastNotificationTemplate.Text01)})
+        '
         'frmHome
         '
+        Me.Appearance.Options.UseFont = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1046, 525)
@@ -779,6 +840,7 @@ Partial Class frmHome
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
+        Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Name = "frmHome"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = " "
@@ -800,6 +862,8 @@ Partial Class frmHome
         Me.docMenu.ResumeLayout(False)
         Me.DockPanel1_Container.ResumeLayout(False)
         CType(Me.tlMenu, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuTreeList.ResumeLayout(False)
+        CType(Me.MENULISTINFOBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.docDefaultCompany.ResumeLayout(False)
         Me.ControlContainer1.ResumeLayout(False)
         Me.ControlContainer1.PerformLayout()
@@ -811,6 +875,7 @@ Partial Class frmHome
         Me.docMain.ResumeLayout(False)
         CType(Me.DocumentManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TabbedView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ToastNotificationsManager1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -838,7 +903,6 @@ Partial Class frmHome
     Friend WithEvents DocumentGroup1 As DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup
     Friend WithEvents dockPanel3Document As DevExpress.XtraBars.Docking2010.Views.Tabbed.Document
     Friend WithEvents tlMenu As DevExpress.XtraTreeList.TreeList
-    Friend WithEvents Menu As DevExpress.XtraTreeList.Columns.TreeListColumn
     Friend WithEvents BarButtonItem3 As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents BarSubItem5 As DevExpress.XtraBars.BarSubItem
     Friend WithEvents BarButtonItem5 As DevExpress.XtraBars.BarButtonItem
@@ -892,4 +956,15 @@ Partial Class frmHome
     Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents btnSetting As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents MENULISTINFOBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents colKeyName As DevExpress.XtraTreeList.Columns.TreeListColumn
+    Friend WithEvents colTitle As DevExpress.XtraTreeList.Columns.TreeListColumn
+    Friend WithEvents colLicenseType As DevExpress.XtraTreeList.Columns.TreeListColumn
+    Friend WithEvents ContextMenuTreeList As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents BarToggleSwitchItem1 As DevExpress.XtraBars.BarToggleSwitchItem
+    Friend WithEvents btnCopyGoogleDrive As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents lblNotification As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents ToastNotificationsManager1 As DevExpress.XtraBars.ToastNotifications.ToastNotificationsManager
 End Class

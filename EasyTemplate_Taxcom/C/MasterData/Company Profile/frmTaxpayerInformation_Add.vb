@@ -277,6 +277,12 @@ Public Class frmTaxpayerInformation_Add
                 txtOtherCompanyStatus.EditValue = IIf(IsDBNull(dtTaxPayer.Rows(0)("TP_STS_OTHER")), "", dtTaxPayer.Rows(0)("TP_STS_OTHER"))
                 txtPersonIncharge.EditValue = IIf(IsDBNull(dtTaxPayer.Rows(0)("HandleBy")), "", dtTaxPayer.Rows(0)("HandleBy"))
 
+                If IsDBNull(dtTaxPayer.Rows(0)("ModifiedBy")) = False AndAlso dtTaxPayer.Rows(0)("ModifiedBy") <> "" Then
+                    lblLastmodified.Caption = dtTaxPayer.Rows(0)("ModifiedBy") & " | " & IIf(IsDBNull(dtTaxPayer.Rows(0)("ModifiedDateTime")), "", dtTaxPayer.Rows(0)("ModifiedDateTime"))
+                Else
+                    lblLastmodified.Caption = ""
+                End If
+
                 Dim dtBusinessSource As DataTable = Nothing
 
                 dtBusinessSource = ADO.Load_BusinessSource(ID, ErrorLog)
@@ -453,6 +459,9 @@ Public Class frmTaxpayerInformation_Add
                 If cbo_RegState.EditValue IsNot Nothing Then
                     cbo_CorrState.EditValue = cbo_RegState.EditValue
                 End If
+                If txt_RegCity.EditValue IsNot Nothing Then
+                    txt_CorrCity.EditValue = txt_RegCity.EditValue
+                End If
                 If cbo_RegCountry.EditValue IsNot Nothing Then
                     cbo_CorrCountry.EditValue = cbo_RegCountry.EditValue
                 End If
@@ -482,6 +491,9 @@ Public Class frmTaxpayerInformation_Add
                 If cbo_RegState.EditValue IsNot Nothing Then
                     cbo_BizState.EditValue = cbo_RegState.EditValue
                 End If
+                If txt_RegCity.EditValue IsNot Nothing Then
+                    txt_BizCity.EditValue = txt_RegCity.EditValue
+                End If
                 If cbo_RegCountry.EditValue IsNot Nothing Then
                     cbo_BizCountry.EditValue = cbo_RegCountry.EditValue
                 End If
@@ -510,6 +522,9 @@ Public Class frmTaxpayerInformation_Add
                 End If
                 If cbo_CorrState.EditValue IsNot Nothing Then
                     cbo_BizState.EditValue = cbo_CorrState.EditValue
+                End If
+                If txt_CorrCity.EditValue IsNot Nothing Then
+                    txt_BizCity.EditValue = txt_CorrCity.EditValue
                 End If
                 If cbo_CorrCountry.EditValue IsNot Nothing Then
                     cbo_BizCountry.EditValue = cbo_CorrCountry.EditValue
@@ -671,15 +686,25 @@ Public Class frmTaxpayerInformation_Add
                 dtRow("TP_STS_OTHER") = txtOtherCompanyStatus.EditValue
 
                 dtRow("HandleBy") = txtPersonIncharge.EditValue
-                'dtRow("ModifiedBy") = txtRefNo.EditValue
-                'dtRow("ModifiedDateTime") = txtRefNo.EditValue
+                dtRow("ModifiedBy") = My.Computer.Name
+                dtRow("ModifiedDateTime") = Now
 
                 DsDefault.Tables("TAXP_PROFILE").Rows.Add(dtRow)
+
+                For Each rowx As DataRow In DsDefault.Tables("BUSINESS_SOURCE").Rows
+                    rowx("BC_KEY") = txtRefNo.EditValue
+                    rowx("BC_COMPANY") = "C"
+                Next
+                For Each rowx As DataRow In DsDefault.Tables("TAXP_PARTNERSHIP").Rows
+                    rowx("PS_KEY") = txtRefNo.EditValue
+                Next
+                Application.DoEvents()
 
                 If isEdit Then
 
                     If ADO.Update_TaxPayer(DsDefault.Tables("TAXP_PROFILE"), DsDefault.Tables("BUSINESS_SOURCE"), DsDefault.Tables("TAXP_PARTNERSHIP"), ErrorLog) Then
                         MsgBox("Successfully updated tax payer information", MsgBoxStyle.Information)
+                        Me.LoadData()
                     Else
                         MsgBox("Unsuccessfully update tax payer information", MsgBoxStyle.Critical)
                     End If
@@ -697,6 +722,7 @@ Public Class frmTaxpayerInformation_Add
 
                 End If
 
+                frmHome.LoadData()
             End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
@@ -864,5 +890,61 @@ Public Class frmTaxpayerInformation_Add
             st = New StackTrace(ex, True)
 
         End Try
+    End Sub
+    Private Sub dgvBusinessSource_CellValueChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles dgvBusinessSource.CellValueChanged
+        Try
+            If e.Column.FieldName = "BC_CODE" Then
+                Dim row As DataRow = dgvBusinessSource.GetDataRow(dgvBusinessSource.FocusedRowHandle)
+
+                If row IsNot Nothing Then
+
+                    For Each rowx As DataRow In DsDefault.Tables("BUSINESS").Rows
+                        If IsDBNull(rowx("BS_CODE")) = False AndAlso IsDBNull(rowx("BS_TYPE")) = False Then
+
+                            If rowx("BS_CODE") = row("BC_CODE") Then
+                                row("BC_TYPE") = rowx("BS_TYPE")
+                            End If
+
+                        End If
+                    Next
+                End If
+            End If
+
+
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+
+        End Try
+    End Sub
+    Private Sub dgvPartnership_CellValueChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles dgvPartnership.CellValueChanged
+        Try
+            If e.Column.FieldName = "PS_CODE" Then
+                Dim row As DataRow = dgvPartnership.GetDataRow(dgvPartnership.FocusedRowHandle)
+
+                If row IsNot Nothing Then
+
+                    For Each rowx As DataRow In DsDefault.Tables("BUSINESS").Rows
+                        If IsDBNull(rowx("BS_CODE")) = False AndAlso IsDBNull(rowx("BS_TYPE")) = False Then
+
+                            If rowx("BS_CODE") = row("PS_CODE") Then
+                                row("PS_TYPE") = rowx("BS_TYPE")
+                            End If
+
+                        End If
+                    Next
+                End If
+            End If
+
+
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+
+        End Try
+    End Sub
+
+    Private Sub btnClose_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnClose.ItemClick
+        Me.Close()
     End Sub
 End Class

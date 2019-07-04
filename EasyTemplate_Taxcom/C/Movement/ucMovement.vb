@@ -25,6 +25,11 @@ Public Class ucMovement
     End Sub
     Private Sub frmMovement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            If My.Computer.Name = DeveloperPCName Then
+                btnImportExport.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+            Else
+                btnImportExport.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            End If
             Me.LoadData(0)
         Catch ex As Exception
             Dim st As New StackTrace(True)
@@ -219,7 +224,16 @@ Public Class ucMovement
 
             Dim ID As Integer = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID")
             Dim rpt As rptMovementNormal = Nothing
-            If mdlProcess.PrintReport_MovementNormal(DsMovement, ID, GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"), rpt, ErrorLog) Then
+            Dim rpt_Note As rptMovement_Note
+            If mdlProcess.PrintReport_MovementNormal(DsMovement, ID, GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"), rpt, False, rpt_Note, ErrorLog) Then
+                'rpt.ShowPreview()
+                Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
+
+                Dim x As Integer = 0
+
+                For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                    rpt.Pages.Add(pg)
+                Next
                 rpt.ShowPreview()
             Else
                 MsgBox("Failed to load movement normal report.", MsgBoxStyle.Critical)

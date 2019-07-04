@@ -24,6 +24,7 @@ Partial Public Class rptpnl_Note
         Me.Detail = New DevExpress.XtraReports.UI.DetailBand()
         Me.XrLabel2 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.FormattingRule2 = New DevExpress.XtraReports.UI.FormattingRule()
         Me.TopMargin = New DevExpress.XtraReports.UI.TopMarginBand()
         Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
         Me.DetailReport = New DevExpress.XtraReports.UI.DetailReportBand()
@@ -37,6 +38,7 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell5 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableCell6 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
+        Me.XrLabel3 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrTable2 = New DevExpress.XtraReports.UI.XRTable()
         Me.XrTableRow2 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.XrTableCell7 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -47,17 +49,17 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell12 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.GroupFooter1 = New DevExpress.XtraReports.UI.GroupFooterBand()
         Me.XrLabel4 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.DsPNL_Report1 = New EasyTemplate_Taxcom.dsPNL_Report()
         Me.FormattingRule1 = New DevExpress.XtraReports.UI.FormattingRule()
         Me.paramYA = New DevExpress.XtraReports.Parameters.Parameter()
         Me.ParamCompayName = New DevExpress.XtraReports.Parameters.Parameter()
         Me.paramKeyName = New DevExpress.XtraReports.Parameters.Parameter()
         Me.ReportHeader1 = New DevExpress.XtraReports.UI.ReportHeaderBand()
         Me.lblTitleNote = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel3 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.FormattingRule2 = New DevExpress.XtraReports.UI.FormattingRule()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsPNL_Report1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'DsPNL1
@@ -99,6 +101,12 @@ Partial Public Class rptpnl_Note
         Me.XrLabel1.StylePriority.UseFont = False
         Me.XrLabel1.Text = "XrLabel1"
         '
+        'FormattingRule2
+        '
+        Me.FormattingRule2.Condition = "[TypeNote]=2"
+        Me.FormattingRule2.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.FormattingRule2.Name = "FormattingRule2"
+        '
         'TopMargin
         '
         Me.TopMargin.HeightF = 0.0!
@@ -118,7 +126,7 @@ Partial Public Class rptpnl_Note
         Me.DetailReport.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail1, Me.ReportHeader, Me.GroupFooter1})
         Me.DetailReport.DataMember = "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
     "UMN"
-        Me.DetailReport.DataSource = Me.DsPNL1
+        Me.DetailReport.DataSource = Me.DsPNL_Report1
         Me.DetailReport.FormattingRules.Add(Me.FormattingRule1)
         Me.DetailReport.Level = 0
         Me.DetailReport.Name = "DetailReport"
@@ -151,6 +159,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell1.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col1_Val")})
         Me.XrTableCell1.Name = "XrTableCell1"
+        Me.XrTableCell1.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell1.StylePriority.UsePadding = False
         Me.XrTableCell1.Text = "XrTableCell1"
         Me.XrTableCell1.Weight = 0.42973790715640947R
         '
@@ -159,6 +169,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col2_Val")})
         Me.XrTableCell2.Name = "XrTableCell2"
+        Me.XrTableCell2.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell2.StylePriority.UsePadding = False
         Me.XrTableCell2.Text = "XrTableCell2"
         Me.XrTableCell2.Weight = 0.38423055722906274R
         '
@@ -167,6 +179,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell3.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col3_Val")})
         Me.XrTableCell3.Name = "XrTableCell3"
+        Me.XrTableCell3.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell3.StylePriority.UsePadding = False
         Me.XrTableCell3.Text = "XrTableCell3"
         Me.XrTableCell3.Weight = 0.39153130202556818R
         '
@@ -175,6 +189,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell4.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col4_Val")})
         Me.XrTableCell4.Name = "XrTableCell4"
+        Me.XrTableCell4.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell4.StylePriority.UsePadding = False
         Me.XrTableCell4.Text = "XrTableCell4"
         Me.XrTableCell4.Weight = 0.45504530308643087R
         '
@@ -183,6 +199,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell5.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col5_Val")})
         Me.XrTableCell5.Name = "XrTableCell5"
+        Me.XrTableCell5.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell5.StylePriority.UsePadding = False
         Me.XrTableCell5.Text = "XrTableCell5"
         Me.XrTableCell5.Weight = 0.4932686019980318R
         '
@@ -191,6 +209,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell6.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col6_Val")})
         Me.XrTableCell6.Name = "XrTableCell6"
+        Me.XrTableCell6.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell6.StylePriority.UsePadding = False
         Me.XrTableCell6.Text = "XrTableCell6"
         Me.XrTableCell6.Weight = 0.7363881555344407R
         '
@@ -200,6 +220,17 @@ Partial Public Class rptpnl_Note
         Me.ReportHeader.HeightF = 25.00001!
         Me.ReportHeader.KeepTogether = True
         Me.ReportHeader.Name = "ReportHeader"
+        '
+        'XrLabel3
+        '
+        Me.XrLabel3.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.Title", "{0}.")})
+        Me.XrLabel3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 2.0!)
+        Me.XrLabel3.Name = "XrLabel3"
+        Me.XrLabel3.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel3.SizeF = New System.Drawing.SizeF(56.25005!, 23.0!)
+        Me.XrLabel3.StylePriority.UseFont = False
+        Me.XrLabel3.Text = "XrLabel1"
         '
         'XrTable2
         '
@@ -221,6 +252,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell7.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col1_Name")})
         Me.XrTableCell7.Name = "XrTableCell7"
+        Me.XrTableCell7.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell7.StylePriority.UsePadding = False
         Me.XrTableCell7.Text = "XrTableCell7"
         Me.XrTableCell7.Weight = 0.48137156230618094R
         '
@@ -229,6 +262,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell8.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col2_Name")})
         Me.XrTableCell8.Name = "XrTableCell8"
+        Me.XrTableCell8.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell8.StylePriority.UsePadding = False
         Me.XrTableCell8.Text = "XrTableCell8"
         Me.XrTableCell8.Weight = 0.4303970691420913R
         '
@@ -237,6 +272,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell9.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col3_Name")})
         Me.XrTableCell9.Name = "XrTableCell9"
+        Me.XrTableCell9.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell9.StylePriority.UsePadding = False
         Me.XrTableCell9.Text = "XrTableCell9"
         Me.XrTableCell9.Weight = 0.43857333615665883R
         '
@@ -245,6 +282,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell10.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col4_Name")})
         Me.XrTableCell10.Name = "XrTableCell10"
+        Me.XrTableCell10.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell10.StylePriority.UsePadding = False
         Me.XrTableCell10.Text = "XrTableCell10"
         Me.XrTableCell10.Weight = 0.50972057532687776R
         '
@@ -253,6 +292,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell11.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col5_Name")})
         Me.XrTableCell11.Name = "XrTableCell11"
+        Me.XrTableCell11.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell11.StylePriority.UsePadding = False
         Me.XrTableCell11.Text = "XrTableCell11"
         Me.XrTableCell11.Weight = 0.55253578839073947R
         '
@@ -261,6 +302,8 @@ Partial Public Class rptpnl_Note
         Me.XrTableCell12.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.FK_PROFIT_LOSS_ACCOUNT_NOTE_PROFIT_LOSS_ACCOUNT_NOTE_COL" & _
                     "UMN.Col6_Name")})
         Me.XrTableCell12.Name = "XrTableCell12"
+        Me.XrTableCell12.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.XrTableCell12.StylePriority.UsePadding = False
         Me.XrTableCell12.Text = "XrTableCell12"
         Me.XrTableCell12.Weight = 0.82486593474342718R
         '
@@ -278,6 +321,11 @@ Partial Public Class rptpnl_Note
         Me.XrLabel4.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel4.SizeF = New System.Drawing.SizeF(666.0001!, 23.0!)
         Me.XrLabel4.StylePriority.UseFont = False
+        '
+        'DsPNL_Report1
+        '
+        Me.DsPNL_Report1.DataSetName = "dsPNL_Report"
+        Me.DsPNL_Report1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'FormattingRule1
         '
@@ -326,28 +374,11 @@ Partial Public Class rptpnl_Note
         Me.lblTitleNote.StylePriority.UseFont = False
         Me.lblTitleNote.Text = "Note(s):-"
         '
-        'XrLabel3
-        '
-        Me.XrLabel3.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_NOTE.Title", "{0}.")})
-        Me.XrLabel3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 2.0!)
-        Me.XrLabel3.Name = "XrLabel3"
-        Me.XrLabel3.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel3.SizeF = New System.Drawing.SizeF(56.25005!, 23.0!)
-        Me.XrLabel3.StylePriority.UseFont = False
-        Me.XrLabel3.Text = "XrLabel1"
-        '
-        'FormattingRule2
-        '
-        Me.FormattingRule2.Condition = "[TypeNote]=2"
-        Me.FormattingRule2.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
-        Me.FormattingRule2.Name = "FormattingRule2"
-        '
         'rptpnl_Note
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.DetailReport, Me.ReportHeader1})
         Me.DataMember = "PROFIT_LOSS_ACCOUNT_NOTE"
-        Me.DataSource = Me.DsPNL1
+        Me.DataSource = Me.DsPNL_Report1
         Me.FilterString = "[KeyName] = ?paramKeyName"
         Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.FormattingRule1, Me.FormattingRule2})
         Me.Margins = New System.Drawing.Printing.Margins(63, 111, 0, 14)
@@ -357,6 +388,7 @@ Partial Public Class rptpnl_Note
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsPNL_Report1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
@@ -395,4 +427,5 @@ Partial Public Class rptpnl_Note
     Friend WithEvents XrLabel4 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel3 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents FormattingRule2 As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents DsPNL_Report1 As EasyTemplate_Taxcom.dsPNL_Report
 End Class

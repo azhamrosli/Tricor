@@ -38,7 +38,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="TAX_COMPUTATION" msprop:Generator_TableClassName="TAX_COMPUTATIONDataTable" msprop:Generator_TableVarName="tableTAX_COMPUTATION" msprop:Generator_TablePropName="TAX_COMPUTATION" msprop:Generator_RowDeletingName="TAX_COMPUTATIONRowDeleting" msprop:Generator_RowChangingName="TAX_COMPUTATIONRowChanging" msprop:Generator_RowEvHandlerName="TAX_COMPUTATIONRowChangeEventHandler" msprop:Generator_RowDeletedName="TAX_COMPUTATIONRowDeleted" msprop:Generator_UserTableName="TAX_COMPUTATION" msprop:Generator_RowChangedName="TAX_COMPUTATIONRowChanged" msprop:Generator_RowEvArgName="TAX_COMPUTATIONRowChangeEvent" msprop:Generator_RowClassName="TAX_COMPUTATIONRow">
+        <xs:element name="TAX_COMPUTATION" msprop:Generator_TableClassName="TAX_COMPUTATIONDataTable" msprop:Generator_TableVarName="tableTAX_COMPUTATION" msprop:Generator_RowChangedName="TAX_COMPUTATIONRowChanged" msprop:Generator_TablePropName="TAX_COMPUTATION" msprop:Generator_RowDeletingName="TAX_COMPUTATIONRowDeleting" msprop:Generator_RowChangingName="TAX_COMPUTATIONRowChanging" msprop:Generator_RowEvHandlerName="TAX_COMPUTATIONRowChangeEventHandler" msprop:Generator_RowDeletedName="TAX_COMPUTATIONRowDeleted" msprop:Generator_RowClassName="TAX_COMPUTATIONRow" msprop:Generator_UserTableName="TAX_COMPUTATION" msprop:Generator_RowEvArgName="TAX_COMPUTATIONRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="TC_KEY" msprop:Generator_ColumnVarNameInTable="columnTC_KEY" msprop:Generator_ColumnPropNameInRow="TC_KEY" msprop:Generator_ColumnPropNameInTable="TC_KEYColumn" msprop:Generator_UserColumnName="TC_KEY" type="xs:int" />
@@ -71,902 +71,140 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="TC_BUSINESS" msprop:Generator_ColumnVarNameInTable="columnTC_BUSINESS" msprop:Generator_ColumnPropNameInRow="TC_BUSINESS" msprop:Generator_ColumnPropNameInTable="TC_BUSINESSColumn" msprop:Generator_UserColumnName="TC_BUSINESS" type="xs:int" minOccurs="0" />
-              <xs:element name="TC_AI_PNL_BAL" msprop:Generator_ColumnVarNameInTable="columnTC_AI_PNL_BAL" msprop:Generator_ColumnPropNameInRow="TC_AI_PNL_BAL" msprop:Generator_ColumnPropNameInTable="TC_AI_PNL_BALColumn" msprop:Generator_UserColumnName="TC_AI_PNL_BAL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_DIVIDEND" msprop:Generator_ColumnVarNameInTable="columnTC_AI_DIVIDEND" msprop:Generator_ColumnPropNameInRow="TC_AI_DIVIDEND" msprop:Generator_ColumnPropNameInTable="TC_AI_DIVIDENDColumn" msprop:Generator_UserColumnName="TC_AI_DIVIDEND" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_RENTAL" msprop:Generator_ColumnVarNameInTable="columnTC_AI_RENTAL" msprop:Generator_ColumnPropNameInRow="TC_AI_RENTAL" msprop:Generator_ColumnPropNameInTable="TC_AI_RENTALColumn" msprop:Generator_UserColumnName="TC_AI_RENTAL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_ROYALTY" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ROYALTY" msprop:Generator_ColumnPropNameInRow="TC_AI_ROYALTY" msprop:Generator_ColumnPropNameInTable="TC_AI_ROYALTYColumn" msprop:Generator_UserColumnName="TC_AI_ROYALTY" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_INTEREST" msprop:Generator_ColumnVarNameInTable="columnTC_AI_INTEREST" msprop:Generator_ColumnPropNameInRow="TC_AI_INTEREST" msprop:Generator_ColumnPropNameInTable="TC_AI_INTERESTColumn" msprop:Generator_UserColumnName="TC_AI_INTEREST" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_SEC4A" msprop:Generator_ColumnVarNameInTable="columnTC_AI_SEC4A" msprop:Generator_ColumnPropNameInRow="TC_AI_SEC4A" msprop:Generator_ColumnPropNameInTable="TC_AI_SEC4AColumn" msprop:Generator_UserColumnName="TC_AI_SEC4A" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_TOT_NONBS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_TOT_NONBS_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_TOT_NONBS_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_TOT_NONBS_INColumn" msprop:Generator_UserColumnName="TC_AI_TOT_NONBS_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_TOT_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_TOT_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_TOT_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_TOT_BS_INColumn" msprop:Generator_UserColumnName="TC_AI_TOT_BS_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_ADJ_BS_IN_NA_LOS" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_IN_NA_LOS" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_IN_NA_LOS" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_IN_NA_LOSColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_IN_NA_LOS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_ADJ_BS_IN_NT_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_IN_NT_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_IN_NT_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_IN_NT_INColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_IN_NT_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_ADJ_BS_IN_TAX_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_IN_TAX_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_IN_TAX_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_IN_TAX_INColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_IN_TAX_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_TOT_ADJ_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_TOT_ADJ_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_TOT_ADJ_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_TOT_ADJ_BS_INColumn" msprop:Generator_UserColumnName="TC_AI_TOT_ADJ_BS_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_ADJ_BS_EXP_INT" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_EXP_INT" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_EXP_INT" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_EXP_INTColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_EXP_INT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_ADJ_BS_EXP_NA_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_EXP_NA_EXP" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_EXP_NA_EXP" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_EXP_NA_EXPColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_EXP_NA_EXP" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_ADJ_BS_EXP_RV_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_EXP_RV_EXP" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_EXP_RV_EXP" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_EXP_RV_EXPColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_EXP_RV_EXP" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_ADJ_BS_EXP_CLAIM" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_EXP_CLAIM" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_EXP_CLAIM" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_EXP_CLAIMColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_EXP_CLAIM" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_TOT_ADJ_BS_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_AI_TOT_ADJ_BS_EXP" msprop:Generator_ColumnPropNameInRow="TC_AI_TOT_ADJ_BS_EXP" msprop:Generator_ColumnPropNameInTable="TC_AI_TOT_ADJ_BS_EXPColumn" msprop:Generator_UserColumnName="TC_AI_TOT_ADJ_BS_EXP" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_ADJ_IN_LOSS" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_IN_LOSS" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_IN_LOSS" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_IN_LOSSColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_IN_LOSS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_ADJ_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_ADJ_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_ADJ_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_ADJ_BS_INColumn" msprop:Generator_UserColumnName="TC_SI_ADJ_BS_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_CA" msprop:Generator_ColumnVarNameInTable="columnTC_SI_CA" msprop:Generator_ColumnPropNameInRow="TC_SI_CA" msprop:Generator_ColumnPropNameInTable="TC_SI_CAColumn" msprop:Generator_UserColumnName="TC_SI_CA" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_STAT_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_STAT_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_STAT_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_STAT_BS_INColumn" msprop:Generator_UserColumnName="TC_SI_STAT_BS_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_INVEST_ALLOW" msprop:Generator_ColumnVarNameInTable="columnTC_SI_INVEST_ALLOW" msprop:Generator_ColumnPropNameInRow="TC_SI_INVEST_ALLOW" msprop:Generator_ColumnPropNameInTable="TC_SI_INVEST_ALLOWColumn" msprop:Generator_UserColumnName="TC_SI_INVEST_ALLOW" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_NET_STAT_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_NET_STAT_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_NET_STAT_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_NET_STAT_INColumn" msprop:Generator_UserColumnName="TC_SI_NET_STAT_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_SS_RENTAL" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_RENTAL" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_RENTAL" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_RENTALColumn" msprop:Generator_UserColumnName="TC_SI_SS_RENTAL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_SS_DIR_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_DIR_EXP" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_DIR_EXP" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_DIR_EXPColumn" msprop:Generator_UserColumnName="TC_SI_SS_DIR_EXP" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_SS_DIR_EXP_QUIT" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_DIR_EXP_QUIT" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_DIR_EXP_QUIT" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_DIR_EXP_QUITColumn" msprop:Generator_UserColumnName="TC_SI_SS_DIR_EXP_QUIT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_SS_DIR_EXP_MAIN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_DIR_EXP_MAIN" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_DIR_EXP_MAIN" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_DIR_EXP_MAINColumn" msprop:Generator_UserColumnName="TC_SI_SS_DIR_EXP_MAIN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_SS_ADJ_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_ADJ_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_ADJ_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_ADJ_INColumn" msprop:Generator_UserColumnName="TC_SI_SS_ADJ_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_SS_CA" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_CA" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_CA" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_CAColumn" msprop:Generator_UserColumnName="TC_SI_SS_CA" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_SS_STAT_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_STAT_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_STAT_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_STAT_BS_INColumn" msprop:Generator_UserColumnName="TC_SI_SS_STAT_BS_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_OTH_SOURCE" msprop:Generator_ColumnVarNameInTable="columnTC_SI_OTH_SOURCE" msprop:Generator_ColumnPropNameInRow="TC_SI_OTH_SOURCE" msprop:Generator_ColumnPropNameInTable="TC_SI_OTH_SOURCEColumn" msprop:Generator_UserColumnName="TC_SI_OTH_SOURCE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_MAIN_BS" msprop:Generator_ColumnVarNameInTable="columnTC_SI_MAIN_BS" msprop:Generator_ColumnPropNameInRow="TC_SI_MAIN_BS" msprop:Generator_ColumnPropNameInTable="TC_SI_MAIN_BSColumn" msprop:Generator_UserColumnName="TC_SI_MAIN_BS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_SEC_BS" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SEC_BS" msprop:Generator_ColumnPropNameInRow="TC_SI_SEC_BS" msprop:Generator_ColumnPropNameInTable="TC_SI_SEC_BSColumn" msprop:Generator_UserColumnName="TC_SI_SEC_BS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_OTH_BS" msprop:Generator_ColumnVarNameInTable="columnTC_SI_OTH_BS" msprop:Generator_ColumnPropNameInRow="TC_SI_OTH_BS" msprop:Generator_ColumnPropNameInTable="TC_SI_OTH_BSColumn" msprop:Generator_UserColumnName="TC_SI_OTH_BS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_TOT" msprop:Generator_ColumnVarNameInTable="columnTC_SI_TOT" msprop:Generator_ColumnPropNameInRow="TC_SI_TOT" msprop:Generator_ColumnPropNameInTable="TC_SI_TOTColumn" msprop:Generator_UserColumnName="TC_SI_TOT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_BS_LOSS_BF" msprop:Generator_ColumnVarNameInTable="columnTC_SI_BS_LOSS_BF" msprop:Generator_ColumnPropNameInRow="TC_SI_BS_LOSS_BF" msprop:Generator_ColumnPropNameInTable="TC_SI_BS_LOSS_BFColumn" msprop:Generator_UserColumnName="TC_SI_BS_LOSS_BF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_AGGREGATE" msprop:Generator_ColumnVarNameInTable="columnTC_SI_AGGREGATE" msprop:Generator_ColumnPropNameInRow="TC_SI_AGGREGATE" msprop:Generator_ColumnPropNameInTable="TC_SI_AGGREGATEColumn" msprop:Generator_UserColumnName="TC_SI_AGGREGATE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_DIV" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV" msprop:Generator_ColumnPropNameInTable="TC_NB_DIVColumn" msprop:Generator_UserColumnName="TC_NB_DIV" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_DIV_ATT_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV_ATT_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV_ATT_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_DIV_ATT_INTColumn" msprop:Generator_UserColumnName="TC_NB_DIV_ATT_INT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_DIV_NET" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV_NET" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV_NET" msprop:Generator_ColumnPropNameInTable="TC_NB_DIV_NETColumn" msprop:Generator_UserColumnName="TC_NB_DIV_NET" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_INTColumn" msprop:Generator_UserColumnName="TC_NB_INT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_INT_ATT_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_INT_ATT_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_INT_ATT_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_INT_ATT_INTColumn" msprop:Generator_UserColumnName="TC_NB_INT_ATT_INT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_INT_NET" msprop:Generator_ColumnVarNameInTable="columnTC_NB_INT_NET" msprop:Generator_ColumnPropNameInRow="TC_NB_INT_NET" msprop:Generator_ColumnPropNameInTable="TC_NB_INT_NETColumn" msprop:Generator_UserColumnName="TC_NB_INT_NET" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTColumn" msprop:Generator_UserColumnName="TC_NB_RENT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENT_ATT_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_ATT_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_ATT_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_ATT_INTColumn" msprop:Generator_UserColumnName="TC_NB_RENT_ATT_INT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENT_ASSESS" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_ASSESS" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_ASSESS" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_ASSESSColumn" msprop:Generator_UserColumnName="TC_NB_RENT_ASSESS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENT_QUIT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_QUIT" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_QUIT" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_QUITColumn" msprop:Generator_UserColumnName="TC_NB_RENT_QUIT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENT_INSUR" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_INSUR" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_INSUR" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_INSURColumn" msprop:Generator_UserColumnName="TC_NB_RENT_INSUR" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENT_OTH" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_OTH" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_OTH" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_OTHColumn" msprop:Generator_UserColumnName="TC_NB_RENT_OTH" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENT_MAIN" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_MAIN" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_MAIN" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_MAINColumn" msprop:Generator_UserColumnName="TC_NB_RENT_MAIN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENT_AGREE" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_AGREE" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_AGREE" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_AGREEColumn" msprop:Generator_UserColumnName="TC_NB_RENT_AGREE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENT_NET" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_NET" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_NET" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_NETColumn" msprop:Generator_UserColumnName="TC_NB_RENT_NET" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_SUNDRY" msprop:Generator_ColumnVarNameInTable="columnTC_NB_SUNDRY" msprop:Generator_ColumnPropNameInRow="TC_NB_SUNDRY" msprop:Generator_ColumnPropNameInTable="TC_NB_SUNDRYColumn" msprop:Generator_UserColumnName="TC_NB_SUNDRY" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_OTH_AGGR_STAT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_OTH_AGGR_STAT" msprop:Generator_ColumnPropNameInRow="TC_NB_OTH_AGGR_STAT" msprop:Generator_ColumnPropNameInTable="TC_NB_OTH_AGGR_STATColumn" msprop:Generator_UserColumnName="TC_NB_OTH_AGGR_STAT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_AGGR_IN" msprop:Generator_ColumnVarNameInTable="columnTC_TP_AGGR_IN" msprop:Generator_ColumnPropNameInRow="TC_TP_AGGR_IN" msprop:Generator_ColumnPropNameInTable="TC_TP_AGGR_INColumn" msprop:Generator_UserColumnName="TC_TP_AGGR_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_CURR_LOSS" msprop:Generator_ColumnVarNameInTable="columnTC_TP_CURR_LOSS" msprop:Generator_ColumnPropNameInRow="TC_TP_CURR_LOSS" msprop:Generator_ColumnPropNameInTable="TC_TP_CURR_LOSSColumn" msprop:Generator_UserColumnName="TC_TP_CURR_LOSS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_AGGR_IN_LOSS" msprop:Generator_ColumnVarNameInTable="columnTC_TP_AGGR_IN_LOSS" msprop:Generator_ColumnPropNameInRow="TC_TP_AGGR_IN_LOSS" msprop:Generator_ColumnPropNameInTable="TC_TP_AGGR_IN_LOSSColumn" msprop:Generator_UserColumnName="TC_TP_AGGR_IN_LOSS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_APRV_DONATION" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APRV_DONATION" msprop:Generator_ColumnPropNameInRow="TC_TP_APRV_DONATION" msprop:Generator_ColumnPropNameInTable="TC_TP_APRV_DONATIONColumn" msprop:Generator_UserColumnName="TC_TP_APRV_DONATION" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_CHARGEABLE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_28_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_28_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_28_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_28_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_28_CHARGEABLE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_SEC110" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC110" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC110" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC110Column" msprop:Generator_UserColumnName="TC_TP_SEC110" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_SEC132" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC132" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC132" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC132Column" msprop:Generator_UserColumnName="TC_TP_SEC132" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_SEC133" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC133" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC133" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC133Column" msprop:Generator_UserColumnName="TC_TP_SEC133" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_TOT_SETOFF" msprop:Generator_ColumnVarNameInTable="columnTC_TP_TOT_SETOFF" msprop:Generator_ColumnPropNameInRow="TC_TP_TOT_SETOFF" msprop:Generator_ColumnPropNameInTable="TC_TP_TOT_SETOFFColumn" msprop:Generator_UserColumnName="TC_TP_TOT_SETOFF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_PAYABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PAYABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_PAYABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_PAYABLEColumn" msprop:Generator_UserColumnName="TC_TP_PAYABLE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_INSTALL" msprop:Generator_ColumnVarNameInTable="columnTC_TP_INSTALL" msprop:Generator_ColumnPropNameInRow="TC_TP_INSTALL" msprop:Generator_ColumnPropNameInTable="TC_TP_INSTALLColumn" msprop:Generator_UserColumnName="TC_TP_INSTALL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_PAYABLE_BAL" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PAYABLE_BAL" msprop:Generator_ColumnPropNameInRow="TC_TP_PAYABLE_BAL" msprop:Generator_ColumnPropNameInTable="TC_TP_PAYABLE_BALColumn" msprop:Generator_UserColumnName="TC_TP_PAYABLE_BAL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_CA_BAL_BF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_BAL_BF" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_BAL_BF" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_BAL_BFColumn" msprop:Generator_UserColumnName="TC_CB_CA_BAL_BF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_CA_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_CURRColumn" msprop:Generator_UserColumnName="TC_CB_CA_CURR" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_CA_AA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_AA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_AA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_AAColumn" msprop:Generator_UserColumnName="TC_CB_CA_AA" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_CA_IA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_IA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_IA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_IAColumn" msprop:Generator_UserColumnName="TC_CB_CA_IA" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_CA_BA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_BA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_BA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_BAColumn" msprop:Generator_UserColumnName="TC_CB_CA_BA" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_CA_UTIL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_UTIL" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_UTIL" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_UTILColumn" msprop:Generator_UserColumnName="TC_CB_CA_UTIL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_CA_BAL_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_BAL_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_BAL_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_BAL_CFColumn" msprop:Generator_UserColumnName="TC_CB_CA_BAL_CF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_BAL_BF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BAL_BF" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BAL_BF" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BAL_BFColumn" msprop:Generator_UserColumnName="TC_CB_LS_BAL_BF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_UTIL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_UTIL" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_UTIL" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_UTILColumn" msprop:Generator_UserColumnName="TC_CB_LS_UTIL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_BAL_UTIL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BAL_UTIL" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BAL_UTIL" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BAL_UTILColumn" msprop:Generator_UserColumnName="TC_CB_LS_BAL_UTIL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_UNABSORBED" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_UNABSORBED" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_UNABSORBED" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_UNABSORBEDColumn" msprop:Generator_UserColumnName="TC_CB_LS_UNABSORBED" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_BAL_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BAL_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BAL_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BAL_CFColumn" msprop:Generator_UserColumnName="TC_CB_LS_BAL_CF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_ITA_BAL_BF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_ITA_BAL_BF" msprop:Generator_ColumnPropNameInRow="TC_CB_ITA_BAL_BF" msprop:Generator_ColumnPropNameInTable="TC_CB_ITA_BAL_BFColumn" msprop:Generator_UserColumnName="TC_CB_ITA_BAL_BF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_ITA_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_ITA_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_ITA_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_ITA_CURRColumn" msprop:Generator_UserColumnName="TC_CB_ITA_CURR" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_ITA_BAL_BF_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_ITA_BAL_BF_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_ITA_BAL_BF_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_ITA_BAL_BF_CURRColumn" msprop:Generator_UserColumnName="TC_CB_ITA_BAL_BF_CURR" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_ITA_UTIL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_ITA_UTIL" msprop:Generator_ColumnPropNameInRow="TC_CB_ITA_UTIL" msprop:Generator_ColumnPropNameInTable="TC_CB_ITA_UTILColumn" msprop:Generator_UserColumnName="TC_CB_ITA_UTIL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_ITA_BAL_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_ITA_BAL_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_ITA_BAL_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_ITA_BAL_CFColumn" msprop:Generator_UserColumnName="TC_CB_ITA_BAL_CF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_AI_OTH_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_OTH_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_OTH_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_OTH_BS_INColumn" msprop:Generator_UserColumnName="TC_AI_OTH_BS_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="TC_AI_PNL_BAL" msprop:Generator_ColumnVarNameInTable="columnTC_AI_PNL_BAL" msprop:Generator_ColumnPropNameInRow="TC_AI_PNL_BAL" msprop:Generator_ColumnPropNameInTable="TC_AI_PNL_BALColumn" msprop:Generator_UserColumnName="TC_AI_PNL_BAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_DIVIDEND" msprop:Generator_ColumnVarNameInTable="columnTC_AI_DIVIDEND" msprop:Generator_ColumnPropNameInRow="TC_AI_DIVIDEND" msprop:Generator_ColumnPropNameInTable="TC_AI_DIVIDENDColumn" msprop:Generator_UserColumnName="TC_AI_DIVIDEND" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_RENTAL" msprop:Generator_ColumnVarNameInTable="columnTC_AI_RENTAL" msprop:Generator_ColumnPropNameInRow="TC_AI_RENTAL" msprop:Generator_ColumnPropNameInTable="TC_AI_RENTALColumn" msprop:Generator_UserColumnName="TC_AI_RENTAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_ROYALTY" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ROYALTY" msprop:Generator_ColumnPropNameInRow="TC_AI_ROYALTY" msprop:Generator_ColumnPropNameInTable="TC_AI_ROYALTYColumn" msprop:Generator_UserColumnName="TC_AI_ROYALTY" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_INTEREST" msprop:Generator_ColumnVarNameInTable="columnTC_AI_INTEREST" msprop:Generator_ColumnPropNameInRow="TC_AI_INTEREST" msprop:Generator_ColumnPropNameInTable="TC_AI_INTERESTColumn" msprop:Generator_UserColumnName="TC_AI_INTEREST" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_SEC4A" msprop:Generator_ColumnVarNameInTable="columnTC_AI_SEC4A" msprop:Generator_ColumnPropNameInRow="TC_AI_SEC4A" msprop:Generator_ColumnPropNameInTable="TC_AI_SEC4AColumn" msprop:Generator_UserColumnName="TC_AI_SEC4A" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_TOT_NONBS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_TOT_NONBS_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_TOT_NONBS_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_TOT_NONBS_INColumn" msprop:Generator_UserColumnName="TC_AI_TOT_NONBS_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_TOT_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_TOT_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_TOT_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_TOT_BS_INColumn" msprop:Generator_UserColumnName="TC_AI_TOT_BS_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_ADJ_BS_IN_NA_LOS" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_IN_NA_LOS" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_IN_NA_LOS" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_IN_NA_LOSColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_IN_NA_LOS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_ADJ_BS_IN_NT_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_IN_NT_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_IN_NT_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_IN_NT_INColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_IN_NT_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_ADJ_BS_IN_TAX_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_IN_TAX_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_IN_TAX_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_IN_TAX_INColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_IN_TAX_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_TOT_ADJ_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_TOT_ADJ_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_TOT_ADJ_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_TOT_ADJ_BS_INColumn" msprop:Generator_UserColumnName="TC_AI_TOT_ADJ_BS_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_ADJ_BS_EXP_INT" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_EXP_INT" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_EXP_INT" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_EXP_INTColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_EXP_INT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_ADJ_BS_EXP_NA_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_EXP_NA_EXP" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_EXP_NA_EXP" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_EXP_NA_EXPColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_EXP_NA_EXP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_ADJ_BS_EXP_RV_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_EXP_RV_EXP" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_EXP_RV_EXP" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_EXP_RV_EXPColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_EXP_RV_EXP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_ADJ_BS_EXP_CLAIM" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_BS_EXP_CLAIM" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_BS_EXP_CLAIM" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_BS_EXP_CLAIMColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_BS_EXP_CLAIM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_TOT_ADJ_BS_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_AI_TOT_ADJ_BS_EXP" msprop:Generator_ColumnPropNameInRow="TC_AI_TOT_ADJ_BS_EXP" msprop:Generator_ColumnPropNameInTable="TC_AI_TOT_ADJ_BS_EXPColumn" msprop:Generator_UserColumnName="TC_AI_TOT_ADJ_BS_EXP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_ADJ_IN_LOSS" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_IN_LOSS" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_IN_LOSS" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_IN_LOSSColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_IN_LOSS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_ADJ_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_ADJ_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_ADJ_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_ADJ_BS_INColumn" msprop:Generator_UserColumnName="TC_SI_ADJ_BS_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_CA" msprop:Generator_ColumnVarNameInTable="columnTC_SI_CA" msprop:Generator_ColumnPropNameInRow="TC_SI_CA" msprop:Generator_ColumnPropNameInTable="TC_SI_CAColumn" msprop:Generator_UserColumnName="TC_SI_CA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_STAT_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_STAT_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_STAT_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_STAT_BS_INColumn" msprop:Generator_UserColumnName="TC_SI_STAT_BS_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_INVEST_ALLOW" msprop:Generator_ColumnVarNameInTable="columnTC_SI_INVEST_ALLOW" msprop:Generator_ColumnPropNameInRow="TC_SI_INVEST_ALLOW" msprop:Generator_ColumnPropNameInTable="TC_SI_INVEST_ALLOWColumn" msprop:Generator_UserColumnName="TC_SI_INVEST_ALLOW" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_NET_STAT_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_NET_STAT_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_NET_STAT_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_NET_STAT_INColumn" msprop:Generator_UserColumnName="TC_SI_NET_STAT_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_SS_RENTAL" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_RENTAL" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_RENTAL" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_RENTALColumn" msprop:Generator_UserColumnName="TC_SI_SS_RENTAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_SS_DIR_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_DIR_EXP" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_DIR_EXP" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_DIR_EXPColumn" msprop:Generator_UserColumnName="TC_SI_SS_DIR_EXP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_SS_DIR_EXP_QUIT" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_DIR_EXP_QUIT" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_DIR_EXP_QUIT" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_DIR_EXP_QUITColumn" msprop:Generator_UserColumnName="TC_SI_SS_DIR_EXP_QUIT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_SS_DIR_EXP_MAIN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_DIR_EXP_MAIN" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_DIR_EXP_MAIN" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_DIR_EXP_MAINColumn" msprop:Generator_UserColumnName="TC_SI_SS_DIR_EXP_MAIN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_SS_ADJ_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_ADJ_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_ADJ_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_ADJ_INColumn" msprop:Generator_UserColumnName="TC_SI_SS_ADJ_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_SS_CA" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_CA" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_CA" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_CAColumn" msprop:Generator_UserColumnName="TC_SI_SS_CA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_SS_STAT_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SS_STAT_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_SS_STAT_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_SS_STAT_BS_INColumn" msprop:Generator_UserColumnName="TC_SI_SS_STAT_BS_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_OTH_SOURCE" msprop:Generator_ColumnVarNameInTable="columnTC_SI_OTH_SOURCE" msprop:Generator_ColumnPropNameInRow="TC_SI_OTH_SOURCE" msprop:Generator_ColumnPropNameInTable="TC_SI_OTH_SOURCEColumn" msprop:Generator_UserColumnName="TC_SI_OTH_SOURCE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_MAIN_BS" msprop:Generator_ColumnVarNameInTable="columnTC_SI_MAIN_BS" msprop:Generator_ColumnPropNameInRow="TC_SI_MAIN_BS" msprop:Generator_ColumnPropNameInTable="TC_SI_MAIN_BSColumn" msprop:Generator_UserColumnName="TC_SI_MAIN_BS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_SEC_BS" msprop:Generator_ColumnVarNameInTable="columnTC_SI_SEC_BS" msprop:Generator_ColumnPropNameInRow="TC_SI_SEC_BS" msprop:Generator_ColumnPropNameInTable="TC_SI_SEC_BSColumn" msprop:Generator_UserColumnName="TC_SI_SEC_BS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_OTH_BS" msprop:Generator_ColumnVarNameInTable="columnTC_SI_OTH_BS" msprop:Generator_ColumnPropNameInRow="TC_SI_OTH_BS" msprop:Generator_ColumnPropNameInTable="TC_SI_OTH_BSColumn" msprop:Generator_UserColumnName="TC_SI_OTH_BS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_TOT" msprop:Generator_ColumnVarNameInTable="columnTC_SI_TOT" msprop:Generator_ColumnPropNameInRow="TC_SI_TOT" msprop:Generator_ColumnPropNameInTable="TC_SI_TOTColumn" msprop:Generator_UserColumnName="TC_SI_TOT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_BS_LOSS_BF" msprop:Generator_ColumnVarNameInTable="columnTC_SI_BS_LOSS_BF" msprop:Generator_ColumnPropNameInRow="TC_SI_BS_LOSS_BF" msprop:Generator_ColumnPropNameInTable="TC_SI_BS_LOSS_BFColumn" msprop:Generator_UserColumnName="TC_SI_BS_LOSS_BF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_AGGREGATE" msprop:Generator_ColumnVarNameInTable="columnTC_SI_AGGREGATE" msprop:Generator_ColumnPropNameInRow="TC_SI_AGGREGATE" msprop:Generator_ColumnPropNameInTable="TC_SI_AGGREGATEColumn" msprop:Generator_UserColumnName="TC_SI_AGGREGATE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_DIV" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV" msprop:Generator_ColumnPropNameInTable="TC_NB_DIVColumn" msprop:Generator_UserColumnName="TC_NB_DIV" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_DIV_ATT_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV_ATT_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV_ATT_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_DIV_ATT_INTColumn" msprop:Generator_UserColumnName="TC_NB_DIV_ATT_INT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_DIV_NET" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV_NET" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV_NET" msprop:Generator_ColumnPropNameInTable="TC_NB_DIV_NETColumn" msprop:Generator_UserColumnName="TC_NB_DIV_NET" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_INTColumn" msprop:Generator_UserColumnName="TC_NB_INT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_INT_ATT_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_INT_ATT_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_INT_ATT_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_INT_ATT_INTColumn" msprop:Generator_UserColumnName="TC_NB_INT_ATT_INT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_INT_NET" msprop:Generator_ColumnVarNameInTable="columnTC_NB_INT_NET" msprop:Generator_ColumnPropNameInRow="TC_NB_INT_NET" msprop:Generator_ColumnPropNameInTable="TC_NB_INT_NETColumn" msprop:Generator_UserColumnName="TC_NB_INT_NET" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTColumn" msprop:Generator_UserColumnName="TC_NB_RENT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENT_ATT_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_ATT_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_ATT_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_ATT_INTColumn" msprop:Generator_UserColumnName="TC_NB_RENT_ATT_INT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENT_ASSESS" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_ASSESS" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_ASSESS" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_ASSESSColumn" msprop:Generator_UserColumnName="TC_NB_RENT_ASSESS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENT_QUIT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_QUIT" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_QUIT" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_QUITColumn" msprop:Generator_UserColumnName="TC_NB_RENT_QUIT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENT_INSUR" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_INSUR" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_INSUR" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_INSURColumn" msprop:Generator_UserColumnName="TC_NB_RENT_INSUR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENT_OTH" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_OTH" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_OTH" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_OTHColumn" msprop:Generator_UserColumnName="TC_NB_RENT_OTH" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENT_MAIN" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_MAIN" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_MAIN" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_MAINColumn" msprop:Generator_UserColumnName="TC_NB_RENT_MAIN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENT_AGREE" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_AGREE" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_AGREE" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_AGREEColumn" msprop:Generator_UserColumnName="TC_NB_RENT_AGREE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENT_NET" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_NET" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_NET" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_NETColumn" msprop:Generator_UserColumnName="TC_NB_RENT_NET" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_SUNDRY" msprop:Generator_ColumnVarNameInTable="columnTC_NB_SUNDRY" msprop:Generator_ColumnPropNameInRow="TC_NB_SUNDRY" msprop:Generator_ColumnPropNameInTable="TC_NB_SUNDRYColumn" msprop:Generator_UserColumnName="TC_NB_SUNDRY" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_OTH_AGGR_STAT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_OTH_AGGR_STAT" msprop:Generator_ColumnPropNameInRow="TC_NB_OTH_AGGR_STAT" msprop:Generator_ColumnPropNameInTable="TC_NB_OTH_AGGR_STATColumn" msprop:Generator_UserColumnName="TC_NB_OTH_AGGR_STAT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_AGGR_IN" msprop:Generator_ColumnVarNameInTable="columnTC_TP_AGGR_IN" msprop:Generator_ColumnPropNameInRow="TC_TP_AGGR_IN" msprop:Generator_ColumnPropNameInTable="TC_TP_AGGR_INColumn" msprop:Generator_UserColumnName="TC_TP_AGGR_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_CURR_LOSS" msprop:Generator_ColumnVarNameInTable="columnTC_TP_CURR_LOSS" msprop:Generator_ColumnPropNameInRow="TC_TP_CURR_LOSS" msprop:Generator_ColumnPropNameInTable="TC_TP_CURR_LOSSColumn" msprop:Generator_UserColumnName="TC_TP_CURR_LOSS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_AGGR_IN_LOSS" msprop:Generator_ColumnVarNameInTable="columnTC_TP_AGGR_IN_LOSS" msprop:Generator_ColumnPropNameInRow="TC_TP_AGGR_IN_LOSS" msprop:Generator_ColumnPropNameInTable="TC_TP_AGGR_IN_LOSSColumn" msprop:Generator_UserColumnName="TC_TP_AGGR_IN_LOSS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_APRV_DONATION" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APRV_DONATION" msprop:Generator_ColumnPropNameInRow="TC_TP_APRV_DONATION" msprop:Generator_ColumnPropNameInTable="TC_TP_APRV_DONATIONColumn" msprop:Generator_UserColumnName="TC_TP_APRV_DONATION" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_CHARGEABLE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_28_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_28_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_28_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_28_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_28_CHARGEABLE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_SEC110" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC110" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC110" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC110Column" msprop:Generator_UserColumnName="TC_TP_SEC110" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_SEC132" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC132" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC132" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC132Column" msprop:Generator_UserColumnName="TC_TP_SEC132" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_SEC133" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC133" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC133" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC133Column" msprop:Generator_UserColumnName="TC_TP_SEC133" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_TOT_SETOFF" msprop:Generator_ColumnVarNameInTable="columnTC_TP_TOT_SETOFF" msprop:Generator_ColumnPropNameInRow="TC_TP_TOT_SETOFF" msprop:Generator_ColumnPropNameInTable="TC_TP_TOT_SETOFFColumn" msprop:Generator_UserColumnName="TC_TP_TOT_SETOFF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_PAYABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PAYABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_PAYABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_PAYABLEColumn" msprop:Generator_UserColumnName="TC_TP_PAYABLE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_INSTALL" msprop:Generator_ColumnVarNameInTable="columnTC_TP_INSTALL" msprop:Generator_ColumnPropNameInRow="TC_TP_INSTALL" msprop:Generator_ColumnPropNameInTable="TC_TP_INSTALLColumn" msprop:Generator_UserColumnName="TC_TP_INSTALL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_PAYABLE_BAL" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PAYABLE_BAL" msprop:Generator_ColumnPropNameInRow="TC_TP_PAYABLE_BAL" msprop:Generator_ColumnPropNameInTable="TC_TP_PAYABLE_BALColumn" msprop:Generator_UserColumnName="TC_TP_PAYABLE_BAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_BAL_BF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_BAL_BF" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_BAL_BF" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_BAL_BFColumn" msprop:Generator_UserColumnName="TC_CB_CA_BAL_BF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_CURRColumn" msprop:Generator_UserColumnName="TC_CB_CA_CURR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_AA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_AA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_AA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_AAColumn" msprop:Generator_UserColumnName="TC_CB_CA_AA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_IA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_IA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_IA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_IAColumn" msprop:Generator_UserColumnName="TC_CB_CA_IA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_BA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_BA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_BA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_BAColumn" msprop:Generator_UserColumnName="TC_CB_CA_BA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_UTIL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_UTIL" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_UTIL" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_UTILColumn" msprop:Generator_UserColumnName="TC_CB_CA_UTIL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_BAL_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_BAL_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_BAL_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_BAL_CFColumn" msprop:Generator_UserColumnName="TC_CB_CA_BAL_CF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_BAL_BF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BAL_BF" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BAL_BF" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BAL_BFColumn" msprop:Generator_UserColumnName="TC_CB_LS_BAL_BF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_UTIL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_UTIL" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_UTIL" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_UTILColumn" msprop:Generator_UserColumnName="TC_CB_LS_UTIL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_BAL_UTIL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BAL_UTIL" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BAL_UTIL" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BAL_UTILColumn" msprop:Generator_UserColumnName="TC_CB_LS_BAL_UTIL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_UNABSORBED" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_UNABSORBED" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_UNABSORBED" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_UNABSORBEDColumn" msprop:Generator_UserColumnName="TC_CB_LS_UNABSORBED" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_BAL_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BAL_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BAL_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BAL_CFColumn" msprop:Generator_UserColumnName="TC_CB_LS_BAL_CF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_ITA_BAL_BF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_ITA_BAL_BF" msprop:Generator_ColumnPropNameInRow="TC_CB_ITA_BAL_BF" msprop:Generator_ColumnPropNameInTable="TC_CB_ITA_BAL_BFColumn" msprop:Generator_UserColumnName="TC_CB_ITA_BAL_BF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_ITA_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_ITA_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_ITA_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_ITA_CURRColumn" msprop:Generator_UserColumnName="TC_CB_ITA_CURR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_ITA_BAL_BF_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_ITA_BAL_BF_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_ITA_BAL_BF_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_ITA_BAL_BF_CURRColumn" msprop:Generator_UserColumnName="TC_CB_ITA_BAL_BF_CURR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_ITA_UTIL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_ITA_UTIL" msprop:Generator_ColumnPropNameInRow="TC_CB_ITA_UTIL" msprop:Generator_ColumnPropNameInTable="TC_CB_ITA_UTILColumn" msprop:Generator_UserColumnName="TC_CB_ITA_UTIL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_ITA_BAL_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_ITA_BAL_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_ITA_BAL_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_ITA_BAL_CFColumn" msprop:Generator_UserColumnName="TC_CB_ITA_BAL_CF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_OTH_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_OTH_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_OTH_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_OTH_BS_INColumn" msprop:Generator_UserColumnName="TC_AI_OTH_BS_IN" type="xs:decimal" minOccurs="0" />
               <xs:element name="TC_TP_RATE1" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE1" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE1" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE1Column" msprop:Generator_UserColumnName="TC_TP_RATE1" type="xs:int" minOccurs="0" />
               <xs:element name="TC_TP_RATE2" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE2" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE2" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE2Column" msprop:Generator_UserColumnName="TC_TP_RATE2" type="xs:int" minOccurs="0" />
               <xs:element name="TC_TP_RATE3" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE3" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE3" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE3Column" msprop:Generator_UserColumnName="TC_TP_RATE3" type="xs:int" minOccurs="0" />
               <xs:element name="TC_TP_RATE4" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE4" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE4" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE4Column" msprop:Generator_UserColumnName="TC_TP_RATE4" type="xs:int" minOccurs="0" />
               <xs:element name="TC_TP_RATE5" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE5" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE5" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE5Column" msprop:Generator_UserColumnName="TC_TP_RATE5" type="xs:int" minOccurs="0" />
               <xs:element name="TC_TP_RATE6" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE6" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE6" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE6Column" msprop:Generator_UserColumnName="TC_TP_RATE6" type="xs:int" minOccurs="0" />
-              <xs:element name="TC_TP_APP_CHARGEABLE1" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE1" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE1" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE1Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE1" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_APP_CHARGEABLE2" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE2" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE2" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE2Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE2" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_APP_CHARGEABLE3" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE3" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE3" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE3Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE3" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_APP_CHARGEABLE4" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE4" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE4" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE4Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE4" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_APP_CHARGEABLE5" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE5" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE5" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE5Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE5" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_APP_CHARGEABLE6" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE6" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE6" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE6Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE6" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_RATE1_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE1_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE1_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE1_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE1_CHARGEABLE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_RATE2_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE2_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE2_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE2_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE2_CHARGEABLE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_RATE3_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE3_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE3_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE3_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE3_CHARGEABLE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_RATE4_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE4_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE4_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE4_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE4_CHARGEABLE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_RATE5_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE5_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE5_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE5_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE5_CHARGEABLE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_TOT_TAX_CHARGED" msprop:Generator_ColumnVarNameInTable="columnTC_TP_TOT_TAX_CHARGED" msprop:Generator_ColumnPropNameInRow="TC_TP_TOT_TAX_CHARGED" msprop:Generator_ColumnPropNameInTable="TC_TP_TOT_TAX_CHARGEDColumn" msprop:Generator_UserColumnName="TC_TP_TOT_TAX_CHARGED" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_SEC6B_REBATE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC6B_REBATE" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC6B_REBATE" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC6B_REBATEColumn" msprop:Generator_UserColumnName="TC_TP_SEC6B_REBATE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_SEC110_OTHERS" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC110_OTHERS" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC110_OTHERS" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC110_OTHERSColumn" msprop:Generator_UserColumnName="TC_TP_SEC110_OTHERS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_PROSPECTING" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PROSPECTING" msprop:Generator_ColumnPropNameInRow="TC_TP_PROSPECTING" msprop:Generator_ColumnPropNameInTable="TC_TP_PROSPECTINGColumn" msprop:Generator_UserColumnName="TC_TP_PROSPECTING" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_QUALIFY_AGRICULTURE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_QUALIFY_AGRICULTURE" msprop:Generator_ColumnPropNameInRow="TC_TP_QUALIFY_AGRICULTURE" msprop:Generator_ColumnPropNameInTable="TC_TP_QUALIFY_AGRICULTUREColumn" msprop:Generator_UserColumnName="TC_TP_QUALIFY_AGRICULTURE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_PREOP_BS" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PREOP_BS" msprop:Generator_ColumnPropNameInRow="TC_TP_PREOP_BS" msprop:Generator_ColumnPropNameInTable="TC_TP_PREOP_BSColumn" msprop:Generator_UserColumnName="TC_TP_PREOP_BS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_FOOD_PRODUCTION" msprop:Generator_ColumnVarNameInTable="columnTC_TP_FOOD_PRODUCTION" msprop:Generator_ColumnPropNameInRow="TC_TP_FOOD_PRODUCTION" msprop:Generator_ColumnPropNameInTable="TC_TP_FOOD_PRODUCTIONColumn" msprop:Generator_UserColumnName="TC_TP_FOOD_PRODUCTION" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_EXP_ALLOWED" msprop:Generator_ColumnVarNameInTable="columnTC_TP_EXP_ALLOWED" msprop:Generator_ColumnPropNameInRow="TC_TP_EXP_ALLOWED" msprop:Generator_ColumnPropNameInTable="TC_TP_EXP_ALLOWEDColumn" msprop:Generator_UserColumnName="TC_TP_EXP_ALLOWED" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_TOTAL_OTH_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_TP_TOTAL_OTH_EXP" msprop:Generator_ColumnPropNameInRow="TC_TP_TOTAL_OTH_EXP" msprop:Generator_ColumnPropNameInTable="TC_TP_TOTAL_OTH_EXPColumn" msprop:Generator_UserColumnName="TC_TP_TOTAL_OTH_EXP" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_TOTAL_INCOME" msprop:Generator_ColumnVarNameInTable="columnTC_TP_TOTAL_INCOME" msprop:Generator_ColumnPropNameInRow="TC_TP_TOTAL_INCOME" msprop:Generator_ColumnPropNameInTable="TC_TP_TOTAL_INCOMEColumn" msprop:Generator_UserColumnName="TC_TP_TOTAL_INCOME" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_PIONEER_CHARGE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PIONEER_CHARGE" msprop:Generator_ColumnPropNameInRow="TC_TP_PIONEER_CHARGE" msprop:Generator_ColumnPropNameInTable="TC_TP_PIONEER_CHARGEColumn" msprop:Generator_UserColumnName="TC_TP_PIONEER_CHARGE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_OPERATIONALHQ_CHARGE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_OPERATIONALHQ_CHARGE" msprop:Generator_ColumnPropNameInRow="TC_TP_OPERATIONALHQ_CHARGE" msprop:Generator_ColumnPropNameInTable="TC_TP_OPERATIONALHQ_CHARGEColumn" msprop:Generator_UserColumnName="TC_TP_OPERATIONALHQ_CHARGE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_FOREIGN_CHARGE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_FOREIGN_CHARGE" msprop:Generator_ColumnPropNameInRow="TC_TP_FOREIGN_CHARGE" msprop:Generator_ColumnPropNameInTable="TC_TP_FOREIGN_CHARGEColumn" msprop:Generator_UserColumnName="TC_TP_FOREIGN_CHARGE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_BS_LOSS" msprop:Generator_ColumnVarNameInTable="columnTC_TP_BS_LOSS" msprop:Generator_ColumnPropNameInRow="TC_TP_BS_LOSS" msprop:Generator_ColumnPropNameInTable="TC_TP_BS_LOSSColumn" msprop:Generator_UserColumnName="TC_TP_BS_LOSS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_ROYALTY" msprop:Generator_ColumnVarNameInTable="columnTC_NB_ROYALTY" msprop:Generator_ColumnPropNameInRow="TC_NB_ROYALTY" msprop:Generator_ColumnPropNameInTable="TC_NB_ROYALTYColumn" msprop:Generator_UserColumnName="TC_NB_ROYALTY" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_ADDITION" msprop:Generator_ColumnVarNameInTable="columnTC_NB_ADDITION" msprop:Generator_ColumnPropNameInRow="TC_NB_ADDITION" msprop:Generator_ColumnPropNameInTable="TC_NB_ADDITIONColumn" msprop:Generator_UserColumnName="TC_NB_ADDITION" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_ADJUST_LOSS" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_ADJUST_LOSS" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_ADJUST_LOSS" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_ADJUST_LOSSColumn" msprop:Generator_UserColumnName="TC_CB_LS_ADJUST_LOSS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_UTIL_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_UTIL_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_UTIL_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_UTIL_CURRColumn" msprop:Generator_UserColumnName="TC_CB_LS_UTIL_CURR" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_RA" msprop:Generator_ColumnVarNameInTable="columnTC_SI_RA" msprop:Generator_ColumnPropNameInRow="TC_SI_RA" msprop:Generator_ColumnPropNameInTable="TC_SI_RAColumn" msprop:Generator_UserColumnName="TC_SI_RA" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_RA_BAL_BF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_RA_BAL_BF" msprop:Generator_ColumnPropNameInRow="TC_CB_RA_BAL_BF" msprop:Generator_ColumnPropNameInTable="TC_CB_RA_BAL_BFColumn" msprop:Generator_UserColumnName="TC_CB_RA_BAL_BF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_RA_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_RA_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_RA_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_RA_CURRColumn" msprop:Generator_UserColumnName="TC_CB_RA_CURR" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_RA_BAL_BF_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_RA_BAL_BF_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_RA_BAL_BF_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_RA_BAL_BF_CURRColumn" msprop:Generator_UserColumnName="TC_CB_RA_BAL_BF_CURR" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_RA_UTIL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_RA_UTIL" msprop:Generator_ColumnPropNameInRow="TC_CB_RA_UTIL" msprop:Generator_ColumnPropNameInTable="TC_CB_RA_UTILColumn" msprop:Generator_UserColumnName="TC_CB_RA_UTIL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_RA_BAL_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_RA_BAL_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_RA_BAL_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_RA_BAL_CFColumn" msprop:Generator_UserColumnName="TC_CB_RA_BAL_CF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_BC" msprop:Generator_ColumnVarNameInTable="columnTC_SI_BC" msprop:Generator_ColumnPropNameInRow="TC_SI_BC" msprop:Generator_ColumnPropNameInTable="TC_SI_BCColumn" msprop:Generator_UserColumnName="TC_SI_BC" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SI_ADJ_BS_IN_BC" msprop:Generator_ColumnVarNameInTable="columnTC_SI_ADJ_BS_IN_BC" msprop:Generator_ColumnPropNameInRow="TC_SI_ADJ_BS_IN_BC" msprop:Generator_ColumnPropNameInTable="TC_SI_ADJ_BS_IN_BCColumn" msprop:Generator_UserColumnName="TC_SI_ADJ_BS_IN_BC" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_CA_CURR_BA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_CURR_BA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_CURR_BA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_CURR_BAColumn" msprop:Generator_UserColumnName="TC_CB_CA_CURR_BA" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="TC_TP_APP_CHARGEABLE1" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE1" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE1" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE1Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_APP_CHARGEABLE2" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE2" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE2" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE2Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_APP_CHARGEABLE3" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE3" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE3" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE3Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_APP_CHARGEABLE4" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE4" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE4" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE4Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE4" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_APP_CHARGEABLE5" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE5" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE5" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE5Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE5" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_APP_CHARGEABLE6" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE6" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE6" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE6Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE6" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_RATE1_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE1_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE1_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE1_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE1_CHARGEABLE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_RATE2_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE2_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE2_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE2_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE2_CHARGEABLE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_RATE3_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE3_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE3_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE3_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE3_CHARGEABLE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_RATE4_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE4_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE4_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE4_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE4_CHARGEABLE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_RATE5_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE5_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE5_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE5_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE5_CHARGEABLE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_TOT_TAX_CHARGED" msprop:Generator_ColumnVarNameInTable="columnTC_TP_TOT_TAX_CHARGED" msprop:Generator_ColumnPropNameInRow="TC_TP_TOT_TAX_CHARGED" msprop:Generator_ColumnPropNameInTable="TC_TP_TOT_TAX_CHARGEDColumn" msprop:Generator_UserColumnName="TC_TP_TOT_TAX_CHARGED" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_SEC6B_REBATE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC6B_REBATE" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC6B_REBATE" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC6B_REBATEColumn" msprop:Generator_UserColumnName="TC_TP_SEC6B_REBATE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_SEC110_OTHERS" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC110_OTHERS" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC110_OTHERS" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC110_OTHERSColumn" msprop:Generator_UserColumnName="TC_TP_SEC110_OTHERS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_PROSPECTING" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PROSPECTING" msprop:Generator_ColumnPropNameInRow="TC_TP_PROSPECTING" msprop:Generator_ColumnPropNameInTable="TC_TP_PROSPECTINGColumn" msprop:Generator_UserColumnName="TC_TP_PROSPECTING" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_QUALIFY_AGRICULTURE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_QUALIFY_AGRICULTURE" msprop:Generator_ColumnPropNameInRow="TC_TP_QUALIFY_AGRICULTURE" msprop:Generator_ColumnPropNameInTable="TC_TP_QUALIFY_AGRICULTUREColumn" msprop:Generator_UserColumnName="TC_TP_QUALIFY_AGRICULTURE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_PREOP_BS" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PREOP_BS" msprop:Generator_ColumnPropNameInRow="TC_TP_PREOP_BS" msprop:Generator_ColumnPropNameInTable="TC_TP_PREOP_BSColumn" msprop:Generator_UserColumnName="TC_TP_PREOP_BS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_FOOD_PRODUCTION" msprop:Generator_ColumnVarNameInTable="columnTC_TP_FOOD_PRODUCTION" msprop:Generator_ColumnPropNameInRow="TC_TP_FOOD_PRODUCTION" msprop:Generator_ColumnPropNameInTable="TC_TP_FOOD_PRODUCTIONColumn" msprop:Generator_UserColumnName="TC_TP_FOOD_PRODUCTION" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_EXP_ALLOWED" msprop:Generator_ColumnVarNameInTable="columnTC_TP_EXP_ALLOWED" msprop:Generator_ColumnPropNameInRow="TC_TP_EXP_ALLOWED" msprop:Generator_ColumnPropNameInTable="TC_TP_EXP_ALLOWEDColumn" msprop:Generator_UserColumnName="TC_TP_EXP_ALLOWED" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_TOTAL_OTH_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_TP_TOTAL_OTH_EXP" msprop:Generator_ColumnPropNameInRow="TC_TP_TOTAL_OTH_EXP" msprop:Generator_ColumnPropNameInTable="TC_TP_TOTAL_OTH_EXPColumn" msprop:Generator_UserColumnName="TC_TP_TOTAL_OTH_EXP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_TOTAL_INCOME" msprop:Generator_ColumnVarNameInTable="columnTC_TP_TOTAL_INCOME" msprop:Generator_ColumnPropNameInRow="TC_TP_TOTAL_INCOME" msprop:Generator_ColumnPropNameInTable="TC_TP_TOTAL_INCOMEColumn" msprop:Generator_UserColumnName="TC_TP_TOTAL_INCOME" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_PIONEER_CHARGE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PIONEER_CHARGE" msprop:Generator_ColumnPropNameInRow="TC_TP_PIONEER_CHARGE" msprop:Generator_ColumnPropNameInTable="TC_TP_PIONEER_CHARGEColumn" msprop:Generator_UserColumnName="TC_TP_PIONEER_CHARGE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_OPERATIONALHQ_CHARGE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_OPERATIONALHQ_CHARGE" msprop:Generator_ColumnPropNameInRow="TC_TP_OPERATIONALHQ_CHARGE" msprop:Generator_ColumnPropNameInTable="TC_TP_OPERATIONALHQ_CHARGEColumn" msprop:Generator_UserColumnName="TC_TP_OPERATIONALHQ_CHARGE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_FOREIGN_CHARGE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_FOREIGN_CHARGE" msprop:Generator_ColumnPropNameInRow="TC_TP_FOREIGN_CHARGE" msprop:Generator_ColumnPropNameInTable="TC_TP_FOREIGN_CHARGEColumn" msprop:Generator_UserColumnName="TC_TP_FOREIGN_CHARGE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_BS_LOSS" msprop:Generator_ColumnVarNameInTable="columnTC_TP_BS_LOSS" msprop:Generator_ColumnPropNameInRow="TC_TP_BS_LOSS" msprop:Generator_ColumnPropNameInTable="TC_TP_BS_LOSSColumn" msprop:Generator_UserColumnName="TC_TP_BS_LOSS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_ROYALTY" msprop:Generator_ColumnVarNameInTable="columnTC_NB_ROYALTY" msprop:Generator_ColumnPropNameInRow="TC_NB_ROYALTY" msprop:Generator_ColumnPropNameInTable="TC_NB_ROYALTYColumn" msprop:Generator_UserColumnName="TC_NB_ROYALTY" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_ADDITION" msprop:Generator_ColumnVarNameInTable="columnTC_NB_ADDITION" msprop:Generator_ColumnPropNameInRow="TC_NB_ADDITION" msprop:Generator_ColumnPropNameInTable="TC_NB_ADDITIONColumn" msprop:Generator_UserColumnName="TC_NB_ADDITION" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_ADJUST_LOSS" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_ADJUST_LOSS" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_ADJUST_LOSS" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_ADJUST_LOSSColumn" msprop:Generator_UserColumnName="TC_CB_LS_ADJUST_LOSS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_UTIL_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_UTIL_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_UTIL_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_UTIL_CURRColumn" msprop:Generator_UserColumnName="TC_CB_LS_UTIL_CURR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_RA" msprop:Generator_ColumnVarNameInTable="columnTC_SI_RA" msprop:Generator_ColumnPropNameInRow="TC_SI_RA" msprop:Generator_ColumnPropNameInTable="TC_SI_RAColumn" msprop:Generator_UserColumnName="TC_SI_RA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_RA_BAL_BF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_RA_BAL_BF" msprop:Generator_ColumnPropNameInRow="TC_CB_RA_BAL_BF" msprop:Generator_ColumnPropNameInTable="TC_CB_RA_BAL_BFColumn" msprop:Generator_UserColumnName="TC_CB_RA_BAL_BF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_RA_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_RA_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_RA_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_RA_CURRColumn" msprop:Generator_UserColumnName="TC_CB_RA_CURR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_RA_BAL_BF_CURR" msprop:Generator_ColumnVarNameInTable="columnTC_CB_RA_BAL_BF_CURR" msprop:Generator_ColumnPropNameInRow="TC_CB_RA_BAL_BF_CURR" msprop:Generator_ColumnPropNameInTable="TC_CB_RA_BAL_BF_CURRColumn" msprop:Generator_UserColumnName="TC_CB_RA_BAL_BF_CURR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_RA_UTIL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_RA_UTIL" msprop:Generator_ColumnPropNameInRow="TC_CB_RA_UTIL" msprop:Generator_ColumnPropNameInTable="TC_CB_RA_UTILColumn" msprop:Generator_UserColumnName="TC_CB_RA_UTIL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_RA_BAL_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_RA_BAL_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_RA_BAL_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_RA_BAL_CFColumn" msprop:Generator_UserColumnName="TC_CB_RA_BAL_CF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_BC" msprop:Generator_ColumnVarNameInTable="columnTC_SI_BC" msprop:Generator_ColumnPropNameInRow="TC_SI_BC" msprop:Generator_ColumnPropNameInTable="TC_SI_BCColumn" msprop:Generator_UserColumnName="TC_SI_BC" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_ADJ_BS_IN_BC" msprop:Generator_ColumnVarNameInTable="columnTC_SI_ADJ_BS_IN_BC" msprop:Generator_ColumnPropNameInRow="TC_SI_ADJ_BS_IN_BC" msprop:Generator_ColumnPropNameInTable="TC_SI_ADJ_BS_IN_BCColumn" msprop:Generator_UserColumnName="TC_SI_ADJ_BS_IN_BC" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_CURR_BA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_CURR_BA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_CURR_BA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_CURR_BAColumn" msprop:Generator_UserColumnName="TC_CB_CA_CURR_BA" type="xs:decimal" minOccurs="0" />
               <xs:element name="TC_TP_RATE4A" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE4A" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE4A" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE4AColumn" msprop:Generator_UserColumnName="TC_TP_RATE4A" type="xs:int" minOccurs="0" />
-              <xs:element name="TC_TP_APP_CHARGEABLE4A" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE4A" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE4A" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE4AColumn" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE4A" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_RATE4A_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE4A_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE4A_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE4A_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE4A_CHARGEABLE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_CA_NA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_NA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_NA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_NAColumn" msprop:Generator_UserColumnName="TC_CB_CA_NA" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_ZAKAT" msprop:Generator_ColumnVarNameInTable="columnTC_TP_ZAKAT" msprop:Generator_ColumnPropNameInRow="TC_TP_ZAKAT" msprop:Generator_ColumnPropNameInTable="TC_TP_ZAKATColumn" msprop:Generator_UserColumnName="TC_TP_ZAKAT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="TC_TP_APP_CHARGEABLE4A" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE4A" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE4A" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE4AColumn" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE4A" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_RATE4A_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE4A_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE4A_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE4A_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE4A_CHARGEABLE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_NA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_NA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_NA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_NAColumn" msprop:Generator_UserColumnName="TC_CB_CA_NA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_ZAKAT" msprop:Generator_ColumnVarNameInTable="columnTC_TP_ZAKAT" msprop:Generator_ColumnPropNameInRow="TC_TP_ZAKAT" msprop:Generator_ColumnPropNameInTable="TC_TP_ZAKATColumn" msprop:Generator_UserColumnName="TC_TP_ZAKAT" type="xs:decimal" minOccurs="0" />
               <xs:element name="TC_OTHERDEDUCTION" msprop:Generator_ColumnVarNameInTable="columnTC_OTHERDEDUCTION" msprop:Generator_ColumnPropNameInRow="TC_OTHERDEDUCTION" msprop:Generator_ColumnPropNameInTable="TC_OTHERDEDUCTIONColumn" msprop:Generator_UserColumnName="TC_OTHERDEDUCTION" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -974,77 +212,17 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="TC_CB_CA_DISALLOW" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_DISALLOW" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_DISALLOW" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_DISALLOWColumn" msprop:Generator_UserColumnName="TC_CB_CA_DISALLOW" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_CA_ABAL_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_ABAL_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_ABAL_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_ABAL_CFColumn" msprop:Generator_UserColumnName="TC_CB_CA_ABAL_CF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="TC_CB_CA_DISALLOW" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_DISALLOW" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_DISALLOW" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_DISALLOWColumn" msprop:Generator_UserColumnName="TC_CB_CA_DISALLOW" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_ABAL_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_ABAL_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_ABAL_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_ABAL_CFColumn" msprop:Generator_UserColumnName="TC_CB_CA_ABAL_CF" type="xs:decimal" minOccurs="0" />
               <xs:element name="TC_CB_CHECK" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CHECK" msprop:Generator_ColumnPropNameInRow="TC_CB_CHECK" msprop:Generator_ColumnPropNameInTable="TC_CB_CHECKColumn" msprop:Generator_UserColumnName="TC_CB_CHECK" type="xs:double" minOccurs="0" />
-              <xs:element name="TC_TP_CLAIM" msprop:Generator_ColumnVarNameInTable="columnTC_TP_CLAIM" msprop:Generator_ColumnPropNameInRow="TC_TP_CLAIM" msprop:Generator_ColumnPropNameInTable="TC_TP_CLAIMColumn" msprop:Generator_UserColumnName="TC_TP_CLAIM" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_SAMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_SAMOUNT" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_SAMOUNT" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_SAMOUNTColumn" msprop:Generator_UserColumnName="TC_CB_LS_SAMOUNT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_BALS_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BALS_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BALS_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BALS_CFColumn" msprop:Generator_UserColumnName="TC_CB_LS_BALS_CF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_D_BL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_D_BL" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_D_BL" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_D_BLColumn" msprop:Generator_UserColumnName="TC_CB_LS_D_BL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_SRDAMT2" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_SRDAMT2" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_SRDAMT2" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_SRDAMT2Column" msprop:Generator_UserColumnName="TC_CB_LS_SRDAMT2" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_BLNBF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BLNBF" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BLNBF" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BLNBFColumn" msprop:Generator_UserColumnName="TC_CB_LS_BLNBF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_AMTTUT" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_AMTTUT" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_AMTTUT" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_AMTTUTColumn" msprop:Generator_UserColumnName="TC_CB_LS_AMTTUT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_CB_LS_BLNCF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BLNCF" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BLNCF" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BLNCFColumn" msprop:Generator_UserColumnName="TC_CB_LS_BLNCF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="TC_TP_CLAIM" msprop:Generator_ColumnVarNameInTable="columnTC_TP_CLAIM" msprop:Generator_ColumnPropNameInRow="TC_TP_CLAIM" msprop:Generator_ColumnPropNameInTable="TC_TP_CLAIMColumn" msprop:Generator_UserColumnName="TC_TP_CLAIM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_SAMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_SAMOUNT" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_SAMOUNT" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_SAMOUNTColumn" msprop:Generator_UserColumnName="TC_CB_LS_SAMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_BALS_CF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BALS_CF" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BALS_CF" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BALS_CFColumn" msprop:Generator_UserColumnName="TC_CB_LS_BALS_CF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_D_BL" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_D_BL" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_D_BL" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_D_BLColumn" msprop:Generator_UserColumnName="TC_CB_LS_D_BL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_SRDAMT2" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_SRDAMT2" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_SRDAMT2" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_SRDAMT2Column" msprop:Generator_UserColumnName="TC_CB_LS_SRDAMT2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_BLNBF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BLNBF" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BLNBF" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BLNBFColumn" msprop:Generator_UserColumnName="TC_CB_LS_BLNBF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_AMTTUT" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_AMTTUT" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_AMTTUT" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_AMTTUTColumn" msprop:Generator_UserColumnName="TC_CB_LS_AMTTUT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_LS_BLNCF" msprop:Generator_ColumnVarNameInTable="columnTC_CB_LS_BLNCF" msprop:Generator_ColumnPropNameInRow="TC_CB_LS_BLNCF" msprop:Generator_ColumnPropNameInTable="TC_CB_LS_BLNCFColumn" msprop:Generator_UserColumnName="TC_CB_LS_BLNCF" type="xs:decimal" minOccurs="0" />
               <xs:element name="TC_COMPANY" msprop:Generator_ColumnVarNameInTable="columnTC_COMPANY" msprop:Generator_ColumnPropNameInRow="TC_COMPANY" msprop:Generator_ColumnPropNameInTable="TC_COMPANYColumn" msprop:Generator_UserColumnName="TC_COMPANY" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -1066,111 +244,21 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="TC_PIONEER" msprop:Generator_ColumnVarNameInTable="columnTC_PIONEER" msprop:Generator_ColumnPropNameInRow="TC_PIONEER" msprop:Generator_ColumnPropNameInTable="TC_PIONEERColumn" msprop:Generator_UserColumnName="TC_PIONEER" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_RA_RATE1" msprop:Generator_ColumnVarNameInTable="columnTC_RA_RATE1" msprop:Generator_ColumnPropNameInRow="TC_RA_RATE1" msprop:Generator_ColumnPropNameInTable="TC_RA_RATE1Column" msprop:Generator_UserColumnName="TC_RA_RATE1" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_RA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnVarNameInTable="columnTC_RA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInRow="TC_RA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInTable="TC_RA_QUALIFYINGCAPITALEXPColumn" msprop:Generator_UserColumnName="TC_RA_QUALIFYINGCAPITALEXP" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_RA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_RA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInRow="TC_RA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInTable="TC_RA_QUALIFYINGCAPITALEXP_AMOUNTColumn" msprop:Generator_UserColumnName="TC_RA_QUALIFYINGCAPITALEXP_AMOUNT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_RA_BALANCINGALLOWANCE" msprop:Generator_ColumnVarNameInTable="columnTC_RA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInRow="TC_RA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInTable="TC_RA_BALANCINGALLOWANCEColumn" msprop:Generator_UserColumnName="TC_RA_BALANCINGALLOWANCE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_RA_TOTAL1" msprop:Generator_ColumnVarNameInTable="columnTC_RA_TOTAL1" msprop:Generator_ColumnPropNameInRow="TC_RA_TOTAL1" msprop:Generator_ColumnPropNameInTable="TC_RA_TOTAL1Column" msprop:Generator_UserColumnName="TC_RA_TOTAL1" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_RA_RESTRICTRATE" msprop:Generator_ColumnVarNameInTable="columnTC_RA_RESTRICTRATE" msprop:Generator_ColumnPropNameInRow="TC_RA_RESTRICTRATE" msprop:Generator_ColumnPropNameInTable="TC_RA_RESTRICTRATEColumn" msprop:Generator_UserColumnName="TC_RA_RESTRICTRATE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_RA_RESTRICTAMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_RA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInRow="TC_RA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInTable="TC_RA_RESTRICTAMOUNTColumn" msprop:Generator_UserColumnName="TC_RA_RESTRICTAMOUNT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_ITA_RATE1" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_RATE1" msprop:Generator_ColumnPropNameInRow="TC_ITA_RATE1" msprop:Generator_ColumnPropNameInTable="TC_ITA_RATE1Column" msprop:Generator_UserColumnName="TC_ITA_RATE1" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_ITA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInRow="TC_ITA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInTable="TC_ITA_QUALIFYINGCAPITALEXPColumn" msprop:Generator_UserColumnName="TC_ITA_QUALIFYINGCAPITALEXP" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInRow="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInTable="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNTColumn" msprop:Generator_UserColumnName="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_ITA_BALANCINGALLOWANCE" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInRow="TC_ITA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInTable="TC_ITA_BALANCINGALLOWANCEColumn" msprop:Generator_UserColumnName="TC_ITA_BALANCINGALLOWANCE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_ITA_TOTAL1" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_TOTAL1" msprop:Generator_ColumnPropNameInRow="TC_ITA_TOTAL1" msprop:Generator_ColumnPropNameInTable="TC_ITA_TOTAL1Column" msprop:Generator_UserColumnName="TC_ITA_TOTAL1" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_ITA_RESTRICTRATE" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_RESTRICTRATE" msprop:Generator_ColumnPropNameInRow="TC_ITA_RESTRICTRATE" msprop:Generator_ColumnPropNameInTable="TC_ITA_RESTRICTRATEColumn" msprop:Generator_UserColumnName="TC_ITA_RESTRICTRATE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_ITA_RESTRICTAMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInRow="TC_ITA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInTable="TC_ITA_RESTRICTAMOUNTColumn" msprop:Generator_UserColumnName="TC_ITA_RESTRICTAMOUNT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="TC_PIONEER" msprop:Generator_ColumnVarNameInTable="columnTC_PIONEER" msprop:Generator_ColumnPropNameInRow="TC_PIONEER" msprop:Generator_ColumnPropNameInTable="TC_PIONEERColumn" msprop:Generator_UserColumnName="TC_PIONEER" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_RATE1" msprop:Generator_ColumnVarNameInTable="columnTC_RA_RATE1" msprop:Generator_ColumnPropNameInRow="TC_RA_RATE1" msprop:Generator_ColumnPropNameInTable="TC_RA_RATE1Column" msprop:Generator_UserColumnName="TC_RA_RATE1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnVarNameInTable="columnTC_RA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInRow="TC_RA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInTable="TC_RA_QUALIFYINGCAPITALEXPColumn" msprop:Generator_UserColumnName="TC_RA_QUALIFYINGCAPITALEXP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_RA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInRow="TC_RA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInTable="TC_RA_QUALIFYINGCAPITALEXP_AMOUNTColumn" msprop:Generator_UserColumnName="TC_RA_QUALIFYINGCAPITALEXP_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_BALANCINGALLOWANCE" msprop:Generator_ColumnVarNameInTable="columnTC_RA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInRow="TC_RA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInTable="TC_RA_BALANCINGALLOWANCEColumn" msprop:Generator_UserColumnName="TC_RA_BALANCINGALLOWANCE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_TOTAL1" msprop:Generator_ColumnVarNameInTable="columnTC_RA_TOTAL1" msprop:Generator_ColumnPropNameInRow="TC_RA_TOTAL1" msprop:Generator_ColumnPropNameInTable="TC_RA_TOTAL1Column" msprop:Generator_UserColumnName="TC_RA_TOTAL1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_RESTRICTRATE" msprop:Generator_ColumnVarNameInTable="columnTC_RA_RESTRICTRATE" msprop:Generator_ColumnPropNameInRow="TC_RA_RESTRICTRATE" msprop:Generator_ColumnPropNameInTable="TC_RA_RESTRICTRATEColumn" msprop:Generator_UserColumnName="TC_RA_RESTRICTRATE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_RESTRICTAMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_RA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInRow="TC_RA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInTable="TC_RA_RESTRICTAMOUNTColumn" msprop:Generator_UserColumnName="TC_RA_RESTRICTAMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_RATE1" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_RATE1" msprop:Generator_ColumnPropNameInRow="TC_ITA_RATE1" msprop:Generator_ColumnPropNameInTable="TC_ITA_RATE1Column" msprop:Generator_UserColumnName="TC_ITA_RATE1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInRow="TC_ITA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInTable="TC_ITA_QUALIFYINGCAPITALEXPColumn" msprop:Generator_UserColumnName="TC_ITA_QUALIFYINGCAPITALEXP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInRow="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInTable="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNTColumn" msprop:Generator_UserColumnName="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_BALANCINGALLOWANCE" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInRow="TC_ITA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInTable="TC_ITA_BALANCINGALLOWANCEColumn" msprop:Generator_UserColumnName="TC_ITA_BALANCINGALLOWANCE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_TOTAL1" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_TOTAL1" msprop:Generator_ColumnPropNameInRow="TC_ITA_TOTAL1" msprop:Generator_ColumnPropNameInTable="TC_ITA_TOTAL1Column" msprop:Generator_UserColumnName="TC_ITA_TOTAL1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_RESTRICTRATE" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_RESTRICTRATE" msprop:Generator_ColumnPropNameInRow="TC_ITA_RESTRICTRATE" msprop:Generator_ColumnPropNameInTable="TC_ITA_RESTRICTRATEColumn" msprop:Generator_UserColumnName="TC_ITA_RESTRICTRATE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_RESTRICTAMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInRow="TC_ITA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInTable="TC_ITA_RESTRICTAMOUNTColumn" msprop:Generator_UserColumnName="TC_ITA_RESTRICTAMOUNT" type="xs:decimal" minOccurs="0" />
               <xs:element name="TC_DISALLOW_NOTE" msprop:Generator_ColumnVarNameInTable="columnTC_DISALLOW_NOTE" msprop:Generator_ColumnPropNameInRow="TC_DISALLOW_NOTE" msprop:Generator_ColumnPropNameInTable="TC_DISALLOW_NOTEColumn" msprop:Generator_UserColumnName="TC_DISALLOW_NOTE" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -1206,41 +294,11 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="TC_STAT_DIVIDEND" msprop:Generator_ColumnVarNameInTable="columnTC_STAT_DIVIDEND" msprop:Generator_ColumnPropNameInRow="TC_STAT_DIVIDEND" msprop:Generator_ColumnPropNameInTable="TC_STAT_DIVIDENDColumn" msprop:Generator_UserColumnName="TC_STAT_DIVIDEND" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_SEC110B" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC110B" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC110B" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC110BColumn" msprop:Generator_UserColumnName="TC_TP_SEC110B" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENT_OTH2" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_OTH2" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_OTH2" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_OTH2Column" msprop:Generator_UserColumnName="TC_NB_RENT_OTH2" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_CARRYBCKLOSS" msprop:Generator_ColumnVarNameInTable="columnTC_NB_CARRYBCKLOSS" msprop:Generator_ColumnPropNameInRow="TC_NB_CARRYBCKLOSS" msprop:Generator_ColumnPropNameInTable="TC_NB_CARRYBCKLOSSColumn" msprop:Generator_UserColumnName="TC_NB_CARRYBCKLOSS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_AMTNOTCARRYBCK" msprop:Generator_ColumnVarNameInTable="columnTC_NB_AMTNOTCARRYBCK" msprop:Generator_ColumnPropNameInRow="TC_NB_AMTNOTCARRYBCK" msprop:Generator_ColumnPropNameInTable="TC_NB_AMTNOTCARRYBCKColumn" msprop:Generator_UserColumnName="TC_NB_AMTNOTCARRYBCK" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="TC_STAT_DIVIDEND" msprop:Generator_ColumnVarNameInTable="columnTC_STAT_DIVIDEND" msprop:Generator_ColumnPropNameInRow="TC_STAT_DIVIDEND" msprop:Generator_ColumnPropNameInTable="TC_STAT_DIVIDENDColumn" msprop:Generator_UserColumnName="TC_STAT_DIVIDEND" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_SEC110B" msprop:Generator_ColumnVarNameInTable="columnTC_TP_SEC110B" msprop:Generator_ColumnPropNameInRow="TC_TP_SEC110B" msprop:Generator_ColumnPropNameInTable="TC_TP_SEC110BColumn" msprop:Generator_UserColumnName="TC_TP_SEC110B" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENT_OTH2" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENT_OTH2" msprop:Generator_ColumnPropNameInRow="TC_NB_RENT_OTH2" msprop:Generator_ColumnPropNameInTable="TC_NB_RENT_OTH2Column" msprop:Generator_UserColumnName="TC_NB_RENT_OTH2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_CARRYBCKLOSS" msprop:Generator_ColumnVarNameInTable="columnTC_NB_CARRYBCKLOSS" msprop:Generator_ColumnPropNameInRow="TC_NB_CARRYBCKLOSS" msprop:Generator_ColumnPropNameInTable="TC_NB_CARRYBCKLOSSColumn" msprop:Generator_UserColumnName="TC_NB_CARRYBCKLOSS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_AMTNOTCARRYBCK" msprop:Generator_ColumnVarNameInTable="columnTC_NB_AMTNOTCARRYBCK" msprop:Generator_ColumnPropNameInRow="TC_NB_AMTNOTCARRYBCK" msprop:Generator_ColumnPropNameInTable="TC_NB_AMTNOTCARRYBCKColumn" msprop:Generator_UserColumnName="TC_NB_AMTNOTCARRYBCK" type="xs:decimal" minOccurs="0" />
               <xs:element name="TC_NB_CHKCB" msprop:Generator_ColumnVarNameInTable="columnTC_NB_CHKCB" msprop:Generator_ColumnPropNameInRow="TC_NB_CHKCB" msprop:Generator_ColumnPropNameInTable="TC_NB_CHKCBColumn" msprop:Generator_UserColumnName="TC_NB_CHKCB" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -1248,104 +306,20 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="TC_TP_INCOME_TP2" msprop:Generator_ColumnVarNameInTable="columnTC_TP_INCOME_TP2" msprop:Generator_ColumnPropNameInRow="TC_TP_INCOME_TP2" msprop:Generator_ColumnPropNameInTable="TC_TP_INCOME_TP2Column" msprop:Generator_UserColumnName="TC_TP_INCOME_TP2" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_ESTIMATED_TP" msprop:Generator_ColumnVarNameInTable="columnTC_TP_ESTIMATED_TP" msprop:Generator_ColumnPropNameInRow="TC_TP_ESTIMATED_TP" msprop:Generator_ColumnPropNameInTable="TC_TP_ESTIMATED_TPColumn" msprop:Generator_UserColumnName="TC_TP_ESTIMATED_TP" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_INCOME_TP3" msprop:Generator_ColumnVarNameInTable="columnTC_TP_INCOME_TP3" msprop:Generator_ColumnPropNameInRow="TC_TP_INCOME_TP3" msprop:Generator_ColumnPropNameInTable="TC_TP_INCOME_TP3Column" msprop:Generator_UserColumnName="TC_TP_INCOME_TP3" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_ALL_DIFF" msprop:Generator_ColumnVarNameInTable="columnTC_TP_ALL_DIFF" msprop:Generator_ColumnPropNameInRow="TC_TP_ALL_DIFF" msprop:Generator_ColumnPropNameInTable="TC_TP_ALL_DIFFColumn" msprop:Generator_UserColumnName="TC_TP_ALL_DIFF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_EX_DIFF" msprop:Generator_ColumnVarNameInTable="columnTC_TP_EX_DIFF" msprop:Generator_ColumnPropNameInRow="TC_TP_EX_DIFF" msprop:Generator_ColumnPropNameInTable="TC_TP_EX_DIFFColumn" msprop:Generator_UserColumnName="TC_TP_EX_DIFF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_PEN_DIFF" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PEN_DIFF" msprop:Generator_ColumnPropNameInRow="TC_TP_PEN_DIFF" msprop:Generator_ColumnPropNameInTable="TC_TP_PEN_DIFFColumn" msprop:Generator_UserColumnName="TC_TP_PEN_DIFF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_WITHRAITA" msprop:Generator_ColumnVarNameInTable="columnTC_WITHRAITA" msprop:Generator_ColumnPropNameInRow="TC_WITHRAITA" msprop:Generator_ColumnPropNameInTable="TC_WITHRAITAColumn" msprop:Generator_UserColumnName="TC_WITHRAITA" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_RA_WITHDRAWAL" msprop:Generator_ColumnVarNameInTable="columnTC_RA_WITHDRAWAL" msprop:Generator_ColumnPropNameInRow="TC_RA_WITHDRAWAL" msprop:Generator_ColumnPropNameInTable="TC_RA_WITHDRAWALColumn" msprop:Generator_UserColumnName="TC_RA_WITHDRAWAL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_RA_ADJUSTMENT" msprop:Generator_ColumnVarNameInTable="columnTC_RA_ADJUSTMENT" msprop:Generator_ColumnPropNameInRow="TC_RA_ADJUSTMENT" msprop:Generator_ColumnPropNameInTable="TC_RA_ADJUSTMENTColumn" msprop:Generator_UserColumnName="TC_RA_ADJUSTMENT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_ITA_WITHDRAWAL" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_WITHDRAWAL" msprop:Generator_ColumnPropNameInRow="TC_ITA_WITHDRAWAL" msprop:Generator_ColumnPropNameInTable="TC_ITA_WITHDRAWALColumn" msprop:Generator_UserColumnName="TC_ITA_WITHDRAWAL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_ITA_ADJUSTMENT" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_ADJUSTMENT" msprop:Generator_ColumnPropNameInRow="TC_ITA_ADJUSTMENT" msprop:Generator_ColumnPropNameInTable="TC_ITA_ADJUSTMENTColumn" msprop:Generator_UserColumnName="TC_ITA_ADJUSTMENT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_DIV_OTH" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV_OTH" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV_OTH" msprop:Generator_ColumnPropNameInTable="TC_NB_DIV_OTHColumn" msprop:Generator_UserColumnName="TC_NB_DIV_OTH" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_INT_OTH" msprop:Generator_ColumnVarNameInTable="columnTC_NB_INT_OTH" msprop:Generator_ColumnPropNameInRow="TC_NB_INT_OTH" msprop:Generator_ColumnPropNameInTable="TC_NB_INT_OTHColumn" msprop:Generator_UserColumnName="TC_NB_INT_OTH" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_SUNDRY_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_SUNDRY_EXP" msprop:Generator_ColumnPropNameInRow="TC_SUNDRY_EXP" msprop:Generator_ColumnPropNameInTable="TC_SUNDRY_EXPColumn" msprop:Generator_UserColumnName="TC_SUNDRY_EXP" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="TC_TP_INCOME_TP2" msprop:Generator_ColumnVarNameInTable="columnTC_TP_INCOME_TP2" msprop:Generator_ColumnPropNameInRow="TC_TP_INCOME_TP2" msprop:Generator_ColumnPropNameInTable="TC_TP_INCOME_TP2Column" msprop:Generator_UserColumnName="TC_TP_INCOME_TP2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_ESTIMATED_TP" msprop:Generator_ColumnVarNameInTable="columnTC_TP_ESTIMATED_TP" msprop:Generator_ColumnPropNameInRow="TC_TP_ESTIMATED_TP" msprop:Generator_ColumnPropNameInTable="TC_TP_ESTIMATED_TPColumn" msprop:Generator_UserColumnName="TC_TP_ESTIMATED_TP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_INCOME_TP3" msprop:Generator_ColumnVarNameInTable="columnTC_TP_INCOME_TP3" msprop:Generator_ColumnPropNameInRow="TC_TP_INCOME_TP3" msprop:Generator_ColumnPropNameInTable="TC_TP_INCOME_TP3Column" msprop:Generator_UserColumnName="TC_TP_INCOME_TP3" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_ALL_DIFF" msprop:Generator_ColumnVarNameInTable="columnTC_TP_ALL_DIFF" msprop:Generator_ColumnPropNameInRow="TC_TP_ALL_DIFF" msprop:Generator_ColumnPropNameInTable="TC_TP_ALL_DIFFColumn" msprop:Generator_UserColumnName="TC_TP_ALL_DIFF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_EX_DIFF" msprop:Generator_ColumnVarNameInTable="columnTC_TP_EX_DIFF" msprop:Generator_ColumnPropNameInRow="TC_TP_EX_DIFF" msprop:Generator_ColumnPropNameInTable="TC_TP_EX_DIFFColumn" msprop:Generator_UserColumnName="TC_TP_EX_DIFF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_PEN_DIFF" msprop:Generator_ColumnVarNameInTable="columnTC_TP_PEN_DIFF" msprop:Generator_ColumnPropNameInRow="TC_TP_PEN_DIFF" msprop:Generator_ColumnPropNameInTable="TC_TP_PEN_DIFFColumn" msprop:Generator_UserColumnName="TC_TP_PEN_DIFF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_WITHRAITA" msprop:Generator_ColumnVarNameInTable="columnTC_WITHRAITA" msprop:Generator_ColumnPropNameInRow="TC_WITHRAITA" msprop:Generator_ColumnPropNameInTable="TC_WITHRAITAColumn" msprop:Generator_UserColumnName="TC_WITHRAITA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_WITHDRAWAL" msprop:Generator_ColumnVarNameInTable="columnTC_RA_WITHDRAWAL" msprop:Generator_ColumnPropNameInRow="TC_RA_WITHDRAWAL" msprop:Generator_ColumnPropNameInTable="TC_RA_WITHDRAWALColumn" msprop:Generator_UserColumnName="TC_RA_WITHDRAWAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_ADJUSTMENT" msprop:Generator_ColumnVarNameInTable="columnTC_RA_ADJUSTMENT" msprop:Generator_ColumnPropNameInRow="TC_RA_ADJUSTMENT" msprop:Generator_ColumnPropNameInTable="TC_RA_ADJUSTMENTColumn" msprop:Generator_UserColumnName="TC_RA_ADJUSTMENT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_WITHDRAWAL" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_WITHDRAWAL" msprop:Generator_ColumnPropNameInRow="TC_ITA_WITHDRAWAL" msprop:Generator_ColumnPropNameInTable="TC_ITA_WITHDRAWALColumn" msprop:Generator_UserColumnName="TC_ITA_WITHDRAWAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_ADJUSTMENT" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_ADJUSTMENT" msprop:Generator_ColumnPropNameInRow="TC_ITA_ADJUSTMENT" msprop:Generator_ColumnPropNameInTable="TC_ITA_ADJUSTMENTColumn" msprop:Generator_UserColumnName="TC_ITA_ADJUSTMENT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_DIV_OTH" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV_OTH" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV_OTH" msprop:Generator_ColumnPropNameInTable="TC_NB_DIV_OTHColumn" msprop:Generator_UserColumnName="TC_NB_DIV_OTH" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_INT_OTH" msprop:Generator_ColumnVarNameInTable="columnTC_NB_INT_OTH" msprop:Generator_ColumnPropNameInRow="TC_NB_INT_OTH" msprop:Generator_ColumnPropNameInTable="TC_NB_INT_OTHColumn" msprop:Generator_UserColumnName="TC_NB_INT_OTH" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SUNDRY_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_SUNDRY_EXP" msprop:Generator_ColumnPropNameInRow="TC_SUNDRY_EXP" msprop:Generator_ColumnPropNameInTable="TC_SUNDRY_EXPColumn" msprop:Generator_UserColumnName="TC_SUNDRY_EXP" type="xs:decimal" minOccurs="0" />
               <xs:element name="TC_CHK_EXEMP" msprop:Generator_ColumnVarNameInTable="columnTC_CHK_EXEMP" msprop:Generator_ColumnPropNameInRow="TC_CHK_EXEMP" msprop:Generator_ColumnPropNameInTable="TC_CHK_EXEMPColumn" msprop:Generator_UserColumnName="TC_CHK_EXEMP" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -1367,160 +341,28 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="TC_NB_RENTIBA" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBAColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENTIBA_ATT_IN" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_ATT_IN" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_ATT_IN" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_ATT_INColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_ATT_IN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENTIBA_ASSESS" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_ASSESS" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_ASSESS" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_ASSESSColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_ASSESS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENTIBA_QUIT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_QUIT" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_QUIT" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_QUITColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_QUIT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENTIBA_INSUR" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_INSUR" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_INSUR" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_INSURColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_INSUR" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENTIBA_OTH" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_OTH" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_OTH" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_OTHColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_OTH" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENTIBA_MAIN" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_MAIN" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_MAIN" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_MAINColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_MAIN" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENTIBA_AGREE" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_AGREE" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_AGREE" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_AGREEColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_AGREE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_RENTIBA_IBA" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_IBA" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_IBA" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_IBAColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_IBA" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_DIV_DIS_ATT_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV_DIS_ATT_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV_DIS_ATT_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_DIV_DIS_ATT_INTColumn" msprop:Generator_UserColumnName="TC_NB_DIV_DIS_ATT_INT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_DIV_TOT_ATT_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV_TOT_ATT_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV_TOT_ATT_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_DIV_TOT_ATT_INTColumn" msprop:Generator_UserColumnName="TC_NB_DIV_TOT_ATT_INT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EA_UTL" msprop:Generator_ColumnVarNameInTable="columnTC_EA_UTL" msprop:Generator_ColumnPropNameInRow="TC_EA_UTL" msprop:Generator_ColumnPropNameInTable="TC_EA_UTLColumn" msprop:Generator_UserColumnName="TC_EA_UTL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EA_TYPE" msprop:Generator_ColumnVarNameInTable="columnTC_EA_TYPE" msprop:Generator_ColumnPropNameInRow="TC_EA_TYPE" msprop:Generator_ColumnPropNameInTable="TC_EA_TYPEColumn" msprop:Generator_UserColumnName="TC_EA_TYPE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EA_CURR_COMPANY" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CURR_COMPANY" msprop:Generator_ColumnPropNameInRow="TC_EA_CURR_COMPANY" msprop:Generator_ColumnPropNameInTable="TC_EA_CURR_COMPANYColumn" msprop:Generator_UserColumnName="TC_EA_CURR_COMPANY" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EA_CURR_AGRICULTURE" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CURR_AGRICULTURE" msprop:Generator_ColumnPropNameInRow="TC_EA_CURR_AGRICULTURE" msprop:Generator_ColumnPropNameInTable="TC_EA_CURR_AGRICULTUREColumn" msprop:Generator_UserColumnName="TC_EA_CURR_AGRICULTURE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EA_CURR_SIGNIFICANT" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CURR_SIGNIFICANT" msprop:Generator_ColumnPropNameInRow="TC_EA_CURR_SIGNIFICANT" msprop:Generator_ColumnPropNameInTable="TC_EA_CURR_SIGNIFICANTColumn" msprop:Generator_UserColumnName="TC_EA_CURR_SIGNIFICANT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EA_CURR_MARKET" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CURR_MARKET" msprop:Generator_ColumnPropNameInRow="TC_EA_CURR_MARKET" msprop:Generator_ColumnPropNameInTable="TC_EA_CURR_MARKETColumn" msprop:Generator_UserColumnName="TC_EA_CURR_MARKET" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EA_CURR_MSB" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CURR_MSB" msprop:Generator_ColumnPropNameInRow="TC_EA_CURR_MSB" msprop:Generator_ColumnPropNameInTable="TC_EA_CURR_MSBColumn" msprop:Generator_UserColumnName="TC_EA_CURR_MSB" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EA_TOTAL" msprop:Generator_ColumnVarNameInTable="columnTC_EA_TOTAL" msprop:Generator_ColumnPropNameInRow="TC_EA_TOTAL" msprop:Generator_ColumnPropNameInTable="TC_EA_TOTALColumn" msprop:Generator_UserColumnName="TC_EA_TOTAL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EA_RESTRICTRATE" msprop:Generator_ColumnVarNameInTable="columnTC_EA_RESTRICTRATE" msprop:Generator_ColumnPropNameInRow="TC_EA_RESTRICTRATE" msprop:Generator_ColumnPropNameInTable="TC_EA_RESTRICTRATEColumn" msprop:Generator_UserColumnName="TC_EA_RESTRICTRATE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EA_BF" msprop:Generator_ColumnVarNameInTable="columnTC_EA_BF" msprop:Generator_ColumnPropNameInRow="TC_EA_BF" msprop:Generator_ColumnPropNameInTable="TC_EA_BFColumn" msprop:Generator_UserColumnName="TC_EA_BF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EA_CF" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CF" msprop:Generator_ColumnPropNameInRow="TC_EA_CF" msprop:Generator_ColumnPropNameInTable="TC_EA_CFColumn" msprop:Generator_UserColumnName="TC_EA_CF" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="TC_NB_RENTIBA" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBAColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENTIBA_ATT_IN" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_ATT_IN" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_ATT_IN" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_ATT_INColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_ATT_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENTIBA_ASSESS" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_ASSESS" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_ASSESS" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_ASSESSColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_ASSESS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENTIBA_QUIT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_QUIT" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_QUIT" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_QUITColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_QUIT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENTIBA_INSUR" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_INSUR" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_INSUR" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_INSURColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_INSUR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENTIBA_OTH" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_OTH" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_OTH" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_OTHColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_OTH" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENTIBA_MAIN" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_MAIN" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_MAIN" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_MAINColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_MAIN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENTIBA_AGREE" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_AGREE" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_AGREE" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_AGREEColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_AGREE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_RENTIBA_IBA" msprop:Generator_ColumnVarNameInTable="columnTC_NB_RENTIBA_IBA" msprop:Generator_ColumnPropNameInRow="TC_NB_RENTIBA_IBA" msprop:Generator_ColumnPropNameInTable="TC_NB_RENTIBA_IBAColumn" msprop:Generator_UserColumnName="TC_NB_RENTIBA_IBA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_DIV_DIS_ATT_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV_DIS_ATT_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV_DIS_ATT_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_DIV_DIS_ATT_INTColumn" msprop:Generator_UserColumnName="TC_NB_DIV_DIS_ATT_INT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_DIV_TOT_ATT_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DIV_TOT_ATT_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_DIV_TOT_ATT_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_DIV_TOT_ATT_INTColumn" msprop:Generator_UserColumnName="TC_NB_DIV_TOT_ATT_INT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_UTL" msprop:Generator_ColumnVarNameInTable="columnTC_EA_UTL" msprop:Generator_ColumnPropNameInRow="TC_EA_UTL" msprop:Generator_ColumnPropNameInTable="TC_EA_UTLColumn" msprop:Generator_UserColumnName="TC_EA_UTL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_TYPE" msprop:Generator_ColumnVarNameInTable="columnTC_EA_TYPE" msprop:Generator_ColumnPropNameInRow="TC_EA_TYPE" msprop:Generator_ColumnPropNameInTable="TC_EA_TYPEColumn" msprop:Generator_UserColumnName="TC_EA_TYPE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_CURR_COMPANY" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CURR_COMPANY" msprop:Generator_ColumnPropNameInRow="TC_EA_CURR_COMPANY" msprop:Generator_ColumnPropNameInTable="TC_EA_CURR_COMPANYColumn" msprop:Generator_UserColumnName="TC_EA_CURR_COMPANY" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_CURR_AGRICULTURE" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CURR_AGRICULTURE" msprop:Generator_ColumnPropNameInRow="TC_EA_CURR_AGRICULTURE" msprop:Generator_ColumnPropNameInTable="TC_EA_CURR_AGRICULTUREColumn" msprop:Generator_UserColumnName="TC_EA_CURR_AGRICULTURE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_CURR_SIGNIFICANT" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CURR_SIGNIFICANT" msprop:Generator_ColumnPropNameInRow="TC_EA_CURR_SIGNIFICANT" msprop:Generator_ColumnPropNameInTable="TC_EA_CURR_SIGNIFICANTColumn" msprop:Generator_UserColumnName="TC_EA_CURR_SIGNIFICANT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_CURR_MARKET" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CURR_MARKET" msprop:Generator_ColumnPropNameInRow="TC_EA_CURR_MARKET" msprop:Generator_ColumnPropNameInTable="TC_EA_CURR_MARKETColumn" msprop:Generator_UserColumnName="TC_EA_CURR_MARKET" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_CURR_MSB" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CURR_MSB" msprop:Generator_ColumnPropNameInRow="TC_EA_CURR_MSB" msprop:Generator_ColumnPropNameInTable="TC_EA_CURR_MSBColumn" msprop:Generator_UserColumnName="TC_EA_CURR_MSB" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_TOTAL" msprop:Generator_ColumnVarNameInTable="columnTC_EA_TOTAL" msprop:Generator_ColumnPropNameInRow="TC_EA_TOTAL" msprop:Generator_ColumnPropNameInTable="TC_EA_TOTALColumn" msprop:Generator_UserColumnName="TC_EA_TOTAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_RESTRICTRATE" msprop:Generator_ColumnVarNameInTable="columnTC_EA_RESTRICTRATE" msprop:Generator_ColumnPropNameInRow="TC_EA_RESTRICTRATE" msprop:Generator_ColumnPropNameInTable="TC_EA_RESTRICTRATEColumn" msprop:Generator_UserColumnName="TC_EA_RESTRICTRATE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_BF" msprop:Generator_ColumnVarNameInTable="columnTC_EA_BF" msprop:Generator_ColumnPropNameInRow="TC_EA_BF" msprop:Generator_ColumnPropNameInTable="TC_EA_BFColumn" msprop:Generator_UserColumnName="TC_EA_BF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_CF" msprop:Generator_ColumnVarNameInTable="columnTC_EA_CF" msprop:Generator_ColumnPropNameInRow="TC_EA_CF" msprop:Generator_ColumnPropNameInTable="TC_EA_CFColumn" msprop:Generator_UserColumnName="TC_EA_CF" type="xs:decimal" minOccurs="0" />
               <xs:element name="TC_TP_ESTIMATED_SME" msprop:Generator_ColumnVarNameInTable="columnTC_TP_ESTIMATED_SME" msprop:Generator_ColumnPropNameInRow="TC_TP_ESTIMATED_SME" msprop:Generator_ColumnPropNameInTable="TC_TP_ESTIMATED_SMEColumn" msprop:Generator_UserColumnName="TC_TP_ESTIMATED_SME" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -1528,70 +370,75 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="TC_NB_DCA_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DCA_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_DCA_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_DCA_INTColumn" msprop:Generator_UserColumnName="TC_NB_DCA_INT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_NB_DEEMED_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DEEMED_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_DEEMED_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_DEEMED_INTColumn" msprop:Generator_UserColumnName="TC_NB_DEEMED_INT" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EXEMPTIONCAL" msprop:Generator_ColumnVarNameInTable="columnTC_EXEMPTIONCAL" msprop:Generator_ColumnPropNameInRow="TC_EXEMPTIONCAL" msprop:Generator_ColumnPropNameInTable="TC_EXEMPTIONCALColumn" msprop:Generator_UserColumnName="TC_EXEMPTIONCAL" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_EXEMPTIONLESS" msprop:Generator_ColumnVarNameInTable="columnTC_EXEMPTIONLESS" msprop:Generator_ColumnPropNameInRow="TC_EXEMPTIONLESS" msprop:Generator_ColumnPropNameInTable="TC_EXEMPTIONLESSColumn" msprop:Generator_UserColumnName="TC_EXEMPTIONLESS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_INSTALL_107C" msprop:Generator_ColumnVarNameInTable="columnTC_TP_INSTALL_107C" msprop:Generator_ColumnPropNameInRow="TC_TP_INSTALL_107C" msprop:Generator_ColumnPropNameInTable="TC_TP_INSTALL_107CColumn" msprop:Generator_UserColumnName="TC_TP_INSTALL_107C" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_INSTALL_107A" msprop:Generator_ColumnVarNameInTable="columnTC_TP_INSTALL_107A" msprop:Generator_ColumnPropNameInRow="TC_TP_INSTALL_107A" msprop:Generator_ColumnPropNameInTable="TC_TP_INSTALL_107AColumn" msprop:Generator_UserColumnName="TC_TP_INSTALL_107A" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="TC_NB_DCA_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DCA_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_DCA_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_DCA_INTColumn" msprop:Generator_UserColumnName="TC_NB_DCA_INT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_NB_DEEMED_INT" msprop:Generator_ColumnVarNameInTable="columnTC_NB_DEEMED_INT" msprop:Generator_ColumnPropNameInRow="TC_NB_DEEMED_INT" msprop:Generator_ColumnPropNameInTable="TC_NB_DEEMED_INTColumn" msprop:Generator_UserColumnName="TC_NB_DEEMED_INT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EXEMPTIONCAL" msprop:Generator_ColumnVarNameInTable="columnTC_EXEMPTIONCAL" msprop:Generator_ColumnPropNameInRow="TC_EXEMPTIONCAL" msprop:Generator_ColumnPropNameInTable="TC_EXEMPTIONCALColumn" msprop:Generator_UserColumnName="TC_EXEMPTIONCAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EXEMPTIONLESS" msprop:Generator_ColumnVarNameInTable="columnTC_EXEMPTIONLESS" msprop:Generator_ColumnPropNameInRow="TC_EXEMPTIONLESS" msprop:Generator_ColumnPropNameInTable="TC_EXEMPTIONLESSColumn" msprop:Generator_UserColumnName="TC_EXEMPTIONLESS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_INSTALL_107C" msprop:Generator_ColumnVarNameInTable="columnTC_TP_INSTALL_107C" msprop:Generator_ColumnPropNameInRow="TC_TP_INSTALL_107C" msprop:Generator_ColumnPropNameInTable="TC_TP_INSTALL_107CColumn" msprop:Generator_UserColumnName="TC_TP_INSTALL_107C" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_INSTALL_107A" msprop:Generator_ColumnVarNameInTable="columnTC_TP_INSTALL_107A" msprop:Generator_ColumnPropNameInRow="TC_TP_INSTALL_107A" msprop:Generator_ColumnPropNameInTable="TC_TP_INSTALL_107AColumn" msprop:Generator_UserColumnName="TC_TP_INSTALL_107A" type="xs:decimal" minOccurs="0" />
               <xs:element name="TC_TP_RATE7" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE7" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE7" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE7Column" msprop:Generator_UserColumnName="TC_TP_RATE7" type="xs:int" minOccurs="0" />
-              <xs:element name="TC_TP_APP_CHARGEABLE7" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE7" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE7" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE7Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE7" minOccurs="0">
+              <xs:element name="TC_TP_APP_CHARGEABLE7" msprop:Generator_ColumnVarNameInTable="columnTC_TP_APP_CHARGEABLE7" msprop:Generator_ColumnPropNameInRow="TC_TP_APP_CHARGEABLE7" msprop:Generator_ColumnPropNameInTable="TC_TP_APP_CHARGEABLE7Column" msprop:Generator_UserColumnName="TC_TP_APP_CHARGEABLE7" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_RATE6_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE6_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE6_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE6_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE6_CHARGEABLE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_TP_RATE7_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE7_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE7_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE7_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE7_CHARGEABLE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_TYPE1" msprop:Generator_ColumnVarNameInTable="columnTC_EA_TYPE1" msprop:Generator_ColumnPropNameInRow="TC_EA_TYPE1" msprop:Generator_ColumnPropNameInTable="TC_EA_TYPE1Column" msprop:Generator_UserColumnName="TC_EA_TYPE1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_TYPE2" msprop:Generator_ColumnVarNameInTable="columnTC_EA_TYPE2" msprop:Generator_ColumnPropNameInRow="TC_EA_TYPE2" msprop:Generator_ColumnPropNameInTable="TC_EA_TYPE2Column" msprop:Generator_UserColumnName="TC_EA_TYPE2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_EA_TYPE3" msprop:Generator_ColumnVarNameInTable="columnTC_EA_TYPE3" msprop:Generator_ColumnPropNameInRow="TC_EA_TYPE3" msprop:Generator_ColumnPropNameInTable="TC_EA_TYPE3Column" msprop:Generator_UserColumnName="TC_EA_TYPE3" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="OTHER_EXEMPTION" msprop:Generator_TableClassName="OTHER_EXEMPTIONDataTable" msprop:Generator_TableVarName="tableOTHER_EXEMPTION" msprop:Generator_TablePropName="OTHER_EXEMPTION" msprop:Generator_RowDeletingName="OTHER_EXEMPTIONRowDeleting" msprop:Generator_RowChangingName="OTHER_EXEMPTIONRowChanging" msprop:Generator_RowEvHandlerName="OTHER_EXEMPTIONRowChangeEventHandler" msprop:Generator_RowDeletedName="OTHER_EXEMPTIONRowDeleted" msprop:Generator_UserTableName="OTHER_EXEMPTION" msprop:Generator_RowChangedName="OTHER_EXEMPTIONRowChanged" msprop:Generator_RowEvArgName="OTHER_EXEMPTIONRowChangeEvent" msprop:Generator_RowClassName="OTHER_EXEMPTIONRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EXP_KEY" msprop:Generator_ColumnVarNameInTable="columnEXP_KEY" msprop:Generator_ColumnPropNameInRow="EXP_KEY" msprop:Generator_ColumnPropNameInTable="EXP_KEYColumn" msprop:Generator_UserColumnName="EXP_KEY" type="xs:double" />
+              <xs:element name="EXP_PIONEER" msprop:Generator_ColumnVarNameInTable="columnEXP_PIONEER" msprop:Generator_ColumnPropNameInRow="EXP_PIONEER" msprop:Generator_ColumnPropNameInTable="EXP_PIONEERColumn" msprop:Generator_UserColumnName="EXP_PIONEER" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
+                    <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="TC_TP_RATE6_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE6_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE6_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE6_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE6_CHARGEABLE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TC_TP_RATE7_CHARGEABLE" msprop:Generator_ColumnVarNameInTable="columnTC_TP_RATE7_CHARGEABLE" msprop:Generator_ColumnPropNameInRow="TC_TP_RATE7_CHARGEABLE" msprop:Generator_ColumnPropNameInTable="TC_TP_RATE7_CHARGEABLEColumn" msprop:Generator_UserColumnName="TC_TP_RATE7_CHARGEABLE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="STATUTORY_INCOME" msprop:Generator_TableClassName="STATUTORY_INCOMEDataTable" msprop:Generator_TableVarName="tableSTATUTORY_INCOME" msprop:Generator_RowChangedName="STATUTORY_INCOMERowChanged" msprop:Generator_TablePropName="STATUTORY_INCOME" msprop:Generator_RowDeletingName="STATUTORY_INCOMERowDeleting" msprop:Generator_RowChangingName="STATUTORY_INCOMERowChanging" msprop:Generator_RowEvHandlerName="STATUTORY_INCOMERowChangeEventHandler" msprop:Generator_RowDeletedName="STATUTORY_INCOMERowDeleted" msprop:Generator_RowClassName="STATUTORY_INCOMERow" msprop:Generator_UserTableName="STATUTORY_INCOME" msprop:Generator_RowEvArgName="STATUTORY_INCOMERowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TC_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnTC_KEY" msprop:Generator_ColumnPropNameInRow="TC_KEY" msprop:Generator_ColumnPropNameInTable="TC_KEYColumn" msprop:Generator_UserColumnName="TC_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="TC_BUSINESS" msprop:Generator_ColumnVarNameInTable="columnTC_BUSINESS" msprop:Generator_ColumnPropNameInRow="TC_BUSINESS" msprop:Generator_ColumnPropNameInTable="TC_BUSINESSColumn" msprop:Generator_UserColumnName="TC_BUSINESS" type="xs:int" minOccurs="0" />
+              <xs:element name="TC_AI_TOT_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_TOT_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_TOT_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_TOT_BS_INColumn" msprop:Generator_UserColumnName="TC_AI_TOT_BS_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_TOT_ADJ_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_AI_TOT_ADJ_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_AI_TOT_ADJ_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_AI_TOT_ADJ_BS_INColumn" msprop:Generator_UserColumnName="TC_AI_TOT_ADJ_BS_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_TOT_ADJ_BS_EXP" msprop:Generator_ColumnVarNameInTable="columnTC_AI_TOT_ADJ_BS_EXP" msprop:Generator_ColumnPropNameInRow="TC_AI_TOT_ADJ_BS_EXP" msprop:Generator_ColumnPropNameInTable="TC_AI_TOT_ADJ_BS_EXPColumn" msprop:Generator_UserColumnName="TC_AI_TOT_ADJ_BS_EXP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_AI_ADJ_IN_LOSS" msprop:Generator_ColumnVarNameInTable="columnTC_AI_ADJ_IN_LOSS" msprop:Generator_ColumnPropNameInRow="TC_AI_ADJ_IN_LOSS" msprop:Generator_ColumnPropNameInTable="TC_AI_ADJ_IN_LOSSColumn" msprop:Generator_UserColumnName="TC_AI_ADJ_IN_LOSS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_ADJ_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_ADJ_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_ADJ_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_ADJ_BS_INColumn" msprop:Generator_UserColumnName="TC_SI_ADJ_BS_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_BC" msprop:Generator_ColumnVarNameInTable="columnTC_SI_BC" msprop:Generator_ColumnPropNameInRow="TC_SI_BC" msprop:Generator_ColumnPropNameInTable="TC_SI_BCColumn" msprop:Generator_UserColumnName="TC_SI_BC" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_ADJ_BS_IN_BC" msprop:Generator_ColumnVarNameInTable="columnTC_SI_ADJ_BS_IN_BC" msprop:Generator_ColumnPropNameInRow="TC_SI_ADJ_BS_IN_BC" msprop:Generator_ColumnPropNameInTable="TC_SI_ADJ_BS_IN_BCColumn" msprop:Generator_UserColumnName="TC_SI_ADJ_BS_IN_BC" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_CA" msprop:Generator_ColumnVarNameInTable="columnTC_SI_CA" msprop:Generator_ColumnPropNameInRow="TC_SI_CA" msprop:Generator_ColumnPropNameInTable="TC_SI_CAColumn" msprop:Generator_UserColumnName="TC_SI_CA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_STAT_BS_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_STAT_BS_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_STAT_BS_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_STAT_BS_INColumn" msprop:Generator_UserColumnName="TC_SI_STAT_BS_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_INVEST_ALLOW" msprop:Generator_ColumnVarNameInTable="columnTC_SI_INVEST_ALLOW" msprop:Generator_ColumnPropNameInRow="TC_SI_INVEST_ALLOW" msprop:Generator_ColumnPropNameInTable="TC_SI_INVEST_ALLOWColumn" msprop:Generator_UserColumnName="TC_SI_INVEST_ALLOW" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_NET_STAT_IN" msprop:Generator_ColumnVarNameInTable="columnTC_SI_NET_STAT_IN" msprop:Generator_ColumnPropNameInRow="TC_SI_NET_STAT_IN" msprop:Generator_ColumnPropNameInTable="TC_SI_NET_STAT_INColumn" msprop:Generator_UserColumnName="TC_SI_NET_STAT_IN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_SI_RA" msprop:Generator_ColumnVarNameInTable="columnTC_SI_RA" msprop:Generator_ColumnPropNameInRow="TC_SI_RA" msprop:Generator_ColumnPropNameInTable="TC_SI_RAColumn" msprop:Generator_UserColumnName="TC_SI_RA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_BA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_BA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_BA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_BAColumn" msprop:Generator_UserColumnName="TC_CB_CA_BA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CB_CA_NA" msprop:Generator_ColumnVarNameInTable="columnTC_CB_CA_NA" msprop:Generator_ColumnPropNameInRow="TC_CB_CA_NA" msprop:Generator_ColumnPropNameInTable="TC_CB_CA_NAColumn" msprop:Generator_UserColumnName="TC_CB_CA_NA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_PIONEERDESC" msprop:Generator_ColumnVarNameInTable="columnTC_PIONEERDESC" msprop:Generator_ColumnPropNameInRow="TC_PIONEERDESC" msprop:Generator_ColumnPropNameInTable="TC_PIONEERDESCColumn" msprop:Generator_UserColumnName="TC_PIONEERDESC" type="xs:string" minOccurs="0" />
+              <xs:element name="TC_PIONEER" msprop:Generator_ColumnVarNameInTable="columnTC_PIONEER" msprop:Generator_ColumnPropNameInRow="TC_PIONEER" msprop:Generator_ColumnPropNameInTable="TC_PIONEERColumn" msprop:Generator_UserColumnName="TC_PIONEER" type="xs:string" minOccurs="0" />
+              <xs:element name="TC_RA_RATE1" msprop:Generator_ColumnVarNameInTable="columnTC_RA_RATE1" msprop:Generator_ColumnPropNameInRow="TC_RA_RATE1" msprop:Generator_ColumnPropNameInTable="TC_RA_RATE1Column" msprop:Generator_UserColumnName="TC_RA_RATE1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnVarNameInTable="columnTC_RA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInRow="TC_RA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInTable="TC_RA_QUALIFYINGCAPITALEXPColumn" msprop:Generator_UserColumnName="TC_RA_QUALIFYINGCAPITALEXP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_RA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInRow="TC_RA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInTable="TC_RA_QUALIFYINGCAPITALEXP_AMOUNTColumn" msprop:Generator_UserColumnName="TC_RA_QUALIFYINGCAPITALEXP_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_BALANCINGALLOWANCE" msprop:Generator_ColumnVarNameInTable="columnTC_RA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInRow="TC_RA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInTable="TC_RA_BALANCINGALLOWANCEColumn" msprop:Generator_UserColumnName="TC_RA_BALANCINGALLOWANCE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_TOTAL1" msprop:Generator_ColumnVarNameInTable="columnTC_RA_TOTAL1" msprop:Generator_ColumnPropNameInRow="TC_RA_TOTAL1" msprop:Generator_ColumnPropNameInTable="TC_RA_TOTAL1Column" msprop:Generator_UserColumnName="TC_RA_TOTAL1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_RESTRICTRATE" msprop:Generator_ColumnVarNameInTable="columnTC_RA_RESTRICTRATE" msprop:Generator_ColumnPropNameInRow="TC_RA_RESTRICTRATE" msprop:Generator_ColumnPropNameInTable="TC_RA_RESTRICTRATEColumn" msprop:Generator_UserColumnName="TC_RA_RESTRICTRATE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_RA_RESTRICTAMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_RA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInRow="TC_RA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInTable="TC_RA_RESTRICTAMOUNTColumn" msprop:Generator_UserColumnName="TC_RA_RESTRICTAMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_RATE1" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_RATE1" msprop:Generator_ColumnPropNameInRow="TC_ITA_RATE1" msprop:Generator_ColumnPropNameInTable="TC_ITA_RATE1Column" msprop:Generator_UserColumnName="TC_ITA_RATE1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInRow="TC_ITA_QUALIFYINGCAPITALEXP" msprop:Generator_ColumnPropNameInTable="TC_ITA_QUALIFYINGCAPITALEXPColumn" msprop:Generator_UserColumnName="TC_ITA_QUALIFYINGCAPITALEXP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInRow="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" msprop:Generator_ColumnPropNameInTable="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNTColumn" msprop:Generator_UserColumnName="TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_BALANCINGALLOWANCE" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInRow="TC_ITA_BALANCINGALLOWANCE" msprop:Generator_ColumnPropNameInTable="TC_ITA_BALANCINGALLOWANCEColumn" msprop:Generator_UserColumnName="TC_ITA_BALANCINGALLOWANCE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_TOTAL1" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_TOTAL1" msprop:Generator_ColumnPropNameInRow="TC_ITA_TOTAL1" msprop:Generator_ColumnPropNameInTable="TC_ITA_TOTAL1Column" msprop:Generator_UserColumnName="TC_ITA_TOTAL1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_RESTRICTRATE" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_RESTRICTRATE" msprop:Generator_ColumnPropNameInRow="TC_ITA_RESTRICTRATE" msprop:Generator_ColumnPropNameInTable="TC_ITA_RESTRICTRATEColumn" msprop:Generator_UserColumnName="TC_ITA_RESTRICTRATE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_ITA_RESTRICTAMOUNT" msprop:Generator_ColumnVarNameInTable="columnTC_ITA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInRow="TC_ITA_RESTRICTAMOUNT" msprop:Generator_ColumnPropNameInTable="TC_ITA_RESTRICTAMOUNTColumn" msprop:Generator_UserColumnName="TC_ITA_RESTRICTAMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_WITHRAITA" msprop:Generator_ColumnVarNameInTable="columnTC_WITHRAITA" msprop:Generator_ColumnPropNameInRow="TC_WITHRAITA" msprop:Generator_ColumnPropNameInTable="TC_WITHRAITAColumn" msprop:Generator_UserColumnName="TC_WITHRAITA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TC_CHK_EXEMP" msprop:Generator_ColumnVarNameInTable="columnTC_CHK_EXEMP" msprop:Generator_ColumnPropNameInRow="TC_CHK_EXEMP" msprop:Generator_ColumnPropNameInTable="TC_CHK_EXEMPColumn" msprop:Generator_UserColumnName="TC_CHK_EXEMP" type="xs:string" minOccurs="0" />
+              <xs:element name="BC_TYPE" msprop:Generator_ColumnVarNameInTable="columnBC_TYPE" msprop:Generator_ColumnPropNameInRow="BC_TYPE" msprop:Generator_ColumnPropNameInTable="BC_TYPEColumn" msprop:Generator_UserColumnName="BC_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="TC_PIO" msprop:Generator_ColumnVarNameInTable="columnTC_PIO" msprop:Generator_ColumnPropNameInRow="TC_PIO" msprop:Generator_ColumnPropNameInTable="TC_PIOColumn" msprop:Generator_UserColumnName="TC_PIO" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1600,6 +447,10 @@
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:TAX_COMPUTATION" />
       <xs:field xpath="mstns:TC_KEY" />
+    </xs:unique>
+    <xs:unique name="OTHER_EXEMPTION_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:OTHER_EXEMPTION" />
+      <xs:field xpath="mstns:EXP_KEY" />
     </xs:unique>
   </xs:element>
 </xs:schema>

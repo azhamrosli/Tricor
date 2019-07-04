@@ -35,7 +35,11 @@ Public Class frmCA_Report_SummaryQE
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
-
+        Finally
+            Application.DoEvents()
+            If AutoBot_Allow = True AndAlso My.Computer.Name = DeveloperPCName Then
+                btnPrint.PerformClick()
+            End If
         End Try
     End Sub
 
@@ -181,7 +185,16 @@ Public Class frmCA_Report_SummaryQE
             End If
 
             Dim rpt As rpt_CASummaryQE
-            If mdlProcess.PrintReport_SummaryQE(ds, ID, rpt, ErrorLog) Then
+            Dim rpt_Note As rptCA_Note
+            Dim Title As String = ADO.Load_TableOfContent_Title(RefNo, YA, "rpt_CASummaryQE")
+            If mdlProcess.PrintReport_SummaryQE(ds, Title, ID, False, rpt, rpt_Note, ErrorLog) Then
+                Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
+
+                Dim x As Integer = 0
+
+                For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                    rpt.Pages.Add(pg)
+                Next
                 If isExport Then
                     rpt.ExportToXlsx(Path)
 

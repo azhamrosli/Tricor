@@ -136,13 +136,20 @@ Public Class frmCA_Report_Disposal
                 DsCA.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
                 DsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
                 DsCA.Tables("CA_NOTE").Rows.Clear()
-
+                Dim rpt_Note As rptCA_Note = Nothing
                 Select Case TypeReport
                     Case 8
                         'Disposal
                         Dim rpt As rpt_Disposal
+                        Dim Title As String = ADO.Load_TableOfContent_Title(RefNo, YA, "rpt_Disposal")
+                        If mdlProcess.PrintReport_Disposal(DsCA, Title, ComName, YA, False, rpt, rpt_Note, ErrorLog) Then
+                            Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
 
-                        If mdlProcess.PrintReport_Disposal(DsCA, ComName, YA, rpt, ErrorLog) Then
+                            Dim x As Integer = 0
+
+                            For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                                rpt.Pages.Add(pg)
+                            Next
                             If isExport Then
                                 rpt.ExportToXlsx(Path)
 
@@ -156,8 +163,15 @@ Public Class frmCA_Report_Disposal
                     Case 9
                         'Written Off
                         Dim rpt As rpt_CAWrittenOff
+                        Dim Title As String = ADO.Load_TableOfContent_Title(RefNo, YA, "rpt_CAWrittenOff")
+                        If mdlProcess.PrintReport_WrittenOff(DsCA, Title, ComName, YA, False, rpt, rpt_Note, ErrorLog) Then
+                            Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
 
-                        If mdlProcess.PrintReport_WrittenOff(DsCA, ComName, YA, rpt, ErrorLog) Then
+                            Dim x As Integer = 0
+
+                            For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                                rpt.Pages.Add(pg)
+                            Next
                             If isExport Then
                                 rpt.ExportToXlsx(Path)
 
@@ -173,7 +187,15 @@ Public Class frmCA_Report_Disposal
 
                         'Control Transfer Out
                         Dim rpt As rpt_CAControlTransfer_Out
-                        If mdlProcess.PrintReport_ControlTransferOut(DsCA, ComName, YA, rpt, ErrorLog) Then
+                        Dim Title As String = ADO.Load_TableOfContent_Title(RefNo, YA, "rpt_CAControlTransfer_Out")
+                        If mdlProcess.PrintReport_ControlTransferOut(DsCA, title, ComName, YA, False, rpt, rpt_Note, ErrorLog) Then
+                            Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
+
+                            Dim x As Integer = 0
+
+                            For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                                rpt.Pages.Add(pg)
+                            Next
                             If isExport Then
                                 rpt.ExportToXlsx(Path)
 

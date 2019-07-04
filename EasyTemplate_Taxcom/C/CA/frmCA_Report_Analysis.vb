@@ -46,7 +46,11 @@ Public Class frmCA_Report_Analysis
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)
-
+        Finally
+            Application.DoEvents()
+            If AutoBot_Allow = True AndAlso My.Computer.Name = DeveloperPCName Then
+                btnPrint.PerformClick()
+            End If
         End Try
     End Sub
 
@@ -145,21 +149,23 @@ Public Class frmCA_Report_Analysis
             Dim tmpStatus As Boolean = False
             For i As Integer = 0 To ListofAA.Count - 1
                 tmpStatus = False
-                For x As Integer = 0 To dt.Rows.Count - 1
+                If ListofAA(i) <> "AA_0" Then
+                    For x As Integer = 0 To dt.Rows.Count - 1
+                        If tmpStatus = False AndAlso IsDBNull(dt.Rows(x)(ListofAA(i))) = False AndAlso dt.Rows(x)(ListofAA(i)) <> 0 Then
+                            tmpStatus = True
 
-                    If tmpStatus = False AndAlso IsDBNull(dt.Rows(x)(ListofAA(i))) = False AndAlso dt.Rows(x)(ListofAA(i)) <> 0 Then
-                        tmpStatus = True
+                            col = Nothing
+                            col = New DataColumn With {
+                                .ColumnName = ListofAA(i),
+                                .Caption = ListofAA(i) & "% RM",
+                                .DataType = System.Type.GetType("System.Decimal")
+                            }
+                            dtTable.Columns.Add(col)
+                        End If
 
-                        col = Nothing
-                        col = New DataColumn With {
-                            .ColumnName = ListofAA(i),
-                            .Caption = ListofAA(i) & "% RM",
-                            .DataType = System.Type.GetType("System.Decimal")
-                        }
-                        dtTable.Columns.Add(col)
-                    End If
-
-                Next
+                    Next
+                End If
+               
 
             Next
 
@@ -231,7 +237,17 @@ Public Class frmCA_Report_Analysis
                 End If
             End If
             Dim rpt As rpt_CAAnalysis
-            If mdlProcess.PrintReport_CAAnalysis(ds, ID, rpt, ErrorLog) Then
+            Dim rpt_Note As rptCA_Note
+            Dim Title As String = ADO.Load_TableOfContent_Title(RefNo, YA, "rpt_CAAnalysis")
+
+            If mdlProcess.PrintReport_CAAnalysis(ds, Title, ID, False, rpt, rpt_Note, ErrorLog) Then
+                Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
+
+                Dim x As Integer = 0
+
+                For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                    rpt.Pages.Add(pg)
+                Next
                 If isExport Then
                     rpt.ExportToXlsx(Path)
                 Else

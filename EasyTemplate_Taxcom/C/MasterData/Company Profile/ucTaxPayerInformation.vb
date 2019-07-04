@@ -42,8 +42,12 @@
             End If
 
             Dim dt As DataTable = Nothing
+            If Type = 0 Then
+                dt = ADO.LoadTaxPayer(cboRefNo.EditValue, ErrorLog)
+            Else
+                dt = ADO.LoadTaxPayer("", ErrorLog)
+            End If
 
-            dt = ADO.LoadTaxPayer(cboRefNo.EditValue, ErrorLog)
 
             DsDefault.Tables("TAXP_PROFILE").Rows.Clear()
 
@@ -74,7 +78,7 @@
         Try
             cboRefNo.EditValue = ""
             Application.DoEvents()
-            Me.LoadData()
+            Me.LoadData(1)
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)
@@ -127,7 +131,7 @@
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If ADO.Delete_Taxpayer(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("TP_REF_NO")), ErrorLog) = False Then
+                    If ADO.Delete_Taxpayer(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("TP_REF_NO"), ErrorLog) = False Then
                         tmpSts = False
                     End If
                 Next
@@ -135,6 +139,7 @@
                 If tmpSts Then
                     MsgBox("Succesfully remove tax payer information.", MsgBoxStyle.Information)
                     Me.LoadData()
+                    frmHome.LoadData()
                 Else
                     MsgBox("Some of tax payer information failed to delete.", MsgBoxStyle.Critical)
                 End If

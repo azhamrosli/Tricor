@@ -29,6 +29,8 @@ Public Class frmMovement_Add
     End Sub
     Private Sub LoadData()
         Try
+            SplitContainerControl1.SplitterPosition = SplitContainerControl1.Height / 2
+
             If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
@@ -119,6 +121,12 @@ Public Class frmMovement_Add
                 '    chkTaxPositive.Checked = False
                 '    chkTaxNegative.Checked = False
                 'End If
+
+                If IsDBNull(dt.Rows(0)("ModifiedBy")) = False AndAlso dt.Rows(0)("ModifiedBy") <> "" Then
+                    lblLastmodified.Caption = dt.Rows(0)("ModifiedBy") & " | " & IIf(IsDBNull(dt.Rows(0)("ModifiedDateTime")), "", dt.Rows(0)("ModifiedDateTime"))
+                Else
+                    lblLastmodified.Caption = ""
+                End If
 
                 cboSourceCode.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_SOURCENO")), 0, dt.Rows(0)("MM_SOURCENO"))
 

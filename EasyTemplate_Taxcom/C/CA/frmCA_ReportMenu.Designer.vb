@@ -172,7 +172,7 @@ Partial Class frmCA_ReportMenu
         Me.cboRefNo.Properties.ValueMember = "RefNo"
         Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
         Me.cboRefNo.Size = New System.Drawing.Size(268, 20)
-        Me.cboRefNo.TabIndex = 167
+        Me.cboRefNo.TabIndex = 0
         '
         'TaxPayerFindBindingSource
         '
@@ -282,7 +282,7 @@ Partial Class frmCA_ReportMenu
         Me.cboYA.Properties.PopupSizeable = True
         Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         Me.cboYA.Size = New System.Drawing.Size(268, 20)
-        Me.cboYA.TabIndex = 164
+        Me.cboYA.TabIndex = 1
         '
         'LabelControl2
         '
@@ -318,7 +318,7 @@ Partial Class frmCA_ReportMenu
         Me.cboType.Properties.PopupSizeable = True
         Me.cboType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         Me.cboType.Size = New System.Drawing.Size(268, 20)
-        Me.cboType.TabIndex = 172
+        Me.cboType.TabIndex = 2
         '
         'LabelControl3
         '
@@ -353,7 +353,7 @@ Partial Class frmCA_ReportMenu
         Me.chkAllRate.Name = "chkAllRate"
         Me.chkAllRate.Properties.Caption = "All Rate"
         Me.chkAllRate.Size = New System.Drawing.Size(64, 19)
-        Me.chkAllRate.TabIndex = 178
+        Me.chkAllRate.TabIndex = 5
         '
         'gbRate
         '
@@ -378,7 +378,7 @@ Partial Class frmCA_ReportMenu
         Me.cboRateTo.Properties.PopupSizeable = True
         Me.cboRateTo.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         Me.cboRateTo.Size = New System.Drawing.Size(114, 20)
-        Me.cboRateTo.TabIndex = 180
+        Me.cboRateTo.TabIndex = 4
         '
         'cboRateFrom
         '
@@ -390,7 +390,7 @@ Partial Class frmCA_ReportMenu
         Me.cboRateFrom.Properties.PopupSizeable = True
         Me.cboRateFrom.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         Me.cboRateFrom.Size = New System.Drawing.Size(114, 20)
-        Me.cboRateFrom.TabIndex = 179
+        Me.cboRateFrom.TabIndex = 3
         '
         'gbCategory
         '
@@ -411,7 +411,7 @@ Partial Class frmCA_ReportMenu
         Me.txtCategory.Name = "txtCategory"
         Me.txtCategory.Properties.ReadOnly = True
         Me.txtCategory.Size = New System.Drawing.Size(203, 20)
-        Me.txtCategory.TabIndex = 245
+        Me.txtCategory.TabIndex = 8
         '
         'cboCategory
         '
@@ -424,7 +424,7 @@ Partial Class frmCA_ReportMenu
         Me.cboCategory.Properties.DisplayMember = "CA_CODE"
         Me.cboCategory.Properties.ValueMember = "CA_CODE"
         Me.cboCategory.Size = New System.Drawing.Size(203, 20)
-        Me.cboCategory.TabIndex = 244
+        Me.cboCategory.TabIndex = 7
         '
         'CategoryBindingSource
         '
@@ -448,7 +448,7 @@ Partial Class frmCA_ReportMenu
         Me.chkAllCategory.Name = "chkAllCategory"
         Me.chkAllCategory.Properties.Caption = "All Category"
         Me.chkAllCategory.Size = New System.Drawing.Size(193, 19)
-        Me.chkAllCategory.TabIndex = 178
+        Me.chkAllCategory.TabIndex = 6
         '
         'frmCA_ReportMenu
         '

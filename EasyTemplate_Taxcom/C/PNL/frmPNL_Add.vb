@@ -83,11 +83,22 @@ Public Class frmPNL_Add
                 Me.Close()
             End If
 
+            If My.Computer.Name = DeveloperPCName Then
+                btnQuickPNL.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+                btnPrintAdmin.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+            Else
+                btnQuickPNL.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+                btnPrintAdmin.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            End If
+
             LoadData()
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
-
+        Finally
+            If AutoBot_Allow = True AndAlso My.Computer.Name = DeveloperPCName Then
+                btnPrintAdmin.PerformClick()
+            End If
         End Try
 
     End Sub
@@ -149,9 +160,9 @@ Public Class frmPNL_Add
                 Case TaxComPNLEnuItem.REALFE
                     Return lbl_p2ReaForeExGainNonTrade
                 Case TaxComPNLEnuItem.UNREALFETRADE
-                    Return lbl_p2UnreaGainForeEx
-                Case TaxComPNLEnuItem.UNREALFENONTRADE
                     Return lbl_p2UnreaGainForeExNon
+                Case TaxComPNLEnuItem.UNREALFENONTRADE
+                    Return lbl_p2UnreaGainForeEx
 
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
                     Return lbl_p3OtherInterestExHirePur
@@ -205,8 +216,12 @@ Public Class frmPNL_Add
                     Return lbl_p4LeavePass
                 Case TaxComPNLEnuItem.EXPFAWRITTENOFF
                     Return lbl_p4FAWrittenOff
-                Case TaxComPNLEnuItem.EXPUNREALLOSSFE
-                    Return lbl_p4UnreaLossForeEx
+                Case TaxComPNLEnuItem.EXPUNREALLOSSFE, TaxComPNLEnuItem.FORECURREXLOSS
+                    If isVersionLicenseType = VersionLicenseType.Tricor Then
+                        Return lbl_p3ForeignCurrExLoss
+                    Else
+                        Return lbl_p4UnreaLossForeEx
+                    End If
                 Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
                     Return lbl_p4ReaLossForeExTrade
                 Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
@@ -362,6 +377,9 @@ Public Class frmPNL_Add
                 cboPNLStatus.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PNL_STATUS")), "", dtPNL.Rows(0)("PNL_STATUS"))
                 txt_p4ExpectedExpenses.EditValue = 0 ' IIf(IsDBNull(dtPNL.Rows(0)("PL_TOT_EXP")), 0, dtPNL.Rows(0)("PL_TOT_EXP"))
                 CurrentProgress += 5
+
+               
+
                 ' Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
                 Dim KeyNameEnum As TaxComPNLEnuItem
                 If dtPNLInfo IsNot Nothing Then
@@ -381,13 +399,12 @@ Public Class frmPNL_Add
                     Next
 
                 End If
-
                 dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").Rows.Clear()
-
+                Application.DoEvents()
                 Dim dtExclude As DataTable = ADO.Load_PNL_IncludeInReport(ID, ErrorLog)
 
                 If dtExclude IsNot Nothing Then
-                    For Each row As DataRow In dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").Rows
+                    For Each row As DataRow In dtExclude.Rows
                         dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").ImportRow(row)
                     Next
                 End If
@@ -527,9 +544,9 @@ Public Class frmPNL_Add
                 Case TaxComPNLEnuItem.REALFE
                     txtAmount = txt_p2ReaForeExGainNonTrade
                 Case TaxComPNLEnuItem.UNREALFETRADE
-                    txtAmount = txt_p2UnreaGainForeEx
-                Case TaxComPNLEnuItem.UNREALFENONTRADE 'azham ====================
                     txtAmount = txt_p2UnreaGainForeExNon
+                Case TaxComPNLEnuItem.UNREALFENONTRADE 'azham ====================
+                    txtAmount = txt_p2UnreaGainForeEx
 
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
                     txtAmount = txt_p3OtherInterestExHirePur
@@ -583,7 +600,7 @@ Public Class frmPNL_Add
                     txtAmount = txt_p4LeavePass
                 Case TaxComPNLEnuItem.EXPFAWRITTENOFF
                     txtAmount = txt_p4FAWrittenOff
-                Case TaxComPNLEnuItem.EXPUNREALLOSSFE
+                Case TaxComPNLEnuItem.EXPUNREALLOSSFE, TaxComPNLEnuItem.FORECURREXLOSS
                     If isVersionLicenseType = VersionLicenseType.Tricor Then
                         txtAmount = txt_p3ForeignCurrExLoss
                     Else
@@ -613,13 +630,13 @@ Public Class frmPNL_Add
                 Case TaxComPNLEnuItem.DIVIDENDINC
                     txtAmount = txt_p2DivIncome
             End Select
+            Application.DoEvents()
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
             txtAmount = txt_p2DivIncome
         End Try
     End Sub
-
     Private Sub lblSales_DoubleClick(sender As Object, e As EventArgs) Handles lbl_p1Sales.DoubleClick, lbl_p1OpenStock.DoubleClick, lbl_p1Purchase.DoubleClick, lbl_p1Depreciation.DoubleClick, lbl_p1AllowanceExpenses.DoubleClick, lbl_p1NonAllowableExpenses.DoubleClick, lbl_p1CloseStock.DoubleClick, lbl_p2OtherBizIncome.DoubleClick, lbl_p2ForeignCurrExGain.DoubleClick, lbl_p2InterestIncome.DoubleClick, lbl_p2RoyaltyIncome.DoubleClick, lbl_p2OtherIncome.DoubleClick, lbl_p2ProDispPlantEq.DoubleClick, lbl_p2ProDisInvestment.DoubleClick, lbl_p2ForeIncomeRemmit.DoubleClick, lbl_p2ReaForeExGainNonTrade.DoubleClick, lbl_p2UnreaGainForeEx.DoubleClick, lbl_p2UnreaGainForeExNon.DoubleClick, lbl_p3OtherInterestExHirePur.DoubleClick, lbl_p3ProTechManLeganFees.DoubleClick, lbl_p3TechPayNonResis.DoubleClick, lbl_p3ContractPay.DoubleClick, lbl_p3DirectorFee.DoubleClick, lbl_p3Salary.DoubleClick, lbl_p3COEStock.DoubleClick, lbl_p3Royalty.DoubleClick, lbl_p3Rental.DoubleClick, lbl_p3RepairMain.DoubleClick, lbl_p3ResearchDev.DoubleClick, lbl_p3PromotionAds.DoubleClick, lbl_p3Travelling.DoubleClick, lbl_p3JKDM.DoubleClick, lbl_p3Depreciation.DoubleClick, lbl_p3DonationApp.DoubleClick, lbl_p3DonationNonApp.DoubleClick, lbl_p3Zakat.DoubleClick, lbl_p4LossDispFA.DoubleClick, lbl_p4EntNonStaff.DoubleClick, lbl_p4EntStaff.DoubleClick, lbl_p4Compound.DoubleClick, lbl_p4ProvisionAcc.DoubleClick, lbl_p4LeavePass.DoubleClick, lbl_p4FAWrittenOff.DoubleClick, lbl_p4UnreaLossForeEx.DoubleClick, lbl_p4ReaLossForeExTrade.DoubleClick, lbl_p4ReaLossForeExNonTrade.DoubleClick, lbl_p4InitSub.DoubleClick, lbl_p4CAExpenditure.DoubleClick, lbl_p4Other.DoubleClick, lbl_p2RentalIncome.DoubleClick, lblP4NonAllowableExpenses.DoubleClick, lbl_p2Other.DoubleClick, lbl_p2ExemptDividend.DoubleClick, lbl_p3InterestResPurS33.DoubleClick, lbl_p2DivIncome.DoubleClick, lbl_p3ForeignCurrExLoss.DoubleClick
         Try
 
@@ -648,6 +665,8 @@ Public Class frmPNL_Add
 
                 If dtTmpPNLInfo IsNot Nothing Then
                     DetailsClick(lbl, dtTmpPNLInfo.Rows(0), type)
+                ElseIf lbl.Tag.ToString = "NONALLOWABLEEXPENSES" Then
+                    DetailsClick(lbl, Nothing, type)
                 End If
 
             End If
@@ -657,14 +676,11 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
-
-
     Private Sub TabbedView1_DocumentClosing(sender As Object, e As DevExpress.XtraBars.Docking2010.Views.DocumentCancelEventArgs) Handles TabbedView1.DocumentClosing
         e.Cancel = True
 
         mdlPNL.DestroyPNL(e.Document.Control.Name, Me.DockManager1, Me.DocumentManager1)
     End Sub
-
     Private Sub BarButtonItem3_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem3.ItemClick
         Me.Close()
     End Sub
@@ -677,7 +693,6 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
-
     Private Sub txt_p1COP_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p1COP.EditValueChanged, txt_p1Purchase.EditValueChanged
         Try
             txt_p1PCP.EditValue = mdlPNL.CalcPurchaseProductofCost(IIf(IsNumeric(txt_p1Purchase.EditValue) = False, 0, txt_p1Purchase.EditValue), IIf(IsNumeric(txt_p1COP.EditValue) = False, 0, txt_p1COP.EditValue))
@@ -687,7 +702,6 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
-
     Private Sub txt_p1CloseStock_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p1CloseStock.EditValueChanged, txt_p1OpenStock.EditValueChanged, txt_p1PCP.EditValueChanged
         Try
             txt_p1COS.EditValue = mdlPNL.CalcCostOfSales(IIf(IsNumeric(txt_p1OpenStock.EditValue) = False, 0, txt_p1OpenStock.EditValue), IIf(IsNumeric(txt_p1CloseStock.EditValue) = False, 0, txt_p1CloseStock.EditValue), IIf(IsNumeric(txt_p1PCP.EditValue) = False, 0, txt_p1PCP.EditValue))
@@ -711,10 +725,13 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
-
     Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnSave.ItemClick
         Try
             Dim CurrentProgress As Integer = 0
+
+            DsPNL.AcceptChanges()
+            DsPNL2.AcceptChanges()
+
             pnlProgress.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
             Application.DoEvents()
 
@@ -804,7 +821,12 @@ Public Class frmPNL_Add
                 dtrow("PL_OTHER_EXP_PROV_ACC") = IIf(IsDBNull(txt_p4ProvisionAcc.EditValue), 0, txt_p4ProvisionAcc.EditValue)
                 dtrow("PL_OTHER_EXP_LEAVE") = IIf(IsDBNull(txt_p4LeavePass.EditValue), 0, txt_p4LeavePass.EditValue)
                 dtrow("PL_OTHER_EXP_FA_WO") = IIf(IsDBNull(txt_p4FAWrittenOff.EditValue), 0, txt_p4FAWrittenOff.EditValue)
-                dtrow("PL_OTHER_EXP_UNREALOSS") = IIf(IsDBNull(txt_p4UnreaLossForeEx.EditValue), 0, txt_p4UnreaLossForeEx.EditValue)
+                If isVersionLicenseType = VersionLicenseType.Tricor Then
+                    dtrow("PL_OTHER_EXP_UNREALOSS") = IIf(IsDBNull(txt_p3ForeignCurrExLoss.EditValue), 0, txt_p3ForeignCurrExLoss.EditValue)
+                Else
+                    dtrow("PL_OTHER_EXP_UNREALOSS") = IIf(IsDBNull(txt_p4UnreaLossForeEx.EditValue), 0, txt_p4UnreaLossForeEx.EditValue)
+                End If
+
                 dtrow("PL_OTHER_EXP_REALOSS") = IIf(IsDBNull(txt_p4ReaLossForeExTrade.EditValue), 0, txt_p4ReaLossForeExTrade.EditValue)
                 dtrow("PL_OTHER_EXP_INI_SUB") = IIf(IsDBNull(txt_p4InitSub.EditValue), 0, txt_p4InitSub.EditValue)
                 dtrow("PL_OTHER_EXP_CAP_EXP") = IIf(IsDBNull(txt_p4CAExpenditure.EditValue), 0, txt_p4CAExpenditure.EditValue)
@@ -886,9 +908,9 @@ Public Class frmPNL_Add
                 dtrow("PL_NONTAX_IN_EXM_DIV") = IIf(IsDBNull(txt_p2ExemptDividend.EditValue), 0, txt_p2ExemptDividend.EditValue)
                 dtrow("PL_NONTAX_IN_FIR") = IIf(IsDBNull(txt_p2ForeIncomeRemmit.EditValue), 0, txt_p2ForeIncomeRemmit.EditValue)
 
-                dtrow("PL_NONTAX_IN_REALG") = IIf(IsDBNull(txt_p2ReaForeExGainNonTrade.EditValue), 0, txt_p2UnreaGainForeExNon.EditValue)
+                dtrow("PL_NONTAX_IN_REALG") = IIf(IsDBNull(txt_p2ReaForeExGainNonTrade.EditValue), 0, txt_p2ReaForeExGainNonTrade.EditValue)
                 dtrow("PL_OTH_BSIN_UNREALGT") = IIf(IsDBNull(txt_p2UnreaGainForeEx.EditValue), 0, txt_p2UnreaGainForeEx.EditValue)
-                dtrow("PL_NONTAX_IN_UNREALG") = IIf(IsDBNull(txt_p2UnreaGainForeExNon.EditValue), 0, txt_p2ReaForeExGainNonTrade.EditValue)
+                dtrow("PL_NONTAX_IN_UNREALG") = IIf(IsDBNull(txt_p2UnreaGainForeExNon.EditValue), 0, txt_p2UnreaGainForeExNon.EditValue)
 
                 dtrow("PL_NONTAX_IN_INSU_COMP") = IIf(IsDBNull(txt_p2Other.EditValue), 0, txt_p2Other.EditValue)
                 dtrow("PL_EXP_INT") = IIf(IsDBNull(txt_p3OtherInterestExHirePur.EditValue), 0, txt_p3OtherInterestExHirePur.EditValue)
@@ -914,7 +936,12 @@ Public Class frmPNL_Add
                 dtrow("PL_OTHER_EXP_PROV_ACC") = IIf(IsDBNull(txt_p4ProvisionAcc.EditValue), 0, txt_p4ProvisionAcc.EditValue)
                 dtrow("PL_OTHER_EXP_LEAVE") = IIf(IsDBNull(txt_p4LeavePass.EditValue), 0, txt_p4LeavePass.EditValue)
                 dtrow("PL_OTHER_EXP_FA_WO") = IIf(IsDBNull(txt_p4FAWrittenOff.EditValue), 0, txt_p4FAWrittenOff.EditValue)
-                dtrow("PL_OTHER_EXP_UNREALOSS") = IIf(IsDBNull(txt_p4UnreaLossForeEx.EditValue), 0, txt_p4UnreaLossForeEx.EditValue)
+                If isVersionLicenseType = VersionLicenseType.Tricor Then
+                    dtrow("PL_OTHER_EXP_UNREALOSS") = IIf(IsDBNull(txt_p3ForeignCurrExLoss.EditValue), 0, txt_p3ForeignCurrExLoss.EditValue)
+                Else
+                    dtrow("PL_OTHER_EXP_UNREALOSS") = IIf(IsDBNull(txt_p4UnreaLossForeEx.EditValue), 0, txt_p4UnreaLossForeEx.EditValue)
+                End If
+
                 dtrow("PL_OTHER_EXP_REALOSS") = IIf(IsDBNull(txt_p4ReaLossForeExTrade.EditValue), 0, txt_p4ReaLossForeExTrade.EditValue)
                 dtrow("PL_OTHER_EXP_INI_SUB") = IIf(IsDBNull(txt_p4InitSub.EditValue), 0, txt_p4InitSub.EditValue)
                 dtrow("PL_OTHER_EXP_CAP_EXP") = IIf(IsDBNull(txt_p4CAExpenditure.EditValue), 0, txt_p4CAExpenditure.EditValue)
@@ -999,7 +1026,7 @@ Public Class frmPNL_Add
 
                     End If
 
-                    ' Me.InsertIncludeInReport(isIncludeInReport, KeyNameEnum, dtrow)
+                    '  Me.InsertIncludeInReport(isIncludeInReport, KeyNameEnum, dtrow)
 
                 Next
 
@@ -1612,7 +1639,13 @@ Public Class frmPNL_Add
                 Dim decription_details As String = Nothing
                 Dim amount As String = Nothing
                 Dim amount_details As String = Nothing
+                Dim KeyName As String = ""
                 For Each rowInfo As DataRow In dtPNLInfo.Rows
+                    KeyName = IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName"))
+                    If KeyName = "INTERESTRESTRICT" Then
+                        Dim x As String = ""
+                    End If
+                    Application.DoEvents()
                     tableName = IIf(IsDBNull(rowInfo("TableName")), "", rowInfo("TableName"))
                     tableName_details = IIf(IsDBNull(rowInfo("TableName_Details")), "", rowInfo("TableName_Details"))
                     decription = IIf(IsDBNull(rowInfo("ColumnDescription")), "", rowInfo("ColumnDescription"))
@@ -1630,7 +1663,7 @@ Public Class frmPNL_Add
                         dtRow("RightAmount") = IIf(IsDBNull(rowx(amount)), 0, rowx(amount))
                         DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
 
-                        If IsDBNull(rowInfo("TableName_Details")) = False AndAlso rowInfo("TableName_Details") <> "EXPENSES_INTERESTRESTRICT_DETAIL" Then
+                        If IsDBNull(rowInfo("TableName_Details")) = False AndAlso KeyName <> "INTERESTRESTRICT" Then
                             If dsDataSet Is Nothing OrElse dsDataSet.Tables(tableName_details) Is Nothing OrElse dsDataSet.Tables(tableName_details).Rows.Count > 0 Then
                                 obj = dsDataSet.Tables(tableName_details).Select(IIf(IsDBNull(rowInfo("ColumnTable_Details")), "", rowInfo("ColumnTable_Details")) & " = " & rowx(IIf(IsDBNull(rowInfo("ColumnTable")), "", rowInfo("ColumnTable"))))
 
@@ -1675,6 +1708,7 @@ Public Class frmPNL_Add
                 End If
             End If
         Catch ex As Exception
+
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
@@ -1716,8 +1750,6 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
-
-
 
     'Private Sub TabbedView1_UnregisterDocumentsHostWindow(sender As Object, e As DevExpress.XtraBars.Docking2010.DocumentsHostWindowEventArgs) Handles TabbedView1.UnregisterDocumentsHostWindow
     '    MsgBox("M")
@@ -1956,43 +1988,806 @@ Public Class frmPNL_Add
         End Try
     End Sub
 
-    Private Sub lbl_p1Sales_Click(sender As Object, e As EventArgs) Handles lbl_p1Sales.Click
+    Private Sub btnQuickPNL_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnQuickPNL.ItemClick
+        Try
+            frmPNL_Quick.Show()
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
-    Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
+    Private Sub btnPrintAdmin_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrintAdmin.ItemClick
         Try
-            Dim rpt As rptPNL
-            Dim rpt_details As rptPNL_Details
-            Dim rpt_interest As rptPNL_InterestResict
+            Dim dsPNL_Report As New dsPNL_Report
 
-            If GridView1.GetFocusedDataRow() Is Nothing Then
-                GridView1.FocusedRowHandle = 0
-                Application.DoEvents()
-            End If
+            Dim dtInfo As DataTable = ADO.Load_PNLINFO()
 
-            Dim RefNo As String = cboRefNo.EditValue
-            Dim YA As String = cboYA.EditValue
+            dsPNL_Report.Tables("PROFIT_LOSS_ACCOUNT_NOTE_COLUMN").Rows.Clear()
+            dsPNL_Report.Tables("PROFIT_LOSS_ACCOUNT_NOTE").Rows.Clear()
 
-            If mdlProcess.PrintReport_PNL(RefNo, YA, rpt, rpt_details, rpt_interest, ErrorLog) Then
-                Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_interest.Pages.Count)
+            dsPNL_Report.Tables("DIVIDEND_INCOME").Rows.Clear()
+            dsPNL_Report.Tables("EXEMPT_DIVIDEND").Rows.Clear()
+            dsPNL_Report.Tables("EXPENSES_RENTAL_DETAIL").Rows.Clear()
+            dsPNL_Report.Tables("EXPENSES_RENTAL").Rows.Clear()
+            dsPNL_Report.Tables("RENTAL_INCOME").Rows.Clear()
+            dsPNL_Report.Tables("PNL_QUICK_DETAIL_SUB").Rows.Clear()
+            dsPNL_Report.Tables("PNL_QUICK_DETAIL").Rows.Clear()
+            dsPNL_Report.Tables("PNL_TABLE_INFO").Rows.Clear()
 
-                Dim x As Integer = 0
+            dsPNL_Report.Tables("PROFIT_LOSS_ACCOUNT_REPORT_KEYNAME").Rows.Clear()
+            dsPNL_Report.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Clear()
+            dsPNL_Report.Tables("PROFIT_LOSS_ACCOUNT_REPORT").Rows.Clear()
 
-                For Each pg As DevExpress.XtraPrinting.Page In rpt_interest.Pages
-                    rpt.Pages.Add(pg)
+            If dtInfo IsNot Nothing Then
+                Dim dtRow As DataRow = Nothing
+                Dim dtRowSch As DataRow = Nothing
+                Dim TableName As String = Nothing
+                Dim TableName_Details As String = Nothing
+                Dim ColumnSourceNo As String = Nothing
+                Dim ColumnSourceNo_Details As String = Nothing
+                Dim ColumnAmount As String = Nothing
+                Dim ColumnAmount_Details As String = Nothing
+                Dim ColumnTable As String = Nothing
+                Dim ColumnName As String = Nothing
+                Dim ColumnTable_Details As String = Nothing
+                Dim ColumnTable_Details_Key As String = Nothing
+                Dim ColumnAddBack As String = Nothing
+                Dim ColumnAddBack_Details As String = Nothing
+                Dim ColumnDeduct As String = Nothing
+                Dim ColumnDeduct_Details As String = Nothing
+                Dim ColumnPercentage As String = Nothing
+                Dim Type As Integer = 0
+                Dim LabelName As String = Nothing
+                Dim PrefixName As String = Nothing
+                Dim IntSch As Integer = 0
+
+                Dim dtPNL As DataTable = ADO.Load_PNL(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+                Dim PL_KEY As Integer = 0
+                If dtPNL IsNot Nothing Then
+                    For Each rowx As DataRow In dtPNL.Rows
+                        PL_KEY = rowx("PL_KEY")
+                        dsPNL_Report.Tables("PROFIT_LOSS_ACCOUNT_REPORT").ImportRow(rowx)
+                    Next
+                End If
+
+                dtRowSch = dsPNL_Report.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").NewRow
+                dtRowSch("PL_KEY") = PL_KEY
+                For Each rowx As DataRow In dtInfo.Rows
+                    'PNL QUICK
+                    '  dsPNL_Report.Tables("PNL_TABLE_INFO").ImportRow (
+                    dtRow = Nothing
+
+                    If IsDBNull(rowx("KeyName")) = False Then
+                        dtRow = dsPNL_Report.Tables("PNL_TABLE_INFO").NewRow
+
+
+                        For Each colx As DataColumn In dtPNLInfo.Columns
+                            dtRow(colx.ColumnName) = rowx(colx.ColumnName)
+                        Next
+
+
+                        TableName = IIf(IsDBNull(rowx("TableName")), "", rowx("TableName"))
+                        TableName_Details = IIf(IsDBNull(rowx("TableName_Details")), "", rowx("TableName_Details"))
+                        ColumnSourceNo = IIf(IsDBNull(rowx("ColumnSourceNo")), "", rowx("ColumnSourceNo"))
+                        ColumnSourceNo_Details = IIf(IsDBNull(rowx("ColumnSourceNo_Details")), "", rowx("ColumnSourceNo_Details"))
+                        ColumnDescription = IIf(IsDBNull(rowx("ColumnDescription")), "", rowx("ColumnDescription"))
+                        ColumnDescription_Details = IIf(IsDBNull(rowx("ColumnDescription_Details")), "", rowx("ColumnDescription_Details"))
+                        ColumnAmount = IIf(IsDBNull(rowx("ColumnAmount")), "", rowx("ColumnAmount"))
+                        ColumnAmount_Details = IIf(IsDBNull(rowx("ColumnAmount_Details")), "", rowx("ColumnAmount_Details"))
+                        ColumnTable = IIf(IsDBNull(rowx("ColumnTable")), "", rowx("ColumnTable"))
+                        ColumnTable_Details = IIf(IsDBNull(rowx("ColumnTable_Details")), "", rowx("ColumnTable_Details"))
+                        ColumnAddBack = IIf(IsDBNull(rowx("ColumnAddBack")), "", rowx("ColumnAddBack"))
+                        ColumnAddBack_Details = IIf(IsDBNull(rowx("ColumnAddBack_Details")), "", rowx("ColumnAddBack_Details"))
+                        ColumnDeduct = IIf(IsDBNull(rowx("ColumnDeduct")), "", rowx("ColumnDeduct"))
+                        ColumnDeduct_Details = IIf(IsDBNull(rowx("ColumnDeduct_Details")), "", rowx("ColumnDeduct_Details"))
+                        ColumnPercentage = IIf(IsDBNull(rowx("ColumnPecentage_Amount")), "", rowx("ColumnPecentage_Amount"))
+                        ColumnName = IIf(IsDBNull(rowx("ColumnName")), "", rowx("ColumnName"))
+                        ColumnTable_Details_Key = IIf(IsDBNull(rowx("ColumnTable_Details_Key")), "", rowx("ColumnTable_Details_Key"))
+                        Type = IIf(IsDBNull(rowx("Type")), 1, rowx("Type"))
+                        PrefixName = IIf(IsDBNull(rowx("PrefixName")), "", rowx("PrefixName"))
+
+                        If isVersionLicenseType = VersionLicenseType.Tricor Then
+                            LabelName = IIf(IsDBNull(rowx("LabelNameTricor")), "", rowx("LabelNameTricor"))
+                        Else
+                            LabelName = IIf(IsDBNull(rowx("LabelName")), "", rowx("LabelName"))
+                        End If
+                        GetSubItemData(dsPNL_Report, rowx("KeyName"), TableName, TableName_Details,
+                                       ColumnSourceNo, ColumnSourceNo_Details,
+                                       ColumnDescription, ColumnDescription_Details,
+                                       ColumnAmount, ColumnAmount_Details, ColumnTable, ColumnTable_Details, ColumnTable_Details_Key,
+                                       ColumnAddBack, ColumnAddBack_Details, ColumnDeduct, ColumnDeduct_Details,
+                                       ColumnPercentage, Type, PrefixName, LabelName, IntSch, ColumnName, PL_KEY, dtRow)
+                        If dtRow("Sch").ToString = " " Then
+                            dtRowSch(ColumnName) = ""
+                        Else
+                            dtRowSch(ColumnName) = "Sch " & dtRow("Sch").ToString.Replace("Schedule ", "")
+                        End If
+
+                    End If
+
+
+
                 Next
 
+                dsPNL_Report.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Add(dtRowSch)
+                
+
+                Dim CompanyName As String = Nothing
+
+                CompanyName = ADO.LoadTaxPayer_CompanyName(cboRefNo.EditValue)
+                Dim rptPNL_Report As New rptPNL_DetailsNew
+                rptPNL_Report.paramCompanyName.Value = CompanyName
+                rptPNL_Report.paramYA.Value = CInt(cboYA.EditValue)
+                ' rptPNL_Report.paramKeyName.Value = "EXPOTHERSEXPENSES"
+                rptPNL_Report.DataSource = dsPNL_Report
+                rptPNL_Report.SubrptPNL_Details1_Income.ReportSource.DataSource = dsPNL_Report
+                rptPNL_Report.SubrptPNL_Details1_Expenses.ReportSource.DataSource = dsPNL_Report
+                rptPNL_Report.SubrptPNL_NoteNew.ReportSource.DataSource = dsPNL_Report
+                rptPNL_Report.SubrptPNL_Details_DividendIncome.ReportSource.DataSource = dsPNL_Report
+                rptPNL_Report.SubrptPNL_Details1_RentalIncome.ReportSource.DataSource = dsPNL_Report
+                rptPNL_Report.SubrptPNL_Details1_ExemptDividend.ReportSource.DataSource = dsPNL_Report
+                rptPNL_Report.SubrptPNL_Details1_RentalExpenses.ReportSource.DataSource = dsPNL_Report
+                '  rptPNL_Report.rpt_Note1.ReportSource.DataSource = dsPNL_Report
+                'Dim rpt_Note1 As XRSubreport = rptPNL_Report.XrSubreport1.ReportSource.FindControl("rpt_Note", True)
+                'rpt_Note1.Report.DataSource = dsPNL_Report
+                'Dim rpt_Note2 As XRSubreport = rptPNL_Report.XrSubreport2.ReportSource.FindControl("rpt_Note", True)
+                'rpt_Note2.Report.DataSource = dsPNL_Report
+
+                'rptPNL_Report.ShowPreview()
+                Dim rpt As New rptPNLNew
+                Dim Title As String = ADO.Load_TableOfContent_Title(cboRefNo.EditValue, cboYA.EditValue, "rptProfitAndLoss")
+                rpt.paramCompanyName.Value = CompanyName
+                rpt.paramYA.Value = CInt(cboYA.EditValue)
+                rpt.ParamSch.Value = ""
+                rpt.paramTitle.Value = Title
+                If isVersionLicenseType = VersionLicenseType.Tricor Then
+                    rpt.isTricor.Value = True
+                Else
+                    rpt.isTricor.Value = False
+                End If
+                rpt.XrSubreport1.ReportSource = rptPNL_Report
+                rpt.DataSource = dsPNL_Report
+                rpt.CreateDocument()
+
+
+                If GetInterestRestrictedData(dsPNL_Report, PL_KEY, cboRefNo.EditValue, cboYA.EditValue) = True Then
+                    If dsPNL_Report.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor").Rows.Count > 0 Then
+                        Dim TotalColumn As Integer = 0
+                        TotalColumn = IIf(IsDBNull(dsPNL_Report.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor").Rows(0)("TotalColumn")), 12, dsPNL_Report.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor").Rows(0)("TotalColumn"))
+
+                        Select Case TotalColumn
+                            Case 12
+                                Dim rpt_Interest_sub As New rptPNL_InterestResict12
+                                rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(cboRefNo.EditValue)
+                                rpt_Interest_sub.paramYA.Value = CInt(cboYA.EditValue)
+                                rpt_Interest_sub.DataSource = dsPNL_Report
+                                rpt_Interest_sub.CreateDocument()
+                                rpt_Interest = rpt_Interest_sub
+                            Case 13
+                                Dim rpt_Interest_sub As New rptPNL_InterestResict13
+                                rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(cboRefNo.EditValue)
+                                rpt_Interest_sub.paramYA.Value = CInt(cboYA.EditValue)
+                                rpt_Interest_sub.DataSource = dsPNL_Report
+                                rpt_Interest_sub.CreateDocument()
+                                rpt_Interest = rpt_Interest_sub
+                            Case 14
+                                Dim rpt_Interest_sub As New rptPNL_InterestResict14
+                                rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(cboRefNo.EditValue)
+                                rpt_Interest_sub.paramYA.Value = CInt(cboYA.EditValue)
+                                rpt_Interest_sub.DataSource = dsPNL_Report
+                                rpt_Interest_sub.CreateDocument()
+                                rpt_Interest = rpt_Interest_sub
+                            Case 15
+                                Dim rpt_Interest_sub As New rptPNL_InterestResict15
+                                rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(cboRefNo.EditValue)
+                                rpt_Interest_sub.paramYA.Value = CInt(cboYA.EditValue)
+                                rpt_Interest_sub.DataSource = dsPNL_Report
+                                rpt_Interest_sub.CreateDocument()
+                                rpt_Interest = rpt_Interest_sub
+                            Case 16
+                                Dim rpt_Interest_sub As New rptPNL_InterestResict16
+                                rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(cboRefNo.EditValue)
+                                rpt_Interest_sub.paramYA.Value = CInt(cboYA.EditValue)
+                                rpt_Interest_sub.DataSource = dsPNL_Report
+                                rpt_Interest_sub.CreateDocument()
+                                rpt_Interest = rpt_Interest_sub
+                            Case 17
+                                Dim rpt_Interest_sub As New rptPNL_InterestResict17
+                                rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(cboRefNo.EditValue)
+                                rpt_Interest_sub.paramYA.Value = CInt(cboYA.EditValue)
+                                rpt_Interest_sub.DataSource = dsPNL_Report
+                                rpt_Interest_sub.CreateDocument()
+                                rpt_Interest = rpt_Interest_sub
+                            Case 18
+                                Dim rpt_Interest_sub As New rptPNL_InterestResict18
+                                rpt_Interest_sub.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(cboRefNo.EditValue)
+                                rpt_Interest_sub.paramYA.Value = CInt(cboYA.EditValue)
+                                rpt_Interest_sub.DataSource = dsPNL_Report
+                                rpt_Interest_sub.CreateDocument()
+                                rpt_Interest = rpt_Interest_sub
+                        End Select
+                        Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_interest.Pages.Count)
+
+                        Dim x As Integer = 0
+
+                        For Each pg As DevExpress.XtraPrinting.Page In rpt_interest.Pages
+                            rpt.Pages.Add(pg)
+                        Next
+                    End If
+                End If
+               
+
                 Dim printTool As New ReportPrintTool(rpt)
-                printTool.ShowPreview()
+                printTool.ShowPreviewDialog()
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub GetSubItemData(ByRef dsPNL_Report As DataSet, ByVal KeyName As String, ByVal TableName As String, ByVal TableName_Details As String, _
+                          ByVal ColumnSourceNo As String, ByVal ColumnSourceNo_Details As String,
+                          ByVal ColumnDescription As String, ByVal ColumnDescription_Details As String, _
+                          ByVal ColumnAmount As String, ByVal ColumnAmount_Details As String, _
+                          ByVal ColumnTable As String, ByVal ColumnTable_Details As String, ByVal ColumnTable_Details_Key As String, _
+                          ByVal ColumnAddBack As String, ByVal ColumnAddBack_Details As String, _
+                          ByVal ColumnDeduct As String, ByVal ColumnDeduct_Details As String, _
+                          ByVal ColumnPercentage As String, ByVal Type As Integer, ByVal PrefixName As String, _
+                          ByVal LabelName As String, ByRef IntSch As Integer, ByVal ColumnName As String, _
+                          ByVal PL_KEY As Integer, ByRef PNLINFO_ROW As DataRow)
+        Try
+            Dim dtRow As DataRow = Nothing
+            Dim dtRowChild As DataRow = Nothing
+            Dim TmpID As Integer = 0
+            Dim TotalAmount As Decimal = 0
+            Dim TotalPecentage As Decimal = 0
+            Dim dtExclude As DataTable = Nothing
+
+            If IsDBNull(PNLINFO_ROW("Type")) = False AndAlso (PNLINFO_ROW("Type") = 2 OrElse PNLINFO_ROW("Type") = 3) Then
+                Select Case KeyName
+                    Case "PURCHASE", "DEPRECIATION", "OTHERALLOWEXP", "OTHERNONALLOWEXP"
+                        If dsDataSet.Tables(TableName).Rows.Count > 0 Then
+                            IntSch += 1
+                            PNLINFO_ROW("Sch") = "Schedule " & IntSch.ToString
+                        End If
+                    Case Else
+                        dtExclude = Nothing
+                        dtExclude = ADO.Load_PNL_IncludeInReport(ID, ColumnName)
+                        If dsDataSet.Tables(TableName).Rows.Count > 0 Then
+                            If dtExclude IsNot Nothing Then
+                                IntSch += 1
+                                PNLINFO_ROW("Sch") = "Schedule " & IntSch.ToString
+                            Else
+                                PNLINFO_ROW("Sch") = " "
+                            End If
+                        Else
+                            PNLINFO_ROW("Sch") = " "
+                        End If
+                End Select
+
             Else
-                MsgBox("Failed to load profit and loss report.", MsgBoxStyle.Critical)
+                If dsDataSet.Tables(TableName).Rows.Count > 0 Then
+                    IntSch += 1
+                    PNLINFO_ROW("Sch") = "Schedule " & IntSch.ToString
+                End If
+
+            End If
+
+            dsPNL_Report.Tables("PNL_TABLE_INFO").Rows.Add(PNLINFO_ROW)
+
+            Select Case KeyName
+                Case "DIVIDENDINC"
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        If IsDBNull(rowx(ColumnAmount)) = False AndAlso IsNumeric(rowx(ColumnAmount)) Then
+                            TotalAmount += rowx(ColumnAmount)
+                        End If
+                    Next
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        dtRow = Nothing
+                        TmpID = -1
+                        dtRow = dsPNL_Report.Tables("DIVIDEND_INCOME").NewRow
+                        dtRow("DI_KEY") = rowx("DI_KEY")
+                        dtRow("DI_DIVIDENDKEY") = rowx("DI_DIVIDENDKEY")
+                        dtRow("DI_DATE") = rowx("DI_DATE")
+                        dtRow("DI_COMPANY") = rowx("DI_COMPANY")
+                        dtRow("DI_GROSS") = rowx("DI_GROSS")
+                        dtRow("DI_TAX") = rowx("DI_TAX")
+                        dtRow("DI_WARANT_NO") = rowx("DI_WARANT_NO")
+                        dtRow("DI_CHKREGROSS") = rowx("DI_CHKREGROSS")
+                        dtRow("DI_TAXRATE") = rowx("DI_TAXRATE")
+                        dtRow("DI_REGROSS") = rowx("DI_REGROSS")
+                        dtRow("DI_TAXDEDUCTION") = rowx("DI_TAXDEDUCTION")
+                        dtRow("DI_NETDEDUCTION") = rowx("DI_NETDEDUCTION")
+                        dtRow("DI_ENDDATE") = rowx("DI_ENDDATE")
+                        dtRow("DI_TRATE") = rowx("DI_TRATE")
+                        dtRow("DI_SOURCENO") = rowx("DI_SOURCENO")
+                        dtRow("DI_DISCLOSE") = rowx("DI_DISCLOSE")
+                        dtRow("DI_TRANSFER") = rowx("DI_TRANSFER")
+                        dtRow("DI_NET") = rowx("DI_NET")
+                        dtRow("DI_Percentage") = 0
+                        dtRow("DI_PercentageAmount") = 0
+                        dtRow("Note") = GetTitle_Note(PL_KEY, KeyName, True, rowx(ColumnTable), -1)
+                        dtRow("KEYNAME") = KeyName
+                        dtRow("TITLE") = LabelName & " - RM" & TotalAmount.ToString("N0")
+                        dtRow("SCH") = ""
+                        dtRow("TOTAL_AMOUNT") = TotalAmount
+                        dsPNL_Report.Tables("DIVIDEND_INCOME").Rows.Add(dtRow)
+                    Next
+                Case "RENTALINC"
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        If IsDBNull(rowx(ColumnAmount)) = False AndAlso IsNumeric(rowx(ColumnAmount)) Then
+                            TotalAmount += rowx(ColumnAmount)
+                        End If
+                    Next
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        dtRow = Nothing
+                        TmpID = -1
+                        dtRow = dsPNL_Report.Tables("RENTAL_INCOME").NewRow
+                        dtRow("RI_KEY") = rowx("RI_KEY")
+                        dtRow("RI_RENTKEY") = rowx("RI_RENTKEY")
+                        dtRow("RI_TYPE") = rowx("RI_TYPE")
+                        dtRow("RI_ADDRESS") = rowx("RI_ADDRESS")
+                        dtRow("RI_DATE") = rowx("RI_DATE")
+                        dtRow("RI_AMOUNT") = rowx("RI_AMOUNT")
+                        dtRow("RI_SOURCENO") = rowx("RI_SOURCENO")
+                        dtRow("RI_STATUS4d") = rowx("RI_STATUS4d")
+                        dtRow("RI_DATE_END") = rowx("RI_DATE_END")
+                        dtRow("Note") = GetTitle_Note(PL_KEY, KeyName, True, rowx(ColumnTable), -1)
+                        dtRow("KEYNAME") = KeyName
+                        dtRow("TITLE") = LabelName & " - RM" & TotalAmount.ToString("N0")
+                        dtRow("SCH") = ""
+                        dtRow("TOTAL_AMOUNT") = TotalAmount
+                        dsPNL_Report.Tables("RENTAL_INCOME").Rows.Add(dtRow)
+                    Next
+                Case "EXEMDIV"
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        If IsDBNull(rowx(ColumnAmount)) = False AndAlso IsNumeric(rowx(ColumnAmount)) Then
+                            TotalAmount += rowx(ColumnAmount)
+                        End If
+                    Next
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        dtRow = Nothing
+                        TmpID = -1
+                        dtRow = dsPNL_Report.Tables("EXEMPT_DIVIDEND").NewRow
+                        dtRow("ED_KEY") = rowx("ED_KEY")
+                        dtRow("ED_EDKEY") = rowx("ED_EDKEY")
+                        dtRow("ED_DATE") = rowx("ED_DATE")
+                        dtRow("ED_COMPANY") = rowx("ED_COMPANY")
+                        dtRow("ED_AMOUNT") = rowx("ED_AMOUNT")
+                        dtRow("ED_TIERSTATUS") = rowx("ED_TIERSTATUS")
+                        dtRow("ED_SOURCENO") = rowx("ED_SOURCENO")
+                        dtRow("Note") = GetTitle_Note(PL_KEY, KeyName, True, rowx(ColumnTable), -1)
+                        dtRow("KEYNAME") = KeyName
+                        dtRow("TITLE") = LabelName & " - RM" & TotalAmount.ToString("N0")
+                        dtRow("SCH") = ""
+                        dtRow("TOTAL_AMOUNT") = TotalAmount
+                        dsPNL_Report.Tables("EXEMPT_DIVIDEND").Rows.Add(dtRow)
+                    Next
+                Case "EXPRENTAL"
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        If IsDBNull(rowx(ColumnAmount)) = False AndAlso IsNumeric(rowx(ColumnAmount)) Then
+                            TotalAmount += rowx(ColumnAmount)
+                        End If
+                        Select Case Type
+                            Case 2, 3
+                                'Without Percentage
+                                If IsDBNull(rowx("PecentageAmount")) = False AndAlso IsNumeric(rowx("PecentageAmount")) Then
+                                    TotalPecentage += rowx("PecentageAmount")
+                                End If
+                        End Select
+                    Next
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        dtRow = Nothing
+                        TmpID = -1
+                        dtRow = dsPNL_Report.Tables("EXPENSES_RENTAL").NewRow
+                        dtRow("EXRENT_KEY") = rowx("EXRENT_KEY")
+                        dtRow("EXRENT_EXRENTKEY") = rowx("EXRENT_EXRENTKEY")
+                        dtRow("EXRENT_SOURCENO") = rowx("EXRENT_SOURCENO")
+                        dtRow("EXRENT_DESC") = rowx("EXRENT_DESC")
+                        dtRow("EXRENT_AMOUNT") = rowx("EXRENT_AMOUNT")
+                        dtRow("EXRENT_DEDUCTIBLE") = rowx("EXRENT_DEDUCTIBLE")
+                        dtRow("EXRENT_NOTE") = rowx("EXRENT_NOTE")
+                        dtRow("EXRENT_DETAIL") = rowx("EXRENT_DETAIL")
+                        dtRow("EXRENT_DEDUCTIBLE_ADD") = rowx("EXRENT_DEDUCTIBLE_ADD")
+                        dtRow("RowIndex") = rowx("RowIndex")
+                        dtRow("PecentageAmount") = rowx("PecentageAmount")
+                        dtRow("Address") = rowx("Address")
+                        dtRow("Note") = GetTitle_Note(PL_KEY, KeyName, True, rowx(ColumnTable), -1)
+                        dtRow("KEYNAME") = KeyName
+                        dtRow("TITLE") = LabelName & " - RM" & TotalAmount.ToString("N0")
+                        dtRow("SCH") = ""
+                        dtRow("TOTAL_PECENTAGE") = TotalPecentage
+                        dtRow("TOTAL_AMOUNT") = TotalAmount
+                        dsPNL_Report.Tables("EXPENSES_RENTAL").Rows.Add(dtRow)
+                        Application.DoEvents()
+
+                        TmpID = dsPNL_Report.Tables("EXPENSES_RENTAL").Rows(dsPNL_Report.Tables("EXPENSES_RENTAL").Rows.Count - 1)("EXRENT_EXRENTKEY")
+
+                        If TableName_Details <> "" Then
+                            For Each rowChild As DataRow In dsDataSet.Tables(TableName_Details).Rows
+                                If IsDBNull(rowx(ColumnTable)) = False AndAlso IsDBNull(rowChild(ColumnTable_Details)) = False AndAlso
+                                    rowx(ColumnTable) = rowChild(ColumnTable_Details) AndAlso TmpID <> -1 Then
+                                    dtRowChild = Nothing
+                                    dtRowChild = dsPNL_Report.Tables("EXPENSES_RENTAL_DETAIL").NewRow
+                                    dtRowChild("EXRENTD_KEY") = rowChild("EXRENTD_KEY")
+                                    dtRowChild("EXRENTD_EXRENTKEY") = TmpID
+                                    dtRowChild("EXRENTD_SOURCENO") = rowChild("EXRENTD_SOURCENO")
+                                    dtRowChild("EXRENTD_EXRENTDKEY") = rowChild("EXRENTD_EXRENTDKEY")
+                                    dtRowChild("EXRENTD_DESC") = rowChild("EXRENTD_DESC")
+                                    dtRowChild("EXRENTD_DEDUCTIBLE") = rowChild("EXRENTD_DEDUCTIBLE")
+                                    dtRowChild("EXRENTD_AMOUNT") = rowChild("EXRENTD_AMOUNT")
+                                    dtRowChild("EXRENTD_NOTE") = rowChild("EXRENTD_NOTE")
+                                    dtRowChild("EXRENTD_DEDUCTIBLE_ADD") = rowChild("EXRENTD_DEDUCTIBLE_ADD")
+                                    dtRowChild("RowIndex") = rowChild("RowIndex")
+                                    dtRowChild("PecentageAmount") = rowChild("PecentageAmount")
+                                    dtRowChild("Address") = rowChild("Address")
+                                    dtRowChild("Note") = GetTitle_Note(PL_KEY, KeyName, False, rowChild(ColumnTable_Details), rowChild(ColumnTable_Details_Key))
+                                    dsPNL_Report.Tables("EXPENSES_RENTAL_DETAIL").Rows.Add(dtRowChild)
+
+                                End If
+                            Next
+                        End If
+                    Next
+                Case "INTERESTRESTRICT"
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        If IsDBNull(rowx(ColumnAmount)) = False AndAlso IsNumeric(rowx(ColumnAmount)) Then
+                            TotalAmount += rowx(ColumnAmount)
+                        End If
+                        Select Case Type
+                            Case 2, 3
+                                'Without Percentage
+                                If IsDBNull(rowx("PecentageAmount")) = False AndAlso IsNumeric(rowx("PecentageAmount")) Then
+                                    TotalPecentage += rowx("PecentageAmount")
+                                End If
+                        End Select
+                    Next
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        dtRow = Nothing
+                        TmpID = -1
+                        dtRow = dsPNL_Report.Tables("PNL_QUICK_DETAIL").NewRow
+                        dtRow("KEYNAME") = KeyName
+                        dtRow("SOURCE_NO") = rowx(ColumnSourceNo)
+                        dtRow("DESCRIPTION") = rowx(ColumnDescription)
+                        dtRow("AMOUNT") = rowx("EXIR_YEAREND")
+                        dtRow("TITLE") = LabelName & " - RM" & TotalAmount.ToString("N0")
+                        dtRow("SCH") = ""
+                        dtRow("TOTAL_AMOUNT") = TotalAmount
+                        dtRow("TOTAL_PECENTAGE") = TotalPecentage
+                        dtRow("NOTE") = GetTitle_Note(PL_KEY, KeyName, True, rowx(ColumnTable), -1)
+
+                        Select Case Type
+                            Case 2
+                                'Without Percentage
+                                dtRow("DEDUCTIBLE") = rowx(ColumnAddBack)
+                                If ColumnDeduct <> "" Then
+                                    dtRow("DEDUCTIBLE_ADD") = rowx(ColumnDeduct)
+                                Else
+                                    dtRow("DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("PECENTAGE") = 100
+                                dtRow("PECENTAGE_AMOUNT") = rowx("PecentageAmount")
+                            Case 3
+                                'Percentage
+                                dtRow("DEDUCTIBLE") = rowx(ColumnAddBack)
+                                dtRow("DEDUCTIBLE_ADD") = rowx(ColumnDeduct)
+                                dtRow("PECENTAGE") = rowx("Pecentage")
+                                dtRow("PECENTAGE_AMOUNT") = rowx("PecentageAmount")
+                            Case Else
+                                'Not Deduct
+                                dtRow("DEDUCTIBLE") = False
+                                dtRow("DEDUCTIBLE_ADD") = False
+                                dtRow("PECENTAGE") = 100
+                                dtRow("PECENTAGE_AMOUNT") = 0
+                        End Select
+
+                        dsPNL_Report.Tables("PNL_QUICK_DETAIL").Rows.Add(dtRow)
+                        Application.DoEvents()
+                    Next
+                Case Else
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        If IsDBNull(rowx(ColumnAmount)) = False AndAlso IsNumeric(rowx(ColumnAmount)) Then
+                            TotalAmount += rowx(ColumnAmount)
+                        End If
+                        Select Case Type
+                            Case 2, 3
+                                'Without Percentage
+                                If IsDBNull(rowx("PecentageAmount")) = False AndAlso IsNumeric(rowx("PecentageAmount")) Then
+                                    TotalPecentage += rowx("PecentageAmount")
+                                End If
+                        End Select
+                    Next
+                    For Each rowx As DataRow In dsDataSet.Tables(TableName).Rows
+                        dtRow = Nothing
+                        TmpID = -1
+                        dtRow = dsPNL_Report.Tables("PNL_QUICK_DETAIL").NewRow
+                        dtRow("KEYNAME") = KeyName
+                        dtRow("SOURCE_NO") = rowx(ColumnSourceNo)
+                        dtRow("DESCRIPTION") = rowx(ColumnDescription)
+                        dtRow("AMOUNT") = rowx(ColumnAmount)
+                        dtRow("TITLE") = LabelName & " - RM" & TotalAmount.ToString("N0")
+                        dtRow("SCH") = ""
+                        dtRow("TOTAL_AMOUNT") = TotalAmount
+                        dtRow("TOTAL_PECENTAGE") = TotalPecentage
+                        dtRow("NOTE") = GetTitle_Note(PL_KEY, KeyName, True, rowx(ColumnTable), -1)
+
+                        Select Case Type
+                            Case 2
+                                'Without Percentage
+                                dtRow("DEDUCTIBLE") = rowx(ColumnAddBack)
+                                If ColumnDeduct <> "" Then
+                                    dtRow("DEDUCTIBLE_ADD") = rowx(ColumnDeduct)
+                                Else
+                                    dtRow("DEDUCTIBLE_ADD") = False
+                                End If
+                                If rowx(ColumnAddBack) = True Then
+                                    dtRow("PECENTAGE") = 100
+                                    dtRow("PECENTAGE_AMOUNT") = rowx("PecentageAmount")
+                                Else
+                                    dtRow("PECENTAGE") = 0
+                                    dtRow("PECENTAGE_AMOUNT") = 0
+                                End If
+                                
+                            Case 3
+                                'Percentage
+                                dtRow("DEDUCTIBLE") = rowx(ColumnAddBack)
+                                dtRow("DEDUCTIBLE_ADD") = rowx(ColumnDeduct)
+                                If rowx(ColumnAddBack) = True Then
+                                    dtRow("PECENTAGE") = rowx("Pecentage")
+                                    dtRow("PECENTAGE_AMOUNT") = rowx("PecentageAmount")
+                                Else
+                                    dtRow("PECENTAGE") = 0
+                                    dtRow("PECENTAGE_AMOUNT") = 0
+                                End If
+
+                            Case Else
+                                'Not Deduct
+                                dtRow("DEDUCTIBLE") = False
+                                dtRow("DEDUCTIBLE_ADD") = False
+                                dtRow("PECENTAGE") = 100
+                                dtRow("PECENTAGE_AMOUNT") = 0
+                        End Select
+
+                        dsPNL_Report.Tables("PNL_QUICK_DETAIL").Rows.Add(dtRow)
+                        Application.DoEvents()
+
+                        TmpID = dsPNL_Report.Tables("PNL_QUICK_DETAIL").Rows(dsPNL_Report.Tables("PNL_QUICK_DETAIL").Rows.Count - 1)("ID")
+
+                        If TableName_Details <> "" Then
+                            For Each rowChild As DataRow In dsDataSet.Tables(TableName_Details).Rows
+
+                                If IsDBNull(rowx(ColumnTable)) = False AndAlso IsDBNull(rowChild(ColumnTable_Details)) = False AndAlso
+                                    rowx(ColumnTable) = rowChild(ColumnTable_Details) AndAlso TmpID <> -1 Then
+
+                                    dtRowChild = Nothing
+                                    dtRowChild = dsPNL_Report.Tables("PNL_QUICK_DETAIL_SUB").NewRow
+                                    dtRowChild("PARENT_ID") = TmpID
+                                    dtRowChild("KEYNAME") = KeyName
+                                    dtRowChild("SOURCE_NO") = rowChild(ColumnSourceNo_Details)
+                                    dtRowChild("DESCRIPTION") = rowChild(ColumnDescription_Details)
+                                    dtRowChild("AMOUNT") = rowChild(ColumnAmount_Details)
+                                    dtRowChild("NOTE") = GetTitle_Note(PL_KEY, KeyName, False, rowChild(ColumnTable_Details), rowChild(ColumnTable_Details_Key))
+
+                                    Select Case Type
+                                        Case 2
+                                            'Without Percentage
+                                            dtRowChild("DEDUCTIBLE") = rowChild(ColumnAddBack_Details)
+                                            If ColumnDeduct_Details <> "" Then
+                                                dtRowChild("DEDUCTIBLE_ADD") = rowChild(ColumnDeduct_Details)
+                                            Else
+                                                dtRowChild("DEDUCTIBLE_ADD") = False
+                                            End If
+                                            If rowChild(ColumnAddBack_Details) = True Then
+                                                dtRowChild("PECENTAGE") = 100
+                                                dtRowChild("PECENTAGE_AMOUNT") = rowChild("PecentageAmount")
+                                            Else
+                                                dtRowChild("PECENTAGE") = 0
+                                                dtRowChild("PECENTAGE_AMOUNT") = 0
+                                            End If
+                                          
+                                        Case 3
+                                            'Percentage
+                                            dtRowChild("DEDUCTIBLE") = rowChild(ColumnAddBack_Details)
+                                            dtRowChild("DEDUCTIBLE_ADD") = rowChild(ColumnDeduct_Details)
+                                            If rowChild(ColumnAddBack_Details) = True Then
+                                                dtRowChild("PECENTAGE") = rowChild("Pecentage")
+                                                dtRowChild("PECENTAGE_AMOUNT") = rowChild("PecentageAmount")
+                                            Else
+                                                dtRowChild("PECENTAGE") = 0
+                                                dtRowChild("PECENTAGE_AMOUNT") = 0
+                                            End If
+                                            
+                                        Case Else
+                                            'Not Deduct
+                                            dtRowChild("DEDUCTIBLE") = False
+                                            dtRowChild("DEDUCTIBLE_ADD") = False
+                                            dtRowChild("PECENTAGE") = 100
+                                            dtRowChild("PECENTAGE_AMOUNT") = 0
+                                    End Select
+
+                                    dsPNL_Report.Tables("PNL_QUICK_DETAIL_SUB").Rows.Add(dtRowChild)
+
+                                End If
+
+                            Next
+                        End If
+
+                    Next
+            End Select
+
+            'Select Case KeyName
+            '    Case TaxComPNLEnuItem.SALES
+
+            'End Select
+            Dim clsNote As clsNote_PNL = Nothing
+            If clsNote Is Nothing Then
+                clsNote = New clsNote_PNL
+            End If
+
+            Dim dtNote As DataTable
+            dtNote = Nothing
+            dtNote = clsNote.Load_Note(ID, KeyName)
+            If dtNote IsNot Nothing Then
+                Dim dtRowAtt As Byte() = Nothing
+                Dim Ext As String = Nothing
+                For Each rowx As DataRow In dtNote.Rows
+                    dsPNL_Report.Tables("PROFIT_LOSS_ACCOUNT_NOTE").ImportRow(rowx)
+
+                    If IsDBNull(rowx("TypeNote")) = False Then
+                        Select Case rowx("TypeNote")
+                            Case 2
+                                'Column
+                                dtNoteColumn = clsNote.Load_Note_Column(rowx("ID"), ErrorLog)
+
+                                If dtNoteColumn IsNot Nothing Then
+                                    For Each rowy As DataRow In dtNoteColumn.Rows
+                                        dsPNL_Report.Tables("PROFIT_LOSS_ACCOUNT_NOTE_COLUMN").ImportRow(rowy)
+                                    Next
+
+                                End If
+                            Case 1
+                                'Attachment
+                                dtNoteAttch = clsNote.Load_Note_Attachment(rowx("ID"), ErrorLog)
+
+                                If dtNoteAttch IsNot Nothing Then
+
+                                    For Each rowy As DataRow In dtNoteAttch.Rows
+                                        dtRowAtt = Nothing
+                                        Ext = Nothing
+                                        dtRowAtt = IIf(IsDBNull(rowy("Attachment")), Nothing, rowy("Attachment"))
+                                        Ext = IIf(IsDBNull(rowy("Extension")), Nothing, rowy("Extension"))
+
+                                        If dtRowAtt IsNot Nothing Then
+                                            Dim frmnote As New frmNote_AttachmentView
+                                            Select Case Ext.ToLower
+                                                Case ".jpg", ".png", ".jpeg", ".bitmap", ".ico", ".gif", ".tif"
+                                                    frmnote.Type = 0
+                                                Case ".xls", ".xlsx", ".csv", ".openxml"
+                                                    frmnote.Type = 1
+                                                Case ".doc", "docx", ".rtf", ".wordml", ".opendocument"
+                                                    frmnote.Type = 2
+                                                Case ".pdf"
+                                                    frmnote.Type = 3
+                                            End Select
+                                            frmnote.Title = IIf(IsDBNull(rowx("Title")), Nothing, rowx("Title"))
+                                            frmnote.Extension = Ext
+                                            frmnote.dataArr = dtRowAtt
+                                            frmnote.Show()
+
+                                        End If
+                                    Next
+
+                                End If
+
+
+                        End Select
+
+                    End If
+                Next
             End If
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
-
+            If ErrorLog Is Nothing Then
+                ErrorLog = New ClsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
+            End With
+            AddListOfError(ErrorLog)
         End Try
     End Sub
+    Private Function GetInterestRestrictedData(ByRef dsPNL_Report As DataSet, ByVal PL_KEY As Integer, ByVal RefNo_ As String, ByVal YA_ As String) As Boolean
+        Try
+            Dim dtPNLInterestRestrict As DataTable = Nothing
+
+            dtPNLInterestRestrict = ADO.Load_PNL_expenses_interestrestrict(PL_KEY)
+
+            dsPNL_Report.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor").Rows.Clear()
+            dsPNL_Report.Tables("REF_INTEREST_RESTRIC_DETAIL_MONTHLY").Rows.Clear()
+            dsPNL_Report.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Clear()
+            dsPNL_Report.Tables("REF_INTEREST_RESTRIC_DETAIL").Rows.Clear()
+            dsPNL_Report.Tables("expenses_interestrestrict").Rows.Clear()
+
+            Dim tmpDt_Data As DataTable = Nothing
+            If dtPNLInterestRestrict IsNot Nothing Then
+
+                For Each rowx As DataRow In dtPNLInterestRestrict.Rows
+                    If mdlPNL2.CheckIDExistInTable(dsPNL_Report, "expenses_interestrestrict", "EXIR_EXIRKEY", rowx("EXIR_EXIRKEY")) = False Then
+                        tmpDt_Data = Nothing
+
+                        tmpDt_Data = ADO.Load_REF_INTEREST_RESTRIC_MONTHLY_TRICOR(rowx("EXIR_SOURCENO"), RefNo_, YA_, ErrorLog)
+
+                        mdlPNL2.LoadTable_InterestRestricted(dsPNL_Report, RefNo_, YA_, rowx("EXIR_SOURCENO"), rowx("EXIR_EXIRKEY"), ErrorLog)
+
+                        If tmpDt_Data IsNot Nothing Then
+                            'For i As Integer = 0 To tmpDt_Data.Rows.Count - 1
+                            '    dsPNL_Report.Tables("REF_INTEREST_RESTRIC_DETAIL_TRICOR_TEMP").ImportRow(tmpDt_Data.Rows(i))
+                            'Next
+                            ''  mdlPNL2.AppenData_InterestRestricted(tmpDt_Data, dsPNL_Report, ErrorLog)
+                            ''  Application.DoEvents()
+                            'ADO.SAVE_EXPENSES_INTERESTRESTRICT_TRICOR_TEMP(PL_KEY, dsPNL_Report.Tables("INTEREST_RESTRIC_MONTLY_REPORT"), RefNo_,
+                            '                                                YA_, rowx("EXIR_SOURCENO"), ErrorLog)
+
+                            mdlPNL2.AppenData_InterestRestricted_Report(tmpDt_Data, dsPNL_Report, RefNo_, YA_, rowx("EXIR_SOURCENO"), ErrorLog)
+                        End If
+
+                        tmpDt_Data = Nothing
+
+                        tmpDt_Data = ADO.Load_REF_INTEREST_RESTRIC_DETAIL_YEARLY(rowx("EXIR_SOURCENO"), RefNo_, YA_, ErrorLog)
+
+                        If tmpDt_Data IsNot Nothing Then
+                            For x As Integer = 0 To tmpDt_Data.Rows.Count - 1
+
+                                dtRow = Nothing
+                                dtRow = dsPNL_Report.Tables("REF_INTEREST_RESTRIC_DETAIL").NewRow
+                                dtRow("RIRD_KEY") = tmpDt_Data.Rows(x)("RIRD_KEY")
+                                dtRow("RIR_REF_NUM") = tmpDt_Data.Rows(x)("RIR_REF_NUM")
+                                dtRow("RIRD_MONTH") = tmpDt_Data.Rows(x)("RIRD_MONTH")
+                                dtRow("RIRD_TYPE") = tmpDt_Data.Rows(x)("RIRD_TYPE")
+                                dtRow("RIRD_DESC") = tmpDt_Data.Rows(x)("RIRD_DESC")
+                                dtRow("RIRD_AMOUNT") = tmpDt_Data.Rows(x)("RIRD_AMOUNT")
+                                dtRow("RIRD_NOTE") = tmpDt_Data.Rows(x)("RIRD_NOTE")
+                                dtRow("RIRD_SOURCENO") = tmpDt_Data.Rows(x)("RIRD_SOURCENO")
+                                dtRow("RIRD_TYPE_INCOME") = tmpDt_Data.Rows(x)("RIRD_TYPE_INCOME")
+
+                                dsPNL_Report.Tables("REF_INTEREST_RESTRIC_DETAIL").Rows.Add(dtRow)
+                            Next
+                            If ADO.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(dsPNL_Report.Tables("REF_INTEREST_RESTRIC_DETAIL"), RefNo_, YA_, rowx("EXIR_SOURCENO"), PL_KEY,
+                                                          0, ErrorLog, False) = False Then
+
+                            End If
+                        End If
+                    End If
+                Next
+                Return True
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+    Private Function GetTitle_Note(ByVal PL_KEY As Integer, ByVal KeyName As String, ByVal isParent As Boolean, _
+                                   ByVal DataID As Integer, ByVal SubData_ID As Integer) As String
+        Try
+            Dim clsNote As New clsNote_PNL
+            Dim dtNote As DataTable = Nothing
+
+            dtNote = clsNote.Load_Note(PL_KEY, KeyName, isParent, DataID, SubData_ID)
+
+            If dtNote IsNot Nothing Then
+                Return IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+            Else
+                Return ""
+            End If
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
+
 End Class

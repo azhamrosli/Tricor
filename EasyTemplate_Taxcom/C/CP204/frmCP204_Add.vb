@@ -90,6 +90,7 @@ Public Class frmCP204_Add
                     cboYA.EditValue = mdlProcess.ArgParam3
                 End If
 
+                btnNote.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
                 cboRefNo.ReadOnly = False
                 cboYA.ReadOnly = False
                 btnExport.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
@@ -106,7 +107,7 @@ Public Class frmCP204_Add
                     isEdit = False
                     Exit Sub
                 End If
-
+                btnNote.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
                 cboRefNo.ReadOnly = True
                 cboYA.ReadOnly = True
                 btnExport.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
@@ -164,6 +165,12 @@ Public Class frmCP204_Add
                 txtPostcode_Alt_Cor.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_CURR_CORR_POST")), "", dt.Rows(0)("BCP_CURR_CORR_POST"))
                 txtCity_Alt_Cor.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_CURR_CORR_CITY")), "", dt.Rows(0)("BCP_CURR_CORR_CITY"))
                 cboState_Alt_Cor.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_CURR_CORR_STATE")), "", dt.Rows(0)("BCP_CURR_CORR_STATE"))
+
+                If IsDBNull(dt.Rows(0)("ModifiedBy")) = False AndAlso dt.Rows(0)("ModifiedBy") <> "" Then
+                    lblLastmodified.Caption = dt.Rows(0)("ModifiedBy") & " | " & IIf(IsDBNull(dt.Rows(0)("ModifiedDateTime")), "", dt.Rows(0)("ModifiedDateTime"))
+                Else
+                    lblLastmodified.Caption = ""
+                End If
 
                 CalcEstimationPercent()
 
@@ -842,6 +849,7 @@ Public Class frmCP204_Add
                 If isEdit Then
                     If ADO.Update_CP204(DsCP204, ErrorLog) Then
                         MsgBox("Succesfully update CP204", MsgBoxStyle.Information)
+                        Me.LoadData()
                     Else
                         MsgBox("Unsuccesfully update CP204", MsgBoxStyle.Critical)
                     End If
@@ -849,6 +857,8 @@ Public Class frmCP204_Add
                     If ADO.Save_CP204(DsCP204, ErrorLog) Then
                         MsgBox("Succesfully saved CP204", MsgBoxStyle.Information)
                         ID = tmpID
+                        isEdit = True
+                        Me.LoadData()
                     Else
                         MsgBox("Unsuccesfully saved CP204", MsgBoxStyle.Critical)
                     End If
@@ -994,6 +1004,33 @@ Public Class frmCP204_Add
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)
+
+        End Try
+    End Sub
+
+    Private Sub ApplyAllPaymentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApplyAllPaymentToolStripMenuItem.Click
+        Try
+            For Each dtRow As DataRow In DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows
+                If dtRow IsNot Nothing Then
+
+                    If IsDBNull(dtRow(MainTable_Payment1)) Or IsDate(dtRow(MainTable_Payment1)) = False Then
+                        dtRow(MainTable_Payment1) = dtRow(MainTable_PaymentDue)
+                        dtRow(MainTable_Amount1) = dtRow(MainTable_InstallmentAmount)
+                    ElseIf (CDec(dtRow(MainTable_InstallmentAmount)) - CDec(dtRow(MainTable_Amount1))) > 0 Then
+                        dtRow(MainTable_Payment2) = dtRow(MainTable_PaymentDue)
+                        dtRow(MainTable_Amount2) = CDec(dtRow(MainTable_InstallmentAmount)) - CDec(dtRow(MainTable_Amount1))
+                    End If
+
+
+                    CalcPenalty(GridView1.FocusedRowHandle)
+                End If
+            Next
+            '  Dim dtRow As DataRow = GridView1.GetDataRow(GridView1.FocusedRowHandle)
+
+           
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub

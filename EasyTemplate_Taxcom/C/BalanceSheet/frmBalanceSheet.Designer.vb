@@ -227,35 +227,31 @@ Partial Class frmBalanceSheet
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
         Me.barDockControlTop.Manager = Me.BarManager1
-        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(1181, 39)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1012, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 736)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 598)
         Me.barDockControlBottom.Manager = Me.BarManager1
-        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1181, 0)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1012, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 39)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
         Me.barDockControlLeft.Manager = Me.BarManager1
-        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 697)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 567)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1181, 39)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1012, 31)
         Me.barDockControlRight.Manager = Me.BarManager1
-        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 697)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 567)
         '
         'RepositoryItemTextEdit1
         '
@@ -281,16 +277,15 @@ Partial Class frmBalanceSheet
         Me.PanelControl1.Controls.Add(Me.cboYA)
         Me.PanelControl1.Controls.Add(Me.LabelControl10)
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 39)
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 31)
         Me.PanelControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(1181, 95)
+        Me.PanelControl1.Size = New System.Drawing.Size(1012, 77)
         Me.PanelControl1.TabIndex = 5
         '
         'cboRefNo
         '
-        Me.cboRefNo.Location = New System.Drawing.Point(132, 25)
-        Me.cboRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboRefNo.Location = New System.Drawing.Point(113, 20)
         Me.cboRefNo.MenuManager = Me.BarManager1
         Me.cboRefNo.Name = "cboRefNo"
         Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
@@ -300,7 +295,7 @@ Partial Class frmBalanceSheet
         Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
         Me.cboRefNo.Properties.ValueMember = "RefNo"
         Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
-        Me.cboRefNo.Size = New System.Drawing.Size(306, 22)
+        Me.cboRefNo.Size = New System.Drawing.Size(262, 20)
         Me.cboRefNo.TabIndex = 170
         '
         'TaxPayerFindBindingSource
@@ -389,39 +384,35 @@ Partial Class frmBalanceSheet
         '
         'txtRefNo
         '
-        Me.txtRefNo.Location = New System.Drawing.Point(132, 57)
-        Me.txtRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtRefNo.Location = New System.Drawing.Point(113, 46)
         Me.txtRefNo.Name = "txtRefNo"
         Me.txtRefNo.Properties.ReadOnly = True
-        Me.txtRefNo.Size = New System.Drawing.Size(306, 22)
+        Me.txtRefNo.Size = New System.Drawing.Size(262, 20)
         Me.txtRefNo.TabIndex = 168
         '
         'LabelControl11
         '
-        Me.LabelControl11.Location = New System.Drawing.Point(451, 28)
-        Me.LabelControl11.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl11.Location = New System.Drawing.Point(387, 23)
         Me.LabelControl11.Name = "LabelControl11"
-        Me.LabelControl11.Size = New System.Drawing.Size(24, 16)
+        Me.LabelControl11.Size = New System.Drawing.Size(20, 13)
         Me.LabelControl11.TabIndex = 167
         Me.LabelControl11.Text = "YA :"
         '
         'cboYA
         '
-        Me.cboYA.Location = New System.Drawing.Point(549, 25)
-        Me.cboYA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboYA.Location = New System.Drawing.Point(471, 20)
         Me.cboYA.Name = "cboYA"
         Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboYA.Properties.PopupSizeable = True
         Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA.Size = New System.Drawing.Size(327, 22)
+        Me.cboYA.Size = New System.Drawing.Size(280, 20)
         Me.cboYA.TabIndex = 165
         '
         'LabelControl10
         '
-        Me.LabelControl10.Location = New System.Drawing.Point(12, 27)
-        Me.LabelControl10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl10.Location = New System.Drawing.Point(10, 22)
         Me.LabelControl10.Name = "LabelControl10"
-        Me.LabelControl10.Size = New System.Drawing.Size(47, 16)
+        Me.LabelControl10.Size = New System.Drawing.Size(40, 13)
         Me.LabelControl10.TabIndex = 166
         Me.LabelControl10.Text = "Ref No :"
         '
@@ -490,16 +481,14 @@ Partial Class frmBalanceSheet
         Me.XtraScrollableControl1.Controls.Add(Me.LabelControl2)
         Me.XtraScrollableControl1.Controls.Add(Me.LabelControl1)
         Me.XtraScrollableControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.XtraScrollableControl1.Location = New System.Drawing.Point(0, 134)
-        Me.XtraScrollableControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.XtraScrollableControl1.Location = New System.Drawing.Point(0, 108)
         Me.XtraScrollableControl1.Name = "XtraScrollableControl1"
-        Me.XtraScrollableControl1.Size = New System.Drawing.Size(1181, 602)
+        Me.XtraScrollableControl1.Size = New System.Drawing.Size(1012, 490)
         Me.XtraScrollableControl1.TabIndex = 72
         '
         'txtOtherFA
         '
-        Me.txtOtherFA.Location = New System.Drawing.Point(311, 156)
-        Me.txtOtherFA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtOtherFA.Location = New System.Drawing.Point(267, 127)
         Me.txtOtherFA.MenuManager = Me.BarManager1
         Me.txtOtherFA.Name = "txtOtherFA"
         Me.txtOtherFA.Properties.DisplayFormat.FormatString = "n2"
@@ -510,15 +499,14 @@ Partial Class frmBalanceSheet
         Me.txtOtherFA.Properties.NullValuePrompt = "0"
         Me.txtOtherFA.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtOtherFA.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtOtherFA.Size = New System.Drawing.Size(182, 22)
+        Me.txtOtherFA.Size = New System.Drawing.Size(156, 20)
         Me.txtOtherFA.TabIndex = 129
         '
         'LabelControl35
         '
-        Me.LabelControl35.Location = New System.Drawing.Point(69, 128)
-        Me.LabelControl35.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl35.Location = New System.Drawing.Point(59, 104)
         Me.LabelControl35.Name = "LabelControl35"
-        Me.LabelControl35.Size = New System.Drawing.Size(88, 16)
+        Me.LabelControl35.Size = New System.Drawing.Size(72, 13)
         Me.LabelControl35.TabIndex = 128
         Me.LabelControl35.Text = "Land && Building"
         '
@@ -526,27 +514,24 @@ Partial Class frmBalanceSheet
         '
         Me.LabelControl34.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl34.Appearance.Options.UseFont = True
-        Me.LabelControl34.Location = New System.Drawing.Point(573, 351)
-        Me.LabelControl34.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl34.Location = New System.Drawing.Point(491, 285)
         Me.LabelControl34.Name = "LabelControl34"
-        Me.LabelControl34.Size = New System.Drawing.Size(150, 18)
+        Me.LabelControl34.Size = New System.Drawing.Size(124, 14)
         Me.LabelControl34.TabIndex = 127
         Me.LabelControl34.Text = "Shareholding Equity"
         '
         'chkSME
         '
-        Me.chkSME.Location = New System.Drawing.Point(1004, 384)
-        Me.chkSME.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chkSME.Location = New System.Drawing.Point(861, 312)
         Me.chkSME.MenuManager = Me.BarManager1
         Me.chkSME.Name = "chkSME"
         Me.chkSME.Properties.Caption = "SME"
-        Me.chkSME.Size = New System.Drawing.Size(87, 20)
+        Me.chkSME.Size = New System.Drawing.Size(75, 19)
         Me.chkSME.TabIndex = 126
         '
         'txtTotalLE
         '
-        Me.txtTotalLE.Location = New System.Drawing.Point(814, 508)
-        Me.txtTotalLE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTotalLE.Location = New System.Drawing.Point(698, 413)
         Me.txtTotalLE.MenuManager = Me.BarManager1
         Me.txtTotalLE.Name = "txtTotalLE"
         Me.txtTotalLE.Properties.DisplayFormat.FormatString = "n2"
@@ -558,22 +543,20 @@ Partial Class frmBalanceSheet
         Me.txtTotalLE.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtTotalLE.Properties.ReadOnly = True
         Me.txtTotalLE.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtTotalLE.Size = New System.Drawing.Size(182, 22)
+        Me.txtTotalLE.Size = New System.Drawing.Size(156, 20)
         Me.txtTotalLE.TabIndex = 125
         '
         'LabelControl33
         '
-        Me.LabelControl33.Location = New System.Drawing.Point(573, 512)
-        Me.LabelControl33.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl33.Location = New System.Drawing.Point(491, 416)
         Me.LabelControl33.Name = "LabelControl33"
-        Me.LabelControl33.Size = New System.Drawing.Size(126, 16)
+        Me.LabelControl33.Size = New System.Drawing.Size(105, 13)
         Me.LabelControl33.TabIndex = 124
         Me.LabelControl33.Text = "Total Liability && Equity"
         '
         'txtTotalEquity
         '
-        Me.txtTotalEquity.Location = New System.Drawing.Point(814, 476)
-        Me.txtTotalEquity.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTotalEquity.Location = New System.Drawing.Point(698, 387)
         Me.txtTotalEquity.MenuManager = Me.BarManager1
         Me.txtTotalEquity.Name = "txtTotalEquity"
         Me.txtTotalEquity.Properties.DisplayFormat.FormatString = "n2"
@@ -585,22 +568,20 @@ Partial Class frmBalanceSheet
         Me.txtTotalEquity.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtTotalEquity.Properties.ReadOnly = True
         Me.txtTotalEquity.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtTotalEquity.Size = New System.Drawing.Size(182, 22)
+        Me.txtTotalEquity.Size = New System.Drawing.Size(156, 20)
         Me.txtTotalEquity.TabIndex = 123
         '
         'LabelControl32
         '
-        Me.LabelControl32.Location = New System.Drawing.Point(573, 480)
-        Me.LabelControl32.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl32.Location = New System.Drawing.Point(491, 390)
         Me.LabelControl32.Name = "LabelControl32"
-        Me.LabelControl32.Size = New System.Drawing.Size(67, 16)
+        Me.LabelControl32.Size = New System.Drawing.Size(57, 13)
         Me.LabelControl32.TabIndex = 122
         Me.LabelControl32.Text = "Total Equity"
         '
         'txtReserves
         '
-        Me.txtReserves.Location = New System.Drawing.Point(814, 444)
-        Me.txtReserves.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtReserves.Location = New System.Drawing.Point(698, 361)
         Me.txtReserves.MenuManager = Me.BarManager1
         Me.txtReserves.Name = "txtReserves"
         Me.txtReserves.Properties.DisplayFormat.FormatString = "n2"
@@ -611,22 +592,20 @@ Partial Class frmBalanceSheet
         Me.txtReserves.Properties.NullValuePrompt = "0"
         Me.txtReserves.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtReserves.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtReserves.Size = New System.Drawing.Size(182, 22)
+        Me.txtReserves.Size = New System.Drawing.Size(156, 20)
         Me.txtReserves.TabIndex = 121
         '
         'LabelControl31
         '
-        Me.LabelControl31.Location = New System.Drawing.Point(573, 448)
-        Me.LabelControl31.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl31.Location = New System.Drawing.Point(491, 364)
         Me.LabelControl31.Name = "LabelControl31"
-        Me.LabelControl31.Size = New System.Drawing.Size(52, 16)
+        Me.LabelControl31.Size = New System.Drawing.Size(45, 13)
         Me.LabelControl31.TabIndex = 120
         Me.LabelControl31.Text = "Reserves"
         '
         'txtAppropriation
         '
-        Me.txtAppropriation.Location = New System.Drawing.Point(814, 412)
-        Me.txtAppropriation.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtAppropriation.Location = New System.Drawing.Point(698, 335)
         Me.txtAppropriation.MenuManager = Me.BarManager1
         Me.txtAppropriation.Name = "txtAppropriation"
         Me.txtAppropriation.Properties.DisplayFormat.FormatString = "n2"
@@ -637,22 +616,20 @@ Partial Class frmBalanceSheet
         Me.txtAppropriation.Properties.NullValuePrompt = "0"
         Me.txtAppropriation.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtAppropriation.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtAppropriation.Size = New System.Drawing.Size(182, 22)
+        Me.txtAppropriation.Size = New System.Drawing.Size(156, 20)
         Me.txtAppropriation.TabIndex = 119
         '
         'LabelControl30
         '
-        Me.LabelControl30.Location = New System.Drawing.Point(573, 416)
-        Me.LabelControl30.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl30.Location = New System.Drawing.Point(491, 338)
         Me.LabelControl30.Name = "LabelControl30"
-        Me.LabelControl30.Size = New System.Drawing.Size(108, 16)
+        Me.LabelControl30.Size = New System.Drawing.Size(90, 13)
         Me.LabelControl30.TabIndex = 118
         Me.LabelControl30.Text = "Appropration P && L"
         '
         'txtPaidUp
         '
-        Me.txtPaidUp.Location = New System.Drawing.Point(814, 380)
-        Me.txtPaidUp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtPaidUp.Location = New System.Drawing.Point(698, 309)
         Me.txtPaidUp.MenuManager = Me.BarManager1
         Me.txtPaidUp.Name = "txtPaidUp"
         Me.txtPaidUp.Properties.DisplayFormat.FormatString = "n2"
@@ -663,22 +640,20 @@ Partial Class frmBalanceSheet
         Me.txtPaidUp.Properties.NullValuePrompt = "0"
         Me.txtPaidUp.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtPaidUp.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtPaidUp.Size = New System.Drawing.Size(182, 22)
+        Me.txtPaidUp.Size = New System.Drawing.Size(156, 20)
         Me.txtPaidUp.TabIndex = 117
         '
         'LabelControl29
         '
-        Me.LabelControl29.Location = New System.Drawing.Point(573, 384)
-        Me.LabelControl29.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl29.Location = New System.Drawing.Point(491, 312)
         Me.LabelControl29.Name = "LabelControl29"
-        Me.LabelControl29.Size = New System.Drawing.Size(86, 16)
+        Me.LabelControl29.Size = New System.Drawing.Size(72, 13)
         Me.LabelControl29.TabIndex = 116
         Me.LabelControl29.Text = "Paid Up Capital"
         '
         'txtTotalLiability
         '
-        Me.txtTotalLiability.Location = New System.Drawing.Point(814, 322)
-        Me.txtTotalLiability.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTotalLiability.Location = New System.Drawing.Point(698, 262)
         Me.txtTotalLiability.MenuManager = Me.BarManager1
         Me.txtTotalLiability.Name = "txtTotalLiability"
         Me.txtTotalLiability.Properties.DisplayFormat.FormatString = "n2"
@@ -690,22 +665,20 @@ Partial Class frmBalanceSheet
         Me.txtTotalLiability.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtTotalLiability.Properties.ReadOnly = True
         Me.txtTotalLiability.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtTotalLiability.Size = New System.Drawing.Size(182, 22)
+        Me.txtTotalLiability.Size = New System.Drawing.Size(156, 20)
         Me.txtTotalLiability.TabIndex = 115
         '
         'LabelControl28
         '
-        Me.LabelControl28.Location = New System.Drawing.Point(573, 326)
-        Me.LabelControl28.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl28.Location = New System.Drawing.Point(491, 265)
         Me.LabelControl28.Name = "LabelControl28"
-        Me.LabelControl28.Size = New System.Drawing.Size(75, 16)
+        Me.LabelControl28.Size = New System.Drawing.Size(62, 13)
         Me.LabelControl28.TabIndex = 114
         Me.LabelControl28.Text = "Total Liability"
         '
         'txtLongTerm
         '
-        Me.txtLongTerm.Location = New System.Drawing.Point(814, 290)
-        Me.txtLongTerm.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtLongTerm.Location = New System.Drawing.Point(698, 236)
         Me.txtLongTerm.MenuManager = Me.BarManager1
         Me.txtLongTerm.Name = "txtLongTerm"
         Me.txtLongTerm.Properties.DisplayFormat.FormatString = "n2"
@@ -716,22 +689,20 @@ Partial Class frmBalanceSheet
         Me.txtLongTerm.Properties.NullValuePrompt = "0"
         Me.txtLongTerm.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtLongTerm.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtLongTerm.Size = New System.Drawing.Size(182, 22)
+        Me.txtLongTerm.Size = New System.Drawing.Size(156, 20)
         Me.txtLongTerm.TabIndex = 113
         '
         'LabelControl27
         '
-        Me.LabelControl27.Location = New System.Drawing.Point(573, 294)
-        Me.LabelControl27.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl27.Location = New System.Drawing.Point(491, 239)
         Me.LabelControl27.Name = "LabelControl27"
-        Me.LabelControl27.Size = New System.Drawing.Size(108, 16)
+        Me.LabelControl27.Size = New System.Drawing.Size(88, 13)
         Me.LabelControl27.TabIndex = 112
         Me.LabelControl27.Text = "Long Term Liability"
         '
         'txtTotalCL
         '
-        Me.txtTotalCL.Location = New System.Drawing.Point(814, 258)
-        Me.txtTotalCL.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTotalCL.Location = New System.Drawing.Point(698, 210)
         Me.txtTotalCL.MenuManager = Me.BarManager1
         Me.txtTotalCL.Name = "txtTotalCL"
         Me.txtTotalCL.Properties.DisplayFormat.FormatString = "n2"
@@ -743,22 +714,20 @@ Partial Class frmBalanceSheet
         Me.txtTotalCL.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtTotalCL.Properties.ReadOnly = True
         Me.txtTotalCL.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtTotalCL.Size = New System.Drawing.Size(182, 22)
+        Me.txtTotalCL.Size = New System.Drawing.Size(156, 20)
         Me.txtTotalCL.TabIndex = 111
         '
         'LabelControl26
         '
-        Me.LabelControl26.Location = New System.Drawing.Point(573, 262)
-        Me.LabelControl26.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl26.Location = New System.Drawing.Point(491, 213)
         Me.LabelControl26.Name = "LabelControl26"
-        Me.LabelControl26.Size = New System.Drawing.Size(122, 16)
+        Me.LabelControl26.Size = New System.Drawing.Size(102, 13)
         Me.LabelControl26.TabIndex = 110
         Me.LabelControl26.Text = "Total Current Liability"
         '
         'txtOtherCL
         '
-        Me.txtOtherCL.Location = New System.Drawing.Point(814, 223)
-        Me.txtOtherCL.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtOtherCL.Location = New System.Drawing.Point(698, 181)
         Me.txtOtherCL.MenuManager = Me.BarManager1
         Me.txtOtherCL.Name = "txtOtherCL"
         Me.txtOtherCL.Properties.DisplayFormat.FormatString = "n2"
@@ -769,22 +738,20 @@ Partial Class frmBalanceSheet
         Me.txtOtherCL.Properties.NullValuePrompt = "0"
         Me.txtOtherCL.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtOtherCL.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtOtherCL.Size = New System.Drawing.Size(182, 22)
+        Me.txtOtherCL.Size = New System.Drawing.Size(156, 20)
         Me.txtOtherCL.TabIndex = 109
         '
         'LabelControl25
         '
-        Me.LabelControl25.Location = New System.Drawing.Point(573, 226)
-        Me.LabelControl25.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl25.Location = New System.Drawing.Point(491, 184)
         Me.LabelControl25.Name = "LabelControl25"
-        Me.LabelControl25.Size = New System.Drawing.Size(125, 16)
+        Me.LabelControl25.Size = New System.Drawing.Size(106, 13)
         Me.LabelControl25.TabIndex = 108
         Me.LabelControl25.Text = "Other Current Liability"
         '
         'txtLoanFrom
         '
-        Me.txtLoanFrom.Location = New System.Drawing.Point(814, 188)
-        Me.txtLoanFrom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtLoanFrom.Location = New System.Drawing.Point(698, 153)
         Me.txtLoanFrom.MenuManager = Me.BarManager1
         Me.txtLoanFrom.Name = "txtLoanFrom"
         Me.txtLoanFrom.Properties.DisplayFormat.FormatString = "n2"
@@ -795,22 +762,20 @@ Partial Class frmBalanceSheet
         Me.txtLoanFrom.Properties.NullValuePrompt = "0"
         Me.txtLoanFrom.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtLoanFrom.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtLoanFrom.Size = New System.Drawing.Size(182, 22)
+        Me.txtLoanFrom.Size = New System.Drawing.Size(156, 20)
         Me.txtLoanFrom.TabIndex = 107
         '
         'LabelControl24
         '
-        Me.LabelControl24.Location = New System.Drawing.Point(573, 192)
-        Me.LabelControl24.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl24.Location = New System.Drawing.Point(491, 156)
         Me.LabelControl24.Name = "LabelControl24"
-        Me.LabelControl24.Size = New System.Drawing.Size(107, 16)
+        Me.LabelControl24.Size = New System.Drawing.Size(89, 13)
         Me.LabelControl24.TabIndex = 106
         Me.LabelControl24.Text = "Loan from Director"
         '
         'txtOtherCreditor
         '
-        Me.txtOtherCreditor.Location = New System.Drawing.Point(814, 156)
-        Me.txtOtherCreditor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtOtherCreditor.Location = New System.Drawing.Point(698, 127)
         Me.txtOtherCreditor.MenuManager = Me.BarManager1
         Me.txtOtherCreditor.Name = "txtOtherCreditor"
         Me.txtOtherCreditor.Properties.DisplayFormat.FormatString = "n2"
@@ -821,22 +786,20 @@ Partial Class frmBalanceSheet
         Me.txtOtherCreditor.Properties.NullValuePrompt = "0"
         Me.txtOtherCreditor.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtOtherCreditor.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtOtherCreditor.Size = New System.Drawing.Size(182, 22)
+        Me.txtOtherCreditor.Size = New System.Drawing.Size(156, 20)
         Me.txtOtherCreditor.TabIndex = 105
         '
         'LabelControl23
         '
-        Me.LabelControl23.Location = New System.Drawing.Point(573, 160)
-        Me.LabelControl23.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl23.Location = New System.Drawing.Point(491, 130)
         Me.LabelControl23.Name = "LabelControl23"
-        Me.LabelControl23.Size = New System.Drawing.Size(82, 16)
+        Me.LabelControl23.Size = New System.Drawing.Size(70, 13)
         Me.LabelControl23.TabIndex = 104
         Me.LabelControl23.Text = "Other Creditor"
         '
         'txtTradeCreditor
         '
-        Me.txtTradeCreditor.Location = New System.Drawing.Point(814, 124)
-        Me.txtTradeCreditor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTradeCreditor.Location = New System.Drawing.Point(698, 101)
         Me.txtTradeCreditor.MenuManager = Me.BarManager1
         Me.txtTradeCreditor.Name = "txtTradeCreditor"
         Me.txtTradeCreditor.Properties.DisplayFormat.FormatString = "n2"
@@ -847,22 +810,20 @@ Partial Class frmBalanceSheet
         Me.txtTradeCreditor.Properties.NullValuePrompt = "0"
         Me.txtTradeCreditor.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtTradeCreditor.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtTradeCreditor.Size = New System.Drawing.Size(182, 22)
+        Me.txtTradeCreditor.Size = New System.Drawing.Size(156, 20)
         Me.txtTradeCreditor.TabIndex = 103
         '
         'LabelControl22
         '
-        Me.LabelControl22.Location = New System.Drawing.Point(573, 128)
-        Me.LabelControl22.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl22.Location = New System.Drawing.Point(491, 104)
         Me.LabelControl22.Name = "LabelControl22"
-        Me.LabelControl22.Size = New System.Drawing.Size(84, 16)
+        Me.LabelControl22.Size = New System.Drawing.Size(70, 13)
         Me.LabelControl22.TabIndex = 102
         Me.LabelControl22.Text = "Trade Creditor"
         '
         'txtBorrowing
         '
-        Me.txtBorrowing.Location = New System.Drawing.Point(814, 92)
-        Me.txtBorrowing.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtBorrowing.Location = New System.Drawing.Point(698, 75)
         Me.txtBorrowing.MenuManager = Me.BarManager1
         Me.txtBorrowing.Name = "txtBorrowing"
         Me.txtBorrowing.Properties.DisplayFormat.FormatString = "n2"
@@ -873,15 +834,14 @@ Partial Class frmBalanceSheet
         Me.txtBorrowing.Properties.NullValuePrompt = "0"
         Me.txtBorrowing.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtBorrowing.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtBorrowing.Size = New System.Drawing.Size(182, 22)
+        Me.txtBorrowing.Size = New System.Drawing.Size(156, 20)
         Me.txtBorrowing.TabIndex = 101
         '
         'LabelControl21
         '
-        Me.LabelControl21.Location = New System.Drawing.Point(573, 96)
-        Me.LabelControl21.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl21.Location = New System.Drawing.Point(491, 78)
         Me.LabelControl21.Name = "LabelControl21"
-        Me.LabelControl21.Size = New System.Drawing.Size(58, 16)
+        Me.LabelControl21.Size = New System.Drawing.Size(48, 13)
         Me.LabelControl21.TabIndex = 100
         Me.LabelControl21.Text = "Borrowing"
         '
@@ -889,10 +849,9 @@ Partial Class frmBalanceSheet
         '
         Me.LabelControl20.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl20.Appearance.Options.UseFont = True
-        Me.LabelControl20.Location = New System.Drawing.Point(573, 63)
-        Me.LabelControl20.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl20.Location = New System.Drawing.Point(491, 51)
         Me.LabelControl20.Name = "LabelControl20"
-        Me.LabelControl20.Size = New System.Drawing.Size(123, 18)
+        Me.LabelControl20.Size = New System.Drawing.Size(98, 14)
         Me.LabelControl20.TabIndex = 99
         Me.LabelControl20.Text = "Current Liability"
         '
@@ -900,17 +859,15 @@ Partial Class frmBalanceSheet
         '
         Me.LabelControl19.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl19.Appearance.Options.UseFont = True
-        Me.LabelControl19.Location = New System.Drawing.Point(573, 39)
-        Me.LabelControl19.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl19.Location = New System.Drawing.Point(491, 32)
         Me.LabelControl19.Name = "LabelControl19"
-        Me.LabelControl19.Size = New System.Drawing.Size(207, 18)
+        Me.LabelControl19.Size = New System.Drawing.Size(169, 14)
         Me.LabelControl19.TabIndex = 98
         Me.LabelControl19.Text = "Liability And Equity Owners"
         '
         'txtTotalAssets
         '
-        Me.txtTotalAssets.Location = New System.Drawing.Point(311, 540)
-        Me.txtTotalAssets.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTotalAssets.Location = New System.Drawing.Point(267, 439)
         Me.txtTotalAssets.MenuManager = Me.BarManager1
         Me.txtTotalAssets.Name = "txtTotalAssets"
         Me.txtTotalAssets.Properties.DisplayFormat.FormatString = "n2"
@@ -922,13 +879,12 @@ Partial Class frmBalanceSheet
         Me.txtTotalAssets.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtTotalAssets.Properties.ReadOnly = True
         Me.txtTotalAssets.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtTotalAssets.Size = New System.Drawing.Size(182, 22)
+        Me.txtTotalAssets.Size = New System.Drawing.Size(156, 20)
         Me.txtTotalAssets.TabIndex = 97
         '
         'txtTotalCA
         '
-        Me.txtTotalCA.Location = New System.Drawing.Point(311, 508)
-        Me.txtTotalCA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTotalCA.Location = New System.Drawing.Point(267, 413)
         Me.txtTotalCA.MenuManager = Me.BarManager1
         Me.txtTotalCA.Name = "txtTotalCA"
         Me.txtTotalCA.Properties.DisplayFormat.FormatString = "n2"
@@ -940,13 +896,12 @@ Partial Class frmBalanceSheet
         Me.txtTotalCA.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtTotalCA.Properties.ReadOnly = True
         Me.txtTotalCA.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtTotalCA.Size = New System.Drawing.Size(182, 22)
+        Me.txtTotalCA.Size = New System.Drawing.Size(156, 20)
         Me.txtTotalCA.TabIndex = 96
         '
         'txtOtherCA
         '
-        Me.txtOtherCA.Location = New System.Drawing.Point(311, 476)
-        Me.txtOtherCA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtOtherCA.Location = New System.Drawing.Point(267, 387)
         Me.txtOtherCA.MenuManager = Me.BarManager1
         Me.txtOtherCA.Name = "txtOtherCA"
         Me.txtOtherCA.Properties.DisplayFormat.FormatString = "n2"
@@ -957,13 +912,12 @@ Partial Class frmBalanceSheet
         Me.txtOtherCA.Properties.NullValuePrompt = "0"
         Me.txtOtherCA.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtOtherCA.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtOtherCA.Size = New System.Drawing.Size(182, 22)
+        Me.txtOtherCA.Size = New System.Drawing.Size(156, 20)
         Me.txtOtherCA.TabIndex = 95
         '
         'txtCashBank
         '
-        Me.txtCashBank.Location = New System.Drawing.Point(311, 444)
-        Me.txtCashBank.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtCashBank.Location = New System.Drawing.Point(267, 361)
         Me.txtCashBank.MenuManager = Me.BarManager1
         Me.txtCashBank.Name = "txtCashBank"
         Me.txtCashBank.Properties.DisplayFormat.FormatString = "n2"
@@ -974,13 +928,12 @@ Partial Class frmBalanceSheet
         Me.txtCashBank.Properties.NullValuePrompt = "0"
         Me.txtCashBank.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtCashBank.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtCashBank.Size = New System.Drawing.Size(182, 22)
+        Me.txtCashBank.Size = New System.Drawing.Size(156, 20)
         Me.txtCashBank.TabIndex = 94
         '
         'txtLoanTo
         '
-        Me.txtLoanTo.Location = New System.Drawing.Point(311, 412)
-        Me.txtLoanTo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtLoanTo.Location = New System.Drawing.Point(267, 335)
         Me.txtLoanTo.MenuManager = Me.BarManager1
         Me.txtLoanTo.Name = "txtLoanTo"
         Me.txtLoanTo.Properties.DisplayFormat.FormatString = "n2"
@@ -991,13 +944,12 @@ Partial Class frmBalanceSheet
         Me.txtLoanTo.Properties.NullValuePrompt = "0"
         Me.txtLoanTo.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtLoanTo.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtLoanTo.Size = New System.Drawing.Size(182, 22)
+        Me.txtLoanTo.Size = New System.Drawing.Size(156, 20)
         Me.txtLoanTo.TabIndex = 93
         '
         'txtStock
         '
-        Me.txtStock.Location = New System.Drawing.Point(311, 380)
-        Me.txtStock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtStock.Location = New System.Drawing.Point(267, 309)
         Me.txtStock.MenuManager = Me.BarManager1
         Me.txtStock.Name = "txtStock"
         Me.txtStock.Properties.DisplayFormat.FormatString = "n2"
@@ -1008,13 +960,12 @@ Partial Class frmBalanceSheet
         Me.txtStock.Properties.NullValuePrompt = "0"
         Me.txtStock.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtStock.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtStock.Size = New System.Drawing.Size(182, 22)
+        Me.txtStock.Size = New System.Drawing.Size(156, 20)
         Me.txtStock.TabIndex = 92
         '
         'txtOtherDebtors
         '
-        Me.txtOtherDebtors.Location = New System.Drawing.Point(311, 348)
-        Me.txtOtherDebtors.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtOtherDebtors.Location = New System.Drawing.Point(267, 283)
         Me.txtOtherDebtors.MenuManager = Me.BarManager1
         Me.txtOtherDebtors.Name = "txtOtherDebtors"
         Me.txtOtherDebtors.Properties.DisplayFormat.FormatString = "n2"
@@ -1025,13 +976,12 @@ Partial Class frmBalanceSheet
         Me.txtOtherDebtors.Properties.NullValuePrompt = "0"
         Me.txtOtherDebtors.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtOtherDebtors.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtOtherDebtors.Size = New System.Drawing.Size(182, 22)
+        Me.txtOtherDebtors.Size = New System.Drawing.Size(156, 20)
         Me.txtOtherDebtors.TabIndex = 91
         '
         'txtTradeDebtors
         '
-        Me.txtTradeDebtors.Location = New System.Drawing.Point(311, 316)
-        Me.txtTradeDebtors.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTradeDebtors.Location = New System.Drawing.Point(267, 257)
         Me.txtTradeDebtors.MenuManager = Me.BarManager1
         Me.txtTradeDebtors.Name = "txtTradeDebtors"
         Me.txtTradeDebtors.Properties.DisplayFormat.FormatString = "n2"
@@ -1042,24 +992,22 @@ Partial Class frmBalanceSheet
         Me.txtTradeDebtors.Properties.NullValuePrompt = "0"
         Me.txtTradeDebtors.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtTradeDebtors.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtTradeDebtors.Size = New System.Drawing.Size(182, 22)
+        Me.txtTradeDebtors.Size = New System.Drawing.Size(156, 20)
         Me.txtTradeDebtors.TabIndex = 90
         '
         'LabelControl18
         '
         Me.LabelControl18.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl18.Appearance.Options.UseFont = True
-        Me.LabelControl18.Location = New System.Drawing.Point(70, 293)
-        Me.LabelControl18.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl18.Location = New System.Drawing.Point(60, 238)
         Me.LabelControl18.Name = "LabelControl18"
-        Me.LabelControl18.Size = New System.Drawing.Size(102, 18)
+        Me.LabelControl18.Size = New System.Drawing.Size(85, 14)
         Me.LabelControl18.TabIndex = 89
         Me.LabelControl18.Text = "Current Asset"
         '
         'txtInvestment
         '
-        Me.txtInvestment.Location = New System.Drawing.Point(311, 252)
-        Me.txtInvestment.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtInvestment.Location = New System.Drawing.Point(267, 205)
         Me.txtInvestment.MenuManager = Me.BarManager1
         Me.txtInvestment.Name = "txtInvestment"
         Me.txtInvestment.Properties.DisplayFormat.FormatString = "n2"
@@ -1070,13 +1018,12 @@ Partial Class frmBalanceSheet
         Me.txtInvestment.Properties.NullValuePrompt = "0"
         Me.txtInvestment.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtInvestment.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtInvestment.Size = New System.Drawing.Size(182, 22)
+        Me.txtInvestment.Size = New System.Drawing.Size(156, 20)
         Me.txtInvestment.TabIndex = 88
         '
         'txtCurYear
         '
-        Me.txtCurYear.Location = New System.Drawing.Point(311, 220)
-        Me.txtCurYear.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtCurYear.Location = New System.Drawing.Point(267, 179)
         Me.txtCurYear.MenuManager = Me.BarManager1
         Me.txtCurYear.Name = "txtCurYear"
         Me.txtCurYear.Properties.DisplayFormat.FormatString = "n2"
@@ -1087,13 +1034,12 @@ Partial Class frmBalanceSheet
         Me.txtCurYear.Properties.NullValuePrompt = "0"
         Me.txtCurYear.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtCurYear.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtCurYear.Size = New System.Drawing.Size(182, 22)
+        Me.txtCurYear.Size = New System.Drawing.Size(156, 20)
         Me.txtCurYear.TabIndex = 87
         '
         'txtTotalFA
         '
-        Me.txtTotalFA.Location = New System.Drawing.Point(311, 188)
-        Me.txtTotalFA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTotalFA.Location = New System.Drawing.Point(267, 153)
         Me.txtTotalFA.MenuManager = Me.BarManager1
         Me.txtTotalFA.Name = "txtTotalFA"
         Me.txtTotalFA.Properties.DisplayFormat.FormatString = "n2"
@@ -1105,13 +1051,12 @@ Partial Class frmBalanceSheet
         Me.txtTotalFA.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtTotalFA.Properties.ReadOnly = True
         Me.txtTotalFA.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtTotalFA.Size = New System.Drawing.Size(182, 22)
+        Me.txtTotalFA.Size = New System.Drawing.Size(156, 20)
         Me.txtTotalFA.TabIndex = 86
         '
         'txtBuilding
         '
-        Me.txtBuilding.Location = New System.Drawing.Point(311, 124)
-        Me.txtBuilding.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtBuilding.Location = New System.Drawing.Point(267, 101)
         Me.txtBuilding.MenuManager = Me.BarManager1
         Me.txtBuilding.Name = "txtBuilding"
         Me.txtBuilding.Properties.DisplayFormat.FormatString = "n2"
@@ -1122,13 +1067,12 @@ Partial Class frmBalanceSheet
         Me.txtBuilding.Properties.NullValuePrompt = "0"
         Me.txtBuilding.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtBuilding.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtBuilding.Size = New System.Drawing.Size(182, 22)
+        Me.txtBuilding.Size = New System.Drawing.Size(156, 20)
         Me.txtBuilding.TabIndex = 85
         '
         'txtMachinery
         '
-        Me.txtMachinery.Location = New System.Drawing.Point(311, 92)
-        Me.txtMachinery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtMachinery.Location = New System.Drawing.Point(267, 75)
         Me.txtMachinery.MenuManager = Me.BarManager1
         Me.txtMachinery.Name = "txtMachinery"
         Me.txtMachinery.Properties.DisplayFormat.FormatString = "n2"
@@ -1139,13 +1083,12 @@ Partial Class frmBalanceSheet
         Me.txtMachinery.Properties.NullValuePrompt = "0"
         Me.txtMachinery.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtMachinery.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtMachinery.Size = New System.Drawing.Size(182, 22)
+        Me.txtMachinery.Size = New System.Drawing.Size(156, 20)
         Me.txtMachinery.TabIndex = 84
         '
         'txtVehicle
         '
-        Me.txtVehicle.Location = New System.Drawing.Point(311, 60)
-        Me.txtVehicle.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtVehicle.Location = New System.Drawing.Point(267, 49)
         Me.txtVehicle.MenuManager = Me.BarManager1
         Me.txtVehicle.Name = "txtVehicle"
         Me.txtVehicle.Properties.DisplayFormat.FormatString = "n2"
@@ -1156,158 +1099,143 @@ Partial Class frmBalanceSheet
         Me.txtVehicle.Properties.NullValuePrompt = "0"
         Me.txtVehicle.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtVehicle.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtVehicle.Size = New System.Drawing.Size(182, 22)
+        Me.txtVehicle.Size = New System.Drawing.Size(156, 20)
         Me.txtVehicle.TabIndex = 83
+        Me.txtVehicle.ToolTip = "FA_MOTORVECHILE"
         '
         'LabelControl17
         '
         Me.LabelControl17.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl17.Appearance.Options.UseFont = True
-        Me.LabelControl17.Location = New System.Drawing.Point(70, 39)
-        Me.LabelControl17.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl17.Location = New System.Drawing.Point(60, 32)
         Me.LabelControl17.Name = "LabelControl17"
-        Me.LabelControl17.Size = New System.Drawing.Size(86, 18)
+        Me.LabelControl17.Size = New System.Drawing.Size(69, 14)
         Me.LabelControl17.TabIndex = 82
         Me.LabelControl17.Text = "Fixed Asset"
         '
         'LabelControl16
         '
-        Me.LabelControl16.Location = New System.Drawing.Point(68, 544)
-        Me.LabelControl16.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl16.Location = New System.Drawing.Point(58, 442)
         Me.LabelControl16.Name = "LabelControl16"
-        Me.LabelControl16.Size = New System.Drawing.Size(70, 16)
+        Me.LabelControl16.Size = New System.Drawing.Size(59, 13)
         Me.LabelControl16.TabIndex = 81
         Me.LabelControl16.Text = "Total Assets"
         '
         'LabelControl15
         '
-        Me.LabelControl15.Location = New System.Drawing.Point(69, 512)
-        Me.LabelControl15.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl15.Location = New System.Drawing.Point(59, 416)
         Me.LabelControl15.Name = "LabelControl15"
-        Me.LabelControl15.Size = New System.Drawing.Size(117, 16)
+        Me.LabelControl15.Size = New System.Drawing.Size(99, 13)
         Me.LabelControl15.TabIndex = 80
         Me.LabelControl15.Text = "Total Current Assets"
         '
         'LabelControl14
         '
-        Me.LabelControl14.Location = New System.Drawing.Point(69, 480)
-        Me.LabelControl14.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl14.Location = New System.Drawing.Point(59, 390)
         Me.LabelControl14.Name = "LabelControl14"
-        Me.LabelControl14.Size = New System.Drawing.Size(120, 16)
+        Me.LabelControl14.Size = New System.Drawing.Size(103, 13)
         Me.LabelControl14.TabIndex = 79
         Me.LabelControl14.Text = "Other Current Assets"
         '
         'LabelControl13
         '
-        Me.LabelControl13.Location = New System.Drawing.Point(70, 448)
-        Me.LabelControl13.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl13.Location = New System.Drawing.Point(60, 364)
         Me.LabelControl13.Name = "LabelControl13"
-        Me.LabelControl13.Size = New System.Drawing.Size(73, 16)
+        Me.LabelControl13.Size = New System.Drawing.Size(60, 13)
         Me.LabelControl13.TabIndex = 78
         Me.LabelControl13.Text = "Cash && Bank"
         '
         'LabelControl12
         '
-        Me.LabelControl12.Location = New System.Drawing.Point(70, 416)
-        Me.LabelControl12.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl12.Location = New System.Drawing.Point(60, 338)
         Me.LabelControl12.Name = "LabelControl12"
-        Me.LabelControl12.Size = New System.Drawing.Size(90, 16)
+        Me.LabelControl12.Size = New System.Drawing.Size(76, 13)
         Me.LabelControl12.TabIndex = 77
         Me.LabelControl12.Text = "Loan to director"
         '
         'LabelControl9
         '
-        Me.LabelControl9.Location = New System.Drawing.Point(70, 384)
-        Me.LabelControl9.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl9.Location = New System.Drawing.Point(60, 312)
         Me.LabelControl9.Name = "LabelControl9"
-        Me.LabelControl9.Size = New System.Drawing.Size(32, 16)
+        Me.LabelControl9.Size = New System.Drawing.Size(26, 13)
         Me.LabelControl9.TabIndex = 76
         Me.LabelControl9.Text = "Stock"
         '
         'LabelControl8
         '
-        Me.LabelControl8.Location = New System.Drawing.Point(70, 352)
-        Me.LabelControl8.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl8.Location = New System.Drawing.Point(60, 286)
         Me.LabelControl8.Name = "LabelControl8"
-        Me.LabelControl8.Size = New System.Drawing.Size(80, 16)
+        Me.LabelControl8.Size = New System.Drawing.Size(69, 13)
         Me.LabelControl8.TabIndex = 75
         Me.LabelControl8.Text = "Other Debtors"
         '
         'LabelControl7
         '
-        Me.LabelControl7.Location = New System.Drawing.Point(69, 320)
-        Me.LabelControl7.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl7.Location = New System.Drawing.Point(59, 260)
         Me.LabelControl7.Name = "LabelControl7"
-        Me.LabelControl7.Size = New System.Drawing.Size(82, 16)
+        Me.LabelControl7.Size = New System.Drawing.Size(69, 13)
         Me.LabelControl7.TabIndex = 74
         Me.LabelControl7.Text = "Trade Debtors"
         '
         'LabelControl6
         '
-        Me.LabelControl6.Location = New System.Drawing.Point(70, 258)
-        Me.LabelControl6.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl6.Location = New System.Drawing.Point(60, 210)
         Me.LabelControl6.Name = "LabelControl6"
-        Me.LabelControl6.Size = New System.Drawing.Size(63, 16)
+        Me.LabelControl6.Size = New System.Drawing.Size(55, 13)
         Me.LabelControl6.TabIndex = 73
         Me.LabelControl6.Text = "Investment"
         '
         'LabelControl5
         '
-        Me.LabelControl5.Location = New System.Drawing.Point(70, 224)
-        Me.LabelControl5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl5.Location = New System.Drawing.Point(60, 182)
         Me.LabelControl5.Name = "LabelControl5"
-        Me.LabelControl5.Size = New System.Drawing.Size(142, 16)
+        Me.LabelControl5.Size = New System.Drawing.Size(121, 13)
         Me.LabelControl5.TabIndex = 72
         Me.LabelControl5.Text = "Current Year Fixed Asset"
         '
         'LabelControl4
         '
-        Me.LabelControl4.Location = New System.Drawing.Point(70, 192)
-        Me.LabelControl4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl4.Location = New System.Drawing.Point(60, 156)
         Me.LabelControl4.Name = "LabelControl4"
-        Me.LabelControl4.Size = New System.Drawing.Size(104, 16)
+        Me.LabelControl4.Size = New System.Drawing.Size(88, 13)
         Me.LabelControl4.TabIndex = 71
         Me.LabelControl4.Text = "Total Fixed Assets"
         '
         'LabelControl3
         '
-        Me.LabelControl3.Location = New System.Drawing.Point(68, 160)
-        Me.LabelControl3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl3.Location = New System.Drawing.Point(58, 130)
         Me.LabelControl3.Name = "LabelControl3"
-        Me.LabelControl3.Size = New System.Drawing.Size(107, 16)
+        Me.LabelControl3.Size = New System.Drawing.Size(92, 13)
         Me.LabelControl3.TabIndex = 70
         Me.LabelControl3.Text = "Other Fixed Assets"
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(69, 96)
-        Me.LabelControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl2.Location = New System.Drawing.Point(59, 78)
         Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(103, 16)
+        Me.LabelControl2.Size = New System.Drawing.Size(86, 13)
         Me.LabelControl2.TabIndex = 69
         Me.LabelControl2.Text = "Plant && Machinery"
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(70, 64)
-        Me.LabelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl1.Location = New System.Drawing.Point(60, 52)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(78, 16)
+        Me.LabelControl1.Size = New System.Drawing.Size(64, 13)
         Me.LabelControl1.TabIndex = 68
         Me.LabelControl1.Text = "Motor Vehicle"
         '
         'frmBalanceSheet
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1181, 736)
+        Me.ClientSize = New System.Drawing.Size(1012, 598)
         Me.Controls.Add(Me.XtraScrollableControl1)
         Me.Controls.Add(Me.PanelControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "frmBalanceSheet"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Balance Sheet"

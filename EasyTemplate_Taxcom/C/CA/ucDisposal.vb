@@ -37,7 +37,7 @@
                 tmpType = cboFilterType.SelectedIndex
             End If
 
-            Dim dt As DataTable = ADO.LoadCA_Search(cboRefNo.EditValue, cboYA.EditValue, tmpType, txtFilterValue.EditValue, ErrorLog)
+            Dim dt As DataTable = ADO.LoadDisposal_Search(cboRefNo.EditValue, cboYA.EditValue, tmpType, txtFilterValue.EditValue, ErrorLog)
 
             DsCA.Tables("CA_DISPOSAL").Rows.Clear()
             DsCA.Tables("CA").Rows.Clear()
@@ -73,6 +73,12 @@
         Try
             Dim frm As New frmDisposal_Add
             frm.ShowDialog()
+
+            If My.Computer.Name = DeveloperPCName Then
+                btnImportExport.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+            Else
+                btnImportExport.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            End If
             Me.LoadData()
         Catch ex As Exception
             Dim st As New StackTrace(True)
@@ -120,7 +126,7 @@
                     .ID_CA = ID_CA
                 }
                 frm.ShowDialog()
-                Me.LoadData()
+                Me.LoadData(2)
             End If
 
 
@@ -210,6 +216,37 @@
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)
+
+        End Try
+    End Sub
+
+    Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
+        Try
+            Dim rslt As DialogResult = MessageBox.Show("Are you sure want to remove item(s)?", "Disposal", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+            If rslt = Windows.Forms.DialogResult.Yes Then
+                Dim tmpSts As Boolean = True
+                Dim CA_KEY As Integer = 0
+                For i As Integer = 0 To dgvCA.SelectedRowsCount - 1
+                    CA_KEY = CInt(dgvCA.GetDataRow(dgvCA.GetSelectedRows(i))("CA_KEY"))
+
+                    If ADO.Delete_DISPOSAL(CA_KEY, ErrorLog) = False Then
+                        tmpSts = False
+                    End If
+                    'MsgBox(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("CA_KEY"))
+
+                Next
+
+                If tmpSts Then
+                    MsgBox("Succesfully remove disposal.", MsgBoxStyle.Information)
+                    Me.LoadData()
+                Else
+                    MsgBox("Some of disposal failed to delete.", MsgBoxStyle.Critical)
+                End If
+            End If
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub

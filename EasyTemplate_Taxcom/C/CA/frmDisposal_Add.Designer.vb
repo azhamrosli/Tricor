@@ -175,6 +175,7 @@ Partial Class frmDisposal_Add
         Me.RepositoryItemSpinEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit()
         Me.DocumentManager1 = New DevExpress.XtraBars.Docking2010.DocumentManager(Me.components)
         Me.TabbedView1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(Me.components)
+        Me.lblLastmodified = New DevExpress.XtraBars.BarStaticItem()
         CType(Me.DocumentGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Document2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -265,8 +266,8 @@ Partial Class frmDisposal_Add
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.DockManager = Me.DockManager1
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose, Me.btnNote})
-        Me.BarManager1.MaxItemId = 10
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose, Me.btnNote, Me.lblLastmodified})
+        Me.BarManager1.MaxItemId = 11
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemSpinEdit1})
         '
         'Bar1
@@ -275,7 +276,7 @@ Partial Class frmDisposal_Add
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote), New DevExpress.XtraBars.LinkPersistInfo(Me.lblLastmodified)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None
         Me.Bar1.OptionsBar.DisableClose = True
@@ -618,8 +619,6 @@ Partial Class frmDisposal_Add
         Me.colCA_ASSET_CODE.Caption = "Asset Code"
         Me.colCA_ASSET_CODE.FieldName = "CA_ASSET_CODE"
         Me.colCA_ASSET_CODE.Name = "colCA_ASSET_CODE"
-        Me.colCA_ASSET_CODE.Visible = True
-        Me.colCA_ASSET_CODE.VisibleIndex = 2
         Me.colCA_ASSET_CODE.Width = 150
         '
         'colCA_CATEGORY_CODE
@@ -628,7 +627,7 @@ Partial Class frmDisposal_Add
         Me.colCA_CATEGORY_CODE.FieldName = "CA_CATEGORY_CODE"
         Me.colCA_CATEGORY_CODE.Name = "colCA_CATEGORY_CODE"
         Me.colCA_CATEGORY_CODE.Visible = True
-        Me.colCA_CATEGORY_CODE.VisibleIndex = 3
+        Me.colCA_CATEGORY_CODE.VisibleIndex = 2
         Me.colCA_CATEGORY_CODE.Width = 150
         '
         'colCA_PURCHASE_DATE
@@ -637,7 +636,7 @@ Partial Class frmDisposal_Add
         Me.colCA_PURCHASE_DATE.FieldName = "CA_PURCHASE_DATE"
         Me.colCA_PURCHASE_DATE.Name = "colCA_PURCHASE_DATE"
         Me.colCA_PURCHASE_DATE.Visible = True
-        Me.colCA_PURCHASE_DATE.VisibleIndex = 4
+        Me.colCA_PURCHASE_DATE.VisibleIndex = 3
         Me.colCA_PURCHASE_DATE.Width = 150
         '
         'colCA_PURCHASE_YEAR
@@ -651,7 +650,7 @@ Partial Class frmDisposal_Add
         Me.colCA_PURCHASE_AMOUNT.FieldName = "CA_PURCHASE_AMOUNT"
         Me.colCA_PURCHASE_AMOUNT.Name = "colCA_PURCHASE_AMOUNT"
         Me.colCA_PURCHASE_AMOUNT.Visible = True
-        Me.colCA_PURCHASE_AMOUNT.VisibleIndex = 5
+        Me.colCA_PURCHASE_AMOUNT.VisibleIndex = 4
         Me.colCA_PURCHASE_AMOUNT.Width = 150
         '
         'colCA_PAYMENT
@@ -660,7 +659,7 @@ Partial Class frmDisposal_Add
         Me.colCA_PAYMENT.FieldName = "CA_PAYMENT"
         Me.colCA_PAYMENT.Name = "colCA_PAYMENT"
         Me.colCA_PAYMENT.Visible = True
-        Me.colCA_PAYMENT.VisibleIndex = 6
+        Me.colCA_PAYMENT.VisibleIndex = 5
         Me.colCA_PAYMENT.Width = 150
         '
         'colCA_RESTRICTED_QC
@@ -669,7 +668,7 @@ Partial Class frmDisposal_Add
         Me.colCA_RESTRICTED_QC.FieldName = "CA_RESTRICTED_QC"
         Me.colCA_RESTRICTED_QC.Name = "colCA_RESTRICTED_QC"
         Me.colCA_RESTRICTED_QC.Visible = True
-        Me.colCA_RESTRICTED_QC.VisibleIndex = 7
+        Me.colCA_RESTRICTED_QC.VisibleIndex = 6
         Me.colCA_RESTRICTED_QC.Width = 150
         '
         'colCA_DESC
@@ -678,7 +677,7 @@ Partial Class frmDisposal_Add
         Me.colCA_DESC.FieldName = "CA_DESC"
         Me.colCA_DESC.Name = "colCA_DESC"
         Me.colCA_DESC.Visible = True
-        Me.colCA_DESC.VisibleIndex = 8
+        Me.colCA_DESC.VisibleIndex = 7
         Me.colCA_DESC.Width = 150
         '
         'colCA_RATE_IA
@@ -687,7 +686,7 @@ Partial Class frmDisposal_Add
         Me.colCA_RATE_IA.FieldName = "CA_RATE_IA"
         Me.colCA_RATE_IA.Name = "colCA_RATE_IA"
         Me.colCA_RATE_IA.Visible = True
-        Me.colCA_RATE_IA.VisibleIndex = 9
+        Me.colCA_RATE_IA.VisibleIndex = 8
         Me.colCA_RATE_IA.Width = 150
         '
         'colCA_RATE_AA
@@ -696,7 +695,7 @@ Partial Class frmDisposal_Add
         Me.colCA_RATE_AA.FieldName = "CA_RATE_AA"
         Me.colCA_RATE_AA.Name = "colCA_RATE_AA"
         Me.colCA_RATE_AA.Visible = True
-        Me.colCA_RATE_AA.VisibleIndex = 10
+        Me.colCA_RATE_AA.VisibleIndex = 9
         Me.colCA_RATE_AA.Width = 150
         '
         'colCA_QUALIFYING_COST
@@ -705,7 +704,7 @@ Partial Class frmDisposal_Add
         Me.colCA_QUALIFYING_COST.FieldName = "CA_QUALIFYING_COST"
         Me.colCA_QUALIFYING_COST.Name = "colCA_QUALIFYING_COST"
         Me.colCA_QUALIFYING_COST.Visible = True
-        Me.colCA_QUALIFYING_COST.VisibleIndex = 11
+        Me.colCA_QUALIFYING_COST.VisibleIndex = 10
         Me.colCA_QUALIFYING_COST.Width = 150
         '
         'colCA_REMAIN_QC
@@ -714,7 +713,7 @@ Partial Class frmDisposal_Add
         Me.colCA_REMAIN_QC.FieldName = "CA_REMAIN_QC"
         Me.colCA_REMAIN_QC.Name = "colCA_REMAIN_QC"
         Me.colCA_REMAIN_QC.Visible = True
-        Me.colCA_REMAIN_QC.VisibleIndex = 12
+        Me.colCA_REMAIN_QC.VisibleIndex = 11
         Me.colCA_REMAIN_QC.Width = 150
         '
         'colCA_TWDV
@@ -723,7 +722,7 @@ Partial Class frmDisposal_Add
         Me.colCA_TWDV.FieldName = "CA_TWDV"
         Me.colCA_TWDV.Name = "colCA_TWDV"
         Me.colCA_TWDV.Visible = True
-        Me.colCA_TWDV.VisibleIndex = 13
+        Me.colCA_TWDV.VisibleIndex = 12
         Me.colCA_TWDV.Width = 150
         '
         'colCA_INCENTIVE
@@ -732,7 +731,7 @@ Partial Class frmDisposal_Add
         Me.colCA_INCENTIVE.FieldName = "CA_INCENTIVE"
         Me.colCA_INCENTIVE.Name = "colCA_INCENTIVE"
         Me.colCA_INCENTIVE.Visible = True
-        Me.colCA_INCENTIVE.VisibleIndex = 14
+        Me.colCA_INCENTIVE.VisibleIndex = 13
         Me.colCA_INCENTIVE.Width = 150
         '
         'colCA_REF_NO
@@ -741,7 +740,7 @@ Partial Class frmDisposal_Add
         Me.colCA_REF_NO.FieldName = "CA_REF_NO"
         Me.colCA_REF_NO.Name = "colCA_REF_NO"
         Me.colCA_REF_NO.Visible = True
-        Me.colCA_REF_NO.VisibleIndex = 15
+        Me.colCA_REF_NO.VisibleIndex = 14
         Me.colCA_REF_NO.Width = 150
         '
         'colCA_NAME
@@ -750,7 +749,7 @@ Partial Class frmDisposal_Add
         Me.colCA_NAME.FieldName = "CA_NAME"
         Me.colCA_NAME.Name = "colCA_NAME"
         Me.colCA_NAME.Visible = True
-        Me.colCA_NAME.VisibleIndex = 16
+        Me.colCA_NAME.VisibleIndex = 15
         Me.colCA_NAME.Width = 150
         '
         'colCA_YA
@@ -759,7 +758,7 @@ Partial Class frmDisposal_Add
         Me.colCA_YA.FieldName = "CA_YA"
         Me.colCA_YA.Name = "colCA_YA"
         Me.colCA_YA.Visible = True
-        Me.colCA_YA.VisibleIndex = 18
+        Me.colCA_YA.VisibleIndex = 17
         Me.colCA_YA.Width = 100
         '
         'colCA_SOURCENO
@@ -768,7 +767,7 @@ Partial Class frmDisposal_Add
         Me.colCA_SOURCENO.FieldName = "CA_SOURCENO"
         Me.colCA_SOURCENO.Name = "colCA_SOURCENO"
         Me.colCA_SOURCENO.Visible = True
-        Me.colCA_SOURCENO.VisibleIndex = 19
+        Me.colCA_SOURCENO.VisibleIndex = 18
         Me.colCA_SOURCENO.Width = 100
         '
         'colCA_CTRL_TRANSFER
@@ -781,7 +780,7 @@ Partial Class frmDisposal_Add
         Me.colHP_CODE.FieldName = "HP_CODE"
         Me.colHP_CODE.Name = "colHP_CODE"
         Me.colHP_CODE.Visible = True
-        Me.colHP_CODE.VisibleIndex = 17
+        Me.colHP_CODE.VisibleIndex = 16
         '
         'colCA_ACCELERATED
         '
@@ -1000,13 +999,14 @@ Partial Class frmDisposal_Add
         '
         Me.txtAccumulated.Location = New System.Drawing.Point(655, 196)
         Me.txtAccumulated.Name = "txtAccumulated"
+        Me.txtAccumulated.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtAccumulated.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtAccumulated.Properties.DisplayFormat.FormatString = "n"
         Me.txtAccumulated.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtAccumulated.Properties.Mask.EditMask = "n"
         Me.txtAccumulated.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtAccumulated.Properties.NullText = "0"
         Me.txtAccumulated.Properties.NullValuePrompt = "0"
-        Me.txtAccumulated.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtAccumulated.Size = New System.Drawing.Size(203, 20)
         Me.txtAccumulated.TabIndex = 375
         '
@@ -1131,13 +1131,14 @@ Partial Class frmDisposal_Add
         '
         Me.txtDispose_QC.Location = New System.Drawing.Point(655, 142)
         Me.txtDispose_QC.Name = "txtDispose_QC"
+        Me.txtDispose_QC.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtDispose_QC.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtDispose_QC.Properties.DisplayFormat.FormatString = "n"
         Me.txtDispose_QC.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtDispose_QC.Properties.Mask.EditMask = "n"
         Me.txtDispose_QC.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtDispose_QC.Properties.NullText = "0"
         Me.txtDispose_QC.Properties.NullValuePrompt = "0"
-        Me.txtDispose_QC.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtDispose_QC.Size = New System.Drawing.Size(203, 20)
         Me.txtDispose_QC.TabIndex = 364
         '
@@ -1163,6 +1164,8 @@ Partial Class frmDisposal_Add
         '
         Me.txtDisposal_BABC.Location = New System.Drawing.Point(655, 278)
         Me.txtDisposal_BABC.Name = "txtDisposal_BABC"
+        Me.txtDisposal_BABC.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtDisposal_BABC.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtDisposal_BABC.Properties.DisplayFormat.FormatString = "n"
         Me.txtDisposal_BABC.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtDisposal_BABC.Properties.EditFormat.FormatString = "n"
@@ -1171,7 +1174,6 @@ Partial Class frmDisposal_Add
         Me.txtDisposal_BABC.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtDisposal_BABC.Properties.NullText = "0"
         Me.txtDisposal_BABC.Properties.NullValuePrompt = "0"
-        Me.txtDisposal_BABC.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtDisposal_BABC.Size = New System.Drawing.Size(203, 20)
         Me.txtDisposal_BABC.TabIndex = 361
         '
@@ -1179,13 +1181,14 @@ Partial Class frmDisposal_Add
         '
         Me.txtDisposal_SalesProceed.Location = New System.Drawing.Point(655, 252)
         Me.txtDisposal_SalesProceed.Name = "txtDisposal_SalesProceed"
+        Me.txtDisposal_SalesProceed.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtDisposal_SalesProceed.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtDisposal_SalesProceed.Properties.DisplayFormat.FormatString = "n"
         Me.txtDisposal_SalesProceed.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtDisposal_SalesProceed.Properties.Mask.EditMask = "n"
         Me.txtDisposal_SalesProceed.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtDisposal_SalesProceed.Properties.NullText = "0"
         Me.txtDisposal_SalesProceed.Properties.NullValuePrompt = "0"
-        Me.txtDisposal_SalesProceed.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtDisposal_SalesProceed.Size = New System.Drawing.Size(203, 20)
         Me.txtDisposal_SalesProceed.TabIndex = 360
         '
@@ -1193,13 +1196,14 @@ Partial Class frmDisposal_Add
         '
         Me.txtDisposal_TWDV.Location = New System.Drawing.Point(655, 226)
         Me.txtDisposal_TWDV.Name = "txtDisposal_TWDV"
+        Me.txtDisposal_TWDV.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtDisposal_TWDV.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtDisposal_TWDV.Properties.DisplayFormat.FormatString = "n"
         Me.txtDisposal_TWDV.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtDisposal_TWDV.Properties.Mask.EditMask = "n"
         Me.txtDisposal_TWDV.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtDisposal_TWDV.Properties.NullText = "0"
         Me.txtDisposal_TWDV.Properties.NullValuePrompt = "0"
-        Me.txtDisposal_TWDV.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtDisposal_TWDV.Size = New System.Drawing.Size(203, 20)
         Me.txtDisposal_TWDV.TabIndex = 359
         '
@@ -1207,6 +1211,8 @@ Partial Class frmDisposal_Add
         '
         Me.txtDisposal_RemainingQuaCost.Location = New System.Drawing.Point(655, 168)
         Me.txtDisposal_RemainingQuaCost.Name = "txtDisposal_RemainingQuaCost"
+        Me.txtDisposal_RemainingQuaCost.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtDisposal_RemainingQuaCost.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtDisposal_RemainingQuaCost.Properties.DisplayFormat.FormatString = "n"
         Me.txtDisposal_RemainingQuaCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtDisposal_RemainingQuaCost.Properties.Mask.EditMask = "n"
@@ -1214,7 +1220,6 @@ Partial Class frmDisposal_Add
         Me.txtDisposal_RemainingQuaCost.Properties.NullText = "0"
         Me.txtDisposal_RemainingQuaCost.Properties.NullValuePrompt = "0"
         Me.txtDisposal_RemainingQuaCost.Properties.ReadOnly = True
-        Me.txtDisposal_RemainingQuaCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtDisposal_RemainingQuaCost.Size = New System.Drawing.Size(203, 20)
         Me.txtDisposal_RemainingQuaCost.TabIndex = 358
         '
@@ -1222,13 +1227,14 @@ Partial Class frmDisposal_Add
         '
         Me.txtDisposal_PurchaseAmount.Location = New System.Drawing.Point(655, 116)
         Me.txtDisposal_PurchaseAmount.Name = "txtDisposal_PurchaseAmount"
+        Me.txtDisposal_PurchaseAmount.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtDisposal_PurchaseAmount.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtDisposal_PurchaseAmount.Properties.DisplayFormat.FormatString = "n"
         Me.txtDisposal_PurchaseAmount.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtDisposal_PurchaseAmount.Properties.Mask.EditMask = "n"
         Me.txtDisposal_PurchaseAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtDisposal_PurchaseAmount.Properties.NullText = "0"
         Me.txtDisposal_PurchaseAmount.Properties.NullValuePrompt = "0"
-        Me.txtDisposal_PurchaseAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtDisposal_PurchaseAmount.Size = New System.Drawing.Size(203, 20)
         Me.txtDisposal_PurchaseAmount.TabIndex = 357
         '
@@ -1239,6 +1245,7 @@ Partial Class frmDisposal_Add
         Me.rgWithIn2YA.MenuManager = Me.BarManager1
         Me.rgWithIn2YA.Name = "rgWithIn2YA"
         Me.rgWithIn2YA.Properties.Items.AddRange(New DevExpress.XtraEditors.Controls.RadioGroupItem() {New DevExpress.XtraEditors.Controls.RadioGroupItem(True, "Yes"), New DevExpress.XtraEditors.Controls.RadioGroupItem(False, "No")})
+        Me.rgWithIn2YA.Properties.ReadOnly = True
         Me.rgWithIn2YA.Size = New System.Drawing.Size(143, 27)
         Me.rgWithIn2YA.TabIndex = 356
         '
@@ -1355,6 +1362,8 @@ Partial Class frmDisposal_Add
         '
         Me.txtTWDV.Location = New System.Drawing.Point(212, 490)
         Me.txtTWDV.Name = "txtTWDV"
+        Me.txtTWDV.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtTWDV.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtTWDV.Properties.DisplayFormat.FormatString = "n"
         Me.txtTWDV.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtTWDV.Properties.Mask.EditMask = "n"
@@ -1362,7 +1371,6 @@ Partial Class frmDisposal_Add
         Me.txtTWDV.Properties.NullText = "0"
         Me.txtTWDV.Properties.NullValuePrompt = "0"
         Me.txtTWDV.Properties.ReadOnly = True
-        Me.txtTWDV.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtTWDV.Size = New System.Drawing.Size(211, 20)
         Me.txtTWDV.TabIndex = 337
         '
@@ -1378,6 +1386,8 @@ Partial Class frmDisposal_Add
         '
         Me.txtRemainingQualifyingCost.Location = New System.Drawing.Point(212, 464)
         Me.txtRemainingQualifyingCost.Name = "txtRemainingQualifyingCost"
+        Me.txtRemainingQualifyingCost.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtRemainingQualifyingCost.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtRemainingQualifyingCost.Properties.DisplayFormat.FormatString = "n"
         Me.txtRemainingQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtRemainingQualifyingCost.Properties.Mask.EditMask = "n"
@@ -1385,7 +1395,6 @@ Partial Class frmDisposal_Add
         Me.txtRemainingQualifyingCost.Properties.NullText = "0"
         Me.txtRemainingQualifyingCost.Properties.NullValuePrompt = "0"
         Me.txtRemainingQualifyingCost.Properties.ReadOnly = True
-        Me.txtRemainingQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtRemainingQualifyingCost.Size = New System.Drawing.Size(211, 20)
         Me.txtRemainingQualifyingCost.TabIndex = 336
         '
@@ -1401,6 +1410,8 @@ Partial Class frmDisposal_Add
         '
         Me.txtNonQualifyingCost.Location = New System.Drawing.Point(212, 438)
         Me.txtNonQualifyingCost.Name = "txtNonQualifyingCost"
+        Me.txtNonQualifyingCost.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtNonQualifyingCost.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtNonQualifyingCost.Properties.DisplayFormat.FormatString = "n"
         Me.txtNonQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtNonQualifyingCost.Properties.Mask.EditMask = "n"
@@ -1408,7 +1419,6 @@ Partial Class frmDisposal_Add
         Me.txtNonQualifyingCost.Properties.NullText = "0"
         Me.txtNonQualifyingCost.Properties.NullValuePrompt = "0"
         Me.txtNonQualifyingCost.Properties.ReadOnly = True
-        Me.txtNonQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtNonQualifyingCost.Size = New System.Drawing.Size(211, 20)
         Me.txtNonQualifyingCost.TabIndex = 335
         '
@@ -1424,6 +1434,8 @@ Partial Class frmDisposal_Add
         '
         Me.txtQualifyingCost.Location = New System.Drawing.Point(212, 412)
         Me.txtQualifyingCost.Name = "txtQualifyingCost"
+        Me.txtQualifyingCost.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtQualifyingCost.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtQualifyingCost.Properties.DisplayFormat.FormatString = "n"
         Me.txtQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtQualifyingCost.Properties.Mask.EditMask = "n"
@@ -1431,7 +1443,6 @@ Partial Class frmDisposal_Add
         Me.txtQualifyingCost.Properties.NullText = "0"
         Me.txtQualifyingCost.Properties.NullValuePrompt = "0"
         Me.txtQualifyingCost.Properties.ReadOnly = True
-        Me.txtQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtQualifyingCost.Size = New System.Drawing.Size(211, 20)
         Me.txtQualifyingCost.TabIndex = 334
         '
@@ -1545,6 +1556,8 @@ Partial Class frmDisposal_Add
         '
         Me.txtRestrictedQua.Location = New System.Drawing.Point(193, 189)
         Me.txtRestrictedQua.Name = "txtRestrictedQua"
+        Me.txtRestrictedQua.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtRestrictedQua.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtRestrictedQua.Properties.DisplayFormat.FormatString = "n"
         Me.txtRestrictedQua.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtRestrictedQua.Properties.Mask.EditMask = "n"
@@ -1552,7 +1565,6 @@ Partial Class frmDisposal_Add
         Me.txtRestrictedQua.Properties.NullText = "0"
         Me.txtRestrictedQua.Properties.NullValuePrompt = "0"
         Me.txtRestrictedQua.Properties.ReadOnly = True
-        Me.txtRestrictedQua.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtRestrictedQua.Size = New System.Drawing.Size(230, 20)
         Me.txtRestrictedQua.TabIndex = 321
         '
@@ -1568,6 +1580,8 @@ Partial Class frmDisposal_Add
         '
         Me.txtDeposit.Location = New System.Drawing.Point(193, 163)
         Me.txtDeposit.Name = "txtDeposit"
+        Me.txtDeposit.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtDeposit.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtDeposit.Properties.DisplayFormat.FormatString = "n"
         Me.txtDeposit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtDeposit.Properties.Mask.EditMask = "n"
@@ -1575,7 +1589,6 @@ Partial Class frmDisposal_Add
         Me.txtDeposit.Properties.NullText = "0"
         Me.txtDeposit.Properties.NullValuePrompt = "0"
         Me.txtDeposit.Properties.ReadOnly = True
-        Me.txtDeposit.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtDeposit.Size = New System.Drawing.Size(230, 20)
         Me.txtDeposit.TabIndex = 320
         '
@@ -1591,6 +1604,8 @@ Partial Class frmDisposal_Add
         '
         Me.txtPurchaseAmountFA.Location = New System.Drawing.Point(193, 137)
         Me.txtPurchaseAmountFA.Name = "txtPurchaseAmountFA"
+        Me.txtPurchaseAmountFA.Properties.Appearance.Options.UseTextOptions = True
+        Me.txtPurchaseAmountFA.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.txtPurchaseAmountFA.Properties.DisplayFormat.FormatString = "n"
         Me.txtPurchaseAmountFA.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtPurchaseAmountFA.Properties.Mask.EditMask = "n"
@@ -1598,7 +1613,6 @@ Partial Class frmDisposal_Add
         Me.txtPurchaseAmountFA.Properties.NullText = "0"
         Me.txtPurchaseAmountFA.Properties.NullValuePrompt = "0"
         Me.txtPurchaseAmountFA.Properties.ReadOnly = True
-        Me.txtPurchaseAmountFA.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.txtPurchaseAmountFA.Size = New System.Drawing.Size(230, 20)
         Me.txtPurchaseAmountFA.TabIndex = 319
         '
@@ -1687,6 +1701,11 @@ Partial Class frmDisposal_Add
         Me.TabbedView1.RootContainer.Element = Nothing
         DockingContainer1.Element = Me.DocumentGroup1
         Me.TabbedView1.RootContainer.Nodes.AddRange(New DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer() {DockingContainer1})
+        '
+        'lblLastmodified
+        '
+        Me.lblLastmodified.Id = 10
+        Me.lblLastmodified.Name = "lblLastmodified"
         '
         'frmDisposal_Add
         '
@@ -1927,4 +1946,5 @@ Partial Class frmDisposal_Add
     Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents btnNote As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents lblLastmodified As DevExpress.XtraBars.BarStaticItem
 End Class

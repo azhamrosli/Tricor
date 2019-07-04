@@ -109,6 +109,8 @@ Partial Class ucDisposal
         Me.txtFilterValue = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
+        Me.colModifiedBy = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colModifiedDateTime = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.dgvDisposal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CABindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -250,7 +252,7 @@ Partial Class ucDisposal
         '
         'dgvCA
         '
-        Me.dgvCA.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colCA_KEY, Me.colCA_MODE, Me.colCA_PREFIX, Me.colCA_REF_NO, Me.colCA_NAME, Me.colCA_FILENO, Me.colCA_YA, Me.colCA_COMPANY_CODE, Me.colCA_SOURCENO, Me.colCA_ASSET_CODE, Me.colCA_ASSET, Me.colCA_CATEGORY_CODE, Me.colCA_PURCHASE_DATE, Me.colCA_PURCHASE_YEAR, Me.colCA_PURCHASE_AMOUNT, Me.colCA_PAYMENT, Me.colCA_RESTRICTED_QC, Me.colCA_DESC, Me.colCA_RATE_IA, Me.colCA_RATE_AA, Me.colCA_QUALIFYING_COST, Me.colCA_REMAIN_QC, Me.colCA_TWDV, Me.colCA_INCENTIVE, Me.colCA_CTRL_TRANSFER, Me.colHP_CODE, Me.colCA_ACCELERATED, Me.colCA_CAEEO, Me.colCA_REC, Me.colCA_DEFERREDCLAIM, Me.colCA_DEDUCTADJ_INCOME, Me.colCA_TAX_FILE_NUMBER, Me.colCA_TRANSFERROR_NAME, Me.colCA_TRANSFER_VAL})
+        Me.dgvCA.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colCA_KEY, Me.colCA_MODE, Me.colCA_PREFIX, Me.colCA_REF_NO, Me.colCA_NAME, Me.colCA_FILENO, Me.colCA_YA, Me.colCA_COMPANY_CODE, Me.colCA_SOURCENO, Me.colCA_ASSET_CODE, Me.colCA_ASSET, Me.colCA_CATEGORY_CODE, Me.colCA_PURCHASE_DATE, Me.colCA_PURCHASE_YEAR, Me.colCA_PURCHASE_AMOUNT, Me.colCA_PAYMENT, Me.colCA_RESTRICTED_QC, Me.colCA_DESC, Me.colCA_RATE_IA, Me.colCA_RATE_AA, Me.colCA_QUALIFYING_COST, Me.colCA_REMAIN_QC, Me.colCA_TWDV, Me.colCA_INCENTIVE, Me.colCA_CTRL_TRANSFER, Me.colHP_CODE, Me.colCA_ACCELERATED, Me.colCA_CAEEO, Me.colCA_REC, Me.colCA_DEFERREDCLAIM, Me.colCA_DEDUCTADJ_INCOME, Me.colCA_TAX_FILE_NUMBER, Me.colCA_TRANSFERROR_NAME, Me.colCA_TRANSFER_VAL, Me.colModifiedBy, Me.colModifiedDateTime})
         Me.dgvCA.GridControl = Me.dgvView
         Me.dgvCA.Name = "dgvCA"
         Me.dgvCA.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
@@ -456,7 +458,7 @@ Partial Class ucDisposal
         '
         'colHP_CODE
         '
-        Me.colHP_CODE.Caption = "HP COde"
+        Me.colHP_CODE.Caption = "HP Code"
         Me.colHP_CODE.FieldName = "HP_CODE"
         Me.colHP_CODE.Name = "colHP_CODE"
         Me.colHP_CODE.Visible = True
@@ -829,7 +831,7 @@ Partial Class ucDisposal
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(12, 44)
+        Me.LabelControl2.Location = New System.Drawing.Point(12, 70)
         Me.LabelControl2.Name = "LabelControl2"
         Me.LabelControl2.Size = New System.Drawing.Size(20, 13)
         Me.LabelControl2.TabIndex = 3
@@ -842,6 +844,18 @@ Partial Class ucDisposal
         Me.LabelControl1.Size = New System.Drawing.Size(73, 13)
         Me.LabelControl1.TabIndex = 1
         Me.LabelControl1.Text = "Reference No :"
+        '
+        'colModifiedBy
+        '
+        Me.colModifiedBy.FieldName = "ModifiedBy"
+        Me.colModifiedBy.Name = "colModifiedBy"
+        Me.colModifiedBy.Width = 150
+        '
+        'colModifiedDateTime
+        '
+        Me.colModifiedDateTime.FieldName = "ModifiedDateTime"
+        Me.colModifiedDateTime.Name = "colModifiedDateTime"
+        Me.colModifiedDateTime.Width = 150
         '
         'ucDisposal
         '
@@ -963,5 +977,7 @@ Partial Class ucDisposal
     Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colModifiedBy As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colModifiedDateTime As DevExpress.XtraGrid.Columns.GridColumn
 
 End Class

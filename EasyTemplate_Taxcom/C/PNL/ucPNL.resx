@@ -254,4 +254,10 @@
         fkZ/uBc//0j+cCPc8B1uwFOcGgY3YBSnhsENKAUhnGRnDLEF/I8lMzpgJH6ZZgx9AAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="DsPNL.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>272, 49</value>
+  </metadata>
+  <metadata name="DsCA.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>561, 49</value>
+  </metadata>
 </root>

@@ -113,17 +113,24 @@ Public Class ucDeemedInterest_Report
 
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
-            If DsTaxcomputation.Tables("DEEMED_INTEREST").Rows.Count > 0 Then
-                Dim rpt As New rpt_DeemedInterest With {
-                    .DataSource = DsTaxcomputation.Tables("DEEMED_INTEREST")
-                }
-
+            Dim rpt As rpt_DeemedInterest
+            Dim Title As String = ADO.Load_TableOfContent_Title(cboRefNo.EditValue, cboYA.EditValue, "rpt_DeemedInterest")
+            If mdlProcess.PrintReport_DeemedInterest(DsTaxcomputation, Title, cboRefNo.EditValue, cboYA.EditValue, False, rpt, ErrorLog, "") Then
                 rpt.ShowPreview()
+            Else
+                MsgBox("Failed to print report, no data found.", MsgBoxStyle.Critical)
             End If
-          
+            'If DsTaxcomputation.Tables("DEEMED_INTEREST").Rows.Count > 0 Then
+            '    Dim rpt As New rpt_DeemedInterest With {
+            '        .DataSource = DsTaxcomputation.Tables("DEEMED_INTEREST")
+            '    }
+
+            '    rpt.ShowPreview()
+            'End If
+
         Catch ex As Exception
             Dim st As New StackTrace(True)
-             st = New StackTrace(ex, True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub

@@ -108,8 +108,16 @@ Public Class frmCA_Report_ControlTransfer
                 End If
 
                 Dim rpt As rpt_CAControlTransfer = Nothing
+                Dim rpt_Note As rptCA_Note
+                Dim Title As String = ADO.Load_TableOfContent_Title(RefNo, YA, "rpt_CAControlTransfer")
+                If mdlProcess.PrintReport_ControlTransferIn(ds, Title, ID, RefNo, YA, False, rpt, rpt_Note, ErrorLog) Then
+                    Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
 
-                If mdlProcess.PrintReport_ControlTransferIn(ds, ID, RefNo, YA, rpt, ErrorLog) Then
+                    Dim x As Integer = 0
+
+                    For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                        rpt.Pages.Add(pg)
+                    Next
                     If isExport Then
                         MsgBox("Succesfully export report to " & vbCrLf & Path, MsgBoxStyle.Information)
                     Else

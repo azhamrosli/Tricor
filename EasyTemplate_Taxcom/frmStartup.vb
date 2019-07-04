@@ -44,6 +44,7 @@ Partial Public Class frmStartup
                 End If
             End If
 
+
             If LicenseChecking() Then
                 frmHome.Show()
             Else

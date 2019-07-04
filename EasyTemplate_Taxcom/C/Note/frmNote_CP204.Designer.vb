@@ -90,6 +90,7 @@ Partial Class frmNote_CP204
         Me.RGTypeNote = New DevExpress.XtraEditors.RadioGroup()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.txtTitleFrontNote = New DevExpress.XtraEditors.TextEdit()
+        Me.pnlReference = New DevExpress.XtraEditors.PanelControl()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtDescription.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -117,11 +118,13 @@ Partial Class frmNote_CP204
         CType(Me.txtTitleNote.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RGTypeNote.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTitleFrontNote.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pnlReference, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlReference.SuspendLayout()
         Me.SuspendLayout()
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(12, 77)
+        Me.LabelControl1.Location = New System.Drawing.Point(19, 32)
         Me.LabelControl1.Name = "LabelControl1"
         Me.LabelControl1.Size = New System.Drawing.Size(63, 13)
         Me.LabelControl1.TabIndex = 0
@@ -129,7 +132,7 @@ Partial Class frmNote_CP204
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(12, 104)
+        Me.LabelControl2.Location = New System.Drawing.Point(270, 5)
         Me.LabelControl2.Name = "LabelControl2"
         Me.LabelControl2.Size = New System.Drawing.Size(18, 13)
         Me.LabelControl2.TabIndex = 1
@@ -137,7 +140,7 @@ Partial Class frmNote_CP204
         '
         'LabelControl3
         '
-        Me.LabelControl3.Location = New System.Drawing.Point(12, 50)
+        Me.LabelControl3.Location = New System.Drawing.Point(19, 5)
         Me.LabelControl3.Name = "LabelControl3"
         Me.LabelControl3.Size = New System.Drawing.Size(80, 13)
         Me.LabelControl3.TabIndex = 2
@@ -145,7 +148,7 @@ Partial Class frmNote_CP204
         '
         'LabelControl4
         '
-        Me.LabelControl4.Location = New System.Drawing.Point(12, 131)
+        Me.LabelControl4.Location = New System.Drawing.Point(270, 32)
         Me.LabelControl4.Name = "LabelControl4"
         Me.LabelControl4.Size = New System.Drawing.Size(74, 13)
         Me.LabelControl4.TabIndex = 3
@@ -218,15 +221,15 @@ Partial Class frmNote_CP204
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
         Me.barDockControlTop.Manager = Me.BarManager1
-        Me.barDockControlTop.Size = New System.Drawing.Size(901, 31)
+        Me.barDockControlTop.Size = New System.Drawing.Size(970, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 483)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 377)
         Me.barDockControlBottom.Manager = Me.BarManager1
-        Me.barDockControlBottom.Size = New System.Drawing.Size(901, 23)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(970, 23)
         '
         'barDockControlLeft
         '
@@ -234,46 +237,46 @@ Partial Class frmNote_CP204
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
         Me.barDockControlLeft.Manager = Me.BarManager1
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 452)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 346)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(901, 31)
+        Me.barDockControlRight.Location = New System.Drawing.Point(970, 31)
         Me.barDockControlRight.Manager = Me.BarManager1
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 452)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 346)
         '
         'txtRefNo
         '
-        Me.txtRefNo.Location = New System.Drawing.Point(121, 47)
+        Me.txtRefNo.Location = New System.Drawing.Point(128, 2)
         Me.txtRefNo.MenuManager = Me.BarManager1
         Me.txtRefNo.Name = "txtRefNo"
-        Me.txtRefNo.Size = New System.Drawing.Size(344, 20)
+        Me.txtRefNo.Size = New System.Drawing.Size(136, 20)
         Me.txtRefNo.TabIndex = 17
         '
         'txtDescription
         '
-        Me.txtDescription.Location = New System.Drawing.Point(121, 74)
+        Me.txtDescription.Location = New System.Drawing.Point(128, 29)
         Me.txtDescription.MenuManager = Me.BarManager1
         Me.txtDescription.Name = "txtDescription"
-        Me.txtDescription.Size = New System.Drawing.Size(344, 20)
+        Me.txtDescription.Size = New System.Drawing.Size(136, 20)
         Me.txtDescription.TabIndex = 18
         '
         'txtMM_ID
         '
-        Me.txtMM_ID.Location = New System.Drawing.Point(121, 101)
+        Me.txtMM_ID.Location = New System.Drawing.Point(351, 2)
         Me.txtMM_ID.MenuManager = Me.BarManager1
         Me.txtMM_ID.Name = "txtMM_ID"
-        Me.txtMM_ID.Size = New System.Drawing.Size(344, 20)
+        Me.txtMM_ID.Size = New System.Drawing.Size(136, 20)
         Me.txtMM_ID.TabIndex = 19
         '
         'txtData_SubID
         '
-        Me.txtData_SubID.Location = New System.Drawing.Point(121, 128)
+        Me.txtData_SubID.Location = New System.Drawing.Point(351, 29)
         Me.txtData_SubID.MenuManager = Me.BarManager1
         Me.txtData_SubID.Name = "txtData_SubID"
-        Me.txtData_SubID.Size = New System.Drawing.Size(344, 20)
+        Me.txtData_SubID.Size = New System.Drawing.Size(136, 20)
         Me.txtData_SubID.TabIndex = 20
         '
         'TabControl
@@ -281,18 +284,18 @@ Partial Class frmNote_CP204
         Me.TabControl.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TabControl.Location = New System.Drawing.Point(12, 232)
+        Me.TabControl.Location = New System.Drawing.Point(12, 123)
         Me.TabControl.Name = "TabControl"
         Me.TabControl.SelectedTabPage = Me.TabNote
-        Me.TabControl.Size = New System.Drawing.Size(877, 245)
-        Me.TabControl.TabIndex = 28
+        Me.TabControl.Size = New System.Drawing.Size(946, 248)
+        Me.TabControl.TabIndex = 3
         Me.TabControl.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.TabNote, Me.TabAttachment, Me.TabColumn})
         '
         'TabNote
         '
         Me.TabNote.Controls.Add(Me.txtMemo)
         Me.TabNote.Name = "TabNote"
-        Me.TabNote.Size = New System.Drawing.Size(871, 217)
+        Me.TabNote.Size = New System.Drawing.Size(940, 220)
         Me.TabNote.Text = "Note"
         '
         'txtMemo
@@ -301,7 +304,7 @@ Partial Class frmNote_CP204
         Me.txtMemo.Location = New System.Drawing.Point(0, 0)
         Me.txtMemo.MenuManager = Me.BarManager1
         Me.txtMemo.Name = "txtMemo"
-        Me.txtMemo.Size = New System.Drawing.Size(871, 217)
+        Me.txtMemo.Size = New System.Drawing.Size(940, 220)
         Me.txtMemo.TabIndex = 0
         '
         'TabAttachment
@@ -311,7 +314,7 @@ Partial Class frmNote_CP204
         Me.TabAttachment.Controls.Add(Me.GridControl2)
         Me.TabAttachment.Controls.Add(Me.Label1)
         Me.TabAttachment.Name = "TabAttachment"
-        Me.TabAttachment.Size = New System.Drawing.Size(871, 217)
+        Me.TabAttachment.Size = New System.Drawing.Size(940, 220)
         Me.TabAttachment.Text = "Attachment"
         '
         'SimpleButton1
@@ -416,7 +419,7 @@ Partial Class frmNote_CP204
         Me.TabColumn.Controls.Add(Me.txtCol1)
         Me.TabColumn.Controls.Add(Me.GridControl3)
         Me.TabColumn.Name = "TabColumn"
-        Me.TabColumn.Size = New System.Drawing.Size(871, 217)
+        Me.TabColumn.Size = New System.Drawing.Size(940, 220)
         Me.TabColumn.Text = "Column"
         '
         'LabelControl8
@@ -653,7 +656,7 @@ Partial Class frmNote_CP204
         '
         'LabelControl11
         '
-        Me.LabelControl11.Location = New System.Drawing.Point(15, 173)
+        Me.LabelControl11.Location = New System.Drawing.Point(13, 37)
         Me.LabelControl11.Name = "LabelControl11"
         Me.LabelControl11.Size = New System.Drawing.Size(27, 13)
         Me.LabelControl11.TabIndex = 29
@@ -661,15 +664,15 @@ Partial Class frmNote_CP204
         '
         'txtTitleNote
         '
-        Me.txtTitleNote.Location = New System.Drawing.Point(224, 170)
+        Me.txtTitleNote.Location = New System.Drawing.Point(222, 34)
         Me.txtTitleNote.MenuManager = Me.BarManager1
         Me.txtTitleNote.Name = "txtTitleNote"
-        Me.txtTitleNote.Size = New System.Drawing.Size(660, 20)
-        Me.txtTitleNote.TabIndex = 25
+        Me.txtTitleNote.Size = New System.Drawing.Size(736, 20)
+        Me.txtTitleNote.TabIndex = 1
         '
         'LabelControl12
         '
-        Me.LabelControl12.Location = New System.Drawing.Point(15, 204)
+        Me.LabelControl12.Location = New System.Drawing.Point(13, 68)
         Me.LabelControl12.Name = "LabelControl12"
         Me.LabelControl12.Size = New System.Drawing.Size(31, 13)
         Me.LabelControl12.TabIndex = 26
@@ -678,11 +681,11 @@ Partial Class frmNote_CP204
         'RGTypeNote
         '
         Me.RGTypeNote.EditValue = CType(0, Short)
-        Me.RGTypeNote.Location = New System.Drawing.Point(121, 196)
+        Me.RGTypeNote.Location = New System.Drawing.Point(119, 60)
         Me.RGTypeNote.Name = "RGTypeNote"
-        Me.RGTypeNote.Properties.Items.AddRange(New DevExpress.XtraEditors.Controls.RadioGroupItem() {New DevExpress.XtraEditors.Controls.RadioGroupItem(CType(0, Short), "Text"), New DevExpress.XtraEditors.Controls.RadioGroupItem(CType(1, Short), "Attachment"), New DevExpress.XtraEditors.Controls.RadioGroupItem(CType(2, Short), "Column")})
+        Me.RGTypeNote.Properties.Items.AddRange(New DevExpress.XtraEditors.Controls.RadioGroupItem() {New DevExpress.XtraEditors.Controls.RadioGroupItem(CType(0, Short), "Text"), New DevExpress.XtraEditors.Controls.RadioGroupItem(CType(2, Short), "Column"), New DevExpress.XtraEditors.Controls.RadioGroupItem(CType(1, Short), "Attachment")})
         Me.RGTypeNote.Size = New System.Drawing.Size(324, 29)
-        Me.RGTypeNote.TabIndex = 27
+        Me.RGTypeNote.TabIndex = 2
         '
         'OpenFileDialog1
         '
@@ -691,31 +694,39 @@ Partial Class frmNote_CP204
         '
         'txtTitleFrontNote
         '
-        Me.txtTitleFrontNote.Location = New System.Drawing.Point(121, 170)
+        Me.txtTitleFrontNote.Location = New System.Drawing.Point(119, 34)
         Me.txtTitleFrontNote.MenuManager = Me.BarManager1
         Me.txtTitleFrontNote.Name = "txtTitleFrontNote"
         Me.txtTitleFrontNote.Size = New System.Drawing.Size(97, 20)
-        Me.txtTitleFrontNote.TabIndex = 35
+        Me.txtTitleFrontNote.TabIndex = 0
+        '
+        'pnlReference
+        '
+        Me.pnlReference.Controls.Add(Me.LabelControl3)
+        Me.pnlReference.Controls.Add(Me.LabelControl1)
+        Me.pnlReference.Controls.Add(Me.LabelControl2)
+        Me.pnlReference.Controls.Add(Me.LabelControl4)
+        Me.pnlReference.Controls.Add(Me.txtRefNo)
+        Me.pnlReference.Controls.Add(Me.txtDescription)
+        Me.pnlReference.Controls.Add(Me.txtMM_ID)
+        Me.pnlReference.Controls.Add(Me.txtData_SubID)
+        Me.pnlReference.Location = New System.Drawing.Point(449, 60)
+        Me.pnlReference.Name = "pnlReference"
+        Me.pnlReference.Size = New System.Drawing.Size(504, 57)
+        Me.pnlReference.TabIndex = 40
         '
         'frmNote_CP204
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(901, 506)
+        Me.ClientSize = New System.Drawing.Size(970, 400)
+        Me.Controls.Add(Me.pnlReference)
         Me.Controls.Add(Me.txtTitleFrontNote)
         Me.Controls.Add(Me.TabControl)
         Me.Controls.Add(Me.LabelControl11)
         Me.Controls.Add(Me.txtTitleNote)
         Me.Controls.Add(Me.LabelControl12)
         Me.Controls.Add(Me.RGTypeNote)
-        Me.Controls.Add(Me.txtData_SubID)
-        Me.Controls.Add(Me.txtMM_ID)
-        Me.Controls.Add(Me.txtDescription)
-        Me.Controls.Add(Me.txtRefNo)
-        Me.Controls.Add(Me.LabelControl4)
-        Me.Controls.Add(Me.LabelControl3)
-        Me.Controls.Add(Me.LabelControl2)
-        Me.Controls.Add(Me.LabelControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
@@ -752,6 +763,9 @@ Partial Class frmNote_CP204
         CType(Me.txtTitleNote.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RGTypeNote.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTitleFrontNote.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pnlReference, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlReference.ResumeLayout(False)
+        Me.pnlReference.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -825,4 +839,5 @@ Partial Class frmNote_CP204
     Friend WithEvents DsCP204 As EasyTemplate_Taxcom.dsCP204
     Friend WithEvents BORANGCP204NOTECOLUMNBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents txtTitleFrontNote As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents pnlReference As DevExpress.XtraEditors.PanelControl
 End Class

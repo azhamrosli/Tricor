@@ -18,6 +18,12 @@ Public Class ucMovementComplex
     Private Sub frmMovement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             Me.LoadData(0)
+
+            If My.Computer.Name = DeveloperPCName Then
+                btnTestPrint.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+            Else
+                btnTestPrint.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
@@ -232,10 +238,64 @@ Public Class ucMovementComplex
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
 
         Try
-            Dim rpt As rptMovementComplex
+            If GridView1.RowCount = 0 Then
+                Exit Sub
+            End If
+            Dim rpt As rptMovementComplexNew
+            Dim rpt_Note As rptMovement_Note
+            If mdlProcess.PrintReport_MovementComplexNew(DsMovement, GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID"), _
+                                                      GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"), rpt, False, rpt_Note, ErrorLog) Then
+                '   rpt.ShowPreview()
+                Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
 
-            If mdlProcess.PrintReport_MovementComplex(DsMovement, GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID"), _
-                                                      GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"), rpt, ErrorLog) Then
+                Dim x As Integer = 0
+
+                For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                    rpt.Pages.Add(pg)
+                Next
+                rpt.ShowPreview()
+            Else
+                MsgBox("Failed to load movement complex report.", MsgBoxStyle.Critical)
+            End If
+
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            If ErrorLog Is Nothing Then
+                ErrorLog = New ClsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+        Finally
+            pnlLoading.Visible = False
+            Application.DoEvents()
+        End Try
+
+    End Sub
+
+    Private Sub btnTestPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnTestPrint.ItemClick
+        Try
+            If GridView1.RowCount = 0 Then
+                Exit Sub 
+            End If
+            Dim rpt As rptMovementComplexNew
+            Dim rpt_Note As rptMovement_Note
+            If mdlProcess.PrintReport_MovementComplexNew(DsMovement, GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID"), _
+                                                      GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"), rpt, False, rpt_Note, ErrorLog) Then
+                '   rpt.ShowPreview()
+                Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
+
+                Dim x As Integer = 0
+
+                For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                    rpt.Pages.Add(pg)
+                Next
                 rpt.ShowPreview()
             Else
                 MsgBox("Failed to load movement complex report.", MsgBoxStyle.Critical)

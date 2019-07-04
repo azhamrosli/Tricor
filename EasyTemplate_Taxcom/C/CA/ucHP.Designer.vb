@@ -140,6 +140,8 @@ Partial Class ucHP
         Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
         Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
+        Me.colModifiedBy = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colModifiedDateTime = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.GridView3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HPBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -345,7 +347,7 @@ Partial Class ucHP
         '
         'GridView2
         '
-        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colHP_KEY, Me.colHP_PREFIX, Me.colHP_REF_NO, Me.colHP_NAME, Me.colHP_FILENO, Me.colHP_YA, Me.colHP_COMPANY_CODE, Me.colHP_SOURCENO, Me.colHP_ASSET_CODE, Me.colHP_ASSET, Me.colHP_CATEGORY_CODE, Me.colHP_PURCHASE_DATE, Me.colHP_PURCHASE_AMOUNT, Me.colHP_PAYMENT, Me.colHP_RESTRICTED_QC, Me.colHP_DESC, Me.colHP_CODE1, Me.colHP_PRINCIPAL, Me.colHP_INTEREST_RATE, Me.colHP_INTEREST, Me.colHP_TOTAL, Me.colHP_NO_INST, Me.colHP_FIRST_INST, Me.colHP_DECIMAL, Me.colHP_SCHE_METHOD})
+        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colHP_KEY, Me.colHP_PREFIX, Me.colHP_REF_NO, Me.colHP_NAME, Me.colHP_FILENO, Me.colHP_YA, Me.colHP_COMPANY_CODE, Me.colHP_SOURCENO, Me.colHP_ASSET_CODE, Me.colHP_ASSET, Me.colHP_CATEGORY_CODE, Me.colHP_PURCHASE_DATE, Me.colHP_PURCHASE_AMOUNT, Me.colHP_PAYMENT, Me.colHP_RESTRICTED_QC, Me.colHP_DESC, Me.colHP_CODE1, Me.colHP_PRINCIPAL, Me.colHP_INTEREST_RATE, Me.colHP_INTEREST, Me.colHP_TOTAL, Me.colHP_NO_INST, Me.colHP_FIRST_INST, Me.colHP_DECIMAL, Me.colHP_SCHE_METHOD, Me.colModifiedBy, Me.colModifiedDateTime})
         Me.GridView2.GridControl = Me.GridControl1
         Me.GridView2.Name = "GridView2"
         Me.GridView2.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
@@ -882,7 +884,7 @@ Partial Class ucHP
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(12, 44)
+        Me.LabelControl2.Location = New System.Drawing.Point(12, 72)
         Me.LabelControl2.Name = "LabelControl2"
         Me.LabelControl2.Size = New System.Drawing.Size(20, 13)
         Me.LabelControl2.TabIndex = 3
@@ -1087,6 +1089,22 @@ Partial Class ucHP
         Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
         Me.txtRefNo.TabIndex = 36
         '
+        'colModifiedBy
+        '
+        Me.colModifiedBy.FieldName = "ModifiedBy"
+        Me.colModifiedBy.Name = "colModifiedBy"
+        Me.colModifiedBy.Visible = True
+        Me.colModifiedBy.VisibleIndex = 16
+        Me.colModifiedBy.Width = 150
+        '
+        'colModifiedDateTime
+        '
+        Me.colModifiedDateTime.FieldName = "ModifiedDateTime"
+        Me.colModifiedDateTime.Name = "colModifiedDateTime"
+        Me.colModifiedDateTime.Visible = True
+        Me.colModifiedDateTime.VisibleIndex = 17
+        Me.colModifiedDateTime.Width = 150
+        '
         'ucHP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1244,5 +1262,7 @@ Partial Class ucHP
     Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colModifiedBy As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colModifiedDateTime As DevExpress.XtraGrid.Columns.GridColumn
 
 End Class

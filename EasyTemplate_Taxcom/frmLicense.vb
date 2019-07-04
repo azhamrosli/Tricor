@@ -24,4 +24,14 @@
 
         End Try
     End Sub
+
+    Private Sub frmLicense_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Try
+            If My.Computer.Name = DeveloperPCName OrElse My.Computer.Name = "SUPERSTATION" Then
+                txtLicense.EditValue = "CLN-22052018113101BAA"
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

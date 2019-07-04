@@ -50,10 +50,21 @@ Public Class ucPNL
             Application.DoEvents()
 
             LoadData()
+
+            'If My.Computer.Name = DeveloperPCName Then
+            '    btnPrintAdmin.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+            'Else
+            '    btnPrintAdmin.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            'End If
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)
-
+        Finally
+            If AutoBot_Allow = True AndAlso My.Computer.Name = DeveloperPCName AndAlso isOneClickOnly = False Then
+                btnPrint.PerformClick()
+                isOneClickOnly = True
+                Application.DoEvents()
+            End If
         End Try
     End Sub
     Private Sub LoadData(Optional Type As Integer = 0)
@@ -122,7 +133,7 @@ Public Class ucPNL
     '            e.Appearance.BackColor = Color.LightSkyBlue
     '            e.Appearance.BackColor2 = Color.Blue
     '        End If
-    '    End If
+    '    End If2
     'End Sub
 
     Private Sub GridView1_CustomDrawCell(sender As Object, e As RowCellCustomDrawEventArgs) Handles GridView1.CustomDrawCell
@@ -237,6 +248,7 @@ Public Class ucPNL
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         Try
             cboRefNo.EditValue = ""
+            LoadData(2)
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)
@@ -248,7 +260,7 @@ Public Class ucPNL
     Private Sub btnClear2_Click(sender As Object, e As EventArgs) Handles btnClear2.Click
         Try
             cboYA.EditValue = ""
-
+            LoadData(2)
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)
@@ -321,45 +333,73 @@ Public Class ucPNL
 
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
-            Dim rpt As rptPNL
-            Dim rpt_details As rptPNL_Details
-            Dim rpt_interest As rptPNL_InterestResict
-
-            If GridView1.GetFocusedDataRow() Is Nothing Then
-                GridView1.FocusedRowHandle = 0
-                Application.DoEvents()
-            End If
-
+            pnlLoading.Visible = True
+            Application.DoEvents()
+            Dim rpt_interest As Object = Nothing
             Dim RefNo As String = GridView1.GetFocusedDataRow()("PL_REF_NO")
             Dim YA As String = GridView1.GetFocusedDataRow()("PL_YA")
+            Dim Title As String = ADO.Load_TableOfContent_Title(RefNo, YA, "rptProfitAndLoss")
+            Dim rpt As rptPNLNew = mdlPNL2.PrintPNL_ReportNew(RefNo, YA, Title, rpt_interest, False, ErrorLog)
 
-            If mdlProcess.PrintReport_PNL(RefNo, YA, rpt, rpt_details, rpt_interest, ErrorLog) Then
-                Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_interest.Pages.Count)
+            If rpt IsNot Nothing Then
+                If rpt_interest IsNot Nothing Then
+                    Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_interest.Pages.Count)
 
-                Dim x As Integer = 0
+                    Dim x As Integer = 0
 
-                For Each pg As DevExpress.XtraPrinting.Page In rpt_interest.Pages
-                    rpt.Pages.Add(pg)
-                Next
-
+                    For Each pg As DevExpress.XtraPrinting.Page In rpt_interest.Pages
+                        rpt.Pages.Add(pg)
+                    Next
+                    Application.DoEvents()
+                End If
                 Dim printTool As New ReportPrintTool(rpt)
                 printTool.ShowPreviewDialog()
             Else
-                MsgBox("Failed to load profit and loss report.", MsgBoxStyle.Critical)
+                MsgBox("Failed to load report profit and loss", MsgBoxStyle.Critical)
             End If
+
+            'Dim rpt As rptPNL
+            'Dim rpt_details As rptPNL_Details
+            'Dim rpt_interest As Object
+            'Dim TotalColumn As Integer = 0
+
+
+            'If GridView1.GetFocusedDataRow() Is Nothing Then
+            '    GridView1.FocusedRowHandle = 0
+            '    Application.DoEvents()
+            'End If
+
+            'Dim RefNo As String = GridView1.GetFocusedDataRow()("PL_REF_NO")
+            'Dim YA As String = GridView1.GetFocusedDataRow()("PL_YA")
+
+            'If mdlProcess.PrintReport_PNL(RefNo, YA, rpt, rpt_details, rpt_interest, TotalColumn, ErrorLog) Then
+            '     Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_interest.Pages.Count)
+
+            '    Dim x As Integer = 0
+
+            '    For Each pg As DevExpress.XtraPrinting.Page In rpt_interest.Pages
+            '        rpt.Pages.Add(pg)
+            '    Next
+
+            '    Dim printTool As New ReportPrintTool(rpt)
+            '    printTool.ShowPreviewDialog()
+            'Else
+            '    MsgBox("Failed to load profit and loss report.", MsgBoxStyle.Critical)
+            'End If
          
         Catch ex As Exception
             Dim st As New StackTrace(True)
              st = New StackTrace(ex, True)
-
+        Finally
+            pnlLoading.Visible = False
         End Try
     End Sub
 
     Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
         Try
-            Dim x As Integer = 0
-            Dim y As Integer = 1
-            x = y / x
+           
+            Dim frmPNL_Quick_API As New frmPNL_Quick_API
+            frmPNL_Quick_API.Show()
 
         Catch ex As Exception
             Dim st As New StackTrace(True)
@@ -379,4 +419,5 @@ Public Class ucPNL
             AddListOfError(ErrorLog)
         End Try
     End Sub
+
 End Class

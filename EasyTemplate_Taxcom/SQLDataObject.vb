@@ -324,6 +324,7 @@ Public Class SQLDataObject
                 ListofSQLCmd(i).Transaction = txn
                 ListofSQLCmd(i).Connection = oConn
                 ListofSQLCmd(i).ExecuteNonQuery()
+                Application.DoEvents()
             Next
 
             txn.Commit() 'Commit Trans 
@@ -331,8 +332,8 @@ Public Class SQLDataObject
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
-
             CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name & " ||| " & MethodName, ex.GetHashCode.ToString, "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & ex.Message, ErrorLog)
+            txn.Rollback()
             Return False
         Finally
             If oConn IsNot Nothing AndAlso oConn.State = ConnectionState.Open Then
@@ -375,6 +376,7 @@ Public Class SQLDataObject
             st = New StackTrace(ex, True)
 
             CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name & " ||| " & MethodName, ex.GetHashCode.ToString, "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & ex.Message, ErrorLog)
+            txn.Rollback()
             Return False
         Finally
             If oConn IsNot Nothing AndAlso oConn.State = ConnectionState.Open Then

@@ -55,6 +55,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No90_Details = New DevExpress.XtraReports.UI.XRTableCell()
         Me.No100_Details = New DevExpress.XtraReports.UI.XRTableCell()
         Me.NoTotal_Details = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell3 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.TopMargin = New DevExpress.XtraReports.UI.TopMarginBand()
         Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
         Me.paramSch = New DevExpress.XtraReports.Parameters.Parameter()
@@ -63,7 +64,9 @@ Partial Public Class rpt_CASummaryQE
         Me.DsCA1 = New EasyTemplate_Taxcom.dsCA()
         Me.paramID = New DevExpress.XtraReports.Parameters.Parameter()
         Me.PageHeader = New DevExpress.XtraReports.UI.PageHeaderBand()
-        Me.table1 = New DevExpress.XtraReports.UI.XRTable()
+        Me.lblDraft_Page = New DevExpress.XtraReports.UI.XRLabel()
+        Me.ShowDraft = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.tblTitle = New DevExpress.XtraReports.UI.XRTable()
         Me.tableRow1 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.NoDescription = New DevExpress.XtraReports.UI.XRTableCell()
         Me.NoClaim = New DevExpress.XtraReports.UI.XRTableCell()
@@ -82,6 +85,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No90 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.No100 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.NoTotal = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell1 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.XrTableRow1 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.NoDescription_Bot = New DevExpress.XtraReports.UI.XRTableCell()
         Me.NoClaim_Bot = New DevExpress.XtraReports.UI.XRTableCell()
@@ -100,6 +104,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No90_Bot = New DevExpress.XtraReports.UI.XRTableCell()
         Me.No100_Bot = New DevExpress.XtraReports.UI.XRTableCell()
         Me.NoTotal_Bot = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell2 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.GroupHeader1 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.lblGroup = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter = New DevExpress.XtraReports.UI.ReportFooterBand()
@@ -124,20 +129,27 @@ Partial Public Class rpt_CASummaryQE
         Me.No90_Report = New DevExpress.XtraReports.UI.XRTableCell()
         Me.No100_Report = New DevExpress.XtraReports.UI.XRTableCell()
         Me.NoTotal_Report = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrTableCell4 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.GroupFooter1 = New DevExpress.XtraReports.UI.GroupFooterBand()
         Me.XrLabel3 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
+        Me.lblDraft_Report = New DevExpress.XtraReports.UI.XRLabel()
+        Me.param_ShowDraft = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.paramTitle = New DevExpress.XtraReports.Parameters.Parameter()
         CType(Me.table2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsCA1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.table1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tblTitle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table2_Report, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'Detail
         '
         Me.Detail.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.table2})
-        Me.Detail.HeightF = 26.23845!
+        Me.Detail.HeightF = 26.0!
+        Me.Detail.KeepTogether = True
         Me.Detail.Name = "Detail"
         Me.Detail.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
+        Me.Detail.SortFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("CA_DESCRIPTION", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
         Me.Detail.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
         '
         'table2
@@ -149,7 +161,7 @@ Partial Public Class rpt_CASummaryQE
         Me.table2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.table2.Name = "table2"
         Me.table2.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow2})
-        Me.table2.SizeF = New System.Drawing.SizeF(1046.0!, 26.23845!)
+        Me.table2.SizeF = New System.Drawing.SizeF(1046.334!, 26.23845!)
         Me.table2.StylePriority.UseBackColor = False
         Me.table2.StylePriority.UseBorders = False
         Me.table2.StylePriority.UseBorderWidth = False
@@ -157,7 +169,7 @@ Partial Public Class rpt_CASummaryQE
         '
         'XrTableRow2
         '
-        Me.XrTableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.NoDescription_Details, Me.NoClaim_Details, Me.No2_Details, Me.No3_Details, Me.No8_Details, Me.No10_Details, Me.No12_Details, Me.No14_Details, Me.No16_Details, Me.No20_Details, Me.No40_Details, Me.No50_Details, Me.No60_Details, Me.No80_Details, Me.No90_Details, Me.No100_Details, Me.NoTotal_Details})
+        Me.XrTableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.NoDescription_Details, Me.NoClaim_Details, Me.No2_Details, Me.No3_Details, Me.No8_Details, Me.No10_Details, Me.No12_Details, Me.No14_Details, Me.No16_Details, Me.No20_Details, Me.No40_Details, Me.No50_Details, Me.No60_Details, Me.No80_Details, Me.No90_Details, Me.No100_Details, Me.NoTotal_Details, Me.XrTableCell3})
         Me.XrTableRow2.Name = "XrTableRow2"
         Me.XrTableRow2.Weight = 10.46953028649871R
         '
@@ -166,9 +178,11 @@ Partial Public Class rpt_CASummaryQE
         Me.NoDescription_Details.CanShrink = True
         Me.NoDescription_Details.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_REPORT_SUMMARY_QE.CA_DESCRIPTION")})
         Me.NoDescription_Details.Name = "NoDescription_Details"
+        Me.NoDescription_Details.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
+        Me.NoDescription_Details.StylePriority.UsePadding = False
         Me.NoDescription_Details.StylePriority.UseTextAlignment = False
         Me.NoDescription_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        Me.NoDescription_Details.Weight = 0.11516409285582457R
+        Me.NoDescription_Details.Weight = 0.12816257728624511R
         '
         'NoClaim_Details
         '
@@ -179,7 +193,7 @@ Partial Public Class rpt_CASummaryQE
         Me.NoClaim_Details.StylePriority.UseTextAlignment = False
         Me.NoClaim_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.NoClaim_Details.Visible = False
-        Me.NoClaim_Details.Weight = 0.00023692265348085328R
+        Me.NoClaim_Details.Weight = 0.00026420790018207019R
         '
         'No2_Details
         '
@@ -190,7 +204,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No2_Details.StylePriority.UseTextAlignment = False
         Me.No2_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No2_Details.Visible = False
-        Me.No2_Details.Weight = 0.00023692563405716682R
+        Me.No2_Details.Weight = 0.00026420478069766329R
         '
         'No3_Details
         '
@@ -200,7 +214,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No3_Details.StylePriority.UseTextAlignment = False
         Me.No3_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No3_Details.Visible = False
-        Me.No3_Details.Weight = 0.00023691972504948089R
+        Me.No3_Details.Weight = 0.000264215606483334R
         '
         'No8_Details
         '
@@ -211,7 +225,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No8_Details.StylePriority.UseTextAlignment = False
         Me.No8_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No8_Details.Visible = False
-        Me.No8_Details.Weight = 0.00023692386378290631R
+        Me.No8_Details.Weight = 0.00026420754529929424R
         '
         'No10_Details
         '
@@ -221,7 +235,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No10_Details.StylePriority.UseTextAlignment = False
         Me.No10_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No10_Details.Visible = False
-        Me.No10_Details.Weight = 0.00023692938859271734R
+        Me.No10_Details.Weight = 0.00026420933460033491R
         '
         'No12_Details
         '
@@ -231,7 +245,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No12_Details.StylePriority.UseTextAlignment = False
         Me.No12_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No12_Details.Visible = False
-        Me.No12_Details.Weight = 0.00023691813974014569R
+        Me.No12_Details.Weight = 0.0002642158174240572R
         '
         'No14_Details
         '
@@ -241,7 +255,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No14_Details.StylePriority.UseTextAlignment = False
         Me.No14_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No14_Details.Visible = False
-        Me.No14_Details.Weight = 0.00023692852347932669R
+        Me.No14_Details.Weight = 0.00026424429854730869R
         '
         'No16_Details
         '
@@ -251,7 +265,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No16_Details.StylePriority.UseTextAlignment = False
         Me.No16_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No16_Details.Visible = False
-        Me.No16_Details.Weight = 0.00023692926021733063R
+        Me.No16_Details.Weight = 0.00030649423866802028R
         '
         'No20_Details
         '
@@ -261,7 +275,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No20_Details.StylePriority.UseTextAlignment = False
         Me.No20_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No20_Details.Visible = False
-        Me.No20_Details.Weight = 0.00023691389565999588R
+        Me.No20_Details.Weight = 0.00026421225872036436R
         '
         'No40_Details
         '
@@ -271,7 +285,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No40_Details.StylePriority.UseTextAlignment = False
         Me.No40_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No40_Details.Visible = False
-        Me.No40_Details.Weight = 0.00023692836932800998R
+        Me.No40_Details.Weight = 0.00026421576529342405R
         '
         'No50_Details
         '
@@ -281,7 +295,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No50_Details.StylePriority.UseTextAlignment = False
         Me.No50_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No50_Details.Visible = False
-        Me.No50_Details.Weight = 0.00023692882633949419R
+        Me.No50_Details.Weight = 0.00026420089699408927R
         '
         'No60_Details
         '
@@ -291,7 +305,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No60_Details.StylePriority.UseTextAlignment = False
         Me.No60_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No60_Details.Visible = False
-        Me.No60_Details.Weight = 0.00023691549283198082R
+        Me.No60_Details.Weight = 0.00026421401159461982R
         '
         'No80_Details
         '
@@ -301,7 +315,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No80_Details.StylePriority.UseTextAlignment = False
         Me.No80_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No80_Details.Visible = False
-        Me.No80_Details.Weight = 0.00023692878691251862R
+        Me.No80_Details.Weight = 0.00026421282144305225R
         '
         'No90_Details
         '
@@ -311,7 +325,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No90_Details.StylePriority.UseTextAlignment = False
         Me.No90_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No90_Details.Visible = False
-        Me.No90_Details.Weight = 0.00023692906739046504R
+        Me.No90_Details.Weight = 0.0002641993586207092R
         '
         'No100_Details
         '
@@ -321,7 +335,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No100_Details.StylePriority.UseTextAlignment = False
         Me.No100_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No100_Details.Visible = False
-        Me.No100_Details.Weight = 0.000236970522105983R
+        Me.No100_Details.Weight = 0.00026421401624416446R
         '
         'NoTotal_Details
         '
@@ -329,12 +343,18 @@ Partial Public Class rpt_CASummaryQE
         Me.NoTotal_Details.Name = "NoTotal_Details"
         Me.NoTotal_Details.StylePriority.UseTextAlignment = False
         Me.NoTotal_Details.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.NoTotal_Details.Weight = 0.00023691022095722984R
+        Me.NoTotal_Details.Weight = 0.00026421353807874054R
+        '
+        'XrTableCell3
+        '
+        Me.XrTableCell3.Name = "XrTableCell3"
+        Me.XrTableCell3.StylePriority.UseTextAlignment = False
+        Me.XrTableCell3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.XrTableCell3.Weight = 0.00026425030548477869R
         '
         'TopMargin
         '
-        Me.TopMargin.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel1, Me.XrLabel2})
-        Me.TopMargin.HeightF = 64.0!
+        Me.TopMargin.HeightF = 0.0!
         Me.TopMargin.Name = "TopMargin"
         Me.TopMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
         Me.TopMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
@@ -343,10 +363,10 @@ Partial Public Class rpt_CASummaryQE
         '
         Me.XrLabel1.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramSch, "Text", "")})
         Me.XrLabel1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(802.6667!, 0.0!)
+        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(804.3334!, 34.51715!)
         Me.XrLabel1.Name = "XrLabel1"
         Me.XrLabel1.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel1.SizeF = New System.Drawing.SizeF(241.6666!, 23.0!)
+        Me.XrLabel1.SizeF = New System.Drawing.SizeF(241.6667!, 23.0!)
         Me.XrLabel1.StylePriority.UseFont = False
         Me.XrLabel1.StylePriority.UseTextAlignment = False
         Me.XrLabel1.Text = "XrLabel1"
@@ -360,17 +380,19 @@ Partial Public Class rpt_CASummaryQE
         '
         'XrLabel2
         '
+        Me.XrLabel2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramTitle, "Text", "")})
         Me.XrLabel2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 41.0!)
+        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 66.14213!)
         Me.XrLabel2.Name = "XrLabel2"
-        Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel2.SizeF = New System.Drawing.SizeF(662.5!, 23.0!)
+        Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 100.0!)
+        Me.XrLabel2.SizeF = New System.Drawing.SizeF(662.5!, 23.00001!)
         Me.XrLabel2.StylePriority.UseFont = False
+        Me.XrLabel2.StylePriority.UsePadding = False
         Me.XrLabel2.Text = "Summary of Qualifying Expenditure (At Cost)"
         '
         'BottomMargin
         '
-        Me.BottomMargin.HeightF = 100.0!
+        Me.BottomMargin.HeightF = 11.0!
         Me.BottomMargin.Name = "BottomMargin"
         Me.BottomMargin.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
         Me.BottomMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
@@ -387,49 +409,75 @@ Partial Public Class rpt_CASummaryQE
         '
         'PageHeader
         '
-        Me.PageHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.table1})
-        Me.PageHeader.HeightF = 100.0!
+        Me.PageHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.lblDraft_Page, Me.tblTitle})
+        Me.PageHeader.HeightF = 125.0!
         Me.PageHeader.Name = "PageHeader"
         '
-        'table1
+        'lblDraft_Page
         '
-        Me.table1.BackColor = System.Drawing.Color.Transparent
-        Me.table1.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.table1.BorderWidth = 0.0!
-        Me.table1.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.table1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 13.91904!)
-        Me.table1.Name = "table1"
-        Me.table1.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow1, Me.XrTableRow1})
-        Me.table1.SizeF = New System.Drawing.SizeF(1046.0!, 72.16193!)
-        Me.table1.StylePriority.UseBackColor = False
-        Me.table1.StylePriority.UseBorders = False
-        Me.table1.StylePriority.UseBorderWidth = False
-        Me.table1.StylePriority.UseFont = False
+        Me.lblDraft_Page.CanShrink = True
+        Me.lblDraft_Page.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDraft_Page.FormattingRules.Add(Me.ShowDraft)
+        Me.lblDraft_Page.LocationFloat = New DevExpress.Utils.PointFloat(919.9586!, 0.0!)
+        Me.lblDraft_Page.Name = "lblDraft_Page"
+        Me.lblDraft_Page.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.lblDraft_Page.SizeF = New System.Drawing.SizeF(126.0414!, 23.0!)
+        Me.lblDraft_Page.StylePriority.UseFont = False
+        Me.lblDraft_Page.StylePriority.UseTextAlignment = False
+        Me.lblDraft_Page.Text = "DRAFT"
+        Me.lblDraft_Page.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.lblDraft_Page.Visible = False
+        '
+        'ShowDraft
+        '
+        Me.ShowDraft.Condition = "[Parameters.param_ShowDraft]=True"
+        Me.ShowDraft.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[True]
+        Me.ShowDraft.Name = "ShowDraft"
+        '
+        'tblTitle
+        '
+        Me.tblTitle.BackColor = System.Drawing.Color.Transparent
+        Me.tblTitle.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.tblTitle.BorderWidth = 0.0!
+        Me.tblTitle.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tblTitle.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 42.83807!)
+        Me.tblTitle.Name = "tblTitle"
+        Me.tblTitle.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow1, Me.XrTableRow1})
+        Me.tblTitle.SizeF = New System.Drawing.SizeF(1046.334!, 72.16193!)
+        Me.tblTitle.StylePriority.UseBackColor = False
+        Me.tblTitle.StylePriority.UseBorders = False
+        Me.tblTitle.StylePriority.UseBorderWidth = False
+        Me.tblTitle.StylePriority.UseFont = False
         '
         'tableRow1
         '
-        Me.tableRow1.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.NoDescription, Me.NoClaim, Me.No2, Me.No3, Me.No8, Me.No10, Me.No12, Me.No14, Me.No16, Me.No20, Me.No40, Me.No50, Me.No60, Me.No80, Me.No90, Me.No100, Me.NoTotal})
+        Me.tableRow1.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.NoDescription, Me.NoClaim, Me.No2, Me.No3, Me.No8, Me.No10, Me.No12, Me.No14, Me.No16, Me.No20, Me.No40, Me.No50, Me.No60, Me.No80, Me.No90, Me.No100, Me.NoTotal, Me.XrTableCell1})
         Me.tableRow1.Name = "tableRow1"
         Me.tableRow1.Weight = 10.46953028649871R
         '
         'NoDescription
         '
+        Me.NoDescription.BorderColor = System.Drawing.Color.Black
         Me.NoDescription.CanShrink = True
         Me.NoDescription.Name = "NoDescription"
+        Me.NoDescription.StylePriority.UseBackColor = False
+        Me.NoDescription.StylePriority.UseBorderColor = False
         Me.NoDescription.StylePriority.UseTextAlignment = False
         Me.NoDescription.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomLeft
-        Me.NoDescription.Weight = 0.22816690567640949R
+        Me.NoDescription.Weight = 0.29585610349594454R
         '
         'NoClaim
         '
+        Me.NoClaim.BackColor = System.Drawing.Color.Transparent
         Me.NoClaim.CanShrink = True
         Me.NoClaim.Multiline = True
         Me.NoClaim.Name = "NoClaim"
+        Me.NoClaim.StylePriority.UseBackColor = False
         Me.NoClaim.StylePriority.UseTextAlignment = False
         Me.NoClaim.Text = "0%"
-        Me.NoClaim.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.NoClaim.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         Me.NoClaim.Visible = False
-        Me.NoClaim.Weight = 0.00046939636884871239R
+        Me.NoClaim.Weight = 0.0006099086939892473R
         '
         'No2
         '
@@ -438,9 +486,9 @@ Partial Public Class rpt_CASummaryQE
         Me.No2.Name = "No2"
         Me.No2.StylePriority.UseTextAlignment = False
         Me.No2.Text = "2%"
-        Me.No2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No2.Visible = False
-        Me.No2.Weight = 0.00046941018851578975R
+        Me.No2.Weight = 0.00060991099136981086R
         '
         'No3
         '
@@ -448,9 +496,9 @@ Partial Public Class rpt_CASummaryQE
         Me.No3.Name = "No3"
         Me.No3.StylePriority.UseTextAlignment = False
         Me.No3.Text = "3%"
-        Me.No3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No3.Visible = False
-        Me.No3.Weight = 0.00046939822390518193R
+        Me.No3.Weight = 0.00060993168852746527R
         '
         'No8
         '
@@ -459,19 +507,21 @@ Partial Public Class rpt_CASummaryQE
         Me.No8.Name = "No8"
         Me.No8.StylePriority.UseTextAlignment = False
         Me.No8.Text = "8%"
-        Me.No8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No8.Visible = False
-        Me.No8.Weight = 0.00046939721282115987R
+        Me.No8.Weight = 0.00060991229633611255R
         '
         'No10
         '
+        Me.No10.BackColor = System.Drawing.Color.Transparent
         Me.No10.CanShrink = True
         Me.No10.Name = "No10"
+        Me.No10.StylePriority.UseBackColor = False
         Me.No10.StylePriority.UseTextAlignment = False
         Me.No10.Text = "10%"
-        Me.No10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No10.Visible = False
-        Me.No10.Weight = 0.00046941151595100705R
+        Me.No10.Weight = 0.000609907857046732R
         '
         'No12
         '
@@ -479,9 +529,9 @@ Partial Public Class rpt_CASummaryQE
         Me.No12.Name = "No12"
         Me.No12.StylePriority.UseTextAlignment = False
         Me.No12.Text = "12%"
-        Me.No12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No12.Visible = False
-        Me.No12.Weight = 0.00046938535924470615R
+        Me.No12.Weight = 0.00060992812084267878R
         '
         'No14
         '
@@ -489,9 +539,9 @@ Partial Public Class rpt_CASummaryQE
         Me.No14.Name = "No14"
         Me.No14.StylePriority.UseTextAlignment = False
         Me.No14.Text = "14%"
-        Me.No14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No14.Visible = False
-        Me.No14.Weight = 0.00046941228422706094R
+        Me.No14.Weight = 0.00060995275488273659R
         '
         'No16
         '
@@ -499,9 +549,9 @@ Partial Public Class rpt_CASummaryQE
         Me.No16.Name = "No16"
         Me.No16.StylePriority.UseTextAlignment = False
         Me.No16.Text = "16%"
-        Me.No16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No16.Visible = False
-        Me.No16.Weight = 0.00046941155040582105R
+        Me.No16.Weight = 0.00070760176095463478R
         '
         'No20
         '
@@ -509,9 +559,9 @@ Partial Public Class rpt_CASummaryQE
         Me.No20.Name = "No20"
         Me.No20.StylePriority.UseTextAlignment = False
         Me.No20.Text = "20%"
-        Me.No20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No20.Visible = False
-        Me.No20.Weight = 0.00046938404637665576R
+        Me.No20.Weight = 0.00060989516998363746R
         '
         'No40
         '
@@ -519,9 +569,9 @@ Partial Public Class rpt_CASummaryQE
         Me.No40.Name = "No40"
         Me.No40.StylePriority.UseTextAlignment = False
         Me.No40.Text = "40%"
-        Me.No40.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No40.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No40.Visible = False
-        Me.No40.Weight = 0.00046941099928020369R
+        Me.No40.Weight = 0.00060992883924557151R
         '
         'No50
         '
@@ -529,9 +579,9 @@ Partial Public Class rpt_CASummaryQE
         Me.No50.Name = "No50"
         Me.No50.StylePriority.UseTextAlignment = False
         Me.No50.Text = "50%"
-        Me.No50.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No50.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No50.Visible = False
-        Me.No50.Weight = 0.00046940983134714787R
+        Me.No50.Weight = 0.00060992934639980678R
         '
         'No60
         '
@@ -539,19 +589,19 @@ Partial Public Class rpt_CASummaryQE
         Me.No60.Name = "No60"
         Me.No60.StylePriority.UseTextAlignment = False
         Me.No60.Text = "60%"
-        Me.No60.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No60.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No60.Visible = False
-        Me.No60.Weight = 0.000469384046365956R
+        Me.No60.Weight = 0.00060989256767909894R
         '
         'No80
         '
         Me.No80.CanShrink = True
         Me.No80.Name = "No80"
         Me.No80.StylePriority.UseTextAlignment = False
-        Me.No80.Text = "80%"
-        Me.No80.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No80.Text = "ACA 80%"
+        Me.No80.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No80.Visible = False
-        Me.No80.Weight = 0.00046941099927087782R
+        Me.No80.Weight = 0.00060991784653680048R
         '
         'No90
         '
@@ -559,31 +609,38 @@ Partial Public Class rpt_CASummaryQE
         Me.No90.Name = "No90"
         Me.No90.StylePriority.UseTextAlignment = False
         Me.No90.Text = "90%"
-        Me.No90.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No90.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No90.Visible = False
-        Me.No90.Weight = 0.00046941155034811721R
+        Me.No90.Weight = 0.00060992514078719862R
         '
         'No100
         '
         Me.No100.CanShrink = True
         Me.No100.Name = "No100"
         Me.No100.StylePriority.UseTextAlignment = False
-        Me.No100.Text = "100%"
-        Me.No100.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
+        Me.No100.Text = "ACA 100%"
+        Me.No100.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         Me.No100.Visible = False
-        Me.No100.Weight = 0.00046949418843962587R
+        Me.No100.Weight = 0.00060988874491227363R
         '
         'NoTotal
         '
         Me.NoTotal.Name = "NoTotal"
         Me.NoTotal.StylePriority.UseTextAlignment = False
         Me.NoTotal.Text = "Total"
-        Me.NoTotal.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomRight
-        Me.NoTotal.Weight = 0.00046937532541233007R
+        Me.NoTotal.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
+        Me.NoTotal.Weight = 0.000609920166981609R
+        '
+        'XrTableCell1
+        '
+        Me.XrTableCell1.Name = "XrTableCell1"
+        Me.XrTableCell1.StylePriority.UseTextAlignment = False
+        Me.XrTableCell1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
+        Me.XrTableCell1.Weight = 0.00060993803550349335R
         '
         'XrTableRow1
         '
-        Me.XrTableRow1.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.NoDescription_Bot, Me.NoClaim_Bot, Me.No2_Bot, Me.No3_Bot, Me.No8_Bot, Me.No10_Bot, Me.No12_Bot, Me.No14_Bot, Me.No16_Bot, Me.No20_Bot, Me.No40_Bot, Me.No50_Bot, Me.No60_Bot, Me.No80_Bot, Me.No90_Bot, Me.No100_Bot, Me.NoTotal_Bot})
+        Me.XrTableRow1.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.NoDescription_Bot, Me.NoClaim_Bot, Me.No2_Bot, Me.No3_Bot, Me.No8_Bot, Me.No10_Bot, Me.No12_Bot, Me.No14_Bot, Me.No16_Bot, Me.No20_Bot, Me.No40_Bot, Me.No50_Bot, Me.No60_Bot, Me.No80_Bot, Me.No90_Bot, Me.No100_Bot, Me.NoTotal_Bot, Me.XrTableCell2})
         Me.XrTableRow1.Name = "XrTableRow1"
         Me.XrTableRow1.Weight = 10.46953028649871R
         '
@@ -592,182 +649,197 @@ Partial Public Class rpt_CASummaryQE
         Me.NoDescription_Bot.Name = "NoDescription_Bot"
         Me.NoDescription_Bot.StylePriority.UseTextAlignment = False
         Me.NoDescription_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomLeft
-        Me.NoDescription_Bot.Weight = 0.22816690567640949R
+        Me.NoDescription_Bot.Weight = 0.29585610349594454R
         '
         'NoClaim_Bot
         '
+        Me.NoClaim_Bot.BackColor = System.Drawing.Color.Transparent
         Me.NoClaim_Bot.Name = "NoClaim_Bot"
+        Me.NoClaim_Bot.StylePriority.UseBackColor = False
         Me.NoClaim_Bot.StylePriority.UseTextAlignment = False
         Me.NoClaim_Bot.Text = "RM"
-        Me.NoClaim_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.NoClaim_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.NoClaim_Bot.Visible = False
-        Me.NoClaim_Bot.Weight = 0.00046939636884871239R
+        Me.NoClaim_Bot.Weight = 0.0006099086939892473R
         '
         'No2_Bot
         '
         Me.No2_Bot.Name = "No2_Bot"
         Me.No2_Bot.StylePriority.UseTextAlignment = False
         Me.No2_Bot.Text = "RM"
-        Me.No2_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No2_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No2_Bot.Visible = False
-        Me.No2_Bot.Weight = 0.00046941018851578975R
+        Me.No2_Bot.Weight = 0.00060991099136981086R
         '
         'No3_Bot
         '
         Me.No3_Bot.Name = "No3_Bot"
         Me.No3_Bot.StylePriority.UseTextAlignment = False
         Me.No3_Bot.Text = "RM"
-        Me.No3_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No3_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No3_Bot.Visible = False
-        Me.No3_Bot.Weight = 0.00046939822390518193R
+        Me.No3_Bot.Weight = 0.00060993168852746527R
         '
         'No8_Bot
         '
         Me.No8_Bot.Name = "No8_Bot"
         Me.No8_Bot.StylePriority.UseTextAlignment = False
         Me.No8_Bot.Text = "RM"
-        Me.No8_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No8_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No8_Bot.Visible = False
-        Me.No8_Bot.Weight = 0.00046939721282115987R
+        Me.No8_Bot.Weight = 0.00060991229633611255R
         '
         'No10_Bot
         '
+        Me.No10_Bot.BackColor = System.Drawing.Color.Transparent
         Me.No10_Bot.Name = "No10_Bot"
+        Me.No10_Bot.StylePriority.UseBackColor = False
         Me.No10_Bot.StylePriority.UseTextAlignment = False
         Me.No10_Bot.Text = "RM"
-        Me.No10_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No10_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No10_Bot.Visible = False
-        Me.No10_Bot.Weight = 0.00046941151595100705R
+        Me.No10_Bot.Weight = 0.000609907857046732R
         '
         'No12_Bot
         '
         Me.No12_Bot.Name = "No12_Bot"
         Me.No12_Bot.StylePriority.UseTextAlignment = False
         Me.No12_Bot.Text = "RM"
-        Me.No12_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No12_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No12_Bot.Visible = False
-        Me.No12_Bot.Weight = 0.00046938535924470615R
+        Me.No12_Bot.Weight = 0.00060992812084267878R
         '
         'No14_Bot
         '
         Me.No14_Bot.Name = "No14_Bot"
         Me.No14_Bot.StylePriority.UseTextAlignment = False
         Me.No14_Bot.Text = "RM"
-        Me.No14_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No14_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No14_Bot.Visible = False
-        Me.No14_Bot.Weight = 0.00046941228422706094R
+        Me.No14_Bot.Weight = 0.00060995275488273659R
         '
         'No16_Bot
         '
         Me.No16_Bot.Name = "No16_Bot"
         Me.No16_Bot.StylePriority.UseTextAlignment = False
         Me.No16_Bot.Text = "RM"
-        Me.No16_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No16_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No16_Bot.Visible = False
-        Me.No16_Bot.Weight = 0.00046941155040582105R
+        Me.No16_Bot.Weight = 0.00070760176095463478R
         '
         'No20_Bot
         '
         Me.No20_Bot.Name = "No20_Bot"
         Me.No20_Bot.StylePriority.UseTextAlignment = False
         Me.No20_Bot.Text = "RM"
-        Me.No20_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No20_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No20_Bot.Visible = False
-        Me.No20_Bot.Weight = 0.00046938404637665576R
+        Me.No20_Bot.Weight = 0.00060989516998363746R
         '
         'No40_Bot
         '
         Me.No40_Bot.Name = "No40_Bot"
         Me.No40_Bot.StylePriority.UseTextAlignment = False
         Me.No40_Bot.Text = "RM"
-        Me.No40_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No40_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No40_Bot.Visible = False
-        Me.No40_Bot.Weight = 0.00046941099928020369R
+        Me.No40_Bot.Weight = 0.00060992883924557151R
         '
         'No50_Bot
         '
         Me.No50_Bot.Name = "No50_Bot"
         Me.No50_Bot.StylePriority.UseTextAlignment = False
         Me.No50_Bot.Text = "RM"
-        Me.No50_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No50_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No50_Bot.Visible = False
-        Me.No50_Bot.Weight = 0.00046940983134714787R
+        Me.No50_Bot.Weight = 0.00060992934639980678R
         '
         'No60_Bot
         '
         Me.No60_Bot.Name = "No60_Bot"
         Me.No60_Bot.StylePriority.UseTextAlignment = False
         Me.No60_Bot.Text = "RM"
-        Me.No60_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No60_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No60_Bot.Visible = False
-        Me.No60_Bot.Weight = 0.000469384046365956R
+        Me.No60_Bot.Weight = 0.00060989256767909894R
         '
         'No80_Bot
         '
         Me.No80_Bot.Name = "No80_Bot"
         Me.No80_Bot.StylePriority.UseTextAlignment = False
         Me.No80_Bot.Text = "RM"
-        Me.No80_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No80_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No80_Bot.Visible = False
-        Me.No80_Bot.Weight = 0.00046941099927087782R
+        Me.No80_Bot.Weight = 0.00060991784653680048R
         '
         'No90_Bot
         '
         Me.No90_Bot.Name = "No90_Bot"
         Me.No90_Bot.StylePriority.UseTextAlignment = False
         Me.No90_Bot.Text = "RM"
-        Me.No90_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No90_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No90_Bot.Visible = False
-        Me.No90_Bot.Weight = 0.00046941155034811721R
+        Me.No90_Bot.Weight = 0.00060992514078719862R
         '
         'No100_Bot
         '
         Me.No100_Bot.Name = "No100_Bot"
         Me.No100_Bot.StylePriority.UseTextAlignment = False
         Me.No100_Bot.Text = "RM"
-        Me.No100_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.No100_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         Me.No100_Bot.Visible = False
-        Me.No100_Bot.Weight = 0.00046949418843962587R
+        Me.No100_Bot.Weight = 0.00060988874491227363R
         '
         'NoTotal_Bot
         '
         Me.NoTotal_Bot.Name = "NoTotal_Bot"
         Me.NoTotal_Bot.StylePriority.UseTextAlignment = False
         Me.NoTotal_Bot.Text = "RM"
-        Me.NoTotal_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.NoTotal_Bot.Weight = 0.00046937532541233007R
+        Me.NoTotal_Bot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.NoTotal_Bot.Weight = 0.000609920166981609R
+        '
+        'XrTableCell2
+        '
+        Me.XrTableCell2.Name = "XrTableCell2"
+        Me.XrTableCell2.StylePriority.UseTextAlignment = False
+        Me.XrTableCell2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        Me.XrTableCell2.Weight = 0.00060993803550349335R
         '
         'GroupHeader1
         '
         Me.GroupHeader1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.lblGroup})
         Me.GroupHeader1.GroupFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("GroupType", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
-        Me.GroupHeader1.HeightF = 23.0!
+        Me.GroupHeader1.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WholePage
+        Me.GroupHeader1.HeightF = 42.0!
+        Me.GroupHeader1.KeepTogether = True
         Me.GroupHeader1.Name = "GroupHeader1"
         '
         'lblGroup
         '
         Me.lblGroup.CanShrink = True
         Me.lblGroup.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_REPORT_SUMMARY_QE.CA_CATEGORY")})
-        Me.lblGroup.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold)
+        Me.lblGroup.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblGroup.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.lblGroup.Name = "lblGroup"
-        Me.lblGroup.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.lblGroup.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 0, 0, 0, 100.0!)
         Me.lblGroup.SizeF = New System.Drawing.SizeF(1046.0!, 23.0!)
         Me.lblGroup.StylePriority.UseFont = False
+        Me.lblGroup.StylePriority.UsePadding = False
         Me.lblGroup.Text = "lblGroup"
         '
         'ReportFooter
         '
         Me.ReportFooter.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.lineReport_Bot, Me.lineReport_Top, Me.table2_Report})
-        Me.ReportFooter.HeightF = 63.54167!
+        Me.ReportFooter.HeightF = 63.0!
         Me.ReportFooter.Name = "ReportFooter"
         '
         'lineReport_Bot
         '
-        Me.lineReport_Bot.LineWidth = 2
+        Me.lineReport_Bot.Borders = DevExpress.XtraPrinting.BorderSide.Top
         Me.lineReport_Bot.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 36.23848!)
         Me.lineReport_Bot.Name = "lineReport_Bot"
-        Me.lineReport_Bot.SizeF = New System.Drawing.SizeF(86.04839!, 6.33335!)
+        Me.lineReport_Bot.SizeF = New System.Drawing.SizeF(86.05!, 8.0!)
+        Me.lineReport_Bot.StylePriority.UseBorders = False
         '
         'lineReport_Top
         '
@@ -784,7 +856,7 @@ Partial Public Class rpt_CASummaryQE
         Me.table2_Report.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 10.00001!)
         Me.table2_Report.Name = "table2_Report"
         Me.table2_Report.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow4})
-        Me.table2_Report.SizeF = New System.Drawing.SizeF(1046.0!, 26.23844!)
+        Me.table2_Report.SizeF = New System.Drawing.SizeF(1046.334!, 26.23844!)
         Me.table2_Report.StylePriority.UseBackColor = False
         Me.table2_Report.StylePriority.UseBorders = False
         Me.table2_Report.StylePriority.UseBorderWidth = False
@@ -792,7 +864,7 @@ Partial Public Class rpt_CASummaryQE
         '
         'XrTableRow4
         '
-        Me.XrTableRow4.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.NoDescription_Report, Me.NoClaim_Report, Me.No2_Report, Me.No3_Report, Me.No8_Report, Me.No10_Report, Me.No12_Report, Me.No14_Report, Me.No16_Report, Me.No20_Report, Me.No40_Report, Me.No50_Report, Me.No60_Report, Me.No80_Report, Me.No90_Report, Me.No100_Report, Me.NoTotal_Report})
+        Me.XrTableRow4.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.NoDescription_Report, Me.NoClaim_Report, Me.No2_Report, Me.No3_Report, Me.No8_Report, Me.No10_Report, Me.No12_Report, Me.No14_Report, Me.No16_Report, Me.No20_Report, Me.No40_Report, Me.No50_Report, Me.No60_Report, Me.No80_Report, Me.No90_Report, Me.No100_Report, Me.NoTotal_Report, Me.XrTableCell4})
         Me.XrTableRow4.Name = "XrTableRow4"
         Me.XrTableRow4.Weight = 10.46953028649871R
         '
@@ -806,7 +878,7 @@ Partial Public Class rpt_CASummaryQE
         Me.NoDescription_Report.StylePriority.UseFont = False
         Me.NoDescription_Report.StylePriority.UseTextAlignment = False
         Me.NoDescription_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
-        Me.NoDescription_Report.Weight = 0.19390575887655925R
+        Me.NoDescription_Report.Weight = 0.21579176840013328R
         '
         'NoClaim_Report
         '
@@ -822,7 +894,7 @@ Partial Public Class rpt_CASummaryQE
         Me.NoClaim_Report.Summary = XrSummary1
         Me.NoClaim_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.NoClaim_Report.Visible = False
-        Me.NoClaim_Report.Weight = 0.0003989123043431908R
+        Me.NoClaim_Report.Weight = 0.00044485338600086521R
         '
         'No2_Report
         '
@@ -838,7 +910,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No2_Report.Summary = XrSummary2
         Me.No2_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No2_Report.Visible = False
-        Me.No2_Report.Weight = 0.0003989253254377545R
+        Me.No2_Report.Weight = 0.00044488219460964151R
         '
         'No3_Report
         '
@@ -853,7 +925,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No3_Report.Summary = XrSummary3
         Me.No3_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No3_Report.Visible = False
-        Me.No3_Report.Weight = 0.00039891251458926136R
+        Me.No3_Report.Weight = 0.00044486115154540595R
         '
         'No8_Report
         '
@@ -869,7 +941,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No8_Report.Summary = XrSummary4
         Me.No8_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No8_Report.Visible = False
-        Me.No8_Report.Weight = 0.00039891131940353319R
+        Me.No8_Report.Weight = 0.00044486010745076188R
         '
         'No10_Report
         '
@@ -884,7 +956,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No10_Report.Summary = XrSummary5
         Me.No10_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No10_Report.Visible = False
-        Me.No10_Report.Weight = 0.00039892790395251732R
+        Me.No10_Report.Weight = 0.00044485870720961662R
         '
         'No12_Report
         '
@@ -899,7 +971,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No12_Report.Summary = XrSummary6
         Me.No12_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No12_Report.Visible = False
-        Me.No12_Report.Weight = 0.00039892641877863066R
+        Me.No12_Report.Weight = 0.00044486370715798862R
         '
         'No14_Report
         '
@@ -914,7 +986,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No14_Report.Summary = XrSummary7
         Me.No14_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No14_Report.Visible = False
-        Me.No14_Report.Weight = 0.00049464321099336461R
+        Me.No14_Report.Weight = 0.00051607889643098814R
         '
         'No16_Report
         '
@@ -929,7 +1001,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No16_Report.Summary = XrSummary8
         Me.No16_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No16_Report.Visible = False
-        Me.No16_Report.Weight = 0.00030315913206867273R
+        Me.No16_Report.Weight = 0.00044484348343881708R
         '
         'No20_Report
         '
@@ -944,7 +1016,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No20_Report.Summary = XrSummary9
         Me.No20_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No20_Report.Visible = False
-        Me.No20_Report.Weight = 0.00039890224808453167R
+        Me.No20_Report.Weight = 0.00044489146809326141R
         '
         'No40_Report
         '
@@ -959,7 +1031,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No40_Report.Summary = XrSummary10
         Me.No40_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No40_Report.Visible = False
-        Me.No40_Report.Weight = 0.00039892621346815371R
+        Me.No40_Report.Weight = 0.00044486438465612954R
         '
         'No50_Report
         '
@@ -974,7 +1046,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No50_Report.Summary = XrSummary11
         Me.No50_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No50_Report.Visible = False
-        Me.No50_Report.Weight = 0.00039892621345886253R
+        Me.No50_Report.Weight = 0.00044483858164513779R
         '
         'No60_Report
         '
@@ -989,7 +1061,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No60_Report.Summary = XrSummary12
         Me.No60_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No60_Report.Visible = False
-        Me.No60_Report.Weight = 0.0003989020950277769R
+        Me.No60_Report.Weight = 0.00044486551203480607R
         '
         'No80_Report
         '
@@ -1004,7 +1076,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No80_Report.Summary = XrSummary13
         Me.No80_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No80_Report.Visible = False
-        Me.No80_Report.Weight = 0.00039892510725929309R
+        Me.No80_Report.Weight = 0.00044486412989944157R
         '
         'No90_Report
         '
@@ -1019,7 +1091,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No90_Report.Summary = XrSummary14
         Me.No90_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No90_Report.Visible = False
-        Me.No90_Report.Weight = 0.00039892553846314349R
+        Me.No90_Report.Weight = 0.00044484142780187863R
         '
         'No100_Report
         '
@@ -1034,7 +1106,7 @@ Partial Public Class rpt_CASummaryQE
         Me.No100_Report.Summary = XrSummary15
         Me.No100_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
         Me.No100_Report.Visible = False
-        Me.No100_Report.Weight = 0.00039899553870442056R
+        Me.No100_Report.Weight = 0.00044486631637476876R
         '
         'NoTotal_Report
         '
@@ -1047,12 +1119,22 @@ Partial Public Class rpt_CASummaryQE
         XrSummary16.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.NoTotal_Report.Summary = XrSummary16
         Me.NoTotal_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-        Me.NoTotal_Report.Weight = 0.00039890642505926305R
+        Me.NoTotal_Report.Weight = 0.00044486618757921814R
+        '
+        'XrTableCell4
+        '
+        Me.XrTableCell4.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrTableCell4.Name = "XrTableCell4"
+        Me.XrTableCell4.StylePriority.UseBorders = False
+        Me.XrTableCell4.StylePriority.UseTextAlignment = False
+        Me.XrTableCell4.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+        Me.XrTableCell4.Weight = 0.00044491506116949367R
         '
         'GroupFooter1
         '
         Me.GroupFooter1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel3})
-        Me.GroupFooter1.HeightF = 23.95833!
+        Me.GroupFooter1.HeightF = 24.0!
+        Me.GroupFooter1.KeepTogether = True
         Me.GroupFooter1.Name = "GroupFooter1"
         '
         'XrLabel3
@@ -1062,22 +1144,58 @@ Partial Public Class rpt_CASummaryQE
         Me.XrLabel3.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel3.SizeF = New System.Drawing.SizeF(1044.333!, 23.0!)
         '
+        'ReportHeader
+        '
+        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.lblDraft_Report, Me.XrLabel2, Me.XrLabel1})
+        Me.ReportHeader.HeightF = 97.0!
+        Me.ReportHeader.Name = "ReportHeader"
+        '
+        'lblDraft_Report
+        '
+        Me.lblDraft_Report.CanShrink = True
+        Me.lblDraft_Report.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDraft_Report.FormattingRules.Add(Me.ShowDraft)
+        Me.lblDraft_Report.LocationFloat = New DevExpress.Utils.PointFloat(919.9587!, 0.0!)
+        Me.lblDraft_Report.Name = "lblDraft_Report"
+        Me.lblDraft_Report.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.lblDraft_Report.SizeF = New System.Drawing.SizeF(126.0414!, 23.0!)
+        Me.lblDraft_Report.StylePriority.UseFont = False
+        Me.lblDraft_Report.StylePriority.UseTextAlignment = False
+        Me.lblDraft_Report.Text = "DRAFT"
+        Me.lblDraft_Report.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.lblDraft_Report.Visible = False
+        '
+        'param_ShowDraft
+        '
+        Me.param_ShowDraft.Description = "param_ShowDraft"
+        Me.param_ShowDraft.Name = "param_ShowDraft"
+        Me.param_ShowDraft.Type = GetType(Boolean)
+        Me.param_ShowDraft.ValueInfo = "False"
+        '
+        'paramTitle
+        '
+        Me.paramTitle.Description = "paramTitle"
+        Me.paramTitle.Name = "paramTitle"
+        '
         'rpt_CASummaryQE
         '
-        Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.PageHeader, Me.GroupHeader1, Me.ReportFooter, Me.GroupFooter1})
+        Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.PageHeader, Me.GroupHeader1, Me.ReportFooter, Me.GroupFooter1, Me.ReportHeader})
         Me.DataMember = "CA_REPORT_SUMMARY_QE"
         Me.DataSource = Me.DsCA1
+        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.ShowDraft})
         Me.Landscape = True
-        Me.Margins = New System.Drawing.Printing.Margins(19, 35, 64, 100)
-        Me.PageHeight = 850
-        Me.PageWidth = 1100
-        Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramID, Me.paramSch})
+        Me.Margins = New System.Drawing.Printing.Margins(78, 27, 0, 11)
+        Me.PageHeight = 827
+        Me.PageWidth = 1169
+        Me.PaperKind = System.Drawing.Printing.PaperKind.A4
+        Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramID, Me.paramSch, Me.param_ShowDraft, Me.paramTitle})
         Me.RequestParameters = False
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
+        Me.SnapGridSize = 9.84252!
         Me.Version = "17.1"
         CType(Me.table2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsCA1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.table1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tblTitle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.table2_Report, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
@@ -1088,7 +1206,7 @@ Partial Public Class rpt_CASummaryQE
     Friend WithEvents DsCA1 As EasyTemplate_Taxcom.dsCA
     Friend WithEvents paramID As DevExpress.XtraReports.Parameters.Parameter
     Friend WithEvents PageHeader As DevExpress.XtraReports.UI.PageHeaderBand
-    Friend WithEvents table1 As DevExpress.XtraReports.UI.XRTable
+    Friend WithEvents tblTitle As DevExpress.XtraReports.UI.XRTable
     Friend WithEvents tableRow1 As DevExpress.XtraReports.UI.XRTableRow
     Friend WithEvents NoDescription As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents NoClaim As DevExpress.XtraReports.UI.XRTableCell
@@ -1173,4 +1291,14 @@ Partial Public Class rpt_CASummaryQE
     Friend WithEvents XrLabel3 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel1 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents paramSch As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents ReportHeader As DevExpress.XtraReports.UI.ReportHeaderBand
+    Friend WithEvents lblDraft_Report As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents param_ShowDraft As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents ShowDraft As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents XrTableCell3 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell1 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell2 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents XrTableCell4 As DevExpress.XtraReports.UI.XRTableCell
+    Friend WithEvents lblDraft_Page As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents paramTitle As DevExpress.XtraReports.Parameters.Parameter
 End Class

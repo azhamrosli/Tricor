@@ -57,11 +57,11 @@ Public Class frm_rptLampiranA1
 
             cryRpt.SetParameterValue("refNo", mdlProcess.ArgParam2)
             cryRpt.SetParameterValue("Tahun Taksiran", mdlProcess.ArgParam3)
-            ' cryRpt.SetDatabaseLogon("sa", "azham91", "AZHAM-LAPTOP", "TAXCOM_C")
+            ' cryRpt.SetDatabaseLogon("sa", "azham91", DeveloperPCName, "TAXCOM_C")
 
 
             'With crConnectionInfo
-            '    .ServerName = "AZHAM-LAPTOP"
+            '    .ServerName = DeveloperPCName
             '    .DatabaseName = "TAXCOM_C"
             '    .UserID = "sa"
             '    .Password = "azham91"

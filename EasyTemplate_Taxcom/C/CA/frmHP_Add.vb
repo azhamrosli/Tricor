@@ -131,6 +131,12 @@ Public Class frmHP_Add
                 cboDecimal.EditValue = IIf(IsDBNull(dtHP.Rows(0)("HP_DECIMAL")), 0, dtHP.Rows(0)("HP_DECIMAL"))
 
 
+                If IsDBNull(dtHP.Rows(0)("ModifiedBy")) = False AndAlso dtHP.Rows(0)("ModifiedBy") <> "" Then
+                    lblLastmodified.Caption = dtHP.Rows(0)("ModifiedBy") & " | " & IIf(IsDBNull(dtHP.Rows(0)("ModifiedDateTime")), "", dtHP.Rows(0)("ModifiedDateTime"))
+                Else
+                    lblLastmodified.Caption = ""
+                End If
+
                 If IsDBNull(dtHP.Rows(0)("HP_SCHE_METHOD")) = False AndAlso dtHP.Rows(0)("HP_SCHE_METHOD") = "SOD" Then
                     isSumofDigit = True
                 Else
@@ -155,6 +161,14 @@ Public Class frmHP_Add
 
                     For i As Integer = 0 To dtYearly.Rows.Count - 1
                         DsCA.Tables("HP_YEARLY").ImportRow(dtYearly.Rows(i))
+                    Next
+                End If
+            Else
+                If DsCA.Tables("Category").Rows.Count > 0 Then
+                    For Each rowx As DataRow In DsCA.Tables("Category").Rows
+                        If IsDBNull(rowx("CA_CODE")) = False AndAlso rowx("CA_CODE") = "MV" Then
+                            cboCategory.EditValue = "MV"
+                        End If
                     Next
                 End If
             End If
@@ -668,6 +682,7 @@ Public Class frmHP_Add
                                           tmpDTFirstIntallment, cboDecimal.EditValue, tmpTypeOfDigit, rgGenerateType.SelectedIndex, DsCA, _
                                           ErrorLog) Then
                         MsgBox("Succesfully updated hire purchase.", MsgBoxStyle.Information)
+                        Me.LoadData()
                     Else
                         MsgBox("Failed to update hire purchase." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                     End If
@@ -683,6 +698,8 @@ Public Class frmHP_Add
                         MsgBox("Succesfully saved hire purchase.", MsgBoxStyle.Information)
                         isEdit = True
                         ID = ReturnID
+                        Application.DoEvents()
+                        Me.LoadData()
                     Else
                         MsgBox("Failed to save hire purchase." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                     End If
@@ -714,6 +731,11 @@ Public Class frmHP_Add
                 Return False
             End If
 
+            If cboHP.EditValue Is Nothing OrElse cboHP.EditValue = "" Then
+                cboHP.Focus()
+                MsgBox("Please enter hire purchase code.", MsgBoxStyle.Exclamation)
+                Return False
+            End If
             Return True
         Catch ex As Exception
             Dim st As New StackTrace(True)

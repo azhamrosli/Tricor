@@ -2,7 +2,7 @@
     Public Status As Boolean = False
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
         Try
-            If txtPass.EditValue.ToString = "123456" OrElse txtPass.EditValue.ToString = "P@$$w0rd*****" Then
+            If txtPass.EditValue.ToString = "123456" OrElse txtPass.EditValue.ToString = "P@$$w0rd*****" OrElse txtPass.EditValue.ToString = "P@$$w0rd" Then
                 Status = True
                 Me.Close()
             Else

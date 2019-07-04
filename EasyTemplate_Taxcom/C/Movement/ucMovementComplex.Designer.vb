@@ -75,6 +75,7 @@ Partial Class ucMovementComplex
         Me.btnAllRecord = New DevExpress.XtraEditors.SimpleButton()
         Me.btnFind = New DevExpress.XtraEditors.SimpleButton()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
+        Me.btnTestPrint = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -285,8 +286,8 @@ Partial Class ucMovementComplex
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint})
-        Me.BarManager1.MaxItemId = 7
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint, Me.btnTestPrint})
+        Me.BarManager1.MaxItemId = 8
         '
         'Bar1
         '
@@ -294,7 +295,7 @@ Partial Class ucMovementComplex
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint), New DevExpress.XtraBars.LinkPersistInfo(Me.btnTestPrint)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None
         Me.Bar1.OptionsBar.DisableClose = True
@@ -572,6 +573,12 @@ Partial Class ucMovementComplex
         Me.LabelControl2.TabIndex = 3
         Me.LabelControl2.Text = "YA :"
         '
+        'btnTestPrint
+        '
+        Me.btnTestPrint.Caption = "Test Print"
+        Me.btnTestPrint.Id = 7
+        Me.btnTestPrint.Name = "btnTestPrint"
+        '
         'ucMovementComplex
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -657,5 +664,6 @@ Partial Class ucMovementComplex
     Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents btnTestPrint As DevExpress.XtraBars.BarButtonItem
 
 End Class

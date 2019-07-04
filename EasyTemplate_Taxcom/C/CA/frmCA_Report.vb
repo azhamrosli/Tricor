@@ -45,7 +45,11 @@ Public Class frmCA_Report
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
-
+        Finally
+            If isDirectPrint Then
+                PrintExport(False)
+                Application.DoEvents()
+            End If
         End Try
     End Sub
 
@@ -66,6 +70,11 @@ Public Class frmCA_Report
             DsCA1.Tables("CA_REPORT_TEMP").Rows.Clear()
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1
+                    'AZHAM 24092018 DISABLE
+                    If TypeReport = 3 OrElse TypeReport = 4 OrElse TypeReport = 5 Then
+                        dt.Rows(i)("CA_KEY") = i
+                    End If
+                    Application.DoEvents()
                     DsCA.Tables("CA_REPORT_TEMP").ImportRow(dt.Rows(i))
                     DsCA1.Tables("CA_REPORT_TEMP").ImportRow(dt.Rows(i))
                 Next
@@ -139,10 +148,7 @@ Public Class frmCA_Report
             BandedGridView1.EndSort()
 
 
-            If isDirectPrint Then
-                PrintExport(False)
-                Application.DoEvents()
-            End If
+           
         Catch ex As Exception
             Dim st As New StackTrace(True)
             st = New StackTrace(ex, True)
@@ -181,13 +187,26 @@ Public Class frmCA_Report
                 DsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
                 DsCA.Tables("CA_NOTE").Rows.Clear()
 
-
+                Dim rpt_Note As rptCA_Note = Nothing
                 Select Case TypeReport
                     Case 0, 3
                         'Capital Allowance Details By Rate
                         Dim rpt As rpt_CAByRate = Nothing
+                        Dim Title As String = ""
+                        If TypeReport = 0 Then
+                            Title = ADO.Load_TableOfContent_Title(RefNo, YA, "rpt_CAByRate")
+                        Else
+                            Title = ADO.Load_TableOfContent_Title(RefNo, YA, "rpt_CAByRate_Summary")
+                        End If
 
-                        If mdlProcess.PrintReport_CAByRate(DsCA, ComName, YA, rpt, errorlog) Then
+                        If mdlProcess.PrintReport_CAByRate(DsCA, Title, ComName, YA, False, rpt, rpt_Note, ErrorLog) Then
+                            Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
+
+                            Dim x As Integer = 0
+
+                            For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                                rpt.Pages.Add(pg)
+                            Next
                             If isExport Then
                                 rpt.ExportToXlsx(Path)
                             Else
@@ -200,8 +219,25 @@ Public Class frmCA_Report
                     Case 1, 4
                         'Capital Allowance Details By Category
                         Dim rpt As rpt_CAByCategory = Nothing
+                        Dim isSummary As Boolean = True
+                        If TypeReport = 1 Then
+                            isSummary = False
+                        End If
+                        Dim Title As String = ""
+                        If TypeReport = 1 Then
+                            Title = ADO.Load_TableOfContent_Title(RefNo, YA, "rpt_CAByCategory")
+                        Else
+                            Title = ADO.Load_TableOfContent_Title(RefNo, YA, "rpt_CAByCategory_Summary")
+                        End If
 
-                        If mdlProcess.PrintReport_CAByCategory(DsCA, ComName, YA, rpt, ErrorLog) Then
+                        If mdlProcess.PrintReport_CAByCategory(DsCA, Title, ComName, YA, False, rpt, rpt_Note, isSummary, ErrorLog) Then
+                            Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
+
+                            Dim x As Integer = 0
+
+                            For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                                rpt.Pages.Add(pg)
+                            Next
                             If isExport Then
                                 rpt.ExportToXlsx(Path)
                             Else
@@ -215,7 +251,14 @@ Public Class frmCA_Report
                         'Capital Allowance Details By Asset
                         Dim rpt As rptCAReport
 
-                        If mdlProcess.PrintReport_CAByAsset(DsCA, ComName, YA, rpt, ErrorLog) Then
+                        If mdlProcess.PrintReport_CAByAsset(DsCA, ComName, YA, False, rpt, rpt_Note, ErrorLog) Then
+                            Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_Note.Pages.Count)
+
+                            Dim x As Integer = 0
+
+                            For Each pg As DevExpress.XtraPrinting.Page In rpt_Note.Pages
+                                rpt.Pages.Add(pg)
+                            Next
                             If isExport Then
                                 rpt.ExportToXlsx(Path)
                             Else

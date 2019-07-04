@@ -179,6 +179,52 @@ Partial Friend NotInheritable Class Settings
             Me("Password_backup") = value
         End Set
     End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+    Public Property isAlwaysShowFooterNoteCA() As Boolean
+        Get
+            Return CType(Me("isAlwaysShowFooterNoteCA"),Boolean)
+        End Get
+        Set
+            Me("isAlwaysShowFooterNoteCA") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("Data Source=AZHAM-LAPTOP;Initial Catalog=TAX_CA_C;Integrated Security=True")>  _
+    Public ReadOnly Property TAX_CA_CConnectionString1() As String
+        Get
+            Return CType(Me("TAX_CA_CConnectionString1"),String)
+        End Get
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property RefNo() As String
+        Get
+            Return CType(Me("RefNo"),String)
+        End Get
+        Set
+            Me("RefNo") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property YA() As String
+        Get
+            Return CType(Me("YA"),String)
+        End Get
+        Set
+            Me("YA") = value
+        End Set
+    End Property
 End Class
 
 Namespace My

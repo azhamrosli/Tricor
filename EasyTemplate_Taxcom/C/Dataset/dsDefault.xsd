@@ -838,6 +838,31 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="ModifiedBy" msprop:Generator_ColumnVarNameInTable="columnModifiedBy" msprop:Generator_ColumnPropNameInRow="ModifiedBy" msprop:Generator_ColumnPropNameInTable="ModifiedByColumn" msprop:Generator_UserColumnName="ModifiedBy" type="xs:string" minOccurs="0" />
+              <xs:element name="ModifiedDateTime" msprop:Generator_ColumnVarNameInTable="columnModifiedDateTime" msprop:Generator_ColumnPropNameInRow="ModifiedDateTime" msprop:Generator_ColumnPropNameInTable="ModifiedDateTimeColumn" msprop:Generator_UserColumnName="ModifiedDateTime" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MENU_LIST_INFO" msprop:Generator_TableClassName="MENU_LIST_INFODataTable" msprop:Generator_TableVarName="tableMENU_LIST_INFO" msprop:Generator_RowChangedName="MENU_LIST_INFORowChanged" msprop:Generator_TablePropName="MENU_LIST_INFO" msprop:Generator_RowDeletingName="MENU_LIST_INFORowDeleting" msprop:Generator_RowChangingName="MENU_LIST_INFORowChanging" msprop:Generator_RowEvHandlerName="MENU_LIST_INFORowChangeEventHandler" msprop:Generator_RowDeletedName="MENU_LIST_INFORowDeleted" msprop:Generator_RowClassName="MENU_LIST_INFORow" msprop:Generator_UserTableName="MENU_LIST_INFO" msprop:Generator_RowEvArgName="MENU_LIST_INFORowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="ParentID" msprop:Generator_ColumnVarNameInTable="columnParentID" msprop:Generator_ColumnPropNameInRow="ParentID" msprop:Generator_ColumnPropNameInTable="ParentIDColumn" msprop:Generator_UserColumnName="ParentID" type="xs:int" />
+              <xs:element name="KeyName" msprop:Generator_ColumnVarNameInTable="columnKeyName" msprop:Generator_ColumnPropNameInRow="KeyName" msprop:Generator_ColumnPropNameInTable="KeyNameColumn" msprop:Generator_UserColumnName="KeyName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Title" msprop:Generator_ColumnVarNameInTable="columnTitle" msprop:Generator_ColumnPropNameInRow="Title" msprop:Generator_ColumnPropNameInTable="TitleColumn" msprop:Generator_UserColumnName="Title" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LicenseType" msprop:Generator_ColumnVarNameInTable="columnLicenseType" msprop:Generator_ColumnPropNameInRow="LicenseType" msprop:Generator_ColumnPropNameInTable="LicenseTypeColumn" msprop:Generator_UserColumnName="LicenseType" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
